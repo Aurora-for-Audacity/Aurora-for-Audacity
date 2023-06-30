@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>D52C2FDF-7C33-40AB-9181-F3D5DD91FA79</string>
+	<key>IDESourceControlProjectName</key>
+	<string>.</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>DE40D82C20CA2DDE0A6E8AECE02E728158E14951</key>
+		<string>https://code.google.com/p/aurora-for-audacity</string>
+		<key>f48cf9e8-34c0-4249-864e-95905276f6f3++2099</key>
+		<string>http://svn.aida.com/repos/aurora/osx/Aurora.xcodeproj</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>.</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>DE40D82C20CA2DDE0A6E8AECE02E728158E14951</key>
+		<string>../..</string>
+		<key>f48cf9e8-34c0-4249-864e-95905276f6f3++2099</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectRepositoryRootDictionary</key>
+	<dict>
+		<key>f48cf9e8-34c0-4249-864e-95905276f6f3++2099</key>
+		<string>http://svn.aida.com/repos/aurora</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>http://svn.aida.com/repos/aurora/osx/Aurora.xcodeproj/.</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>f48cf9e8-34c0-4249-864e-95905276f6f3++2099</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>DE40D82C20CA2DDE0A6E8AECE02E728158E14951</string>
+			<key>IDESourceControlWCCName</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.subversion</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>f48cf9e8-34c0-4249-864e-95905276f6f3++2099</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Aurora.xcodeproj</string>
+		</dict>
+	</array>
+</dict>
+</plist>

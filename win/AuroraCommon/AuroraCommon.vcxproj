@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{15005800-5D1A-4250-9368-826FAB0AF262}</ProjectGuid>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <Keyword>ManagedCProj</Keyword>
+    <RootNamespace>AuroraCommon</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CLRSupport>false</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CLRSupport>false</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CLRSupport>true</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CLRSupport>true</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\AuroraPropertySheet.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\AuroraPropertySheet.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(AURORA_BUILD_DIR)\$(PlatformTarget)\$(Configuration)\</OutDir>
+    <IntDir>$(OutDir)Intermediate\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(AURORA_BUILD_DIR)\$(PlatformTarget)\$(Configuration)\</OutDir>
+    <IntDir>$(OutDir)Intermediate\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;__WXDEBUG__;__AUDEBUG__;WIN32;WINVER=0x0400;__WXMSW__;WXUSINGDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\src\Common\include;..\..\src\Common\src;$(WXWIN)\include;$(WXWIN)\lib\vc_dll\mswud;$(WXWIN)\lib\vc_dll;$(AUDACITY_SRC)\include;$(AUDACITY_SRC)\src;$(AUDACITY_SRC)\win;$(FFTW3_SRC)\lib\fftw-3.3.5-dll32</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies />
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies />
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>NDEBUG;WIN32;WINVER=0x0400;__WXMSW__;WXUSINGDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\src\Common\include;..\..\src\Common\src;$(WXWIN)\include;$(WXWIN)\lib\vc_dll\mswud;$(WXWIN)\lib\vc_dll;$(AUDACITY_SRC)\include;$(AUDACITY_SRC)\src;$(AUDACITY_SRC)\win;$(FFTW3_SRC)\lib\fftw-3.3.5-dll32</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies />
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies />
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\Common\src\afart.cpp" />
+    <ClCompile Include="..\..\src\Common\src\afaudio.cpp" />
+    <ClCompile Include="..\..\src\Common\src\afaxis.cpp" />
+    <ClCompile Include="..\..\src\Common\src\afconfig.cpp" />
+    <ClCompile Include="..\..\src\Common\src\afexports.cpp" />
+    <ClCompile Include="..\..\src\Common\src\affilter.cpp" />
+    <ClCompile Include="..\..\src\Common\src\afplot.cpp" />
+    <ClCompile Include="..\..\src\Common\src\afvector.cpp" />
+    <ClCompile Include="..\..\src\Common\src\component.cpp" />
+    <ClCompile Include="..\..\src\Common\src\fir-taps.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Common\src\firwin.cpp" />
+    <ClCompile Include="..\..\src\Common\src\gpfuncts.cpp" />
+    <ClCompile Include="..\..\src\Common\src\gtprogind.cpp" />
+    <ClCompile Include="..\..\src\Common\src\iir-taps.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Common\src\mroctbd.cpp" />
+    <ClCompile Include="..\..\src\Common\src\octfilt.cpp" />
+    <ClCompile Include="..\..\src\Common\src\octfir.cpp" />
+    <ClCompile Include="..\..\src\Common\src\sigwin.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\Common\include\audtypes.h" />
+    <ClInclude Include="..\..\src\Common\include\aurora.h" />
+    <ClInclude Include="..\..\src\Common\include\commdefs.h" />
+    <ClInclude Include="..\..\src\Common\include\version.h" />
+    <ClInclude Include="..\..\src\Common\include\wxcmn.h" />
+    <ClInclude Include="..\..\src\Common\src\afart.h" />
+    <ClInclude Include="..\..\src\Common\src\afaudio.h" />
+    <ClInclude Include="..\..\src\Common\src\afaxis.h" />
+    <ClInclude Include="..\..\src\Common\src\afcharts.h" />
+    <ClInclude Include="..\..\src\Common\src\afcomplex.h" />
+    <ClInclude Include="..\..\src\Common\src\afconfig.h" />
+    <ClInclude Include="..\..\src\Common\src\afdata.h" />
+    <ClInclude Include="..\..\src\Common\src\afdataplot.h" />
+    <ClInclude Include="..\..\src\Common\src\afexports.h" />
+    <ClInclude Include="..\..\src\Common\src\affilter.h" />
+    <ClInclude Include="..\..\src\Common\src\afplot.h" />
+    <ClInclude Include="..\..\src\Common\src\afscope.h" />
+    <ClInclude Include="..\..\src\Common\src\afvector.h" />
+    <ClInclude Include="..\..\src\Common\src\arrows.h" />
+    <ClInclude Include="..\..\src\Common\src\component.h" />
+    <ClInclude Include="..\..\src\Common\src\firwin.h" />
+    <ClInclude Include="..\..\src\Common\src\gpfuncts.h" />
+    <ClInclude Include="..\..\src\Common\src\gtprogind.h" />
+    <ClInclude Include="..\..\src\Common\src\mroctbd.h" />
+    <ClInclude Include="..\..\src\Common\src\octfilt.h" />
+    <ClInclude Include="..\..\src\Common\src\octfir.h" />
+    <ClInclude Include="..\..\src\Common\src\sigwin.h" />
+    <ClInclude Include="..\..\src\Common\src\stickers.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,9 @@
+font: Nimbus Sans L 
+
+panel: m_pwxpnlLogo 
+   id: ID_LOGO_PANEL
+ size: -1, 54
+flags: wxEXPAND, wxLEFT, wxRIGHT
+
+
+

@@ -1,0 +1,48 @@
+# -*- coding: utf-8 -*-
+# --------------------------------------------------------------------------------------------------------------------
+#This will be a scons make/install cross-platform script
+# --------------------------------------------------------------------------------------------------------------------
+import os
+
+# Import SConstruct variables, ecc. -------------------------------------------------------------------------------
+Import('*')
+
+# Welcome message... -----------------------------------------------------------------------------------------------
+print "\n-----=====> Compiling Aurora static library <=====-----\n"
+
+# Set sources list ---------------------------------------------------------------------------------------------------
+src_list = Split("""afart.cpp
+                    afaudio.cpp
+                    afaxis.cpp
+                    afconfig.cpp
+                    afcomplex.cpp 
+                    afexports.cpp
+                    affilter.cpp
+                    afplot.cpp
+                    afvector.cpp
+                    firwin.cpp
+                    gpfuncts.cpp
+                    gtprogind.cpp
+                    mroctbd.cpp
+                    octfilt.cpp
+                    octfir.cpp
+                    sigwin.cpp
+                    fir-taps.cpp
+                    iir-taps.cpp""")
+
+wx_env.Alias( project, os.getcwd() )
+
+# Compiling objects file ---------------------------------------------------------------------------------------------
+objs   = lib_env.SharedObject(src_list)
+
+# Link ---------------------------------------------------------------------------------------------------------------
+if debug:
+    lib_binary = lib_env.StaticLibrary('aurorad', objs)
+else:
+    lib_binary = lib_env.StaticLibrary('aurora', objs)
+
+# Return "product" --------------------------------------------------------------------------------------------------
+Return('lib_binary')
+
+# Return compiled object
+#Return('objs')

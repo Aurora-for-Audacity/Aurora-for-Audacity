@@ -1,0 +1,35 @@
+#! /bin/bash
+# convert images script
+
+PNG_EXT=png
+BCK_EXT=~
+SIZE="360x65"
+
+if [[ $# != 0 ]]
+then
+    IMG_PNG=$1  
+    identify $IMG_PNG
+    cp $IMG_PNG ${IMG_PNG}${BCK_EXT}
+    echo -n "Resizing $IMG_PNG to $SIZE..."
+    convert $IMG_PNG -background None -gravity center -extent $SIZE  $IMG_PNG
+    echo "done."
+    identify $IMG_PNG
+    echo "." 
+ 
+else
+
+   for IMG_PNG in *.png
+   do
+      identify $IMG_PNG
+      cp $IMG_PNG ${IMG_PNG}${BCK_EXT}
+      identify $IMG_PNG
+      echo -n "Resizing $IMG_PNG to $SIZE..."
+      convert $IMG_PNG -background None -gravity center -extent $SIZE  $IMG_PNG
+      echo "done."
+      identify $IMG_PNG
+      echo "." 
+   done
+fi
+
+exit 0
+

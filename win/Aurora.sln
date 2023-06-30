@@ -1,0 +1,68 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.539
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Audacity", "Audacity", "{47F79207-DFDC-4E03-A0DF-77D201C31532}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\..\..\src\audacity-3.0.2\src\AudacityApp.cpp = ..\..\..\..\..\src\audacity-3.0.2\src\AudacityApp.cpp
+		..\..\..\..\..\src\audacity-3.0.2\src\PluginManager.cpp = ..\..\..\..\..\src\audacity-3.0.2\src\PluginManager.cpp
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "include", "include", "{E589727D-4CE9-4B84-9C0D-F8A0C2743766}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\..\..\src\audacity-3.0.2\include\audacity\ComponentInterface.h = ..\..\..\..\..\src\audacity-3.0.2\include\audacity\ComponentInterface.h
+		..\..\..\..\..\src\audacity-3.0.2\include\audacity\ConfigInterface.h = ..\..\..\..\..\src\audacity-3.0.2\include\audacity\ConfigInterface.h
+		..\..\..\..\..\src\audacity-3.0.2\include\audacity\EffectAutomationParameters.h = ..\..\..\..\..\src\audacity-3.0.2\include\audacity\EffectAutomationParameters.h
+		..\..\..\..\..\src\audacity-3.0.2\include\audacity\EffectInterface.h = ..\..\..\..\..\src\audacity-3.0.2\include\audacity\EffectInterface.h
+		..\..\..\..\..\src\audacity-3.0.2\include\audacity\ImporterInterface.h = ..\..\..\..\..\src\audacity-3.0.2\include\audacity\ImporterInterface.h
+		..\..\..\..\..\src\audacity-3.0.2\include\audacity\ModuleInterface.h = ..\..\..\..\..\src\audacity-3.0.2\include\audacity\ModuleInterface.h
+		..\..\..\..\..\src\audacity-3.0.2\include\audacity\PluginInterface.h = ..\..\..\..\..\src\audacity-3.0.2\include\audacity\PluginInterface.h
+		..\..\..\..\..\src\audacity-3.0.2\include\audacity\Types.h = ..\..\..\..\..\src\audacity-3.0.2\include\audacity\Types.h
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Aurora", "Aurora\Aurora.vcxproj", "{E37D4A8D-DC01-4367-871A-7FD6683D2617}"
+	ProjectSection(ProjectDependencies) = postProject
+		{86D34815-2D4E-4689-8793-BBF67741758B} = {86D34815-2D4E-4689-8793-BBF67741758B}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KissFFT", "KissFFT\KissFFT.vcxproj", "{86D34815-2D4E-4689-8793-BBF67741758B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sources", "sources", "{88D29662-1304-4C14-A346-8AFA64F0280A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E37D4A8D-DC01-4367-871A-7FD6683D2617}.Debug|x64.ActiveCfg = Debug|x64
+		{E37D4A8D-DC01-4367-871A-7FD6683D2617}.Debug|x64.Build.0 = Debug|x64
+		{E37D4A8D-DC01-4367-871A-7FD6683D2617}.Debug|x86.ActiveCfg = Debug|Win32
+		{E37D4A8D-DC01-4367-871A-7FD6683D2617}.Debug|x86.Build.0 = Debug|Win32
+		{E37D4A8D-DC01-4367-871A-7FD6683D2617}.Release|x64.ActiveCfg = Release|x64
+		{E37D4A8D-DC01-4367-871A-7FD6683D2617}.Release|x64.Build.0 = Release|x64
+		{E37D4A8D-DC01-4367-871A-7FD6683D2617}.Release|x86.ActiveCfg = Release|Win32
+		{E37D4A8D-DC01-4367-871A-7FD6683D2617}.Release|x86.Build.0 = Release|Win32
+		{86D34815-2D4E-4689-8793-BBF67741758B}.Debug|x64.ActiveCfg = Debug|x64
+		{86D34815-2D4E-4689-8793-BBF67741758B}.Debug|x64.Build.0 = Debug|x64
+		{86D34815-2D4E-4689-8793-BBF67741758B}.Debug|x86.ActiveCfg = Debug|Win32
+		{86D34815-2D4E-4689-8793-BBF67741758B}.Debug|x86.Build.0 = Debug|Win32
+		{86D34815-2D4E-4689-8793-BBF67741758B}.Release|x64.ActiveCfg = Release|x64
+		{86D34815-2D4E-4689-8793-BBF67741758B}.Release|x64.Build.0 = Release|x64
+		{86D34815-2D4E-4689-8793-BBF67741758B}.Release|x86.ActiveCfg = Release|Win32
+		{86D34815-2D4E-4689-8793-BBF67741758B}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E589727D-4CE9-4B84-9C0D-F8A0C2743766} = {47F79207-DFDC-4E03-A0DF-77D201C31532}
+		{88D29662-1304-4C14-A346-8AFA64F0280A} = {47F79207-DFDC-4E03-A0DF-77D201C31532}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CFB0AC6A-8507-46FE-AF6F-BDBDC277A031}
+	EndGlobalSection
+EndGlobal

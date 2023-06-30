@@ -1,0 +1,33 @@
+# -*- coding: utf-8 -*-
+# --------------------------------------------------------------------------------------------------------------------
+#This will be a scons make/install cross-platform script
+# --------------------------------------------------------------------------------------------------------------------
+import os
+
+# Import SConstruct variables, ecc. ------------------------------------------------------------------------
+Import('*')
+
+# Welcome message... -----------------------------------------------------------------------------------------------
+print "\n-----=====> Compiling sources for project '" + project + " '<=====-----\n"
+
+# Set sources list ---------------------------------------------------------------------------------------------------
+wx_sources_list = Split("""dialogs.cpp
+                           gui.cpp
+                           sswgen.cpp
+                           module.cpp""")
+
+#src_list = map(lambda x: build_prefix + '/' + x, wx_sources_list)
+
+# Link ---------------------------------------------------------------------------------------------------------------
+if debug:
+    module_binary = wx_env.SharedLibrary(target = '../modules/' + project + 'd', 
+                                         source = wx_sources_list, 
+                                         SHLIBPREFIX = '')
+else:
+    module_binary = wx_env.SharedLibrary(target = '../modules/' + project, 
+                                         source = wx_sources_list, 
+                                         SHLIBPREFIX = '')
+Alias( project, module_binary )
+
+# Return "product" --------------------------------------------------------------------------------------------------
+Return('module_binary')

@@ -1,0 +1,23 @@
+#! /bin/bash
+# convert images script
+
+PNG_EXT=png
+XPM_EXT=xpm
+
+for IMG_PNG in *.png
+do
+   identify $IMG_PNG
+   IMG_XPM=${IMG_PNG%.$PNG_EXT}.$XPM_EXT
+   echo -n "Converting $IMG_PNG to $IMG_XPM..."
+   #convert $IMG_PNG $IMG_XPM
+   convert $IMG_PNG -background None -gravity center -extent 310x55  $IMG_XPM
+   sed -i "~" 's/static/static const/g' $IMG_XPM
+   echo "done."
+   identify $IMG_XPM
+   echo "." 
+done
+
+
+
+exit 0
+

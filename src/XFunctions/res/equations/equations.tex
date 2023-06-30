@@ -1,0 +1,39 @@
+% equations
+%dvipng -D 300 -T tight -x 1200 -z 9 -bg Transparent --truecolor
+
+% Autocorrelation
+r_{xx}[n]\ = \sum_{m=-\infty}^{\infty} x^*[m]\ x[n+m]
+R_{xx}(j)\ = \sum_n x_n\,\overline{x}_{n-j}
+
+% Cross-correlation
+g_{lr}[n]\ = \sum_{m=-\infty}^{\infty} x_l^*[m]\ x_r[n+m]
+G_{xy}(j)\ = \sum_n x_n\,\overline{y}_{n-j}
+
+% Coherence
+C_{lr} = \frac{|G_{lr}|^2}{ R_{l} \, R_{r}}
+
+% H1
+H_1 = \frac{ G_{lr} \, R_{l}^*}{|R_{l}|^2}
+
+% H2
+H_2 = \frac{ R_{r} \, G_{lr}^*}{|G_{lr}|^2}
+
+% H3
+H_3 = \sqrt{\frac{ \mathrm{Re}(R_{l}) }{ \mathrm{Re}(R_{r}) } }
+
+% Cross Power
+W_{lr} = \frac{ X_l \, X_r^* }{ |X_l \, X_r^*| }
+
+% Whitened cross spectrum
+
+G_w = \frac{G_{lr}}/{|G_{lr}|}
+
+% Alpha 
+
+\alpha = \frac{2 \frac{P}{\rho c V}}{1 + \frac{P}{\rho c V}}
+
+% PU Calib SWtube
+H_\mathrm{\emph{PU, SWtube}}(f)\ = -j \frac{G_{lr}(f)}{\mathrm{Re}(R_r(f))}\ \tan \left( 2\pi f \frac{d_{\mathrm{\emph{mic}}}}{c} \right)
+
+% PU Calib Freefield
+H_\mathrm{\emph{PU, FreeField}}(f)\ = (1-j) \frac{G_{lr}(f)}{\mathrm{Re}(R_r(f))}\ \frac {1} { 2\pi f \frac{d_{\mathrm{\emph{mic}}}}{c} }

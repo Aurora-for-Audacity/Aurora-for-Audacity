@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{E37D4A8D-DC01-4367-871A-7FD6683D2617}</ProjectGuid>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <Keyword>ManagedCProj</Keyword>
+    <RootNamespace>Aurora</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CLRSupport>false</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CLRSupport>false</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CLRSupport>false</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CLRSupport>false</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\AuroraPropertySheet.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\AuroraPropertySheet.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(AURORA_BUILD_DIR)\$(PlatformTarget)\$(Configuration)\</OutDir>
+    <IntDir>$(OutDir)Intermediate\$(ProjectName)\</IntDir>
+    <TargetName>$(ProjectName)d</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>Z:\src\builds\Aurora\win\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(OutDir)Intermediate\</IntDir>
+    <TargetName>$(ProjectName)d</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(AURORA_BUILD_DIR)\$(PlatformTarget)\$(Configuration)\</OutDir>
+    <IntDir>$(OutDir)Intermediate\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>Z:\src\builds\Aurora\win\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(OutDir)Intermediate\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;__WXDEBUG__;__AUDEBUG__;USE_KISS_FFT=1;AUDACITY_HEX_VERSION=0x020401;WIN32;WINVER=0x0400;__WXMSW__;WXUSINGDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\src;..\..\src\Common\include;..\..\src\Common\src;$(WXWIN)\include;$(WXWIN)\lib\vc_dll\mswud;$(WXWIN)\lib\vc_dll;$(AUDACITY_SRC)\include;$(AUDACITY_SRC)\src;$(AUDACITY_SRC)\win;..\..\thirdyParty\kissfft-1.31;..\..\thirdyParty\kissfft-1.31\Tools</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp14</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>Audacity.lib;KissFFT.lib;wxbase31ud.lib;wxbase31ud_net.lib;wxmsw31ud_adv.lib;wxmsw31ud_core.lib;wxmsw31ud_html.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(OutDir);$(WXWIN)\lib\vc_dll;$(AUDACITY_SRC)\win\$(Configuration)</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent>
+      <Command>xcopy /Y $(OutDir)$(TargetName)$(TargetExt) $(AUDACITY_MODULES_DIR)
+$(SolutionDir)\increase_build_number.bat  $(SolutionDir)..\src\common\src\build_count.cpp</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;__WXDEBUG__=1;__WXMSW__;WXUSINGDLL;_DLL;USE_KISS_FFT=1;AUDACITY_HEX_VERSION=0x030002;BUILDING_FOR_AURORA=1;EXPERIMENTAL_MODULE_PREFS;_SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>Z:\ownCube\development\farina\aurora\src;Z:\ownCube\development\farina\aurora\src\Common\include;Z:\ownCube\development\farina\aurora\src\Common\src;Z:\src\audacity-3.0.2\include;Z:\src\audacity-3.0.2\src;Z:\src\audacity-3.0.2\libraries\lib-strings;Z:\src\audacity-3.0.2\libraries\lib-utility;Z:\src\builds\audacity\3.0.2\win\src\private;Z:\ownCube\development\farina\aurora\thirdyParty\kissfft-1.31;C:\Program Files (x86)\Visual Leak Detector\include;C:\Users\Simone\.conan\data\wxwidgets\3.1.3-audacity\_\_\package\9333659969ff45060cd72e3ee22d00239e41615d\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>Z:\src\builds\audacity\3.0.2\win\src\Debug\Audacity.lib;Z:\src\builds\audacity\3.0.2\win\libraries\lib-strings\Debug\lib-strings.lib;Z:\src\builds\Aurora\win\x64\Debug\KissFFT.lib;C:\Users\Simone\.conan\data\wxwidgets\3.1.3-audacity\_\_\package\9333659969ff45060cd72e3ee22d00239e41615d\lib\vc_x64_dll\wxmsw31ud_core.lib;C:\Users\Simone\.conan\data\wxwidgets\3.1.3-audacity\_\_\package\9333659969ff45060cd72e3ee22d00239e41615d\lib\vc_x64_dll\wxbase31ud.lib;kernel32.lib;user32.lib;gdi32.lib;comdlg32.lib;winspool.lib;shell32.lib;comctl32.lib;ole32.lib;oleaut32.lib;uuid.lib;wininet.lib;rpcrt4.lib</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>xcopy /y $(OutDir)$(TargetFileName) Z:\src\builds\audacity\3.0.2\win\bin\$(Configuration)\modules
+xcopy /y "C:\Program Files (x86)\Visual Leak Detector\bin\Win64\vld_x64.dll" Z:\src\builds\audacity\3.0.2\win\bin\$(Configuration)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>NDEBUG;USE_KISS_FFT=1;AUDACITY_HEX_VERSION=0x020401;WIN32;WINVER=0x0400;__WXMSW__;WXUSINGDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\src;..\..\src\Common\include;..\..\src\Common\src;$(WXWIN)\include;$(WXWIN)\lib\vc_dll\mswud;$(WXWIN)\lib\vc_dll;$(AUDACITY_SRC)\include;$(AUDACITY_SRC)\src;$(AUDACITY_SRC)\win;..\..\thirdyParty\kissfft-1.31;..\..\thirdyParty\kissfft-1.31\Tools</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>Audacity.lib;KissFFT.lib;wxbase31u.lib;wxbase31u_net.lib;wxmsw31u_adv.lib;wxmsw31u_core.lib;wxmsw31u_html.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(OutDir);$(WXWIN)\lib\vc_dll;$(AUDACITY_SRC)\win\Debug</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent>
+      <Command>$(SolutionDir)\increase_build_number.bat  $(SolutionDir)..\src\common\src\build_count.cpp</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>NDEBUG;__WXMSW__;WXUSINGDLL;_DLL;USE_KISS_FFT=1;AUDACITY_HEX_VERSION=0x030002;BUILDING_FOR_AURORA=1;EXPERIMENTAL_MODULE_PREFS;_SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>Z:\src\builds\audacity\3.0.2\win\src\Debug\Audacity.lib;Z:\src\builds\audacity\3.0.2\win\libraries\lib-strings\Debug\lib-strings.lib;Z:\src\builds\Aurora\win\x64\Debug\KissFFT.lib;C:\Users\Simone\.conan\data\wxwidgets\3.1.3-audacity\_\_\package\435ce1c0876095adcd31e4a32ce1568734ed859b\lib\vc_x64_dll\wxmsw31u_core.lib;C:\Users\Simone\.conan\data\wxwidgets\3.1.3-audacity\_\_\package\435ce1c0876095adcd31e4a32ce1568734ed859b\lib\vc_x64_dll\wxbase31u.lib;kernel32.lib;user32.lib;gdi32.lib;comdlg32.lib;winspool.lib;shell32.lib;comctl32.lib;ole32.lib;oleaut32.lib;uuid.lib;wininet.lib;rpcrt4.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\AcParameters\src\AcParametersEffect.cpp" />
+    <ClCompile Include="..\..\src\AcParameters\src\AcParametersBase.cpp" />
+    <ClCompile Include="..\..\src\AcParameters\src\AcParametersData.cpp" />
+    <ClCompile Include="..\..\src\AcParameters\src\AcParametersDialogs.cpp" />
+    <ClCompile Include="..\..\src\AcParameters\src\AcParametersExports.cpp" />
+    <ClCompile Include="..\..\src\AcParameters\src\AcParametersTrack.cpp" />
+    <ClCompile Include="..\..\src\AcParameters\src\AcParametersUi.cpp" />
+    <ClCompile Include="..\..\src\AcParameters\src\AcParametersPlot.cpp" />
+    <ClCompile Include="..\..\src\Common\src\afart.cpp" />
+    <ClCompile Include="..\..\src\Common\src\afaudio.cpp" />
+    <ClCompile Include="..\..\src\Common\src\afaxis.cpp" />
+    <ClCompile Include="..\..\src\Common\src\afcharts.cpp" />
+    <ClCompile Include="..\..\src\Common\src\afcomplex.cpp" />
+    <ClCompile Include="..\..\src\Common\src\afconfig.cpp" />
+    <ClCompile Include="..\..\src\Common\src\afdataplot.cpp" />
+    <ClCompile Include="..\..\src\Common\src\afexports.cpp" />
+    <ClCompile Include="..\..\src\Common\src\affilter.cpp" />
+    <ClCompile Include="..\..\src\Common\src\afplot.cpp" />
+    <ClCompile Include="..\..\src\Common\src\afscope.cpp" />
+    <ClCompile Include="..\..\src\Common\src\afvector.cpp" />
+    <ClCompile Include="..\..\src\Common\src\AuroraModule.cpp" />
+    <ClCompile Include="..\..\src\Common\src\build_count.cpp" />
+    <ClCompile Include="..\..\src\Common\src\component.cpp" />
+    <ClCompile Include="..\..\src\Common\src\fir-taps.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Common\src\firwin.cpp" />
+    <ClCompile Include="..\..\src\Common\src\gpfuncts.cpp" />
+    <ClCompile Include="..\..\src\Common\src\gtprogind.cpp" />
+    <ClCompile Include="..\..\src\Common\src\iir-taps.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Common\src\mroctbd.cpp" />
+    <ClCompile Include="..\..\src\Common\src\octfilt.cpp" />
+    <ClCompile Include="..\..\src\Common\src\octfir.cpp" />
+    <ClCompile Include="..\..\src\Common\src\sigwin.cpp" />
+    <ClCompile Include="..\..\src\Convolver\src\AuroraConvolver.cpp" />
+    <ClCompile Include="..\..\src\Convolver\src\convolver.cpp" />
+    <ClCompile Include="..\..\src\Convolver\src\ConvolverEffect.cpp" />
+    <ClCompile Include="..\..\src\Convolver\src\ConvolverDialogs.cpp" />
+    <ClCompile Include="..\..\src\Convolver\src\ConvolverUi.cpp" />
+    <ClCompile Include="..\..\src\Convolver\src\multivolver.cpp" />
+    <ClCompile Include="..\..\src\Convolver\src\ConvolverPlot.cpp" />
+    <ClCompile Include="..\..\src\Convolver\src\TrackProperties.cpp" />
+    <ClCompile Include="..\..\src\Kirkeby\src\KirkebyBase.cpp" />
+    <ClCompile Include="..\..\src\Kirkeby\src\KirkebyDialogs.cpp" />
+    <ClCompile Include="..\..\src\Kirkeby\src\KirkebyEffect.cpp" />
+    <ClCompile Include="..\..\src\Kirkeby\src\KirkebyUi.cpp" />
+    <ClCompile Include="..\..\src\SineSweepGenerator\src\SineSweepDialogs.cpp" />
+    <ClCompile Include="..\..\src\SineSweepGenerator\src\SineSweepUi.cpp" />
+    <ClCompile Include="..\..\src\SineSweepGenerator\src\SineSweepEffect.cpp" />
+    <ClCompile Include="..\..\src\SineSweepGenerator\src\SineSweepGenerator.cpp" />
+    <ClCompile Include="..\..\src\STI\src\Sti.cpp" />
+    <ClCompile Include="..\..\src\STI\src\StiData.cpp" />
+    <ClCompile Include="..\..\src\STI\src\StiDialogs.cpp" />
+    <ClCompile Include="..\..\src\STI\src\StiEffect.cpp" />
+    <ClCompile Include="..\..\src\STI\src\StiExports.cpp" />
+    <ClCompile Include="..\..\src\STI\src\StiPlot.cpp" />
+    <ClCompile Include="..\..\src\STI\src\StiSpectrum.cpp" />
+    <ClCompile Include="..\..\src\STI\src\StiSpectrumDialog.cpp" />
+    <ClCompile Include="..\..\src\STI\src\StiTrack.cpp" />
+    <ClCompile Include="..\..\src\STI\src\StiUi.cpp" />
+    <ClCompile Include="..\..\src\TimeHistoryAnalyzer\src\ThAnalyzerData.cpp" />
+    <ClCompile Include="..\..\src\TimeHistoryAnalyzer\src\ThAnalyzerDialogs.cpp" />
+    <ClCompile Include="..\..\src\TimeHistoryAnalyzer\src\ThAnalyzerEffect.cpp" />
+    <ClCompile Include="..\..\src\TimeHistoryAnalyzer\src\ThAnalyzerExports.cpp" />
+    <ClCompile Include="..\..\src\TimeHistoryAnalyzer\src\ThAnalyzerPlot.cpp" />
+    <ClCompile Include="..\..\src\TimeHistoryAnalyzer\src\ThAnalyzerTrack.cpp" />
+    <ClCompile Include="..\..\src\TimeHistoryAnalyzer\src\ThAnalyzerUi.cpp" />
+    <ClCompile Include="..\..\src\TimeHistoryAnalyzer\src\TimeHistoryAnalyzer.cpp" />
+    <ClCompile Include="..\..\src\XFunctions\src\correlator.cpp" />
+    <ClCompile Include="..\..\src\XFunctions\src\XFunctionsArt.cpp" />
+    <ClCompile Include="..\..\src\XFunctions\src\XFunctionsData.cpp" />
+    <ClCompile Include="..\..\src\XFunctions\src\XFunctionsDialogs.cpp" />
+    <ClCompile Include="..\..\src\XFunctions\src\XFunctionsEffect.cpp" />
+    <ClCompile Include="..\..\src\XFunctions\src\XFunctionsExports.cpp" />
+    <ClCompile Include="..\..\src\XFunctions\src\XFunctionsPlot.cpp" />
+    <ClCompile Include="..\..\src\XFunctions\src\XFunctionsUi.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\AcParameters\src\AcParametersEffect.h" />
+    <ClInclude Include="..\..\src\AcParameters\src\AcParametersBase.h" />
+    <ClInclude Include="..\..\src\AcParameters\src\AcParametersData.h" />
+    <ClInclude Include="..\..\src\AcParameters\src\AcParametersDialogs.h" />
+    <ClInclude Include="..\..\src\AcParameters\src\AcParametersExports.h" />
+    <ClInclude Include="..\..\src\AcParameters\src\AcParametersTrack.h" />
+    <ClInclude Include="..\..\src\AcParameters\src\AcParametersUi.h" />
+    <ClInclude Include="..\..\src\AcParameters\src\AcParametersPlot.h" />
+    <ClInclude Include="..\..\src\Common\include\audtypes.h" />
+    <ClInclude Include="..\..\src\Common\include\aurora.h" />
+    <ClInclude Include="..\..\src\Common\include\commdefs.h" />
+    <ClInclude Include="..\..\src\Common\include\version.h" />
+    <ClInclude Include="..\..\src\Common\include\wxcmn.h" />
+    <ClInclude Include="..\..\src\Common\src\afart.h" />
+    <ClInclude Include="..\..\src\Common\src\afaudio.h" />
+    <ClInclude Include="..\..\src\Common\src\afaxis.h" />
+    <ClInclude Include="..\..\src\Common\src\afcharts.h" />
+    <ClInclude Include="..\..\src\Common\src\afcomplex.h" />
+    <ClInclude Include="..\..\src\Common\src\afconfig.h" />
+    <ClInclude Include="..\..\src\Common\src\afdata.h" />
+    <ClInclude Include="..\..\src\Common\src\afdataplot.h" />
+    <ClInclude Include="..\..\src\Common\src\afexports.h" />
+    <ClInclude Include="..\..\src\Common\src\affilter.h" />
+    <ClInclude Include="..\..\src\Common\src\afplot.h" />
+    <ClInclude Include="..\..\src\Common\src\afscope.h" />
+    <ClInclude Include="..\..\src\Common\src\afspectrum.h" />
+    <ClInclude Include="..\..\src\Common\src\afvector.h" />
+    <ClInclude Include="..\..\src\Common\src\arrows.h" />
+    <ClInclude Include="..\..\src\Common\src\AuroraModule.h" />
+    <ClInclude Include="..\..\src\Common\src\component.h" />
+    <ClInclude Include="..\..\src\Common\src\firwin.h" />
+    <ClInclude Include="..\..\src\Common\src\gpfuncts.h" />
+    <ClInclude Include="..\..\src\Common\src\gtprogind.h" />
+    <ClInclude Include="..\..\src\Common\src\mroctbd.h" />
+    <ClInclude Include="..\..\src\Common\src\octfilt.h" />
+    <ClInclude Include="..\..\src\Common\src\octfir.h" />
+    <ClInclude Include="..\..\src\Common\src\sigwin.h" />
+    <ClInclude Include="..\..\src\Common\src\stickers.h" />
+    <ClInclude Include="..\..\src\Convolver\src\AuroraConvolver.h" />
+    <ClInclude Include="..\..\src\Convolver\src\convolver.h" />
+    <ClInclude Include="..\..\src\Convolver\src\ConvolverEffect.h" />
+    <ClInclude Include="..\..\src\Convolver\src\ConvolverDialogs.h" />
+    <ClInclude Include="..\..\src\Convolver\src\ConvolverUi.h" />
+    <ClInclude Include="..\..\src\Convolver\src\multivolver.h" />
+    <ClInclude Include="..\..\src\Convolver\src\ConvolverPlot.h" />
+    <ClInclude Include="..\..\src\Convolver\src\ConvolverVersion.h" />
+    <ClInclude Include="..\..\src\Convolver\src\TrackProperties.h" />
+    <ClInclude Include="..\..\src\Kirkeby\src\KirkebyBase.h" />
+    <ClInclude Include="..\..\src\Kirkeby\src\KirkebyDialogs.h" />
+    <ClInclude Include="..\..\src\Kirkeby\src\KirkebyEffect.h" />
+    <ClInclude Include="..\..\src\Kirkeby\src\KirkebyUi.h" />
+    <ClInclude Include="..\..\src\Kirkeby\src\KirkebyVersion.h" />
+    <ClInclude Include="..\..\src\SineSweepGenerator\src\SineSweepDialogs.h" />
+    <ClInclude Include="..\..\src\SineSweepGenerator\src\SineSweepUi.h" />
+    <ClInclude Include="..\..\src\SineSweepGenerator\src\SineSweepEffect.h" />
+    <ClInclude Include="..\..\src\SineSweepGenerator\src\SineSweepGenerator.h" />
+    <ClInclude Include="..\..\src\SineSweepGenerator\src\SineSweepVersion.h" />
+    <ClInclude Include="..\..\src\STI\src\Sti.h" />
+    <ClInclude Include="..\..\src\STI\src\StiData.h" />
+    <ClInclude Include="..\..\src\STI\src\StiDialogs.h" />
+    <ClInclude Include="..\..\src\STI\src\StiEffect.h" />
+    <ClInclude Include="..\..\src\STI\src\StiExports.h" />
+    <ClInclude Include="..\..\src\STI\src\StiPlot.h" />
+    <ClInclude Include="..\..\src\STI\src\StiSpectrum.h" />
+    <ClInclude Include="..\..\src\STI\src\StiSpectrumDialog.h" />
+    <ClInclude Include="..\..\src\STI\src\StiTrack.h" />
+    <ClInclude Include="..\..\src\STI\src\StiUi.h" />
+    <ClInclude Include="..\..\src\TimeHistoryAnalyzer\src\ThAnalyzerData.h" />
+    <ClInclude Include="..\..\src\TimeHistoryAnalyzer\src\ThAnalyzerDialogs.h" />
+    <ClInclude Include="..\..\src\TimeHistoryAnalyzer\src\ThAnalyzerEffect.h" />
+    <ClInclude Include="..\..\src\TimeHistoryAnalyzer\src\ThAnalyzerExports.h" />
+    <ClInclude Include="..\..\src\TimeHistoryAnalyzer\src\ThAnalyzerNbook.h" />
+    <ClInclude Include="..\..\src\TimeHistoryAnalyzer\src\ThAnalyzerPlot.h" />
+    <ClInclude Include="..\..\src\TimeHistoryAnalyzer\src\ThAnalyzerTrack.h" />
+    <ClInclude Include="..\..\src\TimeHistoryAnalyzer\src\ThAnalyzerUi.h" />
+    <ClInclude Include="..\..\src\TimeHistoryAnalyzer\src\TimeHistoryAnalyzer.h" />
+    <ClInclude Include="..\..\src\XFunctions\src\correlator.h" />
+    <ClInclude Include="..\..\src\XFunctions\src\equations.h" />
+    <ClInclude Include="..\..\src\XFunctions\src\XFunctionsArt.h" />
+    <ClInclude Include="..\..\src\XFunctions\src\XFunctionsData.h" />
+    <ClInclude Include="..\..\src\XFunctions\src\XFunctionsDialogs.h" />
+    <ClInclude Include="..\..\src\XFunctions\src\XFunctionsEffect.h" />
+    <ClInclude Include="..\..\src\XFunctions\src\XFunctionsExports.h" />
+    <ClInclude Include="..\..\src\XFunctions\src\XFunctionsPlot.h" />
+    <ClInclude Include="..\..\src\XFunctions\src\XFunctionsUi.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\increase_build_number.bat" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

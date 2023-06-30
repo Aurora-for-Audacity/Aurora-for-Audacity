@@ -1,0 +1,12 @@
+!!! The files contained in this directory should be used only
+on the mac platform !!!
+
+The mac version of Audacity is linked statically, and Aurora, to
+avoid external libraries dipendences, uses the embedded wxWidgets
+symbols. But! Not all wxWidgets class are used in the Audacity code,
+so only some symbols has been embedded.
+
+This directory contanins the wxWidgets code that is used by Aurora and
+it hasn't been embedded in Audacity.
+
+[SC]

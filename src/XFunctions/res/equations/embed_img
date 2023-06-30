@@ -1,0 +1,12 @@
+#! /bin/bash
+
+CPP_FILE=equations.cpp
+H_FILE=equations.h
+echo -n "Calling png2wx..."
+png2wx -C $CPP_FILE -H $H_FILE -M __EQUATIONS_H__ *.png
+cp $CPP_FILE ../../src
+cp $H_FILE  ../../src
+echo "done."
+
+exit 0
+

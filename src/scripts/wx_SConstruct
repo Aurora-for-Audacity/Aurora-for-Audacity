@@ -1,0 +1,41 @@
+# -*- coding: windows-1251 -*-
+# --------------------------------------------------------------------------------------------------------------------
+#This will be a scons make/install cross-platform script
+# --------------------------------------------------------------------------------------------------------------------
+import sys
+
+### import the module
+sys.path.append('scripts')
+from wxconfig import *
+ 
+env = Environment() 
+### setup variables needed, mainly to support cross-compilation
+env['build_platform'] = env['PLATFORM']
+env['target_platform'] = env['PLATFORM']
+# it is recommended to get these from SCons parameters
+debug = False
+env['wxconfig'] = 'wx-config'
+ 
+### detect wxWidgets
+conf = Configure(env, custom_tests = {'CheckWXConfig' : CheckWXConfig })
+ 
+# CheckWXConfig(version, componentlist, debug)
+#          version: string with minimum version ('x.y')
+#    componentlist: list of components needed. This was introduced with
+#                   wxWidgets 2.6 if I'm correct. You'll usually need
+#                   ['adv', 'core', 'base'], in this order. If you use
+#                   wxGLCanvas, prepend 'gl' like below.
+if not conf.CheckWXConfig('2.8', ['html', 'adv', 'core', 'base'], debug):
+    print 'wxWidgets library not found.'
+    Exit(1)
+    
+if not conf.CheckLibWithHeader('fftw3f', 'fftw3.h', 'c'):
+    print 'Did not find libfftw3f.a or libfftw3f.so, exiting!'
+    Exit(1)
+    
+env = conf.Finish()
+ 
+### target
+ParseWXConfig(env)
+ 
+#env.Program(target = 'my_app', source = ['bar.cpp'])
