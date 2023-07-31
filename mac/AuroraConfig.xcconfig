@@ -1,0 +1,40 @@
+//
+//  Aurora.xcconfig
+//  Aurora
+//
+//  Created by Matthew Hamilton on 31/07/2023.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+
+// Aurora Config Definitions
+AURORA_SRC_PATH=../src
+
+// Audacity Config Definitions
+AUDACITY_SRC_PREFIX   = ../audacity
+AUDACITY_SRC_PATH     = $(AUDACITY_SRC_PREFIX)/src
+AUDACITY_LIB_PREFIX   = $(AUDACITY_SRC_PREFIX)/libraries
+AUDACITY_MODULES_PATH = $(AUDACITY_BUNDLE_PATH)/modules
+
+AUDACITY_BINARY_PATH = /Applications/Audacity.app
+AUDACITY_BUNDLE_PATH = $(AUDACITY_BINARY_PATH)/Contents
+AUDACITY_BINARY      = $(AUDACITY_BUNDLE_PATH)/MacOS/Audacity
+AUDACITY_MAJOR_VER       = 3
+AUDACITY_MINOR_MINOR_VER = 0
+AUDACITY_MINOR_VER       = 3
+AUDACITY_HEX_VER         = 0x030003
+AUDACITY_VER             = $(AUDACITY_MAJOR_VER).$(AUDACITY_MINOR_VER).$(AUDACITY_MINOR_MINOR_VER)
+
+
+// WxWidgets Definitions
+WX_PREFIX = /opt/homebrew/Cellar/wxwidgets/3.2.2.1_1
+WX_VERSION = 3.2
+WX_VER = 3.2
+WX_CFLAGS = -I$(WX_PREFIX)/lib/wx/include/osx_cocoa-unicode-$(WX_VER) -I$(WX_PREFIX)/include/wx-$(WX_VER) -D_FILE_OFFSET_BITS=64 -DwxDEBUG_LEVEL=1 -DWXUSINGDLL -D__WXMAC__ -D__WXOSX__ -D__WXOSX_COCOA__
+WX_FULL_VER = $(WX_VER)
+WX_LDFLAGS = -L$(WX_PREFIX)/lib -lwx_osx_cocoau_xrc-$(WX_FULL_VER) -lwx_osx_cocoau_html-$(WX_FULL_VER) -lwx_osx_cocoau_qa-$(WX_FULL_VER) -lwx_osx_cocoau_adv-$(WX_FULL_VER) -lwx_osx_cocoau_core-$(WX_FULL_VER) -lwx_baseu_xml-$(WX_FULL_VER) -lwx_baseu_net-$(WX_FULL_VER) -lwx_baseu-$(WX_FULL_VER)
+
+// KissFFT Definitions
+KISSFFT_PATH = ../kissfft
