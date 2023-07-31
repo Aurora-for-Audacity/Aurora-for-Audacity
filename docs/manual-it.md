@@ -3,7 +3,9 @@ title: Time History Analyzer
 language: IT
 ---
 
-Caricare nel workspace tutte le tracce da analizzare, comprese quella/e contenenti il segnale di calibrazione; selezionare l'intervallo di cui si vuole procedere all'analisi su tutte le tracce coinvolte, quindi dal menu "Analyze" richiamare "Aurora Time History Analyzer..." ed il modulo si presenterà come nella figura 1.![images/media/aurora-tha-01.png](images/media/image1.png)
+Caricare nel workspace tutte le tracce da analizzare, comprese quella/e contenenti il segnale di calibrazione; selezionare l'intervallo di cui si vuole procedere all'analisi su tutte le tracce coinvolte, quindi dal menu "Analyze" richiamare "Aurora Time History Analyzer..." ed il modulo si presenterà come nella figura 1.
+
+![images/media/aurora-tha-01.png](images/media/image1.png)
 
 La finestra è divisa in tre parti:
 
@@ -15,7 +17,9 @@ La finestra è divisa in tre parti:
 
 La prima cosa da fare è la calibrazione del fondoscala, cui si accede premendo la linguetta "Calibration": a questo punto occorre associare un segnale di calibrazione ad ognuna delle tracce caricate dal workspace, che appaiono come colonne della tabella. Facendo clic sulla prima casella di ogni colonna (di default al valore "None") appare un menu dal quale sarà possibile scegliere la traccia da associare. Si ripeta l'operazione per ognuna delle tracce caricate (fig.2), quindi premere il pulsante "Calibrate".
 
-![images/media/aurora-tha-02.png](images/media/image2.png)Qualora il segnale di calibrazione sia unico per l'intero workspace (come sovente avviene), è possibile assegnarlo automaticamente a tutte le tracce marcando il checkbox "Apply Ch1 calibration to all channels": in questo modo il segnale di calibrazione associato alla prima traccia verrà associato a tutte le altre. Se il segnale di calibrazione è stato prodotto con un livello differente da 94 dB, indicare i livello corretto nelle apposite caselle della tabella.
+![images/media/aurora-tha-02.png](images/media/image2.png)
+
+Qualora il segnale di calibrazione sia unico per l'intero workspace (come sovente avviene), è possibile assegnarlo automaticamente a tutte le tracce marcando il checkbox "Apply Ch1 calibration to all channels": in questo modo il segnale di calibrazione associato alla prima traccia verrà associato a tutte le altre. Se il segnale di calibrazione è stato prodotto con un livello differente da 94 dB, indicare i livello corretto nelle apposite caselle della tabella.
 
 In seguito alla pressione del pulsante "Calibrate" un messaggio avviserà l'utente dell'avvenuta calibrazione ed i valori nella tabella "Setup" verranno aggiornati al valore calcolato e colorati in verde (fig.3).
 
@@ -33,7 +37,9 @@ STI
 
 L'interfaccia grafica del modulo per il calcolo dello *Speech Transmission Index* è stato pensato in modo tale da fornire una guida all'utente presentandosi in forma di notebook a linguette con l'ordine delle operazioni da sinistra a destra.
 
-Come di consueto per tutti i moduli *Aurora for Audacity* il primo passo consiste sempre nel caricare nel workspace tutte le tracce necessarie al calcolo, selezionare l'intervallo temporale da analizzare su **tutte** le tracce, quindi richiamare il modulo "Aurora STI..." dal menu "Tools".![images/media/aurora-sti-01.png](images/media/image5.png)
+Come di consueto per tutti i moduli *Aurora for Audacity* il primo passo consiste sempre nel caricare nel workspace tutte le tracce necessarie al calcolo, selezionare l'intervallo temporale da analizzare su **tutte** le tracce, quindi richiamare il modulo "Aurora STI..." dal menu "Tools".
+
+![images/media/aurora-sti-01.png](images/media/image5.png)
 
 L'interfaccia si presenta immediatamente con una nota (fig.5) che illustra all'utente come procedere per il calcolo, riassumendo i materiali registrati necessari, cosicché, senza procedere oltre, sia possibile uscire dal modulo e predisporre eventuali tracce mancanti.
 
@@ -55,7 +61,7 @@ I risultati del calcolo vengono presentati sia in forma grafica (fig.11) che tab
 
 ![images/media/aurora-sti-03.png](images/media/image7.png)
 
-bbb![images/media/aurora-sti-04.png](images/media/image8.png)
+![images/media/aurora-sti-04.png](images/media/image8.png)
 
 ![images/media/aurora-sti-06.png](images/media/image9.png)
 

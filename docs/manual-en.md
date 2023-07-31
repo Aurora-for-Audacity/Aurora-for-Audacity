@@ -61,7 +61,7 @@ The results of the calculation are presented both in graphical (fig.11) and tabu
 
 ![images/media/aurora-sti-03.png](images/media/image7.png)
 
-bbb![images/media/aurora-sti-04.png](images/media/image8.png)
+![images/media/aurora-sti-04.png](images/media/image8.png)
 
 ![images/media/aurora-sti-06.png](images/media/image9.png)
 
