@@ -1272,20 +1272,20 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GENERATE_MASTER_OBJECT_FILE = YES;
 				HEADER_SEARCH_PATHS = (
-					"$(WX_PREFIX)/include",
+					"$(AURORA_SRC_PATH)",
+					"$(AURORA_SRC_PATH)/Common/include",
+					"$(AURORA_SRC_PATH)/Common/src",
+					"$(AUDACITY_SRC_PATH)",
+					"$(AUDACITY_SRC_PREFIX)/include",
+					"$(AUDACITY_LIB_PREFIX)/lib-strings",
+					"$(AUDACITY_LIB_PREFIX)/lib-utility",
 					"$(AUDACITY_LIB_PREFIX)/lib-widget-extra",
 					"$(AUDACITY_LIB_PREFIX)/portsmf",
 					"$(AUDACITY_LIB_PREFIX)/portmixer/include",
 					"$(AUDACITY_LIB_PREFIX)/portaudio-v19/include",
-					"$(AUDACITY_SRC_PATH)",
-					"$(WX_PREFIX)/lib/wx/include/osx_cocoa-unicode-$(WX_VERSION)",
+					"$(WX_PREFIX)/include",
 					"$(WX_PREFIX)/include/wx-$(WX_VERSION)",
-					"$(AUDACITY_LIB_PREFIX)/lib-strings",
-					"$(AUDACITY_LIB_PREFIX)/lib-utility",
-					"$(AUDACITY_SRC_PREFIX)/include",
-					"$(AURORA_SRC_PATH)",
-					"$(AURORA_SRC_PATH)/Common/include",
-					"$(AURORA_SRC_PATH)/Common/src",
+					"$(WX_PREFIX)/lib/wx/include/osx_cocoa-unicode-$(WX_VERSION)",
 					"$(KISSFFT_PATH)",
 					"$(KISSFFT_PATH)/tools",
 				);
@@ -1369,18 +1369,22 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GENERATE_MASTER_OBJECT_FILE = YES;
 				HEADER_SEARCH_PATHS = (
-					"$(WX_PREFIX)/include",
+					"$(AURORA_SRC_PATH)",
+					"$(AURORA_SRC_PATH)/Common/include",
+					"$(AURORA_SRC_PATH)/Common/src",
+					"$(AUDACITY_SRC_PATH)",
+					"$(AUDACITY_SRC_PREFIX)/include",
+					"$(AUDACITY_LIB_PREFIX)/lib-strings",
+					"$(AUDACITY_LIB_PREFIX)/lib-utility",
 					"$(AUDACITY_LIB_PREFIX)/lib-widget-extra",
 					"$(AUDACITY_LIB_PREFIX)/portsmf",
 					"$(AUDACITY_LIB_PREFIX)/portmixer/include",
 					"$(AUDACITY_LIB_PREFIX)/portaudio-v19/include",
-					../src/Common/include,
-					../src/Common/include/src,
-					"$(AUDACITY_SRC_PATH)",
-					"$(WX_PREFIX)/lib/wx/include/osx_cocoa-unicode-$(WX_VERSION)",
+					"$(WX_PREFIX)/include",
 					"$(WX_PREFIX)/include/wx-$(WX_VERSION)",
-					"$(AUDACITY_LIBRARIES_PREFIX)/lib-strings",
-					"$(AUDACITY_LIBRARIES_PREFIX)/lib-utility",
+					"$(WX_PREFIX)/lib/wx/include/osx_cocoa-unicode-$(WX_VERSION)",
+					"$(KISSFFT_PATH)",
+					"$(KISSFFT_PATH)/tools",
 				);
 				INSTALL_PATH = /;
 				LD_RUNPATH_SEARCH_PATHS = "";
@@ -1453,6 +1457,24 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GENERATE_MASTER_OBJECT_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(AURORA_SRC_PATH)",
+					"$(AURORA_SRC_PATH)/Common/include",
+					"$(AURORA_SRC_PATH)/Common/src",
+					"$(AUDACITY_SRC_PATH)",
+					"$(AUDACITY_SRC_PREFIX)/include",
+					"$(AUDACITY_LIB_PREFIX)/lib-strings",
+					"$(AUDACITY_LIB_PREFIX)/lib-utility",
+					"$(AUDACITY_LIB_PREFIX)/lib-widget-extra",
+					"$(AUDACITY_LIB_PREFIX)/portsmf",
+					"$(AUDACITY_LIB_PREFIX)/portmixer/include",
+					"$(AUDACITY_LIB_PREFIX)/portaudio-v19/include",
+					"$(WX_PREFIX)/include",
+					"$(WX_PREFIX)/include/wx-$(WX_VERSION)",
+					"$(WX_PREFIX)/lib/wx/include/osx_cocoa-unicode-$(WX_VERSION)",
+					"$(KISSFFT_PATH)",
+					"$(KISSFFT_PATH)/tools",
+				);
 				INSTALL_PATH = /;
 				LD_RUNPATH_SEARCH_PATHS = "";
 				MACH_O_TYPE = mh_dylib;
