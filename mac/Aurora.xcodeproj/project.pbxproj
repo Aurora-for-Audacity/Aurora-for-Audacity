@@ -890,7 +890,7 @@
 				FC9149A7247D6CA1005D7068 /* Sources */,
 				FC9149A8247D6CA1005D7068 /* Frameworks */,
 				FCED860C248A5EEA006DDE1B /* ShellScript */,
-				FC914AD3247E80B7005D7068 /* ShellScript */,
+				FC914AD3247E80B7005D7068 /* Install Script */,
 			);
 			buildRules = (
 			);
@@ -938,7 +938,7 @@
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		FC914AD3247E80B7005D7068 /* ShellScript */ = {
+		FC914AD3247E80B7005D7068 /* Install Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -947,6 +947,7 @@
 			);
 			inputPaths = (
 			);
+			name = "Install Script";
 			outputFileListPaths = (
 			);
 			outputPaths = (
