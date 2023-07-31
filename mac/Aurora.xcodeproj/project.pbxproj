@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 53;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -153,6 +153,7 @@
 /* Begin PBXFileReference section */
 		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		32BAE0B70371A74B00C91783 /* Aurora_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Aurora_Prefix.pch; sourceTree = "<group>"; };
+		B83962072A77BFCA00712153 /* AuroraConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = AuroraConfig.xcconfig; sourceTree = "<group>"; };
 		FC323F811492909D00F0A662 /* stickers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stickers.h; path = ../src/Common/src/stickers.h; sourceTree = SOURCE_ROOT; };
 		FC323F89149290B300F0A662 /* wxcmn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wxcmn.h; path = ../src/Common/include/wxcmn.h; sourceTree = SOURCE_ROOT; };
 		FC323F91149290C800F0A662 /* afart.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = afart.cpp; path = ../src/Common/src/afart.cpp; sourceTree = SOURCE_ROOT; };
@@ -183,14 +184,14 @@
 		FC5AE508143DBB4400AA006F /* correlator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = correlator.cpp; path = ../src/XFunctions/src/correlator.cpp; sourceTree = SOURCE_ROOT; };
 		FC5AE525143DBCDD00AA006F /* sti.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sti.h; path = ../src/STI/src/sti.h; sourceTree = SOURCE_ROOT; };
 		FC5AE537143DBCF500AA006F /* sti.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = sti.cpp; path = ../src/STI/src/sti.cpp; sourceTree = SOURCE_ROOT; };
-		FC7C45CA268610E700FBAF18 /* EffectAutomationParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EffectAutomationParameters.h; path = "../../../../../src/audacity-3.0.2/include/audacity/EffectAutomationParameters.h"; sourceTree = "<group>"; };
-		FC7C45CB268610E700FBAF18 /* ComponentInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ComponentInterface.h; path = "../../../../../src/audacity-3.0.2/include/audacity/ComponentInterface.h"; sourceTree = "<group>"; };
-		FC7C45CC268610E700FBAF18 /* EffectInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EffectInterface.h; path = "../../../../../src/audacity-3.0.2/include/audacity/EffectInterface.h"; sourceTree = "<group>"; };
-		FC7C45CD268610E700FBAF18 /* ModuleInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModuleInterface.h; path = "../../../../../src/audacity-3.0.2/include/audacity/ModuleInterface.h"; sourceTree = "<group>"; };
-		FC7C45CE268610E700FBAF18 /* ImporterInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImporterInterface.h; path = "../../../../../src/audacity-3.0.2/include/audacity/ImporterInterface.h"; sourceTree = "<group>"; };
-		FC7C45CF268610E800FBAF18 /* ConfigInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConfigInterface.h; path = "../../../../../src/audacity-3.0.2/include/audacity/ConfigInterface.h"; sourceTree = "<group>"; };
-		FC7C45D0268610E800FBAF18 /* Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Types.h; path = "../../../../../src/audacity-3.0.2/include/audacity/Types.h"; sourceTree = "<group>"; };
-		FC7C45D1268610E800FBAF18 /* PluginInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PluginInterface.h; path = "../../../../../src/audacity-3.0.2/include/audacity/PluginInterface.h"; sourceTree = "<group>"; };
+		FC7C45CA268610E700FBAF18 /* EffectAutomationParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EffectAutomationParameters.h; path = ../audacity/include/audacity/EffectAutomationParameters.h; sourceTree = "<group>"; };
+		FC7C45CB268610E700FBAF18 /* ComponentInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ComponentInterface.h; path = ../audacity/include/audacity/ComponentInterface.h; sourceTree = "<group>"; };
+		FC7C45CC268610E700FBAF18 /* EffectInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EffectInterface.h; path = ../audacity/include/audacity/EffectInterface.h; sourceTree = "<group>"; };
+		FC7C45CD268610E700FBAF18 /* ModuleInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModuleInterface.h; path = ../audacity/include/audacity/ModuleInterface.h; sourceTree = "<group>"; };
+		FC7C45CE268610E700FBAF18 /* ImporterInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImporterInterface.h; path = ../audacity/include/audacity/ImporterInterface.h; sourceTree = "<group>"; };
+		FC7C45CF268610E800FBAF18 /* ConfigInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConfigInterface.h; path = ../audacity/include/audacity/ConfigInterface.h; sourceTree = "<group>"; };
+		FC7C45D0268610E800FBAF18 /* Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Types.h; path = ../audacity/include/audacity/Types.h; sourceTree = "<group>"; };
+		FC7C45D1268610E800FBAF18 /* PluginInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PluginInterface.h; path = ../audacity/include/audacity/PluginInterface.h; sourceTree = "<group>"; };
 		FC9149AA247D6CA1005D7068 /* Aurorad.so */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = Aurorad.so; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC9149B7247D6CF7005D7068 /* AcParametersPlot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AcParametersPlot.cpp; path = ../src/AcParameters/src/AcParametersPlot.cpp; sourceTree = "<group>"; };
 		FC9149B8247D6CF7005D7068 /* AcParametersEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AcParametersEffect.h; path = ../src/AcParameters/src/AcParametersEffect.h; sourceTree = "<group>"; };
@@ -303,8 +304,8 @@
 		FC914AB8247D7343005D7068 /* kiss_fftnd.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = kiss_fftnd.c; path = "../thirdyParty/kissfft-1.31/tools/kiss_fftnd.c"; sourceTree = "<group>"; };
 		FC914AB9247D7343005D7068 /* kiss_fftnd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = kiss_fftnd.h; path = "../thirdyParty/kissfft-1.31/tools/kiss_fftnd.h"; sourceTree = "<group>"; };
 		FC914ABA247D7343005D7068 /* kiss_fftr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = kiss_fftr.c; path = "../thirdyParty/kissfft-1.31/tools/kiss_fftr.c"; sourceTree = "<group>"; };
-		FC914AC1247E564C005D7068 /* Effect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Effect.h; path = "../../../../../src/audacity-2.4.1/src/effects/Effect.h"; sourceTree = "<group>"; };
-		FC914AC2247E564C005D7068 /* EffectManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = EffectManager.h; path = "../../../../../src/audacity-2.4.1/src/effects/EffectManager.h"; sourceTree = "<group>"; };
+		FC914AC1247E564C005D7068 /* Effect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Effect.h; path = ../audacity/src/effects/Effect.h; sourceTree = "<group>"; };
+		FC914AC2247E564C005D7068 /* EffectManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = EffectManager.h; path = ../audacity/src/effects/EffectManager.h; sourceTree = "<group>"; };
 		FCB4FAFE144483E8000BC441 /* audtypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = audtypes.h; path = ../src/Common/include/audtypes.h; sourceTree = SOURCE_ROOT; };
 		FCB4FAFF144483E8000BC441 /* commdefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = commdefs.h; path = ../src/Common/include/commdefs.h; sourceTree = SOURCE_ROOT; };
 		FCB4FB00144483E8000BC441 /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = version.h; path = ../src/Common/include/version.h; sourceTree = SOURCE_ROOT; };
@@ -351,6 +352,7 @@
 		0867D691FE84028FC02AAC07 /* Aurora */ = {
 			isa = PBXGroup;
 			children = (
+				B83962072A77BFCA00712153 /* AuroraConfig.xcconfig */,
 				FC1D1EF914220CE20076FC4E /* Audacity */,
 				FCD9792F122BAA920001AAA1 /* AcousticalParameters */,
 				FCD979D6122BB58B0001AAA1 /* Common */,
@@ -450,6 +452,7 @@
 			children = (
 			);
 			name = src;
+			path = ../audacity/src;
 			sourceTree = "<group>";
 		};
 		FC1D2473142B90120076FC4E /* Kirkeby */ = {
@@ -904,7 +907,8 @@
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1210;
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					FC9149A9247D6CA1005D7068 = {
 						CreatedOnToolsVersion = 11.3.1;
@@ -949,7 +953,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\nappName=\"Audacity.app\"\n\nif [ $CONFIGURATION == \"Debug\" ]\nthen\n    appName=\"Audacity.app\" # to be used if debug name is different\nfi\n\nmoduleFullPath=\"$TARGET_BUILD_DIR/$EXECUTABLE_NAME\"\n#modulesDir=\"$BUILD_ROOT/../../../../../Audacity/mac/\"$appName\"/Contents/modules\"  \nmodulesDir=\"$AUDACITY_BUNDLE_PATH/$appName/Contents/modules\"\n\necho \"Copying $moduleFullPath in $modulesDir\"\n\nif [ ! -d \"$modulesDir\" ]\nthen\n    mkdir \"$modulesDir\"\nfi\n\ncp -fv \"$moduleFullPath\" \"$modulesDir\"\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\n# appName=\"Audacity.app\"\n\n# if [ $CONFIGURATION == \"Debug\" ]\n# then\n#     appName=\"Audacity.app\" # to be used if debug name is different\n# fi\n\n# moduleFullPath=\"$TARGET_BUILD_DIR/$EXECUTABLE_NAME\"\n# #modulesDir=\"$BUILD_ROOT/../../../../../Audacity/mac/\"$appName\"/Contents/modules\"  \n# modulesDir=\"$AUDACITY_BUNDLE_PATH/$appName/Contents/modules\"\n\n# echo \"Copying $moduleFullPath in $modulesDir\"\n\n# if [ ! -d \"$modulesDir\" ]\n# then\n#     mkdir \"$modulesDir\"\n# fi\n\n# cp -fv \"$moduleFullPath\" \"$modulesDir\"\n";
 		};
 		FCED860C248A5EEA006DDE1B /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -966,7 +970,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Update internal paths in order to use the libraries stored inside Audacity bundle\n\n# --- functions ---------------------------------------------------------------\n\nreplace_pattern()\n{\n    # /opt/local/lib -> @rpath\n    FN=$1   #12345678901234\n    PATTERN=\"/opt/local/lib\"\n    \n    echo \"Processing file $FN...[$WX_VER] -> [$WX_FULL_VER]\"\n    \n    otool -L \"$FN\" | awk '{ print $1 }' | while read DEP\n    do\n        if [ ${DEP:0:14} == \"$PATTERN\" ]\n        then                \n            LIB=$(echo $FN  | awk -F\"/\" '{ print $NF }')\n            LIB=$(echo $LIB | awk -F\".\" '{ print $1 }')\n            \n            if [ \"$DEP\" != \"${DEP/$LIB/}\" ]\n            then\n                MOD_DEP=${DEP/\\/opt\\/local\\/lib/@executable_path\\/..\\/Frameworks}\n                MOD_DEP=${MOD_DEP/$WX_VER/$WX_FULL_VER}  # I don't know exactly why this is needed...\n                \n                #if [ $CONFIGURATION == \"Release\" ]\n                #then\n                    # that's weird...\n                #    MOD_DEP=${MOD_DEP/_baseu_/_baseu_release}\n                #    MOD_DEP=${MOD_DEP/_cocoau_/_cocoau_release_}\n                #fi\n                echo \"id: $DEP -> $MOD_DEP\"\n                install_name_tool -id $MOD_DEP \"$FN\"\n            else\n                MOD_DEP=${DEP/\\/opt\\/local\\/lib/@executable_path\\/..\\/Frameworks}\n                MOD_DEP=${MOD_DEP/$WX_VER/$WX_FULL_VER}  # I don't know exactly why this is needed...\n                \n                #if [ $CONFIGURATION == \"Release\" ]\n                #then\n                    # that's weird...\n                #    MOD_DEP=${MOD_DEP/_baseu/_baseu_release}\n                #    MOD_DEP=${MOD_DEP/_cocoau_/_cocoau_release_}\n                #fi\n                echo \"dep: $DEP -> $MOD_DEP\"\n                install_name_tool -change $DEP $MOD_DEP \"$FN\"\n            fi\n        fi\n    done\n}\n\n\n# --- main --------------------------------------------------------------------\nCURRENT_DIR=$(pwd)\n\ncd \"$TARGET_BUILD_DIR\"\n\nreplace_pattern $EXECUTABLE_NAME\n\ncd \"$CURRENT_DIR\"\n";
+			shellScript = "# Update internal paths in order to use the libraries stored inside Audacity bundle\n\n# # --- functions ---------------------------------------------------------------\n\n# replace_pattern()\n# {\n#     # /opt/local/lib -> @rpath\n#     FN=$1   #12345678901234\n#     PATTERN=\"/opt/local/lib\"\n    \n#     echo \"Processing file $FN...[$WX_VER] -> [$WX_FULL_VER]\"\n    \n#     otool -L \"$FN\" | awk '{ print $1 }' | while read DEP\n#     do\n#         if [ ${DEP:0:14} == \"$PATTERN\" ]\n#         then                \n#             LIB=$(echo $FN  | awk -F\"/\" '{ print $NF }')\n#             LIB=$(echo $LIB | awk -F\".\" '{ print $1 }')\n            \n#             if [ \"$DEP\" != \"${DEP/$LIB/}\" ]\n#             then\n#                 MOD_DEP=${DEP/\\/opt\\/local\\/lib/@executable_path\\/..\\/Frameworks}\n#                 MOD_DEP=${MOD_DEP/$WX_VER/$WX_FULL_VER}  # I don't know exactly why this is needed...\n                \n#                 #if [ $CONFIGURATION == \"Release\" ]\n#                 #then\n#                     # that's weird...\n#                 #    MOD_DEP=${MOD_DEP/_baseu_/_baseu_release}\n#                 #    MOD_DEP=${MOD_DEP/_cocoau_/_cocoau_release_}\n#                 #fi\n#                 echo \"id: $DEP -> $MOD_DEP\"\n#                 install_name_tool -id $MOD_DEP \"$FN\"\n#             else\n#                 MOD_DEP=${DEP/\\/opt\\/local\\/lib/@executable_path\\/..\\/Frameworks}\n#                 MOD_DEP=${MOD_DEP/$WX_VER/$WX_FULL_VER}  # I don't know exactly why this is needed...\n                \n#                 #if [ $CONFIGURATION == \"Release\" ]\n#                 #then\n#                     # that's weird...\n#                 #    MOD_DEP=${MOD_DEP/_baseu/_baseu_release}\n#                 #    MOD_DEP=${MOD_DEP/_cocoau_/_cocoau_release_}\n#                 #fi\n#                 echo \"dep: $DEP -> $MOD_DEP\"\n#                 install_name_tool -change $DEP $MOD_DEP \"$FN\"\n#             fi\n#         fi\n#     done\n# }\n\n\n# # --- main --------------------------------------------------------------------\n# CURRENT_DIR=$(pwd)\n\n# cd \"$TARGET_BUILD_DIR\"\n\n# replace_pattern $EXECUTABLE_NAME\n\n# cd \"$CURRENT_DIR\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1062,20 +1066,8 @@
 /* Begin XCBuildConfiguration section */
 		FC323FD21493472C00F0A662 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B83962072A77BFCA00712153 /* AuroraConfig.xcconfig */;
 			buildSettings = {
-				AUDACITY_BINARY = "$(AUDACITY_BINARY_PATH)/Audacity.app/Contents/MacOS/Audacity";
-				AUDACITY_BINARY_PATH = /Applications/Audacity;
-				AUDACITY_BUNDLE_PATH = "/Users/simone/src/builds/audacity/$(AUDACITY_MAJOR_VER).$(AUDACITY_MINOR_VER).$(AUDACITY_MINOR_MINOR_VER)/mac/bin/Release";
-				AUDACITY_HEX_VER = 0x030002;
-				AUDACITY_LIBRARIES_PREFIX = "$(AUDACITY_SRC_PREFIX)/libraries";
-				AUDACITY_LIB_PREFIX = "$(AUDACITY_SRC_PREFIX)/lib-src";
-				AUDACITY_MAJOR_VER = 3;
-				AUDACITY_MINOR_MINOR_VER = 2;
-				AUDACITY_MINOR_VER = 0;
-				AUDACITY_MODULES_PATH = "$(AUDACITY_BINARY_PATH)/modules";
-				AUDACITY_SRC_PATH = "$(AUDACITY_SRC_PREFIX)/src";
-				AUDACITY_SRC_PREFIX = "/Users/simone/src/audacity-$(AUDACITY_VER)";
-				AUDACITY_VER = "$(AUDACITY_MAJOR_VER).$(AUDACITY_MINOR_VER).$(AUDACITY_MINOR_MINOR_VER)";
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -1095,6 +1087,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				EXECUTABLE_EXTENSION = so;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -1140,31 +1133,13 @@
 					"$(WX_LDFLAGS)",
 				);
 				SDKROOT = macosx;
-				WX_CFLAGS = "-I$(WX_PREFIX)/lib/wx/include/osx_cocoa-unicode-$(WX_VER) -I$(WX_PREFIX)/include/wx-$(WX_VER) -D_FILE_OFFSET_BITS=64 -DwxDEBUG_LEVEL=1 -DWXUSINGDLL -D__WXMAC__ -D__WXOSX__ -D__WXOSX_COCOA__";
-				WX_FULL_VER = "$(WX_VER)";
-				WX_LDFLAGS = "-L$(WX_PREFIX)/lib -lwx_osx_cocoau_xrc-$(WX_FULL_VER) -lwx_osx_cocoau_html-$(WX_FULL_VER) -lwx_osx_cocoau_qa-$(WX_FULL_VER) -lwx_osx_cocoau_adv-$(WX_FULL_VER) -lwx_osx_cocoau_core-$(WX_FULL_VER) -lwx_baseu_xml-$(WX_FULL_VER) -lwx_baseu_net-$(WX_FULL_VER) -lwx_baseu-$(WX_FULL_VER)";
-				WX_PREFIX = /opt/local;
-				WX_VER = "$(WX_VERSION)";
-				WX_VERSION = 3.1;
 			};
 			name = Release;
 		};
 		FC32404E149BCAC600F0A662 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B83962072A77BFCA00712153 /* AuroraConfig.xcconfig */;
 			buildSettings = {
-				AUDACITY_BINARY = "$(AUDACITY_BUNDLE_PATH)/Audacityd.app/Contents/MacOS/Audacity";
-				AUDACITY_BINARY_PATH = /Applications/Audacity;
-				AUDACITY_BUNDLE_PATH = "/Users/simone/src/builds/audacity/$(AUDACITY_MAJOR_VER).$(AUDACITY_MINOR_VER).$(AUDACITY_MINOR_MINOR_VER)/mac/bin/Debug";
-				AUDACITY_HEX_VER = 0x030002;
-				AUDACITY_LIBRARIES_PREFIX = "$(AUDACITY_SRC_PREFIX)/libraries";
-				AUDACITY_LIB_PREFIX = "$(AUDACITY_SRC_PREFIX)/lib-src";
-				AUDACITY_MAJOR_VER = 3;
-				AUDACITY_MINOR_MINOR_VER = 2;
-				AUDACITY_MINOR_VER = 0;
-				AUDACITY_MODULES_PATH = "$(AUDACITY_BUNDLE_PATH)/modules";
-				AUDACITY_SRC_PATH = "$(AUDACITY_SRC_PREFIX)/src";
-				AUDACITY_SRC_PREFIX = "/Users/simone/src/audacity-$(AUDACITY_VER)";
-				AUDACITY_VER = "$(AUDACITY_MAJOR_VER).$(AUDACITY_MINOR_VER).$(AUDACITY_MINOR_MINOR_VER)";
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -1184,6 +1159,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				EXECUTABLE_EXTENSION = so;
@@ -1231,23 +1207,15 @@
 					"-headerpad_max_install_names",
 					"$(WX_LDFLAGS)",
 				);
-				OTHER_LDFLAGS_QUOTED_FOR_PROJECT_1 = "\"$(AUDACITY_BINARY)\"";
 				SDKROOT = macosx;
-				WX_CFLAGS = "-I$(WX_PREFIX)/lib/wx/include/osx_cocoa-unicode-$(WX_VER) -I$(WX_PREFIX)/include/wx-$(WX_VER) -D_FILE_OFFSET_BITS=64 -DwxDEBUG_LEVEL=1 -DWXUSINGDLL -D__WXMAC__ -D__WXOSX__ -D__WXOSX_COCOA__";
-				WX_FULL_VER = "$(WX_VER)";
-				WX_LDFLAGS = "-L$(WX_PREFIX)/lib -lwx_osx_cocoau_xrc-$(WX_FULL_VER) -lwx_osx_cocoau_html-$(WX_FULL_VER) -lwx_osx_cocoau_qa-$(WX_FULL_VER) -lwx_osx_cocoau_adv-$(WX_FULL_VER) -lwx_osx_cocoau_core-$(WX_FULL_VER) -lwx_baseu_xml-$(WX_FULL_VER) -lwx_baseu_net-$(WX_FULL_VER) -lwx_baseu-$(WX_FULL_VER)";
-				WX_PREFIX = /opt/local;
-				WX_VER = "$(WX_VERSION)";
-				WX_VERSION = 3.1;
 			};
 			name = Debug;
 		};
 		FC9149B2247D6CA1005D7068 /* Debug Shared */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B83962072A77BFCA00712153 /* AuroraConfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				AUDACITY_MINOR_MINOR_VER = 0;
-				AUDACITY_MINOR_VER = 2;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
@@ -1261,7 +1229,7 @@
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
@@ -1278,6 +1246,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 5;
@@ -1291,7 +1260,9 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
-					"$(inherited)",
+					"USE_KISS_FFT=1",
+					"AUDACITY_HEX_VERSION=$(AUDACITY_HEX_VER)",
+					"BUILDING_FOR_AURORA=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1300,12 +1271,44 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GENERATE_MASTER_OBJECT_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(WX_PREFIX)/include",
+					"$(AUDACITY_LIB_PREFIX)/lib-widget-extra",
+					"$(AUDACITY_LIB_PREFIX)/portsmf",
+					"$(AUDACITY_LIB_PREFIX)/portmixer/include",
+					"$(AUDACITY_LIB_PREFIX)/portaudio-v19/include",
+					"$(AUDACITY_SRC_PATH)",
+					"$(WX_PREFIX)/lib/wx/include/osx_cocoa-unicode-$(WX_VERSION)",
+					"$(WX_PREFIX)/include/wx-$(WX_VERSION)",
+					"$(AUDACITY_LIB_PREFIX)/lib-strings",
+					"$(AUDACITY_LIB_PREFIX)/lib-utility",
+					"$(AUDACITY_SRC_PREFIX)/include",
+					"$(AURORA_SRC_PATH)",
+					"$(AURORA_SRC_PATH)/Common/include",
+					"$(AURORA_SRC_PATH)/Common/src",
+					"$(KISSFFT_PATH)",
+					"$(KISSFFT_PATH)/tools",
+				);
+				INSTALL_PATH = /;
 				LD_RUNPATH_SEARCH_PATHS = "";
 				MACH_O_TYPE = mh_dylib;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-bundle_loader",
+					"$(AUDACITY_BINARY)",
+					"-fPIC",
+					"-undefined",
+					dynamic_lookup,
+					"-lwx_macud_html-2.8",
+					"-lwx_macud_adv-2.8",
+					"-lwx_macud_core-2.8",
+					"-lwx_base_carbonud_xml-2.8",
+					"-lwx_base_carbonud_net-2.8",
+					"-lwx_base_carbonud-2.8",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -1314,10 +1317,9 @@
 		};
 		FC9149B3247D6CA1005D7068 /* Release Shared */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B83962072A77BFCA00712153 /* AuroraConfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				AUDACITY_MINOR_MINOR_VER = 0;
-				AUDACITY_MINOR_VER = 2;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
@@ -1331,7 +1333,7 @@
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
@@ -1348,6 +1350,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 5;
@@ -1365,9 +1368,24 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GENERATE_MASTER_OBJECT_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(WX_PREFIX)/include",
+					"$(AUDACITY_LIB_PREFIX)/lib-widget-extra",
+					"$(AUDACITY_LIB_PREFIX)/portsmf",
+					"$(AUDACITY_LIB_PREFIX)/portmixer/include",
+					"$(AUDACITY_LIB_PREFIX)/portaudio-v19/include",
+					../src/Common/include,
+					../src/Common/include/src,
+					"$(AUDACITY_SRC_PATH)",
+					"$(WX_PREFIX)/lib/wx/include/osx_cocoa-unicode-$(WX_VERSION)",
+					"$(WX_PREFIX)/include/wx-$(WX_VERSION)",
+					"$(AUDACITY_LIBRARIES_PREFIX)/lib-strings",
+					"$(AUDACITY_LIBRARIES_PREFIX)/lib-utility",
+				);
+				INSTALL_PATH = /;
 				LD_RUNPATH_SEARCH_PATHS = "";
 				MACH_O_TYPE = mh_dylib;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = NO;
@@ -1379,10 +1397,9 @@
 		};
 		FC9149B4247D6CA1005D7068 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B83962072A77BFCA00712153 /* AuroraConfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				AUDACITY_MINOR_MINOR_VER = 0;
-				AUDACITY_MINOR_VER = 2;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
@@ -1396,7 +1413,7 @@
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
@@ -1413,6 +1430,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 5;
@@ -1423,6 +1441,11 @@
 				GCC_ENABLE_CPP_EXCEPTIONS = YES;
 				GCC_ENABLE_CPP_RTTI = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"USE_KISS_FFT=1",
+					"AUDACITY_HEX_VERSION=$(AUDACITY_HEX_VERSION)",
+					"BUILDING_FOR_AURORA=1",
+				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -1430,10 +1453,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GENERATE_MASTER_OBJECT_FILE = YES;
-				INSTALL_PATH = /modules;
+				INSTALL_PATH = /;
 				LD_RUNPATH_SEARCH_PATHS = "";
 				MACH_O_TYPE = mh_dylib;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = NO;
@@ -1445,10 +1468,9 @@
 		};
 		FC9149B5247D6CA1005D7068 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B83962072A77BFCA00712153 /* AuroraConfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				AUDACITY_MINOR_MINOR_VER = 0;
-				AUDACITY_MINOR_VER = 2;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
@@ -1462,7 +1484,7 @@
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
@@ -1479,6 +1501,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 5;
@@ -1492,7 +1515,9 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
-					"$(inherited)",
+					"USE_KISS_FFT=1",
+					"AUDACITY_HEX_VERSION=$(AUDACITY_HEX_VER)",
+					"BUILDING_FOR_AURORA=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1501,11 +1526,28 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GENERATE_MASTER_OBJECT_FILE = YES;
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				INSTALL_PATH = /modules;
+				HEADER_SEARCH_PATHS = (
+					"$(AURORA_SRC_PATH)",
+					"$(AURORA_SRC_PATH)/Common/include",
+					"$(AURORA_SRC_PATH)/Common/src",
+					"$(AUDACITY_SRC_PATH)",
+					"$(AUDACITY_SRC_PREFIX)/include",
+					"$(AUDACITY_LIB_PREFIX)/lib-strings",
+					"$(AUDACITY_LIB_PREFIX)/lib-utility",
+					"$(AUDACITY_LIB_PREFIX)/lib-widget-extra",
+					"$(AUDACITY_LIB_PREFIX)/portsmf",
+					"$(AUDACITY_LIB_PREFIX)/portmixer/include",
+					"$(AUDACITY_LIB_PREFIX)/portaudio-v19/include",
+					"$(WX_PREFIX)/include",
+					"$(WX_PREFIX)/include/wx-$(WX_VERSION)",
+					"$(WX_PREFIX)/lib/wx/include/osx_cocoa-unicode-$(WX_VERSION)",
+					"$(KISSFFT_PATH)",
+					"$(KISSFFT_PATH)/tools",
+				);
+				INSTALL_PATH = /;
 				LD_RUNPATH_SEARCH_PATHS = "";
 				MACH_O_TYPE = mh_dylib;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1524,19 +1566,8 @@
 		};
 		FCD97A81122E56320001AAA1 /* Debug Shared */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B83962072A77BFCA00712153 /* AuroraConfig.xcconfig */;
 			buildSettings = {
-				AUDACITY_BINARY = "\"/Users/simone/src/audacity-read-only/mac/build/Debug Shared/Audacity.app/Contents/MacOS/Audacity\"";
-				AUDACITY_BUNDLE_PATH = "$(AUDACITY_SRC_PREFIX)/mac/build/Debug Shared";
-				AUDACITY_HEX_VER = 0x030002;
-				AUDACITY_LIBRARIES_PREFIX = "$(AUDACITY_SRC_PREFIX)/libraries";
-				AUDACITY_LIB_PREFIX = "$(AUDACITY_SRC_PREFIX)/lib-src";
-				AUDACITY_MAJOR_VER = 3;
-				AUDACITY_MINOR_MINOR_VER = 2;
-				AUDACITY_MINOR_VER = 0;
-				AUDACITY_MODULES_PATH = "$(AUDACITY_BUNDLE_PATH)/modules";
-				AUDACITY_SRC_PATH = "$(AUDACITY_SRC_PREFIX)/src";
-				AUDACITY_SRC_PREFIX = "/Users/simone/src/audacity-read-only";
-				AUDACITY_VER = "$(AUDACITY_MAJOR_VER).$(AUDACITY_MINOR_VER).$(AUDACITY_MINOR_MINOR_VER)";
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -1556,6 +1587,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				EXECUTABLE_EXTENSION = so;
@@ -1567,6 +1599,7 @@
 					__WXDEBUG__,
 					__WXMAC__,
 					"BUILDING_FOR_AURORA=1",
+					"USE_KISS_FFT=1",
 				);
 				GCC_VERSION = "";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1609,31 +1642,13 @@
 					"-lwx_base_carbonud-2.8",
 				);
 				SDKROOT = macosx;
-				WX_CFLAGS = "-I$(WX_PREFIX)/lib/wx/include/osx_cocoa-unicode-$(WX_VER) -I$(WX_PREFIX)/include/wx-$(WX_VER) -D_FILE_OFFSET_BITS=64 -DwxDEBUG_LEVEL=1 -DWXUSINGDLL -D__WXMAC__ -D__WXOSX__ -D__WXOSX_COCOA__";
-				WX_FULL_VER = "$(WX_VER)";
-				WX_LDFLAGS = "-L$(WX_PREFIX)/lib -lwx_osx_cocoau_xrc-$(WX_FULL_VER) -lwx_osx_cocoau_html-$(WX_FULL_VER) -lwx_osx_cocoau_qa-$(WX_FULL_VER) -lwx_osx_cocoau_adv-$(WX_FULL_VER) -lwx_osx_cocoau_core-$(WX_FULL_VER) -lwx_baseu_xml-$(WX_FULL_VER) -lwx_baseu_net-$(WX_FULL_VER) -lwx_baseu-$(WX_FULL_VER)";
-				WX_PREFIX = /opt/local;
-				WX_VER = "$(WX_VERSION)";
-				WX_VERSION = 3.1;
 			};
 			name = "Debug Shared";
 		};
 		FCD97A82122E56320001AAA1 /* Release Shared */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B83962072A77BFCA00712153 /* AuroraConfig.xcconfig */;
 			buildSettings = {
-				AUDACITY_BINARY = "$(AUDACITY_BINARY_PATH)/Audacity.app/Contents/MacOS/Audacity";
-				AUDACITY_BINARY_PATH = /Applications/Audacity;
-				AUDACITY_BUNDLE_PATH = "$(AUDACITY_SRC_PREFIX)/mac/build/Release Shared";
-				AUDACITY_HEX_VER = 0x030002;
-				AUDACITY_LIBRARIES_PREFIX = "$(AUDACITY_SRC_PREFIX)/libraries";
-				AUDACITY_LIB_PREFIX = "$(AUDACITY_SRC_PREFIX)/lib-src";
-				AUDACITY_MAJOR_VER = 3;
-				AUDACITY_MINOR_MINOR_VER = 2;
-				AUDACITY_MINOR_VER = 0;
-				AUDACITY_MODULES_PATH = "$(AUDACITY_BINARY_PATH)/modules";
-				AUDACITY_SRC_PATH = "$(AUDACITY_SRC_PREFIX)/src";
-				AUDACITY_SRC_PREFIX = "/Users/simone/src/audacity-read-only";
-				AUDACITY_VER = "$(AUDACITY_MAJOR_VER).$(AUDACITY_MINOR_VER).$(AUDACITY_MINOR_MINOR_VER)";
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -1653,6 +1668,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				EXECUTABLE_EXTENSION = so;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1704,12 +1720,6 @@
 					"-lwx_base_carbonu-2.8",
 				);
 				SDKROOT = macosx;
-				WX_CFLAGS = "-I$(WX_PREFIX)/lib/wx/include/osx_cocoa-unicode-$(WX_VER) -I$(WX_PREFIX)/include/wx-$(WX_VER) -D_FILE_OFFSET_BITS=64 -DwxDEBUG_LEVEL=1 -DWXUSINGDLL -D__WXMAC__ -D__WXOSX__ -D__WXOSX_COCOA__";
-				WX_FULL_VER = "$(WX_VER)";
-				WX_LDFLAGS = "-L$(WX_PREFIX)/lib -lwx_osx_cocoau_xrc-$(WX_FULL_VER) -lwx_osx_cocoau_html-$(WX_FULL_VER) -lwx_osx_cocoau_qa-$(WX_FULL_VER) -lwx_osx_cocoau_adv-$(WX_FULL_VER) -lwx_osx_cocoau_core-$(WX_FULL_VER) -lwx_baseu_xml-$(WX_FULL_VER) -lwx_baseu_net-$(WX_FULL_VER) -lwx_baseu-$(WX_FULL_VER)";
-				WX_PREFIX = /opt/local;
-				WX_VER = "$(WX_VERSION)";
-				WX_VERSION = 3.1;
 			};
 			name = "Release Shared";
 		};
@@ -1725,7 +1735,7 @@
 				FC32404E149BCAC600F0A662 /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Debug Shared";
+			defaultConfigurationName = Debug;
 		};
 		FC9149B6247D6CA1005D7068 /* Build configuration list for PBXNativeTarget "Aurora" */ = {
 			isa = XCConfigurationList;
@@ -1736,7 +1746,7 @@
 				FC9149B5247D6CA1005D7068 /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Debug Shared";
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
