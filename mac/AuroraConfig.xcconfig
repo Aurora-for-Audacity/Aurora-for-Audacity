@@ -31,9 +31,8 @@ AUDACITY_VER             = $(AUDACITY_MAJOR_VER).$(AUDACITY_MINOR_VER).$(AUDACIT
 // WxWidgets Definitions
 WX_PREFIX = /opt/homebrew/Cellar/wxwidgets/3.2.2.1_1
 WX_VERSION = 3.2
-WX_VER = 3.2
-WX_CFLAGS = -I$(WX_PREFIX)/lib/wx/include/osx_cocoa-unicode-$(WX_VER) -I$(WX_PREFIX)/include/wx-$(WX_VER) -D_FILE_OFFSET_BITS=64 -DwxDEBUG_LEVEL=1 -DWXUSINGDLL -D__WXMAC__ -D__WXOSX__ -D__WXOSX_COCOA__
-WX_FULL_VER = $(WX_VER)
+WX_CFLAGS = -I$(WX_PREFIX)/lib/wx/include/osx_cocoa-unicode-$(WX_VERSION) -I$(WX_PREFIX)/include/wx-$(WX_VERSION) -D_FILE_OFFSET_BITS=64 -DwxDEBUG_LEVEL=1 -DWXUSINGDLL -D__WXMAC__ -D__WXOSX__ -D__WXOSX_COCOA__
+WX_FULL_VER = $(WX_VERSION)
 WX_LDFLAGS = -L$(WX_PREFIX)/lib -lwx_osx_cocoau_xrc-$(WX_FULL_VER) -lwx_osx_cocoau_html-$(WX_FULL_VER) -lwx_osx_cocoau_qa-$(WX_FULL_VER) -lwx_osx_cocoau_adv-$(WX_FULL_VER) -lwx_osx_cocoau_core-$(WX_FULL_VER) -lwx_baseu_xml-$(WX_FULL_VER) -lwx_baseu_net-$(WX_FULL_VER) -lwx_baseu-$(WX_FULL_VER)
 
 // KissFFT Definitions
