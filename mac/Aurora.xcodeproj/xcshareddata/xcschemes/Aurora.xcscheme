@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "FC9149A9247D6CA1005D7068"
-               BuildableName = "Aurora.so"
+               BuildableName = "Aurorad.so"
                BlueprintName = "Aurora"
                ReferencedContainer = "container:Aurora.xcodeproj">
             </BuildableReference>
@@ -31,7 +31,7 @@
       </Testables>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Debug"
+      buildConfiguration = "Debug Shared"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -55,7 +55,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FC9149A9247D6CA1005D7068"
-            BuildableName = "Aurora.so"
+            BuildableName = "Aurorad.so"
             BlueprintName = "Aurora"
             ReferencedContainer = "container:Aurora.xcodeproj">
          </BuildableReference>

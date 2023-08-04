@@ -154,6 +154,7 @@
 		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		32BAE0B70371A74B00C91783 /* Aurora_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Aurora_Prefix.pch; sourceTree = "<group>"; };
 		B83962072A77BFCA00712153 /* AuroraConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = AuroraConfig.xcconfig; sourceTree = "<group>"; };
+		B8EAF64B2A7D1F2500AEA713 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FC323F811492909D00F0A662 /* stickers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stickers.h; path = ../src/Common/src/stickers.h; sourceTree = SOURCE_ROOT; };
 		FC323F89149290B300F0A662 /* wxcmn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wxcmn.h; path = ../src/Common/include/wxcmn.h; sourceTree = SOURCE_ROOT; };
 		FC323F91149290C800F0A662 /* afart.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = afart.cpp; path = ../src/Common/src/afart.cpp; sourceTree = SOURCE_ROOT; };
@@ -352,6 +353,7 @@
 		0867D691FE84028FC02AAC07 /* Aurora */ = {
 			isa = PBXGroup;
 			children = (
+				B8EAF64B2A7D1F2500AEA713 /* Info.plist */,
 				B83962072A77BFCA00712153 /* AuroraConfig.xcconfig */,
 				FC1D1EF914220CE20076FC4E /* Audacity */,
 				FCD9792F122BAA920001AAA1 /* AcousticalParameters */,
@@ -917,7 +919,7 @@
 				};
 			};
 			buildConfigurationList = 1DEB916408733D950010E9CD /* Build configuration list for PBXProject "Aurora" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 3.1";
 			developmentRegion = en;
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -1249,8 +1251,8 @@
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 5;
+				DYLIB_COMPATIBILITY_VERSION = "";
+				DYLIB_CURRENT_VERSION = "";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				EXECUTABLE_PREFIX = "";
@@ -1278,6 +1280,8 @@
 					"$(AURORA_SRC_PATH)/Common/src",
 					"$(AUDACITY_SRC_PATH)",
 					"$(AUDACITY_SRC_PREFIX)/include",
+					"$(AUDACITY_LIB_PREFIX)",
+					"$(AUDACITY_LIB_PREFIX)/lib-math",
 					"$(AUDACITY_LIB_PREFIX)/lib-strings",
 					"$(AUDACITY_LIB_PREFIX)/lib-utility",
 					"$(AUDACITY_LIB_PREFIX)/lib-widget-extra",
@@ -1289,10 +1293,12 @@
 					"$(WX_PREFIX)/lib/wx/include/osx_cocoa-unicode-$(WX_VERSION)",
 					"$(KISSFFT_PATH)",
 					"$(KISSFFT_PATH)/tools",
+					/opt/homebrew/Cellar/wxwidgets/3.2.2.1_1/lib,
 				);
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				INSTALL_PATH = /;
-				LD_RUNPATH_SEARCH_PATHS = "";
-				MACH_O_TYPE = mh_dylib;
+				LD_RUNPATH_SEARCH_PATHS = /opt/homebrew/Cellar/wxwidgets/3.2.2.1_1/lib;
+				MACH_O_TYPE = mh_bundle;
 				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -1303,12 +1309,12 @@
 					"-fPIC",
 					"-undefined",
 					dynamic_lookup,
-					"-lwx_macud_html-2.8",
-					"-lwx_macud_adv-2.8",
-					"-lwx_macud_core-2.8",
-					"-lwx_base_carbonud_xml-2.8",
-					"-lwx_base_carbonud_net-2.8",
-					"-lwx_base_carbonud-2.8",
+					"-lwx_osx_cocoau_html-3.2",
+					"-lwx_osx_cocoau_adv-3.2",
+					"-lwx_osx_cocoau_core-3.2",
+					"-lwx_osx_cocoau_xml-3.2",
+					"-lwx_osx_cocoau_net-3.2",
+					"-lwx_baseu-3.2",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -1353,6 +1359,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				"DEBUG_INFORMATION_FORMAT[sdk=*]" = "dwarf-with-dsym";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 5;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -1375,6 +1382,8 @@
 					"$(AURORA_SRC_PATH)/Common/src",
 					"$(AUDACITY_SRC_PATH)",
 					"$(AUDACITY_SRC_PREFIX)/include",
+					"$(AUDACITY_LIB_PREFIX)",
+					"$(AUDACITY_LIB_PREFIX)/lib-math",
 					"$(AUDACITY_LIB_PREFIX)/lib-strings",
 					"$(AUDACITY_LIB_PREFIX)/lib-utility",
 					"$(AUDACITY_LIB_PREFIX)/lib-widget-extra",
@@ -1386,9 +1395,11 @@
 					"$(WX_PREFIX)/lib/wx/include/osx_cocoa-unicode-$(WX_VERSION)",
 					"$(KISSFFT_PATH)",
 					"$(KISSFFT_PATH)/tools",
+					/opt/homebrew/Cellar/wxwidgets/3.2.2.1_1/lib,
 				);
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				INSTALL_PATH = /;
-				LD_RUNPATH_SEARCH_PATHS = "";
+				LD_RUNPATH_SEARCH_PATHS = /opt/homebrew/Cellar/wxwidgets/3.2.2.1_1/lib;
 				MACH_O_TYPE = mh_dylib;
 				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -1464,6 +1475,8 @@
 					"$(AURORA_SRC_PATH)/Common/src",
 					"$(AUDACITY_SRC_PATH)",
 					"$(AUDACITY_SRC_PREFIX)/include",
+					"$(AUDACITY_LIB_PREFIX)",
+					"$(AUDACITY_LIB_PREFIX)/lib-math",
 					"$(AUDACITY_LIB_PREFIX)/lib-strings",
 					"$(AUDACITY_LIB_PREFIX)/lib-utility",
 					"$(AUDACITY_LIB_PREFIX)/lib-widget-extra",
@@ -1475,9 +1488,11 @@
 					"$(WX_PREFIX)/lib/wx/include/osx_cocoa-unicode-$(WX_VERSION)",
 					"$(KISSFFT_PATH)",
 					"$(KISSFFT_PATH)/tools",
+					/opt/homebrew/Cellar/wxwidgets/3.2.2.1_1/lib,
 				);
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				INSTALL_PATH = /;
-				LD_RUNPATH_SEARCH_PATHS = "";
+				LD_RUNPATH_SEARCH_PATHS = /opt/homebrew/Cellar/wxwidgets/3.2.2.1_1/lib;
 				MACH_O_TYPE = mh_dylib;
 				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -1555,6 +1570,8 @@
 					"$(AURORA_SRC_PATH)/Common/src",
 					"$(AUDACITY_SRC_PATH)",
 					"$(AUDACITY_SRC_PREFIX)/include",
+					"$(AUDACITY_LIB_PREFIX)",
+					"$(AUDACITY_LIB_PREFIX)/lib-math",
 					"$(AUDACITY_LIB_PREFIX)/lib-strings",
 					"$(AUDACITY_LIB_PREFIX)/lib-utility",
 					"$(AUDACITY_LIB_PREFIX)/lib-widget-extra",
@@ -1566,9 +1583,11 @@
 					"$(WX_PREFIX)/lib/wx/include/osx_cocoa-unicode-$(WX_VERSION)",
 					"$(KISSFFT_PATH)",
 					"$(KISSFFT_PATH)/tools",
+					/opt/homebrew/Cellar/wxwidgets/3.2.2.1_1/lib,
 				);
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				INSTALL_PATH = /;
-				LD_RUNPATH_SEARCH_PATHS = "";
+				LD_RUNPATH_SEARCH_PATHS = /opt/homebrew/Cellar/wxwidgets/3.2.2.1_1/lib;
 				MACH_O_TYPE = mh_dylib;
 				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
