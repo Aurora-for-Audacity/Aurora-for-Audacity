@@ -17,7 +17,3 @@ sudo ../mac/scripts/build_wxwidgets
 - WX_PREFIX from `/usr/local/x86_64/lib` to `../wxWidgets/bld_release_x86_64`
 - move `wx-config` to the right place `$(WX_PREFIX)/bin/`
 - references of `wxWidgetCocoaImpl(peer, view, false, false)` to `wxWidgetCocoaImpl(peer, view)`
-- `wxwidgets` library is in the wrong format compared to standard `brew install`. need to copy over build:
-    -  without breaking symlinks
-    -  still maintaining structure expected by paths in `.xcconfig`
-- change `AUDACITY_VERSION_STRING`

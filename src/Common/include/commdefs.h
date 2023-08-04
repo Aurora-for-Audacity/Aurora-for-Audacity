@@ -50,12 +50,15 @@
 #define PROHIBITED =delete
 #define EXPERIMENTAL_SPECTRAL_EDITING 1
 
+#include "wx/compiler.h"    /* wxCHECK_XXX_VERSION() macros */
+
+
 #ifdef _MSC_VER
-#  define AUDACITY_VERSION_STRING   "3.0.3-alpha-20210629"
-#  define AUDACITY_VERSION_wchar_t L"3.0.3-alpha-20210629"
+#  define AUDACITY_VERSION_STRING   "2.4.1"
+#  define AUDACITY_VERSION_wchar_t L"2.4.1"
 #else
-#  define AUDACITY_VERSION_STRING   "3.0.3-alpha-20210805"
-#  define AUDACITY_VERSION_wchar_t L"3.0.3-alpha-20210805"
+#  define AUDACITY_VERSION_STRING   "2.4.1"
+#  define AUDACITY_VERSION_wchar_t L"2.4.1"
 #endif
 
 // --------------------------------------------------------------------
