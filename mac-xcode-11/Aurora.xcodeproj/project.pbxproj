@@ -511,7 +511,7 @@
 		84BE07782A7D21A9005BBA38 /* AcParametersDialogs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AcParametersDialogs.h; sourceTree = "<group>"; };
 		84BE078D2A7D2200005BBA38 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		84BE078F2A7D2256005BBA38 /* kiss_fft.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = kiss_fft.c; path = "../thirdyParty/kissfft-1.31/kiss_fft.c"; sourceTree = "<group>"; };
-		84BE07912A7D22D0005BBA38 /* AuroraConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = AuroraConfig.xcconfig; path = "/Users/admin/Documents/GitHub/Aurora-for-Audacity/mac-xcode-11/AuroraConfig.xcconfig"; sourceTree = "<absolute>"; };
+		84BE07912A7D22D0005BBA38 /* AuroraConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = AuroraConfig.xcconfig; sourceTree = SOURCE_ROOT; };
 		84DED98C2A7D2B5900B57BCC /* kiss_fftndr.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = kiss_fftndr.c; path = "../thirdyParty/kissfft-1.31/tools/kiss_fftndr.c"; sourceTree = "<group>"; };
 		84DED98D2A7D2B5900B57BCC /* kiss_fftr.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = kiss_fftr.c; path = "../thirdyParty/kissfft-1.31/tools/kiss_fftr.c"; sourceTree = "<group>"; };
 		84DED9932A7D33DB00B57BCC /* libwx_osx_cocoau_release_webview-3.1.3.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_release_webview-3.1.3.0.0.dylib"; path = "../../audacity/wxWidgets/bld_release_x86_64/lib/libwx_osx_cocoau_release_webview-3.1.3.0.0.dylib"; sourceTree = "<group>"; };
@@ -537,7 +537,7 @@
 		84DED9A72A7D33DC00B57BCC /* libwx_osx_cocoau_release_qa-3.1.3.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_release_qa-3.1.3.0.0.dylib"; path = "../../audacity/wxWidgets/bld_release_x86_64/lib/libwx_osx_cocoau_release_qa-3.1.3.0.0.dylib"; sourceTree = "<group>"; };
 		84DED9A82A7D33DC00B57BCC /* libwxscintilla_release-3.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libwxscintilla_release-3.1.a"; path = "../../audacity/wxWidgets/bld_release_x86_64/lib/libwxscintilla_release-3.1.a"; sourceTree = "<group>"; };
 		84DED9A92A7D33DC00B57BCC /* libwx_osx_cocoau_release_aui-3.1.3.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_release_aui-3.1.3.0.0.dylib"; path = "../../audacity/wxWidgets/bld_release_x86_64/lib/libwx_osx_cocoau_release_aui-3.1.3.0.0.dylib"; sourceTree = "<group>"; };
-		84F056C42A7D202F0075A7AF /* libAurora.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libAurora.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		84F056C42A7D202F0075A7AF /* Aurora.so */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = Aurora.so; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1252,7 +1252,7 @@
 		84F056C52A7D202F0075A7AF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				84F056C42A7D202F0075A7AF /* libAurora.dylib */,
+				84F056C42A7D202F0075A7AF /* Aurora.so */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1386,7 +1386,7 @@
 			);
 			name = Aurora;
 			productName = Aurora;
-			productReference = 84F056C42A7D202F0075A7AF /* libAurora.dylib */;
+			productReference = 84F056C42A7D202F0075A7AF /* Aurora.so */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 /* End PBXNativeTarget section */
@@ -1624,11 +1624,16 @@
 		84F056C92A7D202F0075A7AF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = XZ388CS8AV;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_EXTENSION = so;
+				EXECUTABLE_PREFIX = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"USE_KISS_FFT=1",
@@ -1636,6 +1641,7 @@
 					"AUDACITY_HEX_VERSION=$(AUDACITY_HEX_VER)",
 					"$(inherited)",
 				);
+				GENERATE_MASTER_OBJECT_FILE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(AURORA_SRC_PATH)",
 					"$(AURORA_SRC_PATH)/Common/include",
@@ -1659,9 +1665,23 @@
 					/Users/admin/Documents/GitHub/audacity/mac/config/x86_64/src,
 					"/Users/admin/Documents/GitHub/Aurora-for-Audacity/thirdyParty/kissfft-1.31",
 				);
+				LD_RUNPATH_SEARCH_PATHS = "$(WX_PREFIX)/lib";
 				LIBRARY_SEARCH_PATHS = "$(WX_PREFIX)/lib";
 				OTHER_CFLAGS = "$(WX_CFLAGS)";
-				OTHER_LDFLAGS = "$(WX_LDFLAGS)";
+				OTHER_LDFLAGS = (
+					"-bundle_loader",
+					"$(AUDACITY_BINARY)",
+					"-fPIC",
+					"-undefined",
+					dynamic_lookup,
+					"-lwx_osx_cocoau_html-3.2",
+					"-lwx_osx_cocoau_adv-3.2",
+					"-lwx_osx_cocoau_core-3.2",
+					"-lwx_osx_cocoau_xml-3.2",
+					"-lwx_osx_cocoau_net-3.2",
+					"-lwx_baseu-3.2",
+					"$(WX_LDFLAGS)",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -1670,11 +1690,17 @@
 		84F056CA2A7D202F0075A7AF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = XZ388CS8AV;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_EXTENSION = so;
+				EXECUTABLE_PREFIX = "";
+				GENERATE_MASTER_OBJECT_FILE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(AURORA_SRC_PATH)",
 					"$(AURORA_SRC_PATH)/Common/include",
@@ -1698,9 +1724,23 @@
 					/Users/admin/Documents/GitHub/audacity/mac/config/x86_64/src,
 					"/Users/admin/Documents/GitHub/Aurora-for-Audacity/thirdyParty/kissfft-1.31",
 				);
+				LD_RUNPATH_SEARCH_PATHS = "$(WX_PREFIX)/lib";
 				LIBRARY_SEARCH_PATHS = "$(WX_PREFIX)/lib";
 				OTHER_CFLAGS = "$(WX_CFLAGS)";
-				OTHER_LDFLAGS = "$(WX_LDFLAGS)";
+				OTHER_LDFLAGS = (
+					"-bundle_loader",
+					"$(AUDACITY_BINARY)",
+					"-fPIC",
+					"-undefined",
+					dynamic_lookup,
+					"-lwx_osx_cocoau_html-3.2",
+					"-lwx_osx_cocoau_adv-3.2",
+					"-lwx_osx_cocoau_core-3.2",
+					"-lwx_osx_cocoau_xml-3.2",
+					"-lwx_osx_cocoau_net-3.2",
+					"-lwx_baseu-3.2",
+					"$(WX_LDFLAGS)",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
