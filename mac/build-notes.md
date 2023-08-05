@@ -5,12 +5,11 @@
 Starting from the root of this repo, the steps to build audacity@2.4.1 were
 
 ```sh
-cd ./audacity
-git clone --recurse-submodules https://github.com/audacity/wxWidgets.git
-sudo ../mac/scripts/build_wxwidgets
+cd ./wxWidgets
+sudo ../audacity/mac/scripts/build_wxwidgets
 ```
 
-- Two paths required addition to the XCode project. 
+- Two paths required addition to the XCode project
     - `../wxWidgets/include` 
     - `../wxWidgets/bld_release_x86_64/lib/wx/include/osx_cocoa-unicode-3.1-release`
     OR
@@ -40,6 +39,8 @@ WX_CFLAGS = -I$(WX_PREFIX)/bld_$(WX_FLAVOR)_x86_64/lib/wx/include/osx_cocoa-unic
 WX_CXXFLAGS = $(WX_CFLAGS)
 
 WX_LDFLAGS = -L$(WX_PREFIX)/bld_$(WX_FLAVOR)_x86_64/lib -lwx_osx_cocoau_$(WX_FLAVOR)_xrc-$(WX_FULL_VER) -lwx_osx_cocoau_$(WX_FLAVOR)_html-$(WX_FULL_VER) -lwx_osx_cocoau_$(WX_FLAVOR)_qa-$(WX_FULL_VER) -lwx_osx_cocoau_$(WX_FLAVOR)_adv-$(WX_FULL_VER) -lwx_osx_cocoau_$(WX_FLAVOR)_core-$(WX_FULL_VER) -lwx_baseu_$(WX_FLAVOR)_xml-$(WX_FULL_VER) -lwx_baseu_$(WX_FLAVOR)_net-$(WX_FULL_VER) -lwx_baseu_$(WX_FLAVOR)-$(WX_FULL_VER)
+
+HEADER_SEARCH_PATHS =$(WX_PREFIX)/include $(WX_PREFIX)/bld_$(WX_FLAVOUR)_x86_64/lib/wx/include/osx_cocoa-unicode-$(WX_VER)-$(WX_FLAVOUR)
 ```
 
 ### WX Structure
