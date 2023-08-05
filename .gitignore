@@ -1,6 +1,7 @@
 *.DS_Store
 *xcuserdata/*
 */DerivedData/*
-*/xcuserdata/*
+*xcuserdata*
 mac/Build/*
-*/xcshareddata/*
+*xcshareddata*
+*.DS_Store*
