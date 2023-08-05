@@ -3,7 +3,7 @@
 	url = https://github.com/audacity/audacity.git
 [submodule "wxWidgets"]
 	path = wxWidgets
-	url = https://github.com/wxWidgets/wxWidgets.git
+	url = https://github.com/audacity/wxWidgets.git
 [submodule "kissfft"]
 	path = kissfft
 	url = https://github.com/mborgerding/kissfft.git
