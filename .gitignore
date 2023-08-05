@@ -2,7 +2,5 @@
 *xcuserdata/*
 */DerivedData/*
 */xcuserdata/*
-mac/Aurora.xcodeproj/project.xcworkspace/xcuserdata/mhamilt.xcuserdatad/UserInterfaceState.xcuserstate
-mac/Aurora.xcodeproj/project.xcworkspace/xcuserdata/simone.xcuserdatad/UserInterfaceState (Simone Campanini's conflicted copy 2013-09-09).xcuserstate
-mac/Aurora.xcodeproj/project.xcworkspace/xcuserdata/simone.xcuserdatad/UserInterfaceState.xcuserstate
-mac/Build/
+mac/Build/*
+*/xcshareddata/*
