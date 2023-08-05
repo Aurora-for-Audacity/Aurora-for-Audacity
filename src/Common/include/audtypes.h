@@ -20,7 +20,7 @@
 
    // from Audacity
    //#include <Audacity.h>
-   #include <TranslatableString.h>
+//   #include <TranslatableString.h>
    #include <SampleFormat.h>
    #include <Sequence.h>
 

@@ -29,7 +29,7 @@
 
 // From Audacity source tree
 #include <ModuleManager.h>
-#include <ModuleConstants.h>
+//#include <ModuleConstants.h>
 
 /*
     NOTE: plugin configurations goes to

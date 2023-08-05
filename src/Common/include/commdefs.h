@@ -54,11 +54,11 @@
 
 
 #ifdef _MSC_VER
-#  define AUDACITY_VERSION_STRING   "2.4.1"
-#  define AUDACITY_VERSION_wchar_t L"2.4.1"
+#  define AUDACITY_VERSION_STRING   "2.4.0"
+#  define AUDACITY_VERSION_wchar_t L"2.4.0"
 #else
-#  define AUDACITY_VERSION_STRING   "2.4.1"
-#  define AUDACITY_VERSION_wchar_t L"2.4.1"
+#  define AUDACITY_VERSION_STRING   "2.4.0"
+#  define AUDACITY_VERSION_wchar_t L"2.4.0"
 #endif
 
 // --------------------------------------------------------------------

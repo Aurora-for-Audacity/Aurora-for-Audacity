@@ -18,17 +18,17 @@ void Aurora::RulerBar::SetCustomMajorLabels(const TranslatableStrings &labels,
                                             int step)
 {
     SetCustomMode( true );
-    mpCache = std::make_unique<Cache>();
-    auto &cache = *mpCache;
-    auto &mMajorLabels = cache.mMajorLabels;
-
-    const auto numLabel = labels.size();
-    mMajorLabels.resize( numLabel );
-
-    for(size_t i = 0; i<numLabel; i++) {
-       mMajorLabels[i].text = labels[i];
-       mMajorLabels[i].pos  = start + i*step;
-    }
+//    mpCache = std::make_unique<Cache>();
+//    auto &cache = *mpCache;
+//    auto &mMajorLabels = cache.mMajorLabels;
+//
+//    const auto numLabel = labels.size();
+//    mMajorLabels.resize( numLabel );
+//
+//    for(size_t i = 0; i<numLabel; i++) {
+//       mMajorLabels[i].text = labels[i];
+//       mMajorLabels[i].pos  = start + i*step;
+//    }
 }
 
 void Aurora::RulerBar::SetCustomMinorLabels(const TranslatableStrings &labels,
@@ -36,17 +36,17 @@ void Aurora::RulerBar::SetCustomMinorLabels(const TranslatableStrings &labels,
                                             int step)
 {
     SetCustomMode( true );
-    mpCache = std::make_unique<Cache>();
-    auto &cache = *mpCache;
-    auto &mMinorLabels = cache.mMinorLabels;
-
-    const auto numLabel = labels.size();
-    mMinorLabels.resize( numLabel );
-
-    for(size_t i = 0; i<numLabel; i++) {
-       mMinorLabels[i].text = labels[i];
-       mMinorLabels[i].pos  = start + i*step;
-    }
+//    mpCache = std::make_unique<Cache>();
+//    auto &cache = *mpCache;
+//    auto &mMinorLabels = cache.mMinorLabels;
+//
+//    const auto numLabel = labels.size();
+//    mMinorLabels.resize( numLabel );
+//
+//    for(size_t i = 0; i<numLabel; i++) {
+//       mMinorLabels[i].text = labels[i];
+//       mMinorLabels[i].pos  = start + i*step;
+//    }
 }
 
 //----------------------------------------------------------------------------
