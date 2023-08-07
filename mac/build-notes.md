@@ -4,8 +4,11 @@
 
 Starting from the root of this repo, the steps to build audacity@2.4.1 were
 
+The `Aurora-for-Audacity` repo will need to cloned with `--recurse-submodules`
+
 ```sh
-cd ./wxWidgets
+git clone --recurse-submodules https://github.com/Aurora-for-Audacity/Aurora-for-Audacity.git
+cd Aurora-for-Audacity/wxWidgets
 sudo ../audacity/mac/scripts/build_wxwidgets
 ```
 
