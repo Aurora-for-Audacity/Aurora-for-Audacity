@@ -223,6 +223,9 @@
 		841CF5142A7D9F6600255430 /* libwx_osx_cocoau_ribbon-3.1.3.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_ribbon-3.1.3.0.0.dylib"; path = "../../../../../../usr/local/Cellar/wxwidgets/3.1.3.0_0/lib/libwx_osx_cocoau_ribbon-3.1.3.0.0.dylib"; sourceTree = "<group>"; };
 		841CF5152A7D9F6600255430 /* libwx_baseu_xml-3.1.3.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_baseu_xml-3.1.3.0.0.dylib"; path = "../../../../../../usr/local/Cellar/wxwidgets/3.1.3.0_0/lib/libwx_baseu_xml-3.1.3.0.0.dylib"; sourceTree = "<group>"; };
 		841CF5162A7D9F6600255430 /* libwx_osx_cocoau_xrc-3.1.3.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_xrc-3.1.3.0.0.dylib"; path = "../../../../../../usr/local/Cellar/wxwidgets/3.1.3.0_0/lib/libwx_osx_cocoau_xrc-3.1.3.0.0.dylib"; sourceTree = "<group>"; };
+		8428AEF32A7EDF830020EB30 /* NyqBench.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = NyqBench.cpp; path = "../../audacity/lib-src/mod-nyq-bench/NyqBench.cpp"; sourceTree = "<group>"; };
+		8428AEF42A7EDF830020EB30 /* NyqBench.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NyqBench.h; path = "../../audacity/lib-src/mod-nyq-bench/NyqBench.h"; sourceTree = "<group>"; };
+		8437640D2A811D010029E267 /* path_update.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = path_update.sh; sourceTree = "<group>"; };
 		84BE05712A7D209D005BBA38 /* embed_bin2c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = embed_bin2c; sourceTree = "<group>"; };
 		84BE05722A7D209D005BBA38 /* logo_datas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = logo_datas; sourceTree = "<group>"; };
 		84BE05742A7D209D005BBA38 /* arw_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arw_right.png; sourceTree = "<group>"; };
@@ -542,10 +545,10 @@
 		84BE07772A7D21A9005BBA38 /* AcParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AcParameters.h; sourceTree = "<group>"; };
 		84BE07782A7D21A9005BBA38 /* AcParametersDialogs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AcParametersDialogs.h; sourceTree = "<group>"; };
 		84BE078D2A7D2200005BBA38 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
-		84BE078F2A7D2256005BBA38 /* kiss_fft.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = kiss_fft.c; path = "../thirdyParty/kissfft-1.31/kiss_fft.c"; sourceTree = "<group>"; };
+		84BE078F2A7D2256005BBA38 /* kiss_fft.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = kiss_fft.c; path = ../kissfft/kiss_fft.c; sourceTree = "<group>"; };
 		84BE07912A7D22D0005BBA38 /* AuroraConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = AuroraConfig.xcconfig; sourceTree = SOURCE_ROOT; };
-		84DED98C2A7D2B5900B57BCC /* kiss_fftndr.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = kiss_fftndr.c; path = "../thirdyParty/kissfft-1.31/tools/kiss_fftndr.c"; sourceTree = "<group>"; };
-		84DED98D2A7D2B5900B57BCC /* kiss_fftr.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = kiss_fftr.c; path = "../thirdyParty/kissfft-1.31/tools/kiss_fftr.c"; sourceTree = "<group>"; };
+		84DED98C2A7D2B5900B57BCC /* kiss_fftndr.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = kiss_fftndr.c; path = ../kissfft/kiss_fftndr.c; sourceTree = "<group>"; };
+		84DED98D2A7D2B5900B57BCC /* kiss_fftr.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = kiss_fftr.c; path = ../kissfft/kiss_fftr.c; sourceTree = "<group>"; };
 		84DED9932A7D33DB00B57BCC /* libwx_osx_cocoau_release_webview-3.1.3.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_release_webview-3.1.3.0.0.dylib"; path = "../../audacity/wxWidgets/bld_release_x86_64/lib/libwx_osx_cocoau_release_webview-3.1.3.0.0.dylib"; sourceTree = "<group>"; };
 		84DED9942A7D33DB00B57BCC /* libwx_osx_cocoau_release_xrc-3.1.3.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_release_xrc-3.1.3.0.0.dylib"; path = "../../audacity/wxWidgets/bld_release_x86_64/lib/libwx_osx_cocoau_release_xrc-3.1.3.0.0.dylib"; sourceTree = "<group>"; };
 		84DED9952A7D33DB00B57BCC /* libwx_osx_cocoau_release_html-3.1.3.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_release_html-3.1.3.0.0.dylib"; path = "../../audacity/wxWidgets/bld_release_x86_64/lib/libwx_osx_cocoau_release_html-3.1.3.0.0.dylib"; sourceTree = "<group>"; };
@@ -584,6 +587,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8428AEF22A7EDF680020EB30 /* mod-nyq-bench */ = {
+			isa = PBXGroup;
+			children = (
+				8428AEF32A7EDF830020EB30 /* NyqBench.cpp */,
+				8428AEF42A7EDF830020EB30 /* NyqBench.h */,
+			);
+			name = "mod-nyq-bench";
+			sourceTree = "<group>";
+		};
+		8437640C2A811CE70029E267 /* scripts */ = {
+			isa = PBXGroup;
+			children = (
+				8437640D2A811D010029E267 /* path_update.sh */,
+			);
+			path = scripts;
+			sourceTree = "<group>";
+		};
 		84BE056F2A7D209D005BBA38 /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -692,6 +712,8 @@
 		84BE05A62A7D209D005BBA38 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				84BE05CD2A7D209D005BBA38 /* AuroraModule.h */,
+				84BE05AE2A7D209D005BBA38 /* AuroraModule.cpp */,
 				84BE05A72A7D209D005BBA38 /* afspectrum.cpp */,
 				84BE05A82A7D209D005BBA38 /* afaxis.h */,
 				84BE05A92A7D209D005BBA38 /* afscope.h */,
@@ -699,7 +721,6 @@
 				84BE05AB2A7D209D005BBA38 /* sigwin.cpp */,
 				84BE05AC2A7D209D005BBA38 /* octfir.cpp */,
 				84BE05AD2A7D209D005BBA38 /* afplot.h */,
-				84BE05AE2A7D209D005BBA38 /* AuroraModule.cpp */,
 				84BE05AF2A7D209D005BBA38 /* afexports.h */,
 				84BE05B02A7D209D005BBA38 /* arrows.h */,
 				84BE05B12A7D209D005BBA38 /* afvector.h */,
@@ -730,7 +751,6 @@
 				84BE05CA2A7D209D005BBA38 /* afcomplex.cpp */,
 				84BE05CB2A7D209D005BBA38 /* component.h */,
 				84BE05CC2A7D209D005BBA38 /* afconfig.h */,
-				84BE05CD2A7D209D005BBA38 /* AuroraModule.h */,
 				84BE05CE2A7D209D005BBA38 /* iir-taps.cpp */,
 				84BE05CF2A7D209D005BBA38 /* SConscript */,
 				84BE05D02A7D209D005BBA38 /* afaxis.cpp */,
@@ -996,15 +1016,15 @@
 			isa = PBXGroup;
 			children = (
 				84BE06662A7D209E005BBA38 /* SineSweepVersion.h */,
-				84BE06672A7D209E005BBA38 /* SineSweepUi.h */,
+				84BE066D2A7D209E005BBA38 /* SineSweepGenerator.h */,
+				84BE066A2A7D209E005BBA38 /* SineSweepGenerator.cpp */,
+				84BE066F2A7D209E005BBA38 /* SineSweepEffect.h */,
+				84BE066C2A7D209E005BBA38 /* SineSweepEffect.cpp */,
 				84BE06682A7D209E005BBA38 /* SineSweepDialogs.h */,
 				84BE06692A7D209E005BBA38 /* SineSweepDialogs.cpp */,
-				84BE066A2A7D209E005BBA38 /* SineSweepGenerator.cpp */,
+				84BE06672A7D209E005BBA38 /* SineSweepUi.h */,
 				84BE066B2A7D209E005BBA38 /* SineSweepUi.cpp */,
-				84BE066C2A7D209E005BBA38 /* SineSweepEffect.cpp */,
-				84BE066D2A7D209E005BBA38 /* SineSweepGenerator.h */,
 				84BE066E2A7D209E005BBA38 /* SConscript */,
-				84BE066F2A7D209E005BBA38 /* SineSweepEffect.h */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -1297,6 +1317,8 @@
 		84F056BB2A7D202F0075A7AF = {
 			isa = PBXGroup;
 			children = (
+				8437640C2A811CE70029E267 /* scripts */,
+				8428AEF22A7EDF680020EB30 /* mod-nyq-bench */,
 				84BE07912A7D22D0005BBA38 /* AuroraConfig.xcconfig */,
 				84BE07602A7D21A9005BBA38 /* AcParameters */,
 				84BE07472A7D20C7005BBA38 /* Audacity */,
@@ -1443,6 +1465,7 @@
 				84F056C02A7D202F0075A7AF /* Headers */,
 				84F056C12A7D202F0075A7AF /* Sources */,
 				84F056C22A7D202F0075A7AF /* Frameworks */,
+				8428AEF92A7EE27E0020EB30 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1485,6 +1508,26 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		8428AEF92A7EE27E0020EB30 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ ! -d \"${AUDACITY_MODULES_PATH}\" ]\nthen\n    mkdir \"${AUDACITY_MODULES_PATH}\"\n    echo \"warning: ${AUDACITY_MODULES_PATH}\"\nfi\n\nrm \"${AUDACITY_MODULES_PATH}/Aurora.so\"\ncp \"${TARGET_BUILD_DIR}/Aurora.so\" \"${AUDACITY_MODULES_PATH}/Aurora.so\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		84F056C12A7D202F0075A7AF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -1493,81 +1536,81 @@
 				84DED98E2A7D2B5A00B57BCC /* kiss_fftndr.c in Sources */,
 				84DED98F2A7D2B5A00B57BCC /* kiss_fftr.c in Sources */,
 				84BE07902A7D2256005BBA38 /* kiss_fft.c in Sources */,
-				84BE07342A7D209F005BBA38 /* StiData.cpp in Sources */,
+				84BE07842A7D21A9005BBA38 /* AcParametersData.cpp in Sources */,
+				84BE07852A7D21A9005BBA38 /* AcParametersBase.cpp in Sources */,
+				84BE07872A7D21A9005BBA38 /* AcParametersPlot.cpp in Sources */,
+				84BE077E2A7D21A9005BBA38 /* AcParametersTrack.cpp in Sources */,
+				84BE07882A7D21A9005BBA38 /* AcParametersExports.cpp in Sources */,
+				84BE07792A7D21A9005BBA38 /* AcParametersEffect.cpp in Sources */,
+				84BE077C2A7D21A9005BBA38 /* AcParametersUi.cpp in Sources */,
+				84BE07812A7D21A9005BBA38 /* AcParametersDialogs.cpp in Sources */,
 				84BE06D22A7D209E005BBA38 /* gtprogind.cpp in Sources */,
 				84BE06C82A7D209E005BBA38 /* afconfig.cpp in Sources */,
-				84BE073B2A7D209F005BBA38 /* StiEffect.cpp in Sources */,
 				84BE06BB2A7D209E005BBA38 /* sigwin.cpp in Sources */,
 				84BE06C52A7D209E005BBA38 /* component.cpp in Sources */,
-				84BE07022A7D209E005BBA38 /* XFunctionsExports.cpp in Sources */,
-				84BE06DE2A7D209E005BBA38 /* iir-taps.cpp in Sources */,
-				84BE07382A7D209F005BBA38 /* StiTrack.cpp in Sources */,
-				84BE06EB2A7D209E005BBA38 /* multivolver.cpp in Sources */,
-				84BE06EC2A7D209E005BBA38 /* AuroraConvolver.cpp in Sources */,
-				84BE07842A7D21A9005BBA38 /* AcParametersData.cpp in Sources */,
-				84BE07392A7D209F005BBA38 /* StiPlot.cpp in Sources */,
-				84BE06F42A7D209E005BBA38 /* ConvolverUi.cpp in Sources */,
-				84BE06ED2A7D209E005BBA38 /* convolver.cpp in Sources */,
-				84BE06C42A7D209E005BBA38 /* octfilt.cpp in Sources */,
-				84BE07142A7D209E005BBA38 /* SineSweepEffect.cpp in Sources */,
-				84BE07192A7D209E005BBA38 /* ThAnalyzerExports.cpp in Sources */,
-				84BE07122A7D209E005BBA38 /* SineSweepGenerator.cpp in Sources */,
-				84BE06E12A7D209E005BBA38 /* gpfuncts.cpp in Sources */,
-				84BE071C2A7D209F005BBA38 /* ThAnalyzerPlot.cpp in Sources */,
-				84BE06CB2A7D209E005BBA38 /* afaudio.cpp in Sources */,
-				84BE06F72A7D209E005BBA38 /* ConvolverPlot.cpp in Sources */,
-				84BE06D32A7D209E005BBA38 /* mroctbd.cpp in Sources */,
-				84BE071F2A7D209F005BBA38 /* ThAnalyzerDialogs.cpp in Sources */,
-				84BE072B2A7D209F005BBA38 /* Sti.cpp in Sources */,
-				84BE07132A7D209E005BBA38 /* SineSweepUi.cpp in Sources */,
-				84BE07322A7D209F005BBA38 /* StiSpectrum.cpp in Sources */,
-				84BE07442A7D209F005BBA38 /* KirkebyDialogs.cpp in Sources */,
-				84BE06BC2A7D209E005BBA38 /* octfir.cpp in Sources */,
-				84BE06D12A7D209E005BBA38 /* fir-taps.cpp in Sources */,
-				84BE07092A7D209E005BBA38 /* XFunctionsDialogs.cpp in Sources */,
-				84BE07262A7D209F005BBA38 /* ThAnalyzerData.cpp in Sources */,
-				84BE07852A7D21A9005BBA38 /* AcParametersBase.cpp in Sources */,
-				84BE06F52A7D209E005BBA38 /* TrackProperties.cpp in Sources */,
-				84BE070D2A7D209E005BBA38 /* correlator.cpp in Sources */,
-				84BE06F22A7D209E005BBA38 /* ConvolverEffect.cpp in Sources */,
-				84BE07302A7D209F005BBA38 /* StiUi.cpp in Sources */,
 				84BE06D42A7D209E005BBA38 /* afscope.cpp in Sources */,
-				84BE07112A7D209E005BBA38 /* SineSweepDialogs.cpp in Sources */,
-				84BE07172A7D209E005BBA38 /* ThAnalyzerTrack.cpp in Sources */,
 				84BE06CC2A7D209E005BBA38 /* afvector.cpp in Sources */,
 				84BE06DA2A7D209E005BBA38 /* afcomplex.cpp in Sources */,
 				84BE06DF2A7D209E005BBA38 /* afaxis.cpp in Sources */,
 				84BE06E52A7D209E005BBA38 /* afart.cpp in Sources */,
-				84BE07182A7D209E005BBA38 /* TimeHistoryAnalyzer.cpp in Sources */,
 				84BE06D72A7D209E005BBA38 /* afexports.cpp in Sources */,
 				84BE06E62A7D209E005BBA38 /* afplot.cpp in Sources */,
 				84BE06D52A7D209E005BBA38 /* firwin.cpp in Sources */,
 				84BE06D02A7D209E005BBA38 /* affilter.cpp in Sources */,
 				84BE06C62A7D209E005BBA38 /* afcharts.cpp in Sources */,
-				84BE07872A7D21A9005BBA38 /* AcParametersPlot.cpp in Sources */,
-				84BE07422A7D209F005BBA38 /* KirkebyUi.cpp in Sources */,
-				84BE077E2A7D21A9005BBA38 /* AcParametersTrack.cpp in Sources */,
+				84BE06DE2A7D209E005BBA38 /* iir-taps.cpp in Sources */,
 				84BE06E42A7D209E005BBA38 /* build_count.cpp in Sources */,
-				84BE06EE2A7D209E005BBA38 /* ConvolverDialogs.cpp in Sources */,
-				84BE07292A7D209F005BBA38 /* StiExports.cpp in Sources */,
 				84BE06BE2A7D209E005BBA38 /* AuroraModule.cpp in Sources */,
-				84BE07052A7D209E005BBA38 /* XFunctionsArt.cpp in Sources */,
-				84BE07812A7D21A9005BBA38 /* AcParametersDialogs.cpp in Sources */,
-				84BE073D2A7D209F005BBA38 /* KirkebyBase.cpp in Sources */,
 				84BE06B72A7D209E005BBA38 /* afspectrum.cpp in Sources */,
-				84BE070A2A7D209E005BBA38 /* XFunctionsUi.cpp in Sources */,
-				84BE07882A7D21A9005BBA38 /* AcParametersExports.cpp in Sources */,
-				84BE07792A7D21A9005BBA38 /* AcParametersEffect.cpp in Sources */,
 				84BE06D82A7D209E005BBA38 /* afdataplot.cpp in Sources */,
-				84BE070B2A7D209E005BBA38 /* XFunctionsEffect.cpp in Sources */,
-				84BE07312A7D209F005BBA38 /* StiSpectrumDialog.cpp in Sources */,
-				84BE07242A7D209F005BBA38 /* ThAnalyzerEffect.cpp in Sources */,
-				84BE077C2A7D21A9005BBA38 /* AcParametersUi.cpp in Sources */,
-				84BE071D2A7D209F005BBA38 /* ThAnalyzerUi.cpp in Sources */,
-				84BE07002A7D209E005BBA38 /* XFunctionsData.cpp in Sources */,
-				84BE07362A7D209F005BBA38 /* StiDialogs.cpp in Sources */,
-				84BE06FF2A7D209E005BBA38 /* XFunctionsPlot.cpp in Sources */,
+				84BE06E12A7D209E005BBA38 /* gpfuncts.cpp in Sources */,
+				84BE06CB2A7D209E005BBA38 /* afaudio.cpp in Sources */,
+				84BE06D32A7D209E005BBA38 /* mroctbd.cpp in Sources */,
+				84BE06C42A7D209E005BBA38 /* octfilt.cpp in Sources */,
+				84BE06BC2A7D209E005BBA38 /* octfir.cpp in Sources */,
+				84BE06D12A7D209E005BBA38 /* fir-taps.cpp in Sources */,
+				84BE06EB2A7D209E005BBA38 /* multivolver.cpp in Sources */,
+				84BE06EC2A7D209E005BBA38 /* AuroraConvolver.cpp in Sources */,
+				84BE06F42A7D209E005BBA38 /* ConvolverUi.cpp in Sources */,
+				84BE06ED2A7D209E005BBA38 /* convolver.cpp in Sources */,
+				84BE06F72A7D209E005BBA38 /* ConvolverPlot.cpp in Sources */,
+				84BE06F22A7D209E005BBA38 /* ConvolverEffect.cpp in Sources */,
+				84BE06EE2A7D209E005BBA38 /* ConvolverDialogs.cpp in Sources */,
+				84BE06F52A7D209E005BBA38 /* TrackProperties.cpp in Sources */,
+				84BE07442A7D209F005BBA38 /* KirkebyDialogs.cpp in Sources */,
+				84BE07422A7D209F005BBA38 /* KirkebyUi.cpp in Sources */,
+				84BE073D2A7D209F005BBA38 /* KirkebyBase.cpp in Sources */,
 				84BE07412A7D209F005BBA38 /* KirkebyEffect.cpp in Sources */,
+				84BE07142A7D209E005BBA38 /* SineSweepEffect.cpp in Sources */,
+				84BE07122A7D209E005BBA38 /* SineSweepGenerator.cpp in Sources */,
+				84BE07132A7D209E005BBA38 /* SineSweepUi.cpp in Sources */,
+				84BE07112A7D209E005BBA38 /* SineSweepDialogs.cpp in Sources */,
+				84BE07342A7D209F005BBA38 /* StiData.cpp in Sources */,
+				84BE073B2A7D209F005BBA38 /* StiEffect.cpp in Sources */,
+				84BE07382A7D209F005BBA38 /* StiTrack.cpp in Sources */,
+				84BE07392A7D209F005BBA38 /* StiPlot.cpp in Sources */,
+				84BE072B2A7D209F005BBA38 /* Sti.cpp in Sources */,
+				84BE07322A7D209F005BBA38 /* StiSpectrum.cpp in Sources */,
+				84BE07302A7D209F005BBA38 /* StiUi.cpp in Sources */,
+				84BE07292A7D209F005BBA38 /* StiExports.cpp in Sources */,
+				84BE07312A7D209F005BBA38 /* StiSpectrumDialog.cpp in Sources */,
+				84BE07362A7D209F005BBA38 /* StiDialogs.cpp in Sources */,
+				84BE07192A7D209E005BBA38 /* ThAnalyzerExports.cpp in Sources */,
+				84BE071C2A7D209F005BBA38 /* ThAnalyzerPlot.cpp in Sources */,
+				84BE071F2A7D209F005BBA38 /* ThAnalyzerDialogs.cpp in Sources */,
+				84BE07262A7D209F005BBA38 /* ThAnalyzerData.cpp in Sources */,
+				84BE07172A7D209E005BBA38 /* ThAnalyzerTrack.cpp in Sources */,
+				84BE07182A7D209E005BBA38 /* TimeHistoryAnalyzer.cpp in Sources */,
+				84BE07242A7D209F005BBA38 /* ThAnalyzerEffect.cpp in Sources */,
+				84BE071D2A7D209F005BBA38 /* ThAnalyzerUi.cpp in Sources */,
+				84BE07092A7D209E005BBA38 /* XFunctionsDialogs.cpp in Sources */,
+				84BE070D2A7D209E005BBA38 /* correlator.cpp in Sources */,
+				84BE07052A7D209E005BBA38 /* XFunctionsArt.cpp in Sources */,
+				84BE070A2A7D209E005BBA38 /* XFunctionsUi.cpp in Sources */,
+				84BE070B2A7D209E005BBA38 /* XFunctionsEffect.cpp in Sources */,
+				84BE06FF2A7D209E005BBA38 /* XFunctionsPlot.cpp in Sources */,
+				84BE07002A7D209E005BBA38 /* XFunctionsData.cpp in Sources */,
+				84BE07022A7D209E005BBA38 /* XFunctionsExports.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1688,115 +1731,79 @@
 		84F056C92A7D202F0075A7AF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_ENTITLEMENTS = "/Users/admin/Documents/GitHub/Aurora-for-Audacity/audacity/mac/Audacity.entitlements";
 				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
-				DEAD_CODE_STRIPPING = YES;
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = "";
 				DYLIB_CURRENT_VERSION = "";
+				ENABLE_HARDENED_RUNTIME = YES;
 				EXECUTABLE_EXTENSION = so;
 				EXECUTABLE_PREFIX = "";
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"USE_KISS_FFT=1",
 					"BUILDING_FOR_AURORA=1",
 					"AUDACITY_HEX_VERSION=$(AUDACITY_HEX_VER)",
 					"$(inherited)",
+					"AUDACITY_VERSION_STRING=$(AUDACITY_MAJOR_VER).$(AUDACITY_MINOR_VER).$(AUDACITY_MINOR_MINOR_VER)",
+					CC_HASVISIBILITY,
 				);
 				GENERATE_MASTER_OBJECT_FILE = YES;
-				HEADER_SEARCH_PATHS = (
-					"$(AURORA_SRC_PATH)",
-					"$(AURORA_SRC_PATH)/Common/include",
-					"$(AURORA_SRC_PATH)/Common/src",
-					"$(AUDACITY_SRC_PATH)",
-					"$(AUDACITY_SRC_PREFIX)/include",
-					"$(AUDACITY_LIB_PREFIX)",
-					"$(AUDACITY_LIB_PREFIX)/lib-math",
-					"$(AUDACITY_LIB_PREFIX)/lib-strings",
-					"$(AUDACITY_LIB_PREFIX)/lib-utility",
-					"$(AUDACITY_LIB_PREFIX)/lib-widget-extra",
-					"$(AUDACITY_LIB_PREFIX)/portsmf",
-					"$(AUDACITY_LIB_PREFIX)/portmixer/include",
-					"$(AUDACITY_LIB_PREFIX)/portaudio-v19/include",
-					"$(WX_PREFIX)/include",
-					"$(WX_PREFIX)/lib/wx/include/osx_cocoa-unicode-$(WX_VERSION)",
-					"$(KISSFFT_PATH)",
-					"$(KISSFFT_PATH)/tools",
-					"$(AUDACITY_SRC_PREFIX)/mac",
-					"$(AUDACITY_SRC_PREFIX)/mac/config/x86_64/src",
-				);
-				LD_RUNPATH_SEARCH_PATHS = "$(WX_PREFIX)/lib";
-				LIBRARY_SEARCH_PATHS = (
-					"$(WX_PREFIX)/lib",
-					/usr/local/Cellar/wxwidgets/3.1.3.0_0/lib,
-				);
+				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "-traditional";
+				INFOPLIST_PREFIX_HEADER = build/Info.plist.h;
+				INFOPLIST_PREPROCESS = YES;
+				INSTALL_PATH = /modules;
 				MACH_O_TYPE = mh_dylib;
 				OTHER_CFLAGS = "$(WX_CFLAGS)";
 				OTHER_LDFLAGS = (
 					"-flat_namespace",
 					"-undefined",
 					suppress,
-					"-headerpad_max_install_names",
 					"$(WX_LDFLAGS)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
+				SKIP_INSTALL = NO;
 			};
 			name = Debug;
 		};
 		84F056CA2A7D202F0075A7AF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_ENTITLEMENTS = "/Users/admin/Documents/GitHub/Aurora-for-Audacity/audacity/mac/Audacity.entitlements";
 				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
-				DEAD_CODE_STRIPPING = YES;
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = "";
 				DYLIB_CURRENT_VERSION = "";
+				ENABLE_HARDENED_RUNTIME = YES;
 				EXECUTABLE_EXTENSION = so;
 				EXECUTABLE_PREFIX = "";
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GENERATE_MASTER_OBJECT_FILE = YES;
-				HEADER_SEARCH_PATHS = (
-					"$(AURORA_SRC_PATH)",
-					"$(AURORA_SRC_PATH)/Common/include",
-					"$(AURORA_SRC_PATH)/Common/src",
-					"$(AUDACITY_SRC_PATH)",
-					"$(AUDACITY_SRC_PREFIX)/include",
-					"$(AUDACITY_LIB_PREFIX)",
-					"$(AUDACITY_LIB_PREFIX)/lib-math",
-					"$(AUDACITY_LIB_PREFIX)/lib-strings",
-					"$(AUDACITY_LIB_PREFIX)/lib-utility",
-					"$(AUDACITY_LIB_PREFIX)/lib-widget-extra",
-					"$(AUDACITY_LIB_PREFIX)/portsmf",
-					"$(AUDACITY_LIB_PREFIX)/portmixer/include",
-					"$(AUDACITY_LIB_PREFIX)/portaudio-v19/include",
-					"$(WX_PREFIX)/include",
-					"$(WX_PREFIX)/lib/wx/include/osx_cocoa-unicode-$(WX_VERSION)",
-					"$(KISSFFT_PATH)",
-					"$(KISSFFT_PATH)/tools",
-					"$(AUDACITY_SRC_PREFIX)/mac",
-					"$(AUDACITY_SRC_PREFIX)/mac/config/x86_64/src",
-				);
-				LD_RUNPATH_SEARCH_PATHS = "$(WX_PREFIX)/lib";
-				LIBRARY_SEARCH_PATHS = (
-					"$(WX_PREFIX)/lib",
-					/usr/local/Cellar/wxwidgets/3.1.3.0_0/lib,
-				);
+				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "-traditional";
+				INFOPLIST_PREFIX_HEADER = build/Info.plist.h;
+				INFOPLIST_PREPROCESS = YES;
+				INSTALL_PATH = /modules;
 				MACH_O_TYPE = mh_dylib;
 				OTHER_CFLAGS = "$(WX_CFLAGS)";
 				OTHER_LDFLAGS = (
 					"-flat_namespace",
 					"-undefined",
 					suppress,
-					"-headerpad_max_install_names",
 					"$(WX_LDFLAGS)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
+				SKIP_INSTALL = NO;
 			};
 			name = Release;
 		};
