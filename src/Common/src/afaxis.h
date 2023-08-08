@@ -311,12 +311,7 @@ namespace Aurora
         struct
         {
 
-#if AUDACITY_HEX_VERSION < 0x020400
-            wxArrayString aLabels;
-        	int  nCount = 0;
-#else
             TranslatableStrings aLabels;
-#endif
             int  nStart = 0;
             int  nStep = 0;
          } m_Categories;
@@ -343,11 +338,7 @@ namespace Aurora
         void AddCategories(const wxArrayString& aCat);
 
         /// Get the number of stored categories
-#if AUDACITY_HEX_VERSION < 0x020400
-        int GetCategoriesCount() const { return m_Categories.nCount; }
-#else
         int GetCategoriesCount() const { return (int)m_Categories.aLabels.size(); }
-#endif
         /// Get the position of the first categories element in the axis
         int GetCategoriesStart() const { return m_Categories.nStart; }
 

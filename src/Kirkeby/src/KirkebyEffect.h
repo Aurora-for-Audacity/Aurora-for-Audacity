@@ -40,22 +40,14 @@ namespace Aurora
     public:
         bool Init() override;
         
-#if AUDACITY_HEX_VERSION < 0x020400
-        bool PromptUser(wxWindow* parent) override;
-#else
         bool ShowInterface(wxWindow& parent,
                            const EffectDialogFactory& factory,
                            bool forceModal = false) override;
-#endif
       protected:
         bool Process() override;
 
         ComponentInterfaceSymbol GetSymbol() override;
-#if AUDACITY_HEX_VERSION < 0x020400
-        wxString GetDescription() override;
-#else
         TranslatableString GetDescription() override;
-#endif
         PluginPath GetPath() override;
         EffectType GetType() override;
      

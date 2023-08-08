@@ -41,17 +41,10 @@ ComponentInterfaceSymbol Aurora::ConvolverEffect::GetSymbol()
     return ComponentInterfaceSymbol{ XO("Aurora Convolver") };
 }
 
-#if AUDACITY_HEX_VERSION < 0x020400
-wxString Aurora::ConvolverEffect::GetDescription()
-{
-    return _("Convolve the tracks of the workspace.");
-}
-#else
 TranslatableString Aurora::ConvolverEffect::GetDescription()
 {
     return TranslatableString { XO("Convolve the tracks of the workspace.") };
 }
-#endif
 
 PluginPath Aurora::ConvolverEffect::GetPath()
 {
@@ -132,18 +125,11 @@ bool Aurora::ConvolverEffect::Init()
     return true;
 }
 
-#if AUDACITY_HEX_VERSION < 0x020400
-bool Aurora::ConvolverEffect::PromptUser(wxWindow* parent)
-{
-    m_parent = parent;
-        
-#else
 bool Aurora::ConvolverEffect::ShowInterface(wxWindow& parent,
                                             const EffectDialogFactory& factory,
                                             bool forceModal)
 {
     m_parent = &parent;
-#endif
 
     // ------------- Select tracks to process
     int nTracks = GetNumWaveTracks();

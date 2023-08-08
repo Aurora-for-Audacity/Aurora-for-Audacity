@@ -63,17 +63,10 @@ ComponentInterfaceSymbol Aurora::SineSweepGeneratorEffect::GetSymbol()
     return ComponentInterfaceSymbol{ XO("Aurora Sine Sweep Generator") };
 }
 
-#if AUDACITY_HEX_VERSION < 0x020400
-wxString Aurora::SineSweepGeneratorEffect::GetDescription()
-{
-    return _("Generate exponential sine sweep signals.");
-}
-#else
 TranslatableString Aurora::SineSweepGeneratorEffect::GetDescription()
 {
     return TranslatableString { XO("Generate exponential sine sweep signals.") };
 }
-#endif
 
 PluginPath Aurora::SineSweepGeneratorEffect::GetPath()
 {
@@ -97,18 +90,11 @@ bool Aurora::SineSweepGeneratorEffect::Init()
     return true;
 }
 
-#if AUDACITY_HEX_VERSION < 0x020400
-bool Aurora::SineSweepGeneratorEffect::PromptUser(wxWindow* parent)
-{
-    m_parent = parent;
-        
-#else
 bool Aurora::SineSweepGeneratorEffect::ShowInterface(wxWindow& parent,
                                                      const EffectDialogFactory& factory,
                                                      bool forceModal)
 {
     m_parent = &parent;
-#endif
 
    InitArtProvider();
 

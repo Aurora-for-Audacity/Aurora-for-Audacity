@@ -94,17 +94,10 @@ wxString Aurora::Component::GetVersion()
 	return wxString(AURORA_VERSION_String);
 }
 
-#if AUDACITY_HEX_VERSION < 0x020400
-wxString Aurora::Component::GetDescription()
-{
-	return _("Generic Aurora Component");
-}
-#else
 TranslatableString Aurora::Component::GetDescription()
 {
     return TranslatableString { XO("Generic Aurora Component") };
 }
-#endif
 
 // ------------------------------------------------------------------------
 // class Aurora::EffectBase implementation
@@ -114,17 +107,10 @@ ComponentInterfaceSymbol Aurora::EffectBase::GetSymbol()
 	return ComponentInterfaceSymbol{ XO("AuroraEffect") };
 }
 
-#if AUDACITY_HEX_VERSION < 0x020400
-wxString Aurora::EffectBase::GetDescription() 
-{
-	return _("Generic Aurora effect");
-}
-#else
 TranslatableString Aurora::EffectBase::GetDescription()
 {
     return TranslatableString { XO("Generic Aurora effect") };
 }
-#endif
 
 PluginPath Aurora::EffectBase::GetPath()
 {

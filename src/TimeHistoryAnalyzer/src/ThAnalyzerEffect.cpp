@@ -53,17 +53,10 @@ ComponentInterfaceSymbol Aurora::TimeHistoryAnalyzerEffect::GetSymbol()
     return ComponentInterfaceSymbol{ XO("Aurora Time History Analizer") };
 }
 
-#if AUDACITY_HEX_VERSION < 0x020400
-wxString Aurora::TimeHistoryAnalyzerEffect::GetDescription()
-{
-    return _("Analyze a signal in the time domain following ITU P56 stantard");
-}
-#else
 TranslatableString Aurora::TimeHistoryAnalyzerEffect::GetDescription()
 {
     return TranslatableString { XO("Analyze a signal in the time domain following ITU P56 stantard") };
 }
-#endif
 
 PluginPath Aurora::TimeHistoryAnalyzerEffect::GetPath()
 {
@@ -305,18 +298,11 @@ bool Aurora::TimeHistoryAnalyzerEffect::Init()
     return true;
 }
 
-#if AUDACITY_HEX_VERSION < 0x020400
-bool Aurora::TimeHistoryAnalyzerEffect::PromptUser(wxWindow* parent)
-{
-    m_parent = parent;
-    
-#else
 bool Aurora::TimeHistoryAnalyzerEffect::ShowInterface(wxWindow& parent,
                                                       const EffectDialogFactory& factory,
                                                       bool forceModal)
 {
     m_parent = &parent;
-#endif
 
     // Setup graphics.
     InitArtProvider();

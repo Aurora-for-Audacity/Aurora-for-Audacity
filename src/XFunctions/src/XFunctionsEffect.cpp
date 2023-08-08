@@ -48,17 +48,10 @@ ComponentInterfaceSymbol Aurora::XFunctionsEffect::GetSymbol()
     return ComponentInterfaceSymbol{ XO("Aurora XFunctions") };
 }
 
-#if AUDACITY_HEX_VERSION < 0x020400
-wxString Aurora::XFunctionsEffect::GetDescription()
-{
-    return _("The Aurora Cross-functions set.");
-}
-#else
 TranslatableString Aurora::XFunctionsEffect::GetDescription()
 {
     return TranslatableString { XO("The Aurora Cross-functions set.") };
 }
-#endif
 
 PluginPath Aurora::XFunctionsEffect::GetPath()
 {
@@ -132,18 +125,11 @@ bool Aurora::XFunctionsEffect::Init()
     return true;
 }
 
-#if AUDACITY_HEX_VERSION < 0x020400
-bool Aurora::XFunctionsEffect::PromptUser(wxWindow* parent)
-{
-    m_parent = parent;
-    
-#else
 bool Aurora::XFunctionsEffect::ShowInterface(wxWindow& parent,
                                              const EffectDialogFactory& factory,
                                              bool forceModal)
 {
     m_parent = &parent;
-#endif
 
     InitArtProvider();
 

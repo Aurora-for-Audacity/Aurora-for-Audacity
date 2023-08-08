@@ -35,14 +35,9 @@ namespace Aurora
         virtual VendorSymbol GetVendor() override;
         virtual wxString    GetVersion() override;
 
-        // this should be overridden 
-#if AUDACITY_HEX_VERSION < 0x020400
-        virtual wxString GetDescription() override;
-#else
         virtual TranslatableString GetDescription() override;
         
         virtual EffectFamilySymbol GetOptionalFamilySymbol() override;
-#endif
 
         // Module interface
         virtual bool Initialize() override; // tbo if needed
@@ -52,15 +47,10 @@ namespace Aurora
         virtual FilePath InstallPath() override;
         virtual bool AutoRegisterPlugins(PluginManagerInterface & pluginManager) override;
         virtual PluginPaths FindPluginPaths(PluginManagerInterface & pluginManager) override;
-#if AUDACITY_HEX_VERSION < 0x020400
-        virtual unsigned DiscoverPluginsAtPath(const PluginPath & path,
-                                               wxString &errMsg,
-                                               const RegistrationCallback &callback) override;
-#else
         virtual unsigned DiscoverPluginsAtPath(const PluginPath & path,
                                                TranslatableString &errMsg,
                                                const RegistrationCallback &callback) override;
-#endif
+
         virtual bool IsPluginValid(const PluginPath & path, bool bFast) override;
 
         virtual ComponentInterface *CreateInstance(const PluginPath & path) override; // tbo

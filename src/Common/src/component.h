@@ -59,12 +59,7 @@ namespace Aurora
         virtual VendorSymbol GetVendor() override;
         virtual wxString    GetVersion() override;
 
-            // this should be overridden
-#if AUDACITY_HEX_VERSION < 0x020400
-        virtual wxString GetDescription() override;
-#else
         virtual TranslatableString GetDescription() override;
-#endif
     };
 
     // ------------------------------------------------------------------------
@@ -75,11 +70,7 @@ namespace Aurora
       public:
         // this should be overridden (default: "AuroraEffect")
         virtual ComponentInterfaceSymbol GetSymbol() override; // tbo
-#if AUDACITY_HEX_VERSION < 0x020400
-        virtual wxString GetDescription() override; // tbo
-#else
         virtual TranslatableString GetDescription() override;
-#endif
         virtual PluginPath GetPath() override; // tbo
 
         // EffectDefinitionInterface implementation

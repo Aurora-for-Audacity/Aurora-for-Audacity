@@ -420,16 +420,6 @@ Aurora::Axis::Axis(const int nOrientation)
 
 void Aurora::CategoriesAxis::AddCategories(const wxChar* aCat[], const size_t unCount)
 {
-#if AUDACITY_HEX_VERSION < 0x020400
-	wxString cat;
-
-	for(size_t un = 0; un < unCount; un++)
-	{
-		cat = aCat[un];
-		m_Categories.aLabels.Add(cat);
-	}
-	m_Categories.nCount = int(m_Categories.aLabels.GetCount());
-#else
     m_Categories.aLabels.clear();
     
     for(size_t un = 0; un < unCount; un++)
@@ -437,21 +427,10 @@ void Aurora::CategoriesAxis::AddCategories(const wxChar* aCat[], const size_t un
         TranslatableString str{ aCat[un], {}};
         m_Categories.aLabels.push_back(str);
     }
-#endif
 }
 
 void Aurora::CategoriesAxis::AddCategories(const wxString aCat[], const size_t unCount)
 {
-#if AUDACITY_HEX_VERSION < 0x020400
-    wxString cat;
-
-    for (size_t un = 0; un < unCount; un++)
-    {
-        cat = aCat[un];
-        m_Categories.aLabels.Add(cat);
-    }
-    m_Categories.nCount = int(m_Categories.aLabels.GetCount());
-#else
     m_Categories.aLabels.clear();
     
     for(size_t un = 0; un < unCount; un++)
@@ -460,18 +439,10 @@ void Aurora::CategoriesAxis::AddCategories(const wxString aCat[], const size_t u
         m_Categories.aLabels.push_back(str);
     }
 
-#endif
 }
 
 void Aurora::CategoriesAxis::AddCategories(const wxArrayString& acat)
 {
-#if AUDACITY_HEX_VERSION < 0x020400
-	for(size_t un = 0; un < acat.GetCount(); un++)
-	{
-		m_Categories.aLabels.Add(acat[un]);
-	}
-	m_Categories.nCount = int(m_Categories.aLabels.GetCount());
-#else
     m_Categories.aLabels.clear();
     
     for(size_t un = 0; un < acat.GetCount(); un++)
@@ -479,23 +450,15 @@ void Aurora::CategoriesAxis::AddCategories(const wxArrayString& acat)
         TranslatableString str { acat[un], {}};
         m_Categories.aLabels.push_back(str);
     }
-#endif
 }
 
 void Aurora::CategoriesAxis::Draw(wxDC& dc)
 {
-#if AUDACITY_HEX_VERSION < 0x020400
-	wxASSERT_MSG(m_Categories.nCount > 0,
-				 wxT("Aurora::CategoriesAxis: No categories present."));
-
-    m_Categories.nStep  = GetWidth()/m_Categories.nCount;   // labels step
-#else
     wxASSERT_MSG(! m_Categories.aLabels.empty(),
                  "Aurora::CategoriesAxis: No categories present.");
 
     m_Categories.nStep  = GetWidth()/m_Categories.aLabels.size(); // labels step
 
-#endif
 	m_Categories.nStart = m_Categories.nStep/2;// labels start coordinate
 
 	//The following call is needed, because the Custom Ruler
@@ -511,16 +474,9 @@ void Aurora::CategoriesAxis::Draw(wxDC& dc)
 
 	m_pRuler->SetCustomMode(true);
     
-#if AUDACITY_HEX_VERSION < 0x020400
-	m_pRuler->SetCustomMajorLabels( &m_Categories.aLabels,
-					                 m_Categories.nCount,
-									 m_Categories.nStart,
-									 m_Categories.nStep );
-#else
     m_pRuler->SetCustomMajorLabels(  m_Categories.aLabels,
                                      m_Categories.nStart,
                                      m_Categories.nStep );
-#endif
     
     // l t r b
     m_pRuler->SetBounds(m_rulerArea.x,

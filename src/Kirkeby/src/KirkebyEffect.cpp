@@ -96,17 +96,10 @@ ComponentInterfaceSymbol Aurora::KirkebyEffect::GetSymbol()
     return ComponentInterfaceSymbol{ XO("Aurora Invert Kirkeby") };
 }
 
-#if AUDACITY_HEX_VERSION < 0x020400
-wxString Aurora::KirkebyEffect::GetDescription()
-{
-    return _("Compute a filter inversion using Ole Kirkeby method.");
-}
-#else
 TranslatableString Aurora::KirkebyEffect::GetDescription()
 {
     return TranslatableString { XO("Compute a filter inversion using Ole Kirkeby method.") };
 }
-#endif
 
 PluginPath Aurora::KirkebyEffect::GetPath()
 {
@@ -242,18 +235,11 @@ bool Aurora::KirkebyEffect::Init()
     return true;
 }
 
-#if AUDACITY_HEX_VERSION < 0x020400
-bool Aurora::KirkebyEffect::PromptUser(wxWindow* parent)
-{
-    m_parent = parent;
-            
-#else
 bool Aurora::KirkebyEffect::ShowInterface(wxWindow& parent,
                                           const EffectDialogFactory& factory,
                                           bool forceModal)
 {
     m_parent = &parent;
-#endif
 
     // Gui stuffs
     InitArtProvider();

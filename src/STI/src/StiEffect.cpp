@@ -49,17 +49,10 @@ ComponentInterfaceSymbol Aurora::STIEffect::GetSymbol()
     return ComponentInterfaceSymbol{ XO("Aurora STI") };
 }
 
-#if AUDACITY_HEX_VERSION < 0x020400
-wxString Aurora::STIEffect::GetDescription()
-{
-    return _("The Aurora Speech Transmission Index calculator.");
-}
-#else
 TranslatableString Aurora::STIEffect::GetDescription()
 {
     return TranslatableString { XO("The Aurora Speech Transmission Index calculator.") };
 }
-#endif
 
 PluginPath Aurora::STIEffect::GetPath()
 {
@@ -226,18 +219,11 @@ bool Aurora::STIEffect::Init()
    return true;
 }
 
-#if AUDACITY_HEX_VERSION < 0x020400
-bool Aurora::STIEffect::PromptUser(wxWindow* parent)
-{
-    m_parent = parent;
-    
-#else
 bool Aurora::STIEffect::ShowInterface(wxWindow& parent,
                                       const EffectDialogFactory& factory,
                                       bool forceModal)
 {
     m_parent = &parent;
-#endif
 
     // ------------------ Prepare track info list ---------------
     wxString trackName;

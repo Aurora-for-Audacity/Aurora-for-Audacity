@@ -61,12 +61,6 @@ wxString Aurora::Module::GetVersion()
     return wxString(AURORA_VERSION_String);
 }
 
-#if AUDACITY_HEX_VERSION < 0x020400
-wxString Aurora::Module::GetDescription()
-{
-    return _("Aurora Plugins Module for Audacity");
-}
-#else
 TranslatableString Aurora::Module::GetDescription()
 {
     return TranslatableString  { XO("Aurora Plugins Module for Audacity") };
@@ -77,7 +71,6 @@ EffectFamilySymbol Aurora::Module::GetOptionalFamilySymbol()
     return EffectFamilySymbol { XO("Aurora") };
 }
 
-#endif
 
 const FileExtensions & Aurora::Module::GetFileExtensions()
 {
@@ -100,11 +93,7 @@ PluginPaths Aurora::Module::FindPluginPaths(PluginManagerInterface & pluginManag
 }
 
 unsigned Aurora::Module::DiscoverPluginsAtPath(const PluginPath & path,
-#if AUDACITY_HEX_VERSION < 0x020400
-                                               wxString &errMsg,
-#else
                                                TranslatableString & errMsg,
-#endif
                                                const RegistrationCallback &callback)
 {
     auto effect = CreateInstance(path);

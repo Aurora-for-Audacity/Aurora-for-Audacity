@@ -47,17 +47,10 @@ ComponentInterfaceSymbol Aurora::AcParametersEffect::GetSymbol()
     return ComponentInterfaceSymbol{ XO("Aurora Acoustical Parameters") };
 }
 
-#if AUDACITY_HEX_VERSION < 0x020400
-wxString Aurora::AcParametersEffect::GetDescription()
-{
-    return _("Evaluates the ISO3382 Acoustical Parameters of a room from a measured impulse response");
-}
-#else
 TranslatableString Aurora::AcParametersEffect::GetDescription()
 {
     return TranslatableString { XO("Evaluates the ISO3382 Acoustical Parameters of a room from a measured impulse response") };
 }
-#endif
 
 PluginPath Aurora::AcParametersEffect::GetPath()
 {
@@ -298,18 +291,11 @@ bool Aurora::AcParametersEffect::Init()
    return true;
 }
 
-#if AUDACITY_HEX_VERSION < 0x020400
-bool Aurora::AcParametersEffect::PromptUser(wxWindow* parent)
-{
-    m_parent = parent;
-    
-#else
 bool Aurora::AcParametersEffect::ShowInterface(wxWindow& parent,
                                                const EffectDialogFactory& factory,
                                                bool forceModal)
 {
     m_parent = &parent;
-#endif
 
     InitArtProvider();
     
