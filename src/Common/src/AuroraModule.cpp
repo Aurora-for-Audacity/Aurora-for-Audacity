@@ -29,6 +29,7 @@
 
 // From Audacity source tree
 #include <ModuleManager.h>
+#include <effects/EffectManager.h>
 //#include <ModuleConstants.h>
 
 /*
@@ -151,7 +152,7 @@ bool Aurora::Module::Initialize()
     m_paths.push_back(PluginPath("Aurora/STI"));
     m_paths.push_back(PluginPath("Aurora/TimeHistoryAnalyzer"));
     m_paths.push_back(PluginPath("Aurora/XFunctions"));
-    //m_ext.push_back(wxString("dll"));
+    
     return true;
 }
 
@@ -208,43 +209,30 @@ void Aurora::Module::DeleteInstance(ComponentInterface *instance)
 //----------------------------------------------------------------------------
 extern "C"
 {
-/*  Deprecated since 3.0.0 ???
-    //DECLARE_MODULE_ENTRY(MODULE_ENTRY)
-    DLL_API ModuleInterface * MODULE_ENTRY(ModuleManagerInterface *moduleManager,
-                                           const wxString *path) */
-    DLL_API ModuleInterface * AudacityModule()
+    /// Make sure that this version of the module requires the version
+    /// of Audacity it is built with.
+    /// For now the versions must match exactly for Audacity to
+    /// agree to load the module.
+    extern DLL_API const wchar_t* GetVersionString()
     {
-        wxLogDebug("[] new Aurora::Module");
-        return (ModuleInterface*)new Aurora::Module();
-    }
-
-    DLL_API const wchar_t* GetVersionString()
-    {
-
-        // Make sure that this version of the module requires the version 
-        // of Audacity it is built with. 
-        // For now the versions must match exactly for Audacity to 
-        // agree to load the module.
         return AUDACITY_VERSION_wchar_t;
     }
 
-    extern int DLL_API ModuleDispatch(ModuleDispatchTypes type);
-
-    int ModuleDispatch(ModuleDispatchTypes type)
+    extern DLL_API int ModuleDispatch(ModuleDispatchTypes type)
     {
-        // ModuleDispatch
-        // is called by Audacity to initialize/terminmate the module,
-        // and ask if it has anything for the menus.
-        // We don't (yet) do anything in this, since we have a special function for the scripter
-        // all we need to do is return 1.
-
         if (type == ModuleInitialize)
         {
             wxLogDebug("[AuroraPlugins]: dispatch %d received (init).\n", int(type));
-            /*
+
             EffectManager & em = EffectManager::Get();
-            em.RegisterEffect(new EffectAcParameters());
-            */
+
+            em.RegisterEffect(new Aurora::AcParametersEffect);
+            em.RegisterEffect(new Aurora::STIEffect);
+            em.RegisterEffect(new Aurora::TimeHistoryAnalyzerEffect);
+            em.RegisterEffect(new Aurora::XFunctionsEffect);
+            em.RegisterEffect(new Aurora::SineSweepGeneratorEffect);
+            em.RegisterEffect(new Aurora::KirkebyEffect);
+            em.RegisterEffect(new Aurora::ConvolverEffect);
         }
         else
         {
