@@ -17,7 +17,7 @@ AUDACITY_SRC_PREFIX   = ../audacity
 AUDACITY_SRC_PATH     = $(AUDACITY_SRC_PREFIX)/src
 AUDACITY_LIB_PREFIX   = $(AUDACITY_SRC_PREFIX)/libraries
 
-AUDACITY_BINARY_PATH = ./Build/Audacity/Build/Products/Debug64/Audacity.app
+AUDACITY_BINARY_PATH = ./Build/Aurora-For-Audacity/Build/Products/Debug64/Audacity.app
 AUDACITY_BUNDLE_PATH = $(AUDACITY_BINARY_PATH)/Contents
 AUDACITY_BINARY      = $(AUDACITY_BUNDLE_PATH)/MacOS/Audacity
 AUDACITY_MODULES_PATH = $(AUDACITY_BUNDLE_PATH)/modules
