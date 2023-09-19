@@ -1,9 +1,9 @@
-[submodule "audacity"]
-	path = audacity
-	url = https://github.com/audacity/audacity.git
 [submodule "wxWidgets"]
 	path = wxWidgets
 	url = https://github.com/audacity/wxWidgets.git
 [submodule "mod-aurora/kissfft"]
 	path = mod-aurora/kissfft
 	url = https://github.com/mborgerding/kissfft.git
+[submodule "audacity"]
+	path = audacity
+	url = https://github.com/audacity/audacity.git
