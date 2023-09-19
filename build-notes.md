@@ -135,7 +135,7 @@ As a series of terminal commands after navigating here
 
 ```sh
 cp -r mod-aurora audacity/modules/
-sed 's/mod-script-pipe/mod-script-pipe\nmod-aurora/' audacity/modules/CMakeLists.txt
+sed -i.bak 's/mod-script-pipe/mod-script-pipe\n   mod-aurora/' audacity/modules/CMakeLists.txt
 mkdir build && cd build
 
 # Optional
