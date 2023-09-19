@@ -119,7 +119,10 @@ If you do not have homebrew, [download it now](https://brew.sh)
 
 - In your terminal navigate to this repository
 - copy the `mod-aurora` directory to `audacity/modules`
-- `mkdir build && cd build` assuming audacity is the same directory you are in
+- add the module by editing the `audacity/modules/CMakeLists.txt` file
+  - `sed -i.bak 's/mod-script-pipe/mod-script-pipe\n   mod-aurora/' audacity/modules/CMakeLists.txt`
+  - or just do it by hand by add ing `mod-aurora` under `mod-script-pipe`
+  - `mkdir build && cd build` assuming audacity is the same directory you are in
 - `brew install cmake` if you do not have cmake. This process was tested with `3.27.1`
 - `brew install conan@1` Audacity 3.3.3 required conan at version 1
 - `brew link conan@1`
@@ -132,6 +135,7 @@ As a series of terminal commands after navigating here
 
 ```sh
 cp -r mod-aurora audacity/modules/
+sed 's/mod-script-pipe/mod-script-pipe\nmod-aurora/' audacity/modules/CMakeLists.txt
 mkdir build && cd build
 
 # Optional
