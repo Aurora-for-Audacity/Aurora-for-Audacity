@@ -83,3 +83,51 @@ Audacity adds in a `FLAVOUR` macro to allow for debug and release, but it also a
  - Generate
  - Tools
  - Analyze
+
+ ## wxWidgets for `arm64`
+
+compiling with:
+
+```sh
+    ../configure --with-osx_cocoa  \
+   --with-macosx-version-min=13.0 \
+   --with-macosx-sdk="/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk" \
+   --disable-shared \
+   --prefix=/usr/local \
+   --enable-universal_binary=x86_64,arm64 \
+   --with-libtiff=builtin
+```
+seems to have success. though this relies on `--enable-universal_binary=x86_64,arm64`. Unsure how reliable this is.
+
+## CMAKE
+
+CMake tries to generate a project then build it but is failing at the build stage. You should still be able to go into the generated Xcode project and build from there. Found in `audacity/cmake-build-debug`
+
+Maybe also
+
+`/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk`
+
+```sh
+xcode-select -switch /Applications/Xcode.app    
+```
+
+### Building Audacity on M2
+
+True for at least the Audacity 3.4.0-alpha
+On Xcode 14 on an M2 Mac the following was required to build audacity.
+
+
+- navigate out of the audacity directory
+- standard `mkdir build && cd build` assuming audacity is the same directory you are in
+- `brew install conan`
+- `rm -R ~/.conan2` and `~/.conan` (for good measure) to clear out conan cache
+- `cmake ../audacity -GXcode -Daudacity_use_mad="off" -Daudacity_use_id3tag=off -Daudaicity_conan_allow_prebuilt_binaries=Off --no-warn-unused-cli`
+
+conan will create a wxwidgets build in `~/.conan2` that can be reference by other projec
+
+#### Aurora as a Module
+
+It is becoming increasingly apparent that Aurora probably should be organised similar to the other audacity modules, which means embracing the CMake build system. 
+
+At the moment modules are organised by the `audacity_module` macro defined within Audcaity. Since so much of Aurora requires re-writing of header paths alone, the easiest way I can think is to essentially duplicate this method but allow for some entry points to stipulate header search paths.
+
