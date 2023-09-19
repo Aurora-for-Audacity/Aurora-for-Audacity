@@ -113,17 +113,37 @@ xcode-select -switch /Applications/Xcode.app
 
 ### Building Audacity on M2
 
-True for at least the Audacity 3.4.0-alpha
+True for at least the Audacity 3.3.3-alpha
 On Xcode 14 on an M2 Mac the following was required to build audacity.
+If you do not have homebrew, [download it now](https://brew.sh)
 
-
-- navigate out of the audacity directory
-- standard `mkdir build && cd build` assuming audacity is the same directory you are in
-- `brew install conan`
-- `rm -R ~/.conan2` and `~/.conan` (for good measure) to clear out conan cache
+- In your terminal navigate to this repository
+- copy the `mod-aurora` directory to `audacity/modules`
+- `mkdir build && cd build` assuming audacity is the same directory you are in
+- `brew install cmake` if you do not have cmake. This process was tested with `3.27.1`
+- `brew install conan@1` Audacity 3.3.3 required conan at version 1
+- `brew link conan@1`
+- `rm -R ~/.conan2` and `~/.conan` (for good measure) to clear out conan cache, especially if you already have conan installed
 - `cmake ../audacity -GXcode -Daudacity_use_mad="off" -Daudacity_use_id3tag=off -Daudaicity_conan_allow_prebuilt_binaries=Off --no-warn-unused-cli`
 
-conan will create a wxwidgets build in `~/.conan2` that can be reference by other projec
+conan will create a wxwidgets build in `~/.conan` or `~/.conan2` that can be reference by other project
+
+As a series of terminal commands after navigating here
+
+```sh
+cp -r mod-aurora audacity/modules/
+mkdir build && cd build
+
+# Optional
+brew install cmake
+brew install conan@1
+brew link conan@1
+
+# If you already have conan
+rm -R ~/.conan
+
+cmake ../audacity -GXcode -Daudacity_use_mad="off" -Daudacity_use_id3tag=off -Daudaicity_conan_allow_prebuilt_binaries=Off --no-warn-unused-cli
+```
 
 #### Aurora as a Module
 
