@@ -7,4 +7,4 @@ mac/Build/*
 *.DS_Store*
 
 # Assuming the out-of-source cmake build uses this directory
-.build/
+build/
