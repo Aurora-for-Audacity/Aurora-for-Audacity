@@ -38,13 +38,11 @@ Aurora::SineSweepGeneratorEffect::~SineSweepGeneratorEffect()
 
 ComponentInterfaceSymbol Aurora::SineSweepGeneratorEffect::GetSymbol() const
 {
-    std::cout << __func__ << "\n";
     return Symbol;
 }
 
 TranslatableString Aurora::SineSweepGeneratorEffect::GetDescription() const
 {
-    std::cout << __func__ << "\n";
     return XO("Generate exponential sine sweep signals");
 }
 
@@ -60,7 +58,6 @@ ManualPageID Aurora::SineSweepGeneratorEffect::ManualPage() const
 
 EffectType Aurora::SineSweepGeneratorEffect::GetType() const
 {
-    std::cout << __func__ << "\n";
     return EffectTypeGenerate;
 }
 
@@ -71,7 +68,6 @@ EffectType Aurora::SineSweepGeneratorEffect::GetType() const
 //--------------------------------------------------------------------------
 bool Aurora::SineSweepGeneratorEffect::Init()
 {
-    std::cout << __func__ << "\n";
     Aurora::SineSweepGenerator::SetSamplerate(mProjectRate);
     
     return true;
@@ -98,6 +94,7 @@ void Aurora::SineSweepGeneratorEffect::setupTracks() const
     
     WaveTrack *newTrack{};
     auto track = mFactory->Create();
+    
     track->SetName(mTracks->MakeUniqueTrackName(WaveTrack::GetDefaultAudioTrackNamePreference()));
     newTrack = mTracks->Add(track);
     newTrack->SetSelected(true);
@@ -132,17 +129,13 @@ bool Aurora::SineSweepGeneratorEffect::GenerateTrack(EffectSettings &settings,
     bool bGoodResult = true;
     
     sampleCount numSamples;
-    std::cout << "ntrack: " << ntrack << '\n';
+    
     // Filter has different length
     numSamples = (ntrack == GetFilterChannel()) ? sampleCount(GetFilterLength()) : sampleCount(GetBuffersLength());
-    
-    
-    std::cout << "numSamples.as_long_long(): " << numSamples.as_long_long() << '\n';
+        
     
     decltype(numSamples) i = 0;
     Floats data{ tmp->GetMaxBlockSize() };
-    
-    std::cout << "tmp->GetMaxBlockSize(): " << tmp->GetMaxBlockSize() << '\n';
     
     while ((i < numSamples) && bGoodResult)
     {

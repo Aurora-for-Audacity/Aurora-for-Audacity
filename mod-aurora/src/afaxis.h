@@ -77,15 +77,10 @@ namespace Aurora
         };
 
     	/// Rulers types
-//    	enum Type
-//        {
-//            RF_INT        = RulerBar::IntFormat,
-//    	    RF_REAL       = RulerBar::RealFormat,
-//    	    RF_REALLOG    = RulerBar::RealLogFormat,
-//    	    RF_TIME       = RulerBar::TimeFormat,
-//    	    RF_LINEARdB   = RulerBar::LinearDBFormat/*,
-//    	    RF_CATEGORIES*/
-//    	};
+        enum Type
+        {
+            RF_INT, RF_REAL, RF_REALLOG, RF_TIME, RF_LINEARdB
+        };
 
       protected:
     	std::unique_ptr<RulerBar> m_pRuler;         ///< The ruler (taken from the Audacity widget, Ruler)

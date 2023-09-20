@@ -160,7 +160,7 @@ namespace Aurora
         void         SetSweepType(int nValue)    { m_nSweepType = nValue; }
         void     SetControlPulses(bool bValue);
         void    SetFadeInDuration(double dbValue) { m_dbFadeInDuration  = (dbValue < 100) ? dbValue : dbValue*m_dbRate; }
-        void SetFadeOutDuration (double dbValue) { m_dbFadeOutDuration = (dbValue < 100) ? dbValue : dbValue*m_dbRate; }
+        void   SetFadeOutDuration(double dbValue) { m_dbFadeOutDuration = (dbValue < 100) ? dbValue : dbValue*m_dbRate; }
         
         void        SetFadeInType(int nValue)     { m_nFadeInType = nValue; }
         void       SetFadeOutType(int nValue)     { m_nFadeOutType = nValue; }

@@ -62,8 +62,8 @@ Aurora::AxisBase::Label::Label(const wxString& text,
 
 void Aurora::AxisBase::SetFormat(const int nFormat)
 {
-	wxASSERT_MSG(nFormat >= RF_INT && nFormat <= RF_LINEARdB,
-			     wxT("Aurora::AxisBase: Wrong format."));
+//	wxASSERT_MSG(nFormat >= RF_INT && nFormat <= RF_LINEARdB,
+//			     wxT("Aurora::AxisBase: Wrong format."));
 
 	m_nRulerFormat = nFormat;
     //m_pRuler->SetFormat((Ruler::RulerFormat)m_nRulerFormat);

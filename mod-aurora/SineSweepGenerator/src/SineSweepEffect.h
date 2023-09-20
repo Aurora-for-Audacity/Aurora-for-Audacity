@@ -52,7 +52,6 @@ protected:
     ComponentInterfaceSymbol GetSymbol() const override;
     TranslatableString  GetDescription() const override;
     ManualPageID ManualPage() const override;
-    
     EffectType GetType() const override;
     
 //    std::unique_ptr<EffectEditor> PopulateOrExchange(

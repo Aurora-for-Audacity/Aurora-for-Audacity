@@ -19,25 +19,10 @@ DEFINE_VERSION_CHECK
 //----------------------------------------------------------------------------
 extern "C" DLL_API int ModuleDispatch(ModuleDispatchTypes type)
 {
-    std::cout << __func__ << "\n";
-    if (type == ModuleInitialize)
-    {
-//        EffectManager & em = EffectManager::Get();
-//        auto sinSweepGenerator = std::make_unique<Aurora::SineSweepGeneratorEffect>();
-//        em.RegisterEffect(std::move(sinSweepGenerator));
-        
-//                    em.RegisterEffect(new Aurora::AcParametersEffect);
-        //            em.RegisterEffect(new Aurora::STIEffect);
-        //            em.RegisterEffect(new Aurora::TimeHistoryAnalyzerEffect);
-        //            em.RegisterEffect(new Aurora::XFunctionsEffect);
-        //            em.RegisterEffect(new Aurora::KirkebyEffect);
-        //            em.RegisterEffect(new Aurora::ConvolverEffect);
-    }
-    else
-    {
         switch (type)
         {
             case ModuleTerminate:
+            case ModuleInitialize:
             case AppInitialized:
             case AppQuiting:
             case ProjectInitialized:
@@ -46,7 +31,6 @@ extern "C" DLL_API int ModuleDispatch(ModuleDispatchTypes type)
             default:
                 break;
         }
-    }
     
     return 1;
 };

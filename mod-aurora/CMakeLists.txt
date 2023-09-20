@@ -1,4 +1,4 @@
-# set( TARGET mod-aurora )
+set ( NAME "mod-aurora")
 
 set( SOURCES
    AuroraModule.cpp
@@ -71,6 +71,22 @@ set( SOURCES
    kissfft/kiss_fftndr.c
    kissfft/kiss_fftr.c
    kissfft/kfc.c
+   Convolver/AuroraConvolver.cpp
+   Convolver/AuroraConvolver.h
+   Convolver/convolver.cpp
+   Convolver/convolver.h
+   Convolver/ConvolverDialogs.cpp
+   Convolver/ConvolverDialogs.h
+   Convolver/ConvolverEffect.cpp
+   Convolver/ConvolverEffect.h
+   Convolver/ConvolverPlot.cpp
+   Convolver/ConvolverPlot.h
+   Convolver/ConvolverUi.cpp
+   Convolver/ConvolverUi.h
+   Convolver/multivolver.cpp
+   Convolver/multivolver.h
+   Convolver/TrackProperties.cpp
+   Convolver/TrackProperties.h
 )
 
 set( DEFINES
@@ -83,39 +99,18 @@ set( DEFINES
       wxDEBUG_LEVEL=0
 )
 
-# audacity_module( ${TARGET} "${SOURCES}" "Audacity"
-#    "${DEFINES}" "" )
+# audacity_module( ${TARGET} "${SOURCES}" "Audacity" "${DEFINES}" "" )
 
-function ( print_list TITLE PRINT_LIST )   
-   message( STATUS "${TITLE} : ------------------------------------" )
+#---------------------------------------------------------------------
+# Below is a slight modification of the audacity_module cmake macro and audacity_module_fn function
+# to allow for adding extra header search paths.
 
-   foreach( LIST_ELEM ${PRINT_LIST} )
-      message( STATUS "${LIST_ELEM}" )      
-   endforeach()
-   
-   message( STATUS "-----------------------------------------------" )
-endfunction()
 
-# macro( audacity_module NAME SOURCES IMPORT_TARGETS
-   # ADDITIONAL_DEFINES ADDITIONAL_LIBRARIES )
-   # audacity_module_fn(
-   #    "${NAME}"
-   #    "${SOURCES}"
-   #    "${IMPORT_TARGETS}"
-   #    "${ADDITIONAL_DEFINES}"
-   #    "${ADDITIONAL_LIBRARIES}"
-   #    "MODULE"
-   # )
-   # set( GRAPH_EDGES "${GRAPH_EDGES}" PARENT_SCOPE )
-# function( audacity_module_fn NAME SOURCES IMPORT_TARGETS
-   # ADDITIONAL_DEFINES ADDITIONAL_LIBRARIES LIBTYPE )
-set ( NAME "mod-aurora")
-# set ( SOURCES )
+# Basically set the arguments that would hae been set if passed in the original function
 set ( IMPORT_TARGETS "Audacity")
 set ( ADDITIONAL_DEFINES "${DEFINES}")
 set ( ADDITIONAL_LIBRARIES "")
 set ( LIBTYPE "MODULE")
-
 set( TARGET ${NAME} )
 set( TARGET_ROOT ${CMAKE_CURRENT_SOURCE_DIR} )
 
@@ -213,10 +208,14 @@ target_sources( ${TARGET} PRIVATE ${SOURCES} )
 target_compile_definitions( ${TARGET} PRIVATE ${DEFINES} )
 target_compile_options( ${TARGET} ${OPTIONS} )
 
+# ------------------------------------------------------------------------------
 # Additional Include Directories
+
 target_include_directories( ${TARGET} PUBLIC ${TARGET_ROOT} )
 target_include_directories( ${TARGET} PUBLIC "${TARGET_ROOT}/include" )
 target_include_directories( ${TARGET} PUBLIC "${TARGET_ROOT}/kissfft" )
+
+# ------------------------------------------------------------------------------
 
 target_link_options( ${TARGET} PRIVATE ${LOPTS} )
 target_link_libraries( ${TARGET} PUBLIC ${LIBRARIES} )
