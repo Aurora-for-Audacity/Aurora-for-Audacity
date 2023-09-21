@@ -2,15 +2,7 @@
 
 ## CMAKE
 
-CMake tries to generate a project then build it but is failing at the build stage. You should still be able to go into the generated Xcode project and build from there. Found in `audacity/cmake-build-debug`
-
-Maybe also
-
-`/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk`
-
-```sh
-xcode-select -switch /Applications/Xcode.app    
-```
+It is becoming increasingly apparent that Aurora probably should be organised similar to the other audacity modules, which means embracing the CMake build system. 
 
 ### Building Audacity on M2
 
@@ -24,7 +16,7 @@ If you do not have homebrew, [download it now](https://brew.sh)
   - or sym link with `ln -s $(readlink -f mod-aurora) $(readlink -f audacity/modules/)/mod-aurora`
 - add the module by editing the `audacity/modules/CMakeLists.txt` file
   - `sed -i.bak 's/mod-script-pipe/mod-script-pipe\n   mod-aurora/' audacity/modules/CMakeLists.txt`
-  - or just do it by hand by add ing `mod-aurora` under `mod-script-pipe`
+  - or just do it by hand by adding `mod-aurora` under `mod-script-pipe`
   - `mkdir build && cd build` assuming audacity is the same directory you are in
 - `brew install cmake` if you do not have cmake. This process was tested with `3.27.1`
 - `brew install conan@1` Audacity 3.3.3 required conan at version 1
@@ -58,11 +50,18 @@ rm -R ~/.conan
 cmake ../audacity -GXcode -Daudacity_use_mad="off" -Daudacity_use_id3tag=off -Daudaicity_conan_allow_prebuilt_binaries=Off --no-warn-unused-cli
 ```
 
+### Windows
+
+Follow the build instructions for [audacity](https://github.com/audacity/audacity/blob/43981edbdd8a1d9da0cf79a07ba694ad79cb7b47/BUILDING.md)
+
+Most problems seem to come from not running as administrator. Makes sure any programme is launched via `Run as Administrator...`
+
+- copy the `mod-aurora` directory to `audacity/modules`
+- add the module to the build list by editing the `audacity/modules/CMakeLists.txt` file
+  - add `mod-aurora` under `mod-script-pipe`
+- Run the Cmake GUI as covered in the [audacity repo instructions](https://github.com/audacity/audacity/blob/43981edbdd8a1d9da0cf79a07ba694ad79cb7b47/BUILDING.md#building-on-windows)
+
 ## Enable Aurora
 
-- Go to `Tools` > `Add / Remove Plug-ins...`
-- sort by `Path`
- - Generate
- - Tools
- - Analyze
-
+- Go to `Preferences` > `Modules`
+- set aurora to `Enable`
