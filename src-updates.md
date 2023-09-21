@@ -51,4 +51,4 @@ enum Type
 };
 ```
 
-are some classes
+are now classes.
