@@ -84,6 +84,8 @@ class FrequencyPlotDialog final : public wxDialogWrapper,
                                   public PrefsListener
 ```
 
+Look at `Change Pitch` effect for some cues on formatting
+
 ## Inheritance
 
 ### Generator
