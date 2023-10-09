@@ -13,19 +13,4 @@
 **********************************************************************/
 #pragma once
 
-#include <wx/wx.h>
-#include "ModuleConstants.h"
-#include "ComponentInterface.h"
-#include "ShuttleGui.h"
-#include "Identifier.h"
-#include "Project.h"
-#include "PluginProvider.h"
-
-#include "effects/EffectManager.h"
-#include "commands/CommandManager.h"
-#include "CommonCommandFlags.h"
-
-#include "include/aurora.h"
-#include "SineSweepGenerator/src/SineSweepEffect.h"
-
-
+#include <ModuleConstants.h>

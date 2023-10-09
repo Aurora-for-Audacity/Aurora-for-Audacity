@@ -77,6 +77,13 @@ A debugging check in this application has failed.
 
 In the `ShowClientInterface` method the `wxDialog &dialog` is handled internally by Audacity. Substituting another `wxDialog` seems to be casuing this problem.
 
+NOTE: Maybe check how the "Plot Spectrum" tool works
+
+```cpp
+class FrequencyPlotDialog final : public wxDialogWrapper,
+                                  public PrefsListener
+```
+
 ## Inheritance
 
 ### Generator

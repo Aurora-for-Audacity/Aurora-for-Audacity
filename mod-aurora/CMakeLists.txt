@@ -71,22 +71,24 @@ set( SOURCES
    kissfft/kiss_fftndr.c
    kissfft/kiss_fftr.c
    kissfft/kfc.c
-   Convolver/AuroraConvolver.cpp
-   Convolver/AuroraConvolver.h
-   Convolver/convolver.cpp
-   Convolver/convolver.h
-   Convolver/ConvolverDialogs.cpp
-   Convolver/ConvolverDialogs.h
-   Convolver/ConvolverEffect.cpp
-   Convolver/ConvolverEffect.h
-   Convolver/ConvolverPlot.cpp
-   Convolver/ConvolverPlot.h
-   Convolver/ConvolverUi.cpp
-   Convolver/ConvolverUi.h
-   Convolver/multivolver.cpp
-   Convolver/multivolver.h
-   Convolver/TrackProperties.cpp
-   Convolver/TrackProperties.h
+   # Convolver/AuroraConvolver.cpp
+   # Convolver/AuroraConvolver.h
+   # Convolver/convolver.cpp
+   # Convolver/convolver.h
+   # Convolver/ConvolverDialogs.cpp
+   # Convolver/ConvolverDialogs.h
+   # Convolver/ConvolverEffect.cpp
+   # Convolver/ConvolverEffect.h
+   # Convolver/ConvolverPlot.cpp
+   # Convolver/ConvolverPlot.h
+   # Convolver/ConvolverUi.cpp
+   # Convolver/ConvolverUi.h
+   # Convolver/multivolver.cpp
+   # Convolver/multivolver.h
+   # Convolver/TrackProperties.cpp
+   # Convolver/TrackProperties.h
+   Dummy/DummyAnalyse.cpp
+   Dummy/DummyAnalyse.h
 )
 
 set( DEFINES
