@@ -146,11 +146,11 @@ namespace Aurora
         SampleCount GetBuffersLength() const { return m_buffersLength; }
         SampleCount GetFilterLength()  const { return m_filterLength; }
 
-        void      SetSamplerate(double dbValue)  { m_dbRate = dbValue; }
-        void  SetStartFrequency(double dbValue)  { m_dbLowFrq = dbValue; }
+        void      SetSamplerate(double dbValue)  { m_dbRate    = dbValue; }
+        void  SetStartFrequency(double dbValue)  { m_dbLowFrq  = dbValue; }
         void    SetEndFrequency(double dbValue)  { m_dbHighFrq = dbValue; }
         void   SetHighFrequency(double dbValue)  { m_dbHighFrq = dbValue; }
-        void    SetLowFrequency(double dbValue)  { m_dbLowFrq = dbValue; }
+        void    SetLowFrequency(double dbValue)  { m_dbLowFrq  = dbValue; }
         void   SetSweepDuration(double dbValue)  { m_dbSweepDuration   = (dbValue < 100) ? dbValue : dbValue*m_dbRate; }
         void SetSilenceDuration(double dbValue)  { m_dbSilenceDuration = (dbValue < 100) ? dbValue : dbValue*m_dbRate; }
         
