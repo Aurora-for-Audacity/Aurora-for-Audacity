@@ -1,7 +1,6 @@
 #include "DummyAnalyse.h"
 #include "widgets/valnum.h"
 
-
 #define DummyAnalysisTitle XO("Dummy Analysis")
 
 //------------------------------------------------------------------------------------
@@ -16,7 +15,6 @@ enum
     ID_Radio_Linear,
     ID_Radio_Exp,
     ID_Radio_Pink,
-    
     ID_FadeInType,
     ID_FadeInDuration,
     ID_FadeOutType,
