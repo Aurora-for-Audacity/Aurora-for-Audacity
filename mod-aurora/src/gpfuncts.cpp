@@ -10,7 +10,7 @@
  *  Simone Campanini 2011
  *
  **********************************************************************/
-#include  <aurora.h>
+#include  "gpfuncts.h"
 
 wxString Aurora::GetBandShortLabel(const float fcb,
                                    const bool replaceDotsWithUnderscores)

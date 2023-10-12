@@ -13,12 +13,13 @@
 #ifndef __GPFUNCTS_H__
 #define __GPFUNCTS_H__
 
-//#include <wx/wx.h>
+#include <wx/wx.h>
 #include <wx/colour.h>
 #include <wx/grid.h>
 #include <wx/string.h>
 #include <wx/textctrl.h>
 
+#include "include/commdefs.h"
 
 namespace Aurora
 {
