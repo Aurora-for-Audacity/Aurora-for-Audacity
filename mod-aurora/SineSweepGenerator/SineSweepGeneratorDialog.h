@@ -26,8 +26,6 @@
 #include "effects/Generator.h"
 #include "SyncLock.h"
 #include "SineSweepGenerator.h"
-#include "SineSweepDialogs.h"
-#include "SineSweepUi.h"
 
 #include "effects/EffectEditor.h"
 #include "LoadEffects.h"
@@ -45,14 +43,14 @@ namespace Aurora
  Its core is the instantiation of a TimeHistoryAnalyzer singleton that
  does all calculations.
  */
-class SineSweepGeneratorEffect : public SineSweepGenerator,
+class SineSweepGeneratorDialog : public SineSweepGenerator,
 public Generator
 {
 public:
     static const ComponentInterfaceSymbol Symbol;
     
-    SineSweepGeneratorEffect();
-    virtual ~SineSweepGeneratorEffect();
+    SineSweepGeneratorDialog();
+    virtual ~SineSweepGeneratorDialog();
     
     std::unique_ptr<EffectEditor> PopulateOrExchange(
                                                      ShuttleGui & S, EffectInstance &instance,

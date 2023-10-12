@@ -13,7 +13,7 @@
 
 
 
-#include "SineSweepEffect.h"
+#include "SineSweepGeneratorDialog.h"
 #include "LoadEffects.h"
 #include <wx/wx.h>
 #include <wx/valgen.h>
@@ -42,22 +42,22 @@ enum
     ID_ControlPulses
 };
 
-const ComponentInterfaceSymbol Aurora::SineSweepGeneratorEffect::Symbol
+const ComponentInterfaceSymbol Aurora::SineSweepGeneratorDialog::Symbol
 /* i18n-hint: noun */
 { XC("SineSweep", "generator") };
 
-namespace{ BuiltinEffectsModule::Registration< Aurora::SineSweepGeneratorEffect > reg; }
+namespace{ BuiltinEffectsModule::Registration< Aurora::SineSweepGeneratorDialog > reg; }
 
-Aurora::SineSweepGeneratorEffect::SineSweepGeneratorEffect()
+Aurora::SineSweepGeneratorDialog::SineSweepGeneratorDialog()
 {
     SetLinearEffectFlag(true);
 }
 
-Aurora::SineSweepGeneratorEffect::~SineSweepGeneratorEffect()
+Aurora::SineSweepGeneratorDialog::~SineSweepGeneratorDialog()
 {
 }
 
-std::unique_ptr<EffectEditor> Aurora::SineSweepGeneratorEffect::PopulateOrExchange(
+std::unique_ptr<EffectEditor> Aurora::SineSweepGeneratorDialog::PopulateOrExchange(
    ShuttleGui & S, EffectInstance &instance,
    EffectSettingsAccess &access, const EffectOutputs *pOutputs)
 {
@@ -239,7 +239,7 @@ std::unique_ptr<EffectEditor> Aurora::SineSweepGeneratorEffect::PopulateOrExchan
     return nullptr;
 }
 
-bool Aurora::SineSweepGeneratorEffect::TransferDataToWindow(const EffectSettings &)
+bool Aurora::SineSweepGeneratorDialog::TransferDataToWindow(const EffectSettings &)
 {
     if (!mUIParent->TransferDataToWindow())
     {
@@ -252,7 +252,7 @@ bool Aurora::SineSweepGeneratorEffect::TransferDataToWindow(const EffectSettings
    return true;
 }
 
-bool Aurora::SineSweepGeneratorEffect::TransferDataFromWindow(EffectSettings &)
+bool Aurora::SineSweepGeneratorDialog::TransferDataFromWindow(EffectSettings &)
 {
 
     
@@ -307,44 +307,44 @@ bool Aurora::SineSweepGeneratorEffect::TransferDataFromWindow(EffectSettings &)
 }
 
 
-ComponentInterfaceSymbol Aurora::SineSweepGeneratorEffect::GetSymbol() const
+ComponentInterfaceSymbol Aurora::SineSweepGeneratorDialog::GetSymbol() const
 {
     return Symbol;
 }
 
-TranslatableString Aurora::SineSweepGeneratorEffect::GetDescription() const
+TranslatableString Aurora::SineSweepGeneratorDialog::GetDescription() const
 {
     return XO("Generate exponential sine sweep signals");
 }
 
-ManualPageID Aurora::SineSweepGeneratorEffect::ManualPage() const
+ManualPageID Aurora::SineSweepGeneratorDialog::ManualPage() const
 {
     return L"Exponential Sine Sweep";
 }
 
-EffectType Aurora::SineSweepGeneratorEffect::GetType() const
+EffectType Aurora::SineSweepGeneratorDialog::GetType() const
 {
     return EffectTypeGenerate;
 }
 
-void Aurora::SineSweepGeneratorEffect::BeforeGenerate()
+void Aurora::SineSweepGeneratorDialog::BeforeGenerate()
 {
     mDuration = GetTotalDuration();
 }
 
-void Aurora::SineSweepGeneratorEffect::Failure()
+void Aurora::SineSweepGeneratorDialog::Failure()
 {
     Aurora::SineSweepGenerator::Destroy();
     Aurora::MessageBox("Cannot create signal tracks.",
                        Aurora::MessageType::Error);
 }
 
-void Aurora::SineSweepGeneratorEffect::Success()
+void Aurora::SineSweepGeneratorDialog::Success()
 {
     Aurora::SineSweepGenerator::Destroy();
 }
 
-bool Aurora::SineSweepGeneratorEffect::GenerateTrack(EffectSettings &settings,
+bool Aurora::SineSweepGeneratorDialog::GenerateTrack(EffectSettings &settings,
                                                      WaveTrack *tmp, const WaveTrack &track, int ntrack)
 {
     bool bGoodResult = true;
@@ -377,7 +377,7 @@ bool Aurora::SineSweepGeneratorEffect::GenerateTrack(EffectSettings &settings,
     return bGoodResult;
 }
 
-void Aurora::SineSweepGeneratorEffect::setupTracks() const
+void Aurora::SineSweepGeneratorDialog::setupTracks() const
 {
    // Add one more track as the EffectBase class already generates a track if the effect type is a generator. see lib-effect/EffectBase::DoEffect method
     
