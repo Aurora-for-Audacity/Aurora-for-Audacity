@@ -66,9 +66,7 @@ protected:
     TranslatableString  GetDescription() const override;
     ManualPageID ManualPage() const override;
     EffectType GetType() const override;
-    
-    bool Init() override;
-    
+        
     void BeforeGenerate() override;
     
     void Failure() override;
