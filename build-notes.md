@@ -2,7 +2,7 @@
 
 ## CMAKE
 
-It is becoming increasingly apparent that Aurora probably should be organised similar to the other audacity modules, which means embracing the CMake build system. 
+It is becoming increasingly apparent that Aurora probably should be organised similar to the other audacity modules, which means embracing the CMake build system.
 
 ### Building Audacity on M2
 
@@ -65,3 +65,8 @@ Most problems seem to come from not running as administrator. Makes sure any pro
 
 - Go to `Preferences` > `Modules`
 - set aurora to `Enable`
+
+
+## BUILD SCRIPTS
+
+add script to alter "~/Library/Application Support/audacity/audacity.cfg"
