@@ -86,6 +86,23 @@ class FrequencyPlotDialog final : public wxDialogWrapper,
 
 Look at `Change Pitch` effect for some cues on formatting
 
+### Layout
+
+If the plug-in is an effect or a generator, the methods to look out for are
+
+```cpp
+std::unique_ptr<EffectEditor> PopulateOrExchange(
+      ShuttleGui & S, EffectInstance &instance,
+      EffectSettingsAccess &access, const EffectOutputs *pOutputs) override;
+   bool TransferDataToWindow(const EffectSettings &settings) override;
+   bool TransferDataFromWindow(EffectSettings &settings) override;
+
+```
+
+- `PopulateOrExchange`: Will layout the UI elements using the `ShuttleGui`
+- `TransferDataToWindow`: can set some default values for the UI components if they are not set already
+- `TransferDataFromWindow`: can be used to update member variables given the submitted parameter values.
+
 ## Inheritance
 
 ### Generator
@@ -114,3 +131,8 @@ StatefulEffectBase      Effect                          StatefulEffectUIServices
                         ComponentInterface
 
 ```
+
+
+### GetPath
+
+might need to override GetPath of the Component interface to get the module to functions correctly
