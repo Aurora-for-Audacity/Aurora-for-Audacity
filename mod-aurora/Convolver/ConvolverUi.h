@@ -14,6 +14,14 @@
 #ifndef __AURORA_CONVOLVER_GUI_H__
 #define __AURORA_CONVOLVER_GUI_H__
 
+#include <aurora.h>
+#include <wx/dnd.h>
+#include <wx/listctrl.h>
+
+
+#include "TrackProperties.h"
+#include "ConvolverDialogs.h"
+
 namespace Aurora
 {
     class ConvolverEffect;

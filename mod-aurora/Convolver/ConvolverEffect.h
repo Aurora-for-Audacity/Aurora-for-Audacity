@@ -14,10 +14,19 @@
 #ifndef __AURORA_CONVOLVER_EFFECT_H__
 #define __AURORA_CONVOLVER_EFFECT_H__
 
-#include "AuroraConvolver.h"
-#include "effects/StatefulEffect.h"
+#include <aurora.h>
+//#include <wx/dnd.h>
 
-class WaveTrack;
+// From Audacity source tree
+//#include <effects/EffectManager.h>
+//#include <Prefs.h>
+#include <WaveTrack.h>
+#include <effects/StatefulEffect.h>
+
+//#include "TrackProperties.h"
+//#include "ConvolverDialogs.h"
+//#include "ConvolverUi.h"
+#include "AuroraConvolver.h"
 
 namespace Aurora
 {

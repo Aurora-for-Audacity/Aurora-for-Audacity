@@ -41,9 +41,9 @@
 
 #define USE_KISS_FFT 1
 
+#include <aurora.h>
 #include <kiss_fftr.h>
-
-#include <string.h>
+//#include <string.h>
 
 /*
   PRESERVE LENGTH

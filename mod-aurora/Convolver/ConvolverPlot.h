@@ -14,6 +14,8 @@
 #ifndef __AURORA_CONVOLVER_PLOT_H__
 #define __AURORA_CONVOLVER_PLOT_H__
 
+#include <aurora.h>
+
 namespace Aurora
 {
     class ConvolverTimeDataSerie : public TTimeDataSerie<Sample>

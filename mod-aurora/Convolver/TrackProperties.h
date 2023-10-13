@@ -13,7 +13,8 @@
 #ifndef __AURORA_CONVOLVER_TRPROP_H__
 #define __AURORA_CONVOLVER_TRPROP_H__
 
-#include <wx/dynarray.h>
+#include <aurora.h>
+//#include <wx/dynarray.h>
 
 namespace Aurora
 {
