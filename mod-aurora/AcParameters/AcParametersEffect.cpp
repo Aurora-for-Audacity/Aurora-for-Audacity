@@ -19,69 +19,51 @@
   all calculations.
 
 *//*******************************************************************/
-#include <aurora.h>
-
-// From Audacity source tree
-#include <ModuleManager.h>
-#include <PluginManager.h>
-#include <Prefs.h>
-#include <WaveTrack.h>
-
-#include <effects/Effect.h>
-#include <effects/EffectManager.h>
-#include <widgets/ProgressDialog.h>
-
-#include "AcParametersBase.h"
-#include "AcParametersDialogs.h"
-#include "AcParametersPlot.h"
-
 #include "AcParametersEffect.h"
-
-#include "AcParametersUi.h"
 
 //----------------------------------------------------------------------------
 // Aurora::AcParametersEffect implementation
 //----------------------------------------------------------------------------
-ComponentInterfaceSymbol Aurora::AcParametersEffect::GetSymbol()
+ComponentInterfaceSymbol Aurora::AcParametersEffect::GetSymbol() const
 {
     return ComponentInterfaceSymbol{ XO("Aurora Acoustical Parameters") };
 }
 
-TranslatableString Aurora::AcParametersEffect::GetDescription()
+TranslatableString Aurora::AcParametersEffect::GetDescription() const
 {
     return TranslatableString { XO("Evaluates the ISO3382 Acoustical Parameters of a room from a measured impulse response") };
 }
 
-PluginPath Aurora::AcParametersEffect::GetPath()
+PluginPath Aurora::AcParametersEffect::GetPath() const
 {
     return PluginPath("Aurora/AcousticalParameters");
 }
 
 // end of interface implementation
 
-void Aurora::AcParametersEffect::AddProcessedTracks()
-{
-    // This code appends processed tracks to workspace.
-    // I don't want to modify the existing ones.
-
-    for(auto& track : m_aAudioTracks)
-    {
-    	wxString name = track.GetName();
-        
-        auto max = track.Filtered().GetAbsMax();
-        wxLogDebug("Max for track %s: %f", name, (double)max);
-
-        auto wt = mFactory->NewWaveTrack(floatSample, mProjectRate);
-        wt->Append( (samplePtr)track.Filtered().Samples(),
-                      floatSample,
-                      track.GetLength() );
-        wt->Flush();        
-        wt->SetName(name);
-	    AddToOutputTracks(wt);
-    }
-
-    this->ReplaceProcessedTracks(true);
-}
+//void Aurora::AcParametersEffect::AddProcessedTracks()
+//{
+//    // This code appends processed tracks to workspace.
+//    // I don't want to modify the existing ones.
+//
+//    for(auto& track : m_aAudioTracks)
+//    {
+//    	wxString name = track.GetName();
+//        
+//        auto max = track.Filtered().GetAbsMax();
+//        wxLogDebug("Max for track %s: %f", name, (double)max);
+//
+//        auto wt = mFactory->NewWaveTrack(floatSample, mProjectRate);
+//        wt->Append( (samplePtr)track.Filtered().Samples(),
+//                      floatSample,
+//                      track.GetLength() );
+//        wt->Flush();        
+//        wt->SetName(name);
+//	    AddToOutputTracks(wt);
+//    }
+//
+//    this->ReplaceProcessedTracks(true);
+//}
 
 
 void Aurora::AcParametersEffect::LoadTracks()
@@ -291,73 +273,73 @@ bool Aurora::AcParametersEffect::Init()
    return true;
 }
 
-bool Aurora::AcParametersEffect::ShowInterface(wxWindow& parent,
-                                               const EffectDialogFactory& factory,
-                                               bool forceModal)
-{
-    m_parent = &parent;
-
-    InitArtProvider();
-    
-    auto dlg = new Aurora::AcParametersDialog(m_parent, this);
-    dlg->CenterOnParent();
-
-    if(! dlg->ShowModal())
-    {        
-        m_parent = nullptr;
-
-        delete dlg;
-        m_aAudioTracks.clear();
-        Destroy();  // reset AcParameters 
-        
-        return false;
-    }
-    StoreConfigurationValues();
-
-    delete dlg;
-    m_bProcess = CalculateAcousticParameters();  // Tries to skip the ProgressDialog curse...
-
-   return true;
-}
+//bool Aurora::AcParametersEffect::ShowInterface(wxWindow& parent,
+//                                               const EffectDialogFactory& factory,
+//                                               bool forceModal)
+//{
+//    m_parent = &parent;
+//
+//    InitArtProvider();
+//    
+//    auto dlg = new Aurora::AcParametersDialog(m_parent, this);
+//    dlg->CenterOnParent();
+//
+//    if(! dlg->ShowModal())
+//    {        
+//        m_parent = nullptr;
+//
+//        delete dlg;
+//        m_aAudioTracks.clear();
+//        Destroy();  // reset AcParameters 
+//        
+//        return false;
+//    }
+//    StoreConfigurationValues();
+//
+//    delete dlg;
+//    m_bProcess = CalculateAcousticParameters();  // Tries to skip the ProgressDialog curse...
+//
+//   return true;
+//}
 
 //------------------------- Processing methods -------------------------
-bool Aurora::AcParametersEffect::Process()
-{
-	// For the moment, leave this as is...
-#ifndef __WXGTK__
-//    m_pAp->SetProgressDialog(mProgress);
-#endif
-
-//    return (m_bProcess = m_pAp->CalculateAcousticParameters());
-
-      // From Effect class: replaces current tracks
-      // with mOutputTracks
-      //ReplaceProcessedTracks(true);
-	return true;
-}
-
-void Aurora::AcParametersEffect::End()
-{
-    if( m_bProcess && m_parent)
-    {
-        // Show parameters dialogs
-        auto dlg = new Aurora::AcParametersShowDialog(NULL, this);
-        dlg->CenterOnParent();
-
-        if(dlg->ShowModal())
-        {
-            AddProcessedTracks();
-        }
-
-        delete dlg;
-    }
-    else if (! m_bAborted)
-    {
-        MessageBox("Processing interrupted by user or supernatural beings.",
-                    Aurora::MessageType::Info);
-    }
-    m_parent = nullptr;
-
-    Destroy(); // instead of 'delete m_pAp'
-    m_aAudioTracks.clear();
-}
+//bool Aurora::AcParametersEffect::Process()
+//{
+//	// For the moment, leave this as is...
+//#ifndef __WXGTK__
+////    m_pAp->SetProgressDialog(mProgress);
+//#endif
+//
+////    return (m_bProcess = m_pAp->CalculateAcousticParameters());
+//
+//      // From Effect class: replaces current tracks
+//      // with mOutputTracks
+//      //ReplaceProcessedTracks(true);
+//	return true;
+//}
+//
+//void Aurora::AcParametersEffect::End()
+//{
+//    if( m_bProcess && m_parent)
+//    {
+//        // Show parameters dialogs
+//        auto dlg = new Aurora::AcParametersShowDialog(NULL, this);
+//        dlg->CenterOnParent();
+//
+//        if(dlg->ShowModal())
+//        {
+//            AddProcessedTracks();
+//        }
+//
+//        delete dlg;
+//    }
+//    else if (! m_bAborted)
+//    {
+//        MessageBox("Processing interrupted by user or supernatural beings.",
+//                    Aurora::MessageType::Info);
+//    }
+//    m_parent = nullptr;
+//
+//    Destroy(); // instead of 'delete m_pAp'
+//    m_aAudioTracks.clear();
+//}

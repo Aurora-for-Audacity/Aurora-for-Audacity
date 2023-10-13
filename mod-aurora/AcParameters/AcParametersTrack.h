@@ -13,6 +13,8 @@
 #ifndef __AURORA_APAUDIOTRACK_H__
 #define __AURORA_APAUDIOTRACK_H__
 
+#include <aurora.h>
+#include "AcParametersSpectrum.h"
 
 namespace Aurora
 {

@@ -14,53 +14,17 @@
 #ifndef __AURORA_AFACPAR_H__
 #define __AURORA_AFACPAR_H__
 
-#include <array>
-#include <unordered_map>
+#include <aurora.h>
 
 #include "AcParametersTrack.h"
+#include "AcTSchroederDecay.h"
 
 #define FIND_VECTOR_MAX(x, max, bd) \
    for(unsigned long k = 0; k < bd; k++) \
        if(x > max) max = x;
 
-class SCOctaveBandAnalysisBase;
-
 namespace Aurora
 {
-    //----------------------------------------------------------------------------
-    // TSchroederDecay
-    //
-    /// \brief The Schroeder decay holder
-    //
-    /// This code calculates the Schroeder decay from an impulse response and
-    /// holds it.
-
-    class TSchroederDecay : public std::vector<Aurora::Sample>
-    {
-      private:
-        Aurora::SampleCount m_fat = 0;         // First Arrival Time
-        double m_dbTP2 = 0.0;
-        double m_dbRate = 0.0;
-
-        public:
-        void Dump(const int idx = -1);
-
-        Aurora::SampleCount GetLength() const { return size(); }
-        double GetTP2  () const { return m_dbTP2; }
-        double GetRate () const { return m_dbRate; }
-
-        void FindFirstArrivalTime();
-        Aurora::SampleCount GetFirstArrivalTimeInSamples() const { return m_fat; }
-
-        void SetData(Aurora::Sample* src, const Aurora::SampleCount length);
-
-        void DoBackwardIntegration(AcParametersAudioTrack& track);
-        void Init(AcParametersAudioTrack& track);
-        void Init(const Aurora::SampleCount length);
-
-        TSchroederDecay() { }
-        TSchroederDecay(const Aurora::SampleCount length);
-    };
 
     //----------------------------------------------------------------------------
     // AFAcousticalParameters
@@ -113,72 +77,7 @@ namespace Aurora
             ERR_NO_CONFIG_SOURCE, 
             ERR_UNKNOWN 
         };
-
-        // -------------------------- Data structures ----------------------------
-
-
-        class TResults
-        {
-          public:
-              
-            struct TParameter 
-            { 
-                double  value = 0.0; 
-                bool  isValid = false; 
-                
-                TParameter() { }
-                TParameter(const double v,
-                           const bool   valid = true);
-            };                        
-            
-          private:
-              
-             static const std::vector<std::string> m_parameterNames;  /*=
-            {
-                "Signal",   "Noise", 
-                "strenGth", "C50",    "C80",  "D50",  "Ts",   
-                "EDT",      "Tuser",  "T20",  "T30",
-
-                "Peakiness", " Millisecondness",  "Impulsiveness",
-
-                "St1",     "St2",        "StLate",     // StageParameters (14..)
-                "IACC",    "tauIACC",    "widthIACC",  // BinauralParameters (17..)
-                "Jlf",     "Jlfc",       "Lj",          // SpatialParameters  (20..)
-            }; */
-                    
-            std::unordered_map< std::string, Aurora::Spectrum<TParameter> > m_table;
-            
-          public:
-              
-            const std::vector<std::string>& Parameters() const
-            {
-                return m_parameterNames;
-            }
-            
-            const std::vector<float>& Frequencies() const
-            {
-                return m_table.at("Signal").Frequencies();
-            }
-            
-            Aurora::Spectrum<TParameter>& GetSpectrum(const std::string& parameterName)
-            {
-                return m_table.at(parameterName);
-            }
-            
-            const TParameter& Get(const std::string& parameterName, const float fcb) const
-            {
-                return m_table.at(parameterName).GetValue(fcb);
-            }
-            
-            void Set(const std::string& parameterName,
-                     const float  fcb,
-                     const double value,
-                     const bool   valid = true);
-                        
-            void SetSpectrumType(const Aurora::SpectrumType type);
-
-            TResults();
-        };
+    
             
         // -------------------------- Input parameters ----------------------------
       private:
@@ -479,9 +378,6 @@ namespace Aurora
         virtual ~AcousticalParameters();
     };
 
-
-    typedef Aurora::Spectrum<Aurora::AcousticalParameters::TResults::TParameter> AcParametersSpectrum;
-    
 } // namespace Aurora
 
 #endif // __AURORA_AFACPAR_H__

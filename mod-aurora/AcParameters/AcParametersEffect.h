@@ -14,9 +14,11 @@
 #ifndef __AURORA_ACPARAM_EFFECT_H__
 #define __AURORA_ACPARAM_EFFECT_H__
 
+#include <aurora.h>
+#include <WaveTrack.h>
+#include <effects/StatefulPerTrackEffect.h>
+
 #include "AcParametersBase.h"
-#include "AcParametersTrack.h"
-#include "AcParametersExports.h"
 
 // Audacity forwards
 class WaveTrack;
@@ -35,7 +37,7 @@ namespace Aurora
     /// See \sa AFAcousticalParameters to know what exactly
     /// it computes.
     //-----------------------------------------------------------------------------
-    class AcParametersEffect: public Aurora::EffectBase,
+    class AcParametersEffect: public StatefulPerTrackEffect,
                               public Aurora::AcousticalParameters
     {
 
@@ -119,16 +121,16 @@ namespace Aurora
     
         bool Init() override;
         
-        bool ShowInterface(wxWindow& parent,
-                           const EffectDialogFactory& factory,
-                           bool forceModal = false) override;
+//        bool ShowInterface(wxWindow& parent,
+//                           const EffectDialogFactory& factory,
+//                           bool forceModal = false) override;
     protected:
-        bool Process() override;
-        void End() override;
+//        bool Process() override;
+//        void End() override;
 
-        ComponentInterfaceSymbol GetSymbol() override;
-        TranslatableString GetDescription() override;
-        PluginPath GetPath() override;
+        ComponentInterfaceSymbol GetSymbol() const override;
+        TranslatableString GetDescription() const override;
+        PluginPath GetPath() const override;
     
     public:
         AcParametersEffect() { }

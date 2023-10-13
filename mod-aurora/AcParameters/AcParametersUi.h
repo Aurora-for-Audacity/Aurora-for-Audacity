@@ -14,11 +14,11 @@
 #ifndef __AURORA_ACPARAM_GUI__
 #define __AURORA_ACPARAM_GUI__
 
-#include <wxcmn.h>
+#include <aurora.h>
 
-#include <wx/clipbrd.h>
-#include <wx/statline.h>
-#include <wx/textfile.h>
+#include "AcParametersDialogs.h"
+#include "AcParametersExports.h"
+#include "AcParametersEffect.h"
 
 namespace Aurora
 {

@@ -10,9 +10,7 @@
   Angelo Farina - Simone Campanini
 
 ************************************************************************/
-#include <aurora.h>
 
-#include "AcParametersBase.h"
 #include "AcParametersTrack.h"
 
 //-------------------------------------------------------------------------------------

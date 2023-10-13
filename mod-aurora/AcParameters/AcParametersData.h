@@ -14,10 +14,7 @@
 #ifndef __AURORA_ACPARAM_DATA_H__
 #define __AURORA_ACPARAM_DATA_H__
 
-#include <afdata.h>
-
-class AcParametersAudioTrack;
-//class Aurora::TSchroederDecay;
+#include <aurora.h>
 
 namespace Aurora
 {

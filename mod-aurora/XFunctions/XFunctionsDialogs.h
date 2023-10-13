@@ -33,6 +33,7 @@
 #include <wx/scrolwin.h>
 #include <wx/splitter.h>
 
+#include "res/equations/null.xpm"
 ///////////////////////////////////////////////////////////////////////////
 
 #define ID_FFT_SIZE_CHOICE 1000

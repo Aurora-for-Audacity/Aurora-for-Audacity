@@ -20,45 +20,28 @@
 
 *//*******************************************************************/
 
-#include <aurora.h>
-
-#include <ModuleManager.h>
-#include <PluginManager.h>
-#include <Prefs.h>
-#include <WaveTrack.h>
-
-#include <effects/Effect.h>
-#include <effects/EffectManager.h>
-
-#include "correlator.h"
-
-#include "XFunctionsData.h"
-#include "XFunctionsPlot.h"
-#include "XFunctionsExports.h"
-#include "XFunctionsArt.h"
-#include "XFunctionsDialogs.h"
 #include "XFunctionsEffect.h"
-#include "XFunctionsUi.h"
+
 
 //----------------------------------------------------------------------------
 // EffectXFunctions implementation
 //----------------------------------------------------------------------------
-ComponentInterfaceSymbol Aurora::XFunctionsEffect::GetSymbol()
+ComponentInterfaceSymbol Aurora::XFunctionsEffect::GetSymbol() const
 {
     return ComponentInterfaceSymbol{ XO("Aurora XFunctions") };
 }
 
-TranslatableString Aurora::XFunctionsEffect::GetDescription()
+TranslatableString Aurora::XFunctionsEffect::GetDescription() const
 {
     return TranslatableString { XO("The Aurora Cross-functions set.") };
 }
 
-PluginPath Aurora::XFunctionsEffect::GetPath()
+PluginPath Aurora::XFunctionsEffect::GetPath() const
 {
     return PluginPath("Aurora/XFunctions");
 }
 
-EffectType Aurora::XFunctionsEffect::GetType()
+EffectType Aurora::XFunctionsEffect::GetType() const
 {
     return EffectTypeTool;
 }
@@ -125,60 +108,60 @@ bool Aurora::XFunctionsEffect::Init()
     return true;
 }
 
-bool Aurora::XFunctionsEffect::ShowInterface(wxWindow& parent,
-                                             const EffectDialogFactory& factory,
-                                             bool forceModal)
-{
-    m_parent = &parent;
-
-    InitArtProvider();
-
-    XFunctionsDialog dlog(m_parent, this);
-    dlog.CenterOnParent();
-
-    if(! dlog.ShowModal()) 
-    {
-        return false;
-    }
-    return true;
-}
+//bool Aurora::XFunctionsEffect::ShowInterface(wxWindow& parent,
+//                                             const EffectDialogFactory& factory,
+//                                             bool forceModal)
+//{
+//    m_parent = &parent;
+//
+//    InitArtProvider();
+//
+//    XFunctionsDialog dlog(m_parent, this);
+//    dlog.CenterOnParent();
+//
+//    if(! dlog.ShowModal()) 
+//    {
+//        return false;
+//    }
+//    return true;
+//}
 
 //------------------------- Processing methods -------------------------
-bool Aurora::XFunctionsEffect::Process()
-{
-   // Get it big!
-    if(! Aurora::Correlator::Process())
-    {   
-        return false;
-    }
-    //If everything goes right, store gain and whatever...
-    StoreConfigurationValues();
-   
-    XFunctionsShowDialog dlog(m_parent, this);
-    dlog.CenterOnParent();
-
-    if(dlog.ShowModal()) 
-    {
-        int ch = 0;  
-        wxString name;
-        
-        while(ch < GetChannelsToExport())
-        {      
-            auto wt = mFactory->NewWaveTrack(floatSample, mProjectRate);
-            wt->Append((samplePtr)GetResultsVector(ch).CSamples(), 
-                       floatSample,
-                       GetResultsVector(ch).Length() );
-            wt->Flush();            
-            wt->SetName(GetResultsVector(ch).GetLabel());
-            
-            AddToOutputTracks(wt);
-            ch++;
-        }
-        this->ReplaceProcessedTracks(true);
-    }
-
-    return true;
-}
+//bool Aurora::XFunctionsEffect::Process()
+//{
+//   // Get it big!
+//    if(! Aurora::Correlator::Process())
+//    {   
+//        return false;
+//    }
+//    //If everything goes right, store gain and whatever...
+//    StoreConfigurationValues();
+//   
+//    XFunctionsShowDialog dlog(m_parent, this);
+//    dlog.CenterOnParent();
+//
+//    if(dlog.ShowModal()) 
+//    {
+//        int ch = 0;  
+//        wxString name;
+//        
+//        while(ch < GetChannelsToExport())
+//        {      
+//            auto wt = mFactory->NewWaveTrack(floatSample, mProjectRate);
+//            wt->Append((samplePtr)GetResultsVector(ch).CSamples(), 
+//                       floatSample,
+//                       GetResultsVector(ch).Length() );
+//            wt->Flush();            
+//            wt->SetName(GetResultsVector(ch).GetLabel());
+//            
+//            AddToOutputTracks(wt);
+//            ch++;
+//        }
+//        this->ReplaceProcessedTracks(true);
+//    }
+//
+//    return true;
+//}
 
 void Aurora::XFunctionsEffect::ReadConfigurationValues() 
 {

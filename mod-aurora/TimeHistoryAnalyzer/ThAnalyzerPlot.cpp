@@ -16,10 +16,6 @@
 
 *//*******************************************************************/
 
-#include <aurora.h>
-
-#include "TimeHistoryAnalyzer.h"
-#include "ThAnalyzerTrack.h"
 #include "ThAnalyzerPlot.h"
 
 

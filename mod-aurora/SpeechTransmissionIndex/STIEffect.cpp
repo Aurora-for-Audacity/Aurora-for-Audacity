@@ -20,46 +20,27 @@
 
 *//*******************************************************************/
 
-#include <aurora.h>
-
-#include <ModuleManager.h>
-#include <PluginManager.h>
-#include <Prefs.h>
-#include <WaveTrack.h>
-
-#include <effects/Effect.h>
-#include <effects/EffectManager.h>
-
-#include "sti.h"
-#include "StiTrack.h"
 #include "StiEffect.h"
-#include "StiExports.h"
-#include "StiData.h"
-#include "StiPlot.h"
-#include "StiDialogs.h"
-#include "StiSpectrumDialog.h"
-#include "StiSpectrum.h"
-#include "StiUi.h"
 
 //----------------------------------------------------------------------------
 // Aurora::STIEffect implementation
 //----------------------------------------------------------------------------
-ComponentInterfaceSymbol Aurora::STIEffect::GetSymbol()
+ComponentInterfaceSymbol Aurora::STIEffect::GetSymbol() const
 {
     return ComponentInterfaceSymbol{ XO("Aurora STI") };
 }
 
-TranslatableString Aurora::STIEffect::GetDescription()
+TranslatableString Aurora::STIEffect::GetDescription() const
 {
     return TranslatableString { XO("The Aurora Speech Transmission Index calculator.") };
 }
 
-PluginPath Aurora::STIEffect::GetPath()
+PluginPath Aurora::STIEffect::GetPath() const
 {
     return PluginPath("Aurora/STI");
 }
 
-EffectType Aurora::STIEffect::GetType()
+EffectType Aurora::STIEffect::GetType() const
 {
     return EffectTypeTool;
 }
@@ -218,75 +199,75 @@ bool Aurora::STIEffect::Init()
 
    return true;
 }
-
-bool Aurora::STIEffect::ShowInterface(wxWindow& parent,
-                                      const EffectDialogFactory& factory,
-                                      bool forceModal)
-{
-    m_parent = &parent;
-
-    // ------------------ Prepare track info list ---------------
-    wxString trackName;
-    wxString chnlName;
-        
-    for (auto it = mOutputTracks->begin(); it != mOutputTracks->end(); ++it)		
-    {
-        WaveTrack* wt = (WaveTrack*)*it; 
-
-        trackName = wt->GetName();
-        Aurora::GetAudacityChannelName(chnlName, wt->GetChannel());
-        trackName << " [" << chnlName << "]";
-        m_trackNames.Add(trackName);        
-    }   
-    // ------------------ end of Prepare track info list ---------------
-
-    // Gui stuffs
-    InitArtProvider();
-    
-    // Show Track Selector dialog
-    STISetupDialog* pDlg = new STISetupDialog(m_parent, this);
-    pDlg->CenterOnParent();   
-    m_bShowResults = false;
-    
-    if(pDlg->ShowModal())
-    {
-        StoreConfigurationValues(); // Save STI environment
-
-        // I would do all these calculation in Process() but on GTK
-        // the ProgressMeter always crashes!
-
-        if(! IsIrTrackSet(CH_LEFT) ) // At least left channel must be set
-        {
-            delete pDlg;
-            return false;
-        }    
-        m_bIsStereo    = AreIrTracksSet();        
-        m_bShowResults = DoSTICalculation();
-    }
-    
-    delete pDlg;    
-    return true;
-}
+//
+//bool Aurora::STIEffect::ShowInterface(wxWindow& parent,
+//                                      const EffectDialogFactory& factory,
+//                                      bool forceModal)
+//{
+//    m_parent = &parent;
+//
+//    // ------------------ Prepare track info list ---------------
+//    wxString trackName;
+//    wxString chnlName;
+//        
+//    for (auto it = mOutputTracks->begin(); it != mOutputTracks->end(); ++it)		
+//    {
+//        WaveTrack* wt = (WaveTrack*)*it; 
+//
+//        trackName = wt->GetName();
+//        Aurora::GetAudacityChannelName(chnlName, wt->GetChannel());
+//        trackName << " [" << chnlName << "]";
+//        m_trackNames.Add(trackName);        
+//    }   
+//    // ------------------ end of Prepare track info list ---------------
+//
+//    // Gui stuffs
+//    InitArtProvider();
+//    
+//    // Show Track Selector dialog
+//    STISetupDialog* pDlg = new STISetupDialog(m_parent, this);
+//    pDlg->CenterOnParent();   
+//    m_bShowResults = false;
+//    
+//    if(pDlg->ShowModal())
+//    {
+//        StoreConfigurationValues(); // Save STI environment
+//
+//        // I would do all these calculation in Process() but on GTK
+//        // the ProgressMeter always crashes!
+//
+//        if(! IsIrTrackSet(CH_LEFT) ) // At least left channel must be set
+//        {
+//            delete pDlg;
+//            return false;
+//        }    
+//        m_bIsStereo    = AreIrTracksSet();        
+//        m_bShowResults = DoSTICalculation();
+//    }
+//    
+//    delete pDlg;    
+//    return true;
+//}
 
 //------------------------- Processing methods -------------------------
-bool Aurora::STIEffect::Process()
-{
-    return false; // no modification on waveform in the
-                  // workspace, so in fact no Process()
-                  // has been done.
-}
-
-void Aurora::STIEffect::End()
-{
-    if (m_bShowResults)
-    {
-        STIShowDialog* pDlg = new STIShowDialog(m_parent, this, m_bIsStereo);
-        pDlg->CenterOnParent();
-        pDlg->ShowModal();
-
-        delete pDlg;
-    }
-}
+//bool Aurora::STIEffect::Process()
+//{
+//    return false; // no modification on waveform in the
+//                  // workspace, so in fact no Process()
+//                  // has been done.
+//}
+//
+//void Aurora::STIEffect::End()
+//{
+//    if (m_bShowResults)
+//    {
+//        STIShowDialog* pDlg = new STIShowDialog(m_parent, this, m_bIsStereo);
+//        pDlg->CenterOnParent();
+//        pDlg->ShowModal();
+//
+//        delete pDlg;
+//    }
+//}
 
 bool Aurora::STIEffect::AreCalibrationTracksSet() const 
 { 

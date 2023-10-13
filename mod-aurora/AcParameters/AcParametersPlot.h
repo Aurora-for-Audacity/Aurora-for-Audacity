@@ -16,6 +16,7 @@
 #include <aurora.h>
 
 #include "AcParametersBase.h"
+#include "AcParametersTrack.h"
 #include "AcParametersData.h"
 
 class AcParametersAudioTrack;

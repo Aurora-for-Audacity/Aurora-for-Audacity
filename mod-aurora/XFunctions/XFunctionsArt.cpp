@@ -10,10 +10,8 @@
   Simone Campanini
 
 **********************************************************************/
-#include <aurora.h>
-
 #include "XFunctionsArt.h"
-#include "equations.h"
+
 
 //
 // XFunctionsArtProvider implementation

@@ -14,31 +14,36 @@
 #ifndef __AURORA_XFUNCTIONS_MODULE_H__
 #define __AURORA_XFUNCTIONS_MODULE_H__
 
-#include "correlator.h"
+#include <aurora.h>
 
-class WaveTrack;
+#include <WaveTrack.h>
+#include <effects/EffectManager.h>
+#include <effects/StatefulPerTrackEffect.h>
+
+#include "Correlator.h"
+
 namespace Aurora
 {
-    class XFunctionsEffect: public Aurora::EffectBase,
+    class XFunctionsEffect: public StatefulPerTrackEffect,
                             public Aurora::Correlator
     {
       public:
 
     // ---------------- Standard Audacity Effects' methods ----------------
 
-        ComponentInterfaceSymbol GetSymbol() override;
-        TranslatableString GetDescription() override;
-        PluginPath GetPath() override;
-        EffectType GetType() override;
+        ComponentInterfaceSymbol GetSymbol() const override;
+        TranslatableString GetDescription() const override;
+        PluginPath GetPath() const override;
+        EffectType GetType() const override;
 
         bool Init() override;
         
-        bool ShowInterface(wxWindow& parent,
-                           const EffectDialogFactory& factory,
-                           bool forceModal = false) override;
+//        bool ShowInterface(wxWindow& parent,
+//                           const EffectDialogFactory& factory,
+//                           bool forceModal = false) override;
 
       protected:
-        bool Process() override;
+//        bool Process() override;
 
 
       public:        

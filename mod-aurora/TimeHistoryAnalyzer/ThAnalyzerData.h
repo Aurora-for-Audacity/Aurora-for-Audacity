@@ -14,6 +14,10 @@
 #ifndef __AURORA_ITUP56_DATA_H__
 #define __AURORA_ITUP56_DATA_H__
 
+#include <aurora.h>
+
+#include "ThAnalyzerTrack.h"
+
 //----------------------------------------------------------------------------
 // AFTimeDataSerie declaration
 //----------------------------------------------------------------------------

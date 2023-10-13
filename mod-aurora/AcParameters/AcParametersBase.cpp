@@ -51,157 +51,7 @@ void DumpData(Aurora::Sample* data, const int length, const int id, const char* 
     }
 }
 
-//----------------------------------------------------------------------------
-// TSchroederDecay implementation
-//----------------------------------------------------------------------------
 
-void Aurora::TSchroederDecay::SetData(Aurora::Sample* src, 
-                                      const Aurora::SampleCount length)
-{
-    memcpy(data(), src, length * sizeof(Aurora::Sample));
-}
-
-void Aurora::TSchroederDecay::FindFirstArrivalTime()
-{
-    Aurora::Sample last = front(); // should be the max too...
-    Aurora::Sample threshold = last * 1.0e-4;
-    Aurora::SampleCount decayStart = 1;
-
-    Aurora::Sample* s = data();
-
-    while(decayStart < size())
-    {
-        if ((last - s[decayStart]) > threshold)
-        {
-            break;
-        }
-        last = s[decayStart];
-        decayStart++;
-    }
-
-    printf("Decay start: %d\n", int(decayStart));
-
-    m_fat = decayStart;
-}
-
-void Aurora::TSchroederDecay::DoBackwardIntegration(Aurora::AcParametersAudioTrack& track)
-{
-    // Calculate Schroeder Integral.
-    // The resulting decay will be stored in m_apsmpDecay vector.
-    // It returns the short factor t*p^2, useful for TS determination.
-    // TO DO: negative returns on error.
-    m_dbRate = track.GetFilteredSamples().GetRate();
-    
-    int length = (int)track.GetFilteredSamples().Length();
-    int i2     = (int)(length - track.GetFirstArrivalTime() *m_dbRate);
-    Aurora::Sample* samples = track.Filtered().Samples();
-        
-    const double nc = track.GetNoiseCorrFactor();
-    double asq = 0;
-    double sum = 0.0;
-    
-    if(length != size())
-    {  
-        Init(length); 
-    }
-
-    m_dbTP2 = 0.0;
-
-    for(int i = length-1; i >= 0; i--)
-    {
-        // Amplitude square. If noise correction is deactivated,
-        //  the correction factor is set to 0.0.
-        asq = double(samples[i] * samples[i]) - nc;
-
-        // if FAT is not reached, update i2 and dbTP2
-        if(i2)
-        {
-            m_dbTP2 += asq * (i2--);
-        }
-        // update squares' total
-        sum += asq;
-
-        // store actual integral value.
-        operator[](i) = Aurora::Sample(sum);
-    }
-
-    // samples to seconds conversion
-    m_dbTP2 /= track.GetFilteredSamples().GetRate();
-
-    // Find decay real start
-    FindFirstArrivalTime();
-}
-
-void Aurora::TSchroederDecay::Init(Aurora::AcParametersAudioTrack& track)
-{
-    Init(track.GetFilteredSamples().Length());
-    DoBackwardIntegration(track);
-}
-
-void Aurora::TSchroederDecay::Init(const Aurora::SampleCount length)
-{
-    if (length > 0)
-    {
-        resize(length);
-    }
-    
-    memset(data(), 0, size() * sizeof(Aurora::Sample));
-}
-
-// *** 'ctors
-
-Aurora::TSchroederDecay::TSchroederDecay(const Aurora::SampleCount length)
-{ Init(length); }
-
-//----------------------------------------------------------------------------
-// Aurora::AcousticalParameters::TResults implementation
-//----------------------------------------------------------------------------
-Aurora::AcousticalParameters::TResults::TParameter::TParameter(const double v,
-                                                               const bool   valid)
-    : value(v), isValid(valid) 
-{
-    if (isnan(value) || isinf(value))
-    {
-        // nan and infinite values are always unacceptable.
-        isValid = false;
-    }
-}
-
-const std::vector<std::string> Aurora::AcousticalParameters::TResults::m_parameterNames =
-{
-    "Signal",   "Noise",
-    "strenGth", "C50",    "C80",  "D50",  "Ts",
-    "EDT",      "Tuser",  "T20",  "T30",
-
-    "Peakiness", "Millisecondness",  "Impulsiveness",
-
-    "St1",     "St2",        "StLate",     // StageParameters (14..)
-    "IACC",    "tauIACC",    "widthIACC",  // BinauralParameters (17..)
-    "Jlf",     "Jlfc",       "Lj",          // SpatialParameters  (20..)
-};
-
-void Aurora::AcousticalParameters::TResults::Set(const std::string& parameterName,
-                                                 const float fcb,
-                                                 const double value,
-                                                 const bool   valid)
-{
-    m_table.at(parameterName).SetValue(fcb, TParameter(value, valid));
-}
-
-void Aurora::AcousticalParameters::TResults::SetSpectrumType(const Aurora::SpectrumType type)
-{
-    m_table.clear();
-    
-    for(auto& np : m_parameterNames)
-    {
-        m_table[np] = Aurora::Spectrum<TParameter>(type);
-    }
-}
-
-Aurora::AcousticalParameters::TResults::TResults()
-{ 
-    SetSpectrumType(Aurora::SpectrumType::Octave);
-}
 
 
 //----------------------------------------------------------------------------
@@ -1294,13 +1144,13 @@ void  Aurora::AcousticalParameters::CalculateBandAParametersAvg(int nCh)
     {
         auto& ps = m_results[nCh].GetSpectrum(pkey);
 
-        Aurora::AcousticalParameters::TResults::TParameter avg = 0.0;
+        Aurora::TResults::TParameter avg = 0.0;
         double count = 0.0;
 
         ps.ForEach(false,
                    [&](const size_t i,
                        const float fcb,
-                       Aurora::AcousticalParameters::TResults::TParameter& par)
+                       Aurora::TResults::TParameter& par)
         {
             if (fcb >= 250.0f && fcb <= 2000.0f)
             {
@@ -1389,7 +1239,7 @@ void Aurora::AcousticalParameters::ReplaceGReferenceValues()
     signal.ForEach(true,
                    [&](const size_t i, 
                        const float fcb,
-                       Aurora::AcousticalParameters::TResults::TParameter& par)
+                       Aurora::TResults::TParameter& par)
     {
         if (par.isValid)
         {            

@@ -16,11 +16,10 @@
 // ---------------------------------------------
 // a correlation calculation library
 // ---------------------------------------------
-
+#include <aurora.h>
 #include <array>
-
 #include <kiss_fft.h>
-#include <tools/kiss_fftr.h>
+#include <kiss_fftr.h>
 
 namespace Aurora
 {

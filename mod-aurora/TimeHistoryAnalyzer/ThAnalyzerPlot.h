@@ -15,7 +15,6 @@
 #define __AURORA_ITUP56_PLOT_H__
 #include <aurora.h>
 
-#include "ThAnalyzerTrack.h"
 #include "ThAnalyzerData.h"
 
 namespace Aurora

@@ -25,24 +25,7 @@
 \brief The dialog showed when Store G-value button is pressed
 
 *//*******************************************************************/
-#include <aurora.h>
 
-// From Audacity source tree
-#include <ModuleManager.h>
-#include <Prefs.h>
-#include <WaveTrack.h>
-
-#include <effects/Effect.h>
-#include <effects/EffectManager.h>
-#include <widgets/ProgressDialog.h>
-
-#include <audacity/ModuleInterface.h>
-#include "AcParametersBase.h"
-
-#include "AcParametersDialogs.h"
-#include "AcParametersExports.h"
-#include "AcParametersPlot.h"
-#include "AcParametersEffect.h"
 
 #include "AcParametersUi.h"
 
@@ -415,7 +398,7 @@ void Aurora::AcParametersShowDialog::UpdateParametersValues(const bool bInit)
         values.ForEach(true, 
                        [&](const size_t col, 
                            const float fcb, 
-                           Aurora::AcousticalParameters::TResults::TParameter& par)
+                           Aurora::TResults::TParameter& par)
         {
             wxString str = (par.isValid ? wxString::Format("%f", par.value)
                                         : "-.-");
@@ -693,7 +676,7 @@ void Aurora::AcParametersShowDialog::OnStoreGRefSig(wxCommandEvent &event)
 {
     if (m_pAp->GetOctaveFraction() > 1)
     {
-        Aurora::AcParametersEffect::MessageBox("Sorry but strenGht calculation works "
+        MessageBox("Sorry but strenGht calculation works "
                                                "only when octave bands analysis is selected.",
                                                Aurora::MessageType::Info);
         return;
@@ -708,7 +691,7 @@ void Aurora::AcParametersShowDialog::OnStoreGRefSig(wxCommandEvent &event)
 
         if(!m_pAp->CalculateAcousticParameters())
         {
-            Aurora::AcParametersEffect::MessageBox("Some errors has been occourred during "
+            MessageBox("Some errors has been occourred during "
                                                    "parameters calculation.",
                                                    Aurora::MessageType::Info);
             return;
@@ -879,7 +862,7 @@ void Aurora::AcParametersShowDialog::PromptSetupDialog()
 
     if(! m_pAp->CalculateAcousticParameters())
     {
-        Aurora::AcParametersEffect::MessageBox("Some errors has been occourred during "
+        MessageBox("Some errors has been occourred during "
                                                "parameters calculation.",
                                                Aurora::MessageType::Info);
         return;

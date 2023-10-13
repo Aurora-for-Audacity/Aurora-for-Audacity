@@ -14,13 +14,15 @@
 #ifndef __AURORA_KIRKEBY_MODULE_H__
 #define __AURORA_KIRKEBY_MODULE_H__
 
+#include <iostream>
+#include <aurora.h>
+#include <effects/StatefulPerTrackEffect.h>
 #include "KirkebyBase.h"
-
-class WaveTrack;
 
 namespace Aurora
 {
-    class KirkebyEffect: public Aurora::EffectBase,
+    class KirkebyEffect: public StatefulPerTrackEffect,
+//public wxDialogWrapper,
                          public Aurora::KirkebyBase
     {
 
@@ -40,16 +42,21 @@ namespace Aurora
     public:
         bool Init() override;
         
-        bool ShowInterface(wxWindow& parent,
-                           const EffectDialogFactory& factory,
-                           bool forceModal = false) override;
+//        bool ShowInterface(wxWindow& parent,
+//                           const EffectDialogFactory& factory,
+//                           bool forceModal = false) override;
+        std::unique_ptr<EffectEditor> PopulateOrExchange(
+           ShuttleGui & S, EffectInstance &instance,
+           EffectSettingsAccess &access, const EffectOutputs *pOutputs) override;
+        bool TransferDataToWindow(const EffectSettings &settings) override;
+        bool TransferDataFromWindow(EffectSettings &settings) override;
       protected:
-        bool Process() override;
+//        bool Process() override;
 
-        ComponentInterfaceSymbol GetSymbol() override;
-        TranslatableString GetDescription() override;
-        PluginPath GetPath() override;
-        EffectType GetType() override;
+        ComponentInterfaceSymbol GetSymbol() const override;
+        TranslatableString GetDescription() const override;
+//        PluginPath GetPath() const override;
+        EffectType GetType() const override;
      
       public:
         KirkebyEffect() { }

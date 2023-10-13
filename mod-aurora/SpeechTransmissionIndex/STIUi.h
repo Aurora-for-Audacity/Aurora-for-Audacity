@@ -14,6 +14,15 @@
 #ifndef __AURORA_STI_GUI_H__
 #define __AURORA_STI_GUI_H__
 
+#include <aurora.h>
+
+#include <wx/filename.h>
+
+#include "STIEffect.h"
+#include "STISpectrumDialog.h"
+#include "STIDialogs.h"
+#include "STIExports.h"
+
 namespace Aurora
 {
     //----------------------------------------------------------------------------

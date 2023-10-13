@@ -14,7 +14,12 @@
 #ifndef __AURORA_XFUNCTIONS_EXPORTS_H__
 #define __AURORA_XFUNCTIONS_EXPORTS_H__
 
+#include <aurora.h>
+#include <wx/wfstream.h>
 #include <wx/txtstrm.h>
+
+#include "XFunctionsData.h"
+#include "XFunctionsPlot.h"
 
 namespace Aurora
 {

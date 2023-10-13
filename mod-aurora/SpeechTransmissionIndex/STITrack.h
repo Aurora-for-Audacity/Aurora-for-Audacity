@@ -13,6 +13,11 @@
 #ifndef __STI_TRACK_H__
 #define __STI_TRACK_H__
 
+#include <aurora.h>
+
+#include "STISpectrum.h"
+#include "ModulationTransferFunctionsTable.h"
+
 namespace Aurora
 {
     class STIAudioTrack : public Aurora::AudioTrack
@@ -25,7 +30,7 @@ namespace Aurora
         void STIOctaveFilter(const float fcb);
         
         void CalculateMTF(const float fcb,
-                          STI::ModulationTransferFunctionsTable& aMTF);    
+                          ModulationTransferFunctionsTable& aMTF);
         
         double CalculateMTF_STItel(const float fcb);
         

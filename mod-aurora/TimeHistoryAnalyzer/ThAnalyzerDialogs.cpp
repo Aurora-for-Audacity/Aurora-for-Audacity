@@ -5,7 +5,7 @@
 // PLEASE DO *NOT* EDIT THIS FILE!
 ///////////////////////////////////////////////////////////////////////////
 
-#include "ThAnalyzerNbook.h"
+
 
 #include "ThAnalyzerDialogs.h"
 

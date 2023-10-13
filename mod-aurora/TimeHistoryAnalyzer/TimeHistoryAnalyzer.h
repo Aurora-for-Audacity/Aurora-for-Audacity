@@ -14,8 +14,7 @@
 #define __AURORA_ITUP56_AFTHAN_H__
 
 #include <array>
-
-#include "ThAnalyzerTrack.h"
+#include "TArrayOfThAnalyzerAudioTracks.h"
 
 namespace Aurora
 {

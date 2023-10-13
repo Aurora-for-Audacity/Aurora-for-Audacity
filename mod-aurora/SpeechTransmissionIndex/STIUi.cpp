@@ -16,20 +16,7 @@
 
 *//*******************************************************************/
 
-#include <aurora.h>
-
-#include <wx/filename.h>
-
-#include "sti.h"
-#include "StiTrack.h"
-#include "StiEffect.h"
-#include "StiExports.h"
-#include "StiData.h"
-#include "StiPlot.h"
-#include "StiDialogs.h"
-#include "StiSpectrumDialog.h"
-#include "StiSpectrum.h"
-#include "StiUi.h"
+#include "STIUi.h"
 
 //----------------------------------------------------------------------------
 // STISetupDialog implementation
@@ -121,7 +108,7 @@ void Aurora::STISetupDialog::OnDoFullscaleCalibration( wxCommandEvent& event )
    {
         if( !m_pSti->DoFullscaleCalibration(true) )  // stereo
         {
-            Aurora::STIEffect::MessageBox("Calibration failed.",
+            MessageBox("Calibration failed.",
                                           Aurora::MessageType::Error);
             return;
         }
@@ -135,7 +122,7 @@ void Aurora::STISetupDialog::OnDoFullscaleCalibration( wxCommandEvent& event )
    {
         if(! m_pSti->DoFullscaleCalibration() )  // mono 
         {
-            Aurora::STIEffect::MessageBox("Calibration failed.",
+            MessageBox("Calibration failed.",
                                           Aurora::MessageType::Error);
             return;
         }
@@ -145,11 +132,11 @@ void Aurora::STISetupDialog::OnDoFullscaleCalibration( wxCommandEvent& event )
    }
    else 
    {
-       Aurora::STIEffect::MessageBox("No track(s) selected.",
+       MessageBox("No track(s) selected.",
                                      Aurora::MessageType::Error);
        return;
    }
-    Aurora::STIEffect::MessageBox("Calibration done successifully.",
+    MessageBox("Calibration done successifully.",
                                   Aurora::MessageType::Info);
 }
 
@@ -254,7 +241,7 @@ void Aurora::STISetupDialog::OnComputeSNRatio( wxCommandEvent& event )
     
     if(! m_pSti->DoSNRatioCalculation(bIsStereo))
     {
-        Aurora::STIEffect::MessageBox("Error calculating signal level.\n"
+        MessageBox("Error calculating signal level.\n"
                                       "Noise level too high in some bands.",
                                       Aurora::MessageType::Error);
     }

@@ -18,7 +18,7 @@
 *//*******************************************************************/
 
 #include <aurora.h>
-#include <widgets/ProgressDialog.h>
+//#include <widgets/ProgressDialog.h>
 
 #include "TimeHistoryAnalyzer.h"
 

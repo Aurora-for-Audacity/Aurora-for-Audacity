@@ -20,14 +20,6 @@
 \brief Window that shows the time history analysis.
 
 *//*******************************************************************/
-#include <aurora.h>
-
-#include "TimeHistoryAnalyzer.h"
-#include "ThAnalyzerDialogs.h"
-#include "ThAnalyzerPlot.h"
-#include "ThAnalyzerExports.h"
-#include "ThAnalyzerEffect.h"
-#include "ThAnalyzerDialogs.h"
 
 #include "ThAnalyzerUi.h"
 
@@ -330,7 +322,7 @@ void Aurora::TimeHistoryAnalyzerFrame::OnAnalyze( wxCommandEvent& event )
 
     if(nCh == 0)
     {
-        Aurora::TimeHistoryAnalyzerEffect::MessageBox("No tracks selected. Please "
+        MessageBox("No tracks selected. Please "
                                                       "choose almost one...",
                                                       Aurora::MessageType::Error);
         return;
@@ -338,7 +330,7 @@ void Aurora::TimeHistoryAnalyzerFrame::OnAnalyze( wxCommandEvent& event )
 
     if(! m_pEffect->DoAnalysis())
     {
-        Aurora::TimeHistoryAnalyzerEffect::MessageBox("An error has been occourred "
+        MessageBox("An error has been occourred "
                                                       "during analysis process.",
                                                       Aurora::MessageType::Error);
         return;
@@ -372,7 +364,7 @@ void Aurora::TimeHistoryAnalyzerFrame::OnCalibrate( wxCommandEvent& event )
 
         if(value == "None")
         {
-            Aurora::TimeHistoryAnalyzerEffect::MessageBox("No calibration track selected.",
+            MessageBox("No calibration track selected.",
                                                           Aurora::MessageType::Error);
             return;
         }
@@ -395,7 +387,7 @@ void Aurora::TimeHistoryAnalyzerFrame::OnCalibrate( wxCommandEvent& event )
         {
             calibTracks.clear();
 
-            Aurora::TimeHistoryAnalyzerEffect::MessageBox("Calibration failed!",
+            MessageBox("Calibration failed!",
                                                           Aurora::MessageType::Error);
             return;
         }
@@ -436,7 +428,7 @@ void Aurora::TimeHistoryAnalyzerFrame::OnCalibrate( wxCommandEvent& event )
         {
             calibTracks.clear();
 
-            Aurora::TimeHistoryAnalyzerEffect::MessageBox("Calibration failed!",
+            MessageBox("Calibration failed!",
                                                           Aurora::MessageType::Error);
             return;
         }
@@ -451,7 +443,7 @@ void Aurora::TimeHistoryAnalyzerFrame::OnCalibrate( wxCommandEvent& event )
     }
     calibTracks.clear();
 
-    Aurora::TimeHistoryAnalyzerEffect::MessageBox("Calibration done successifully!",
+    MessageBox("Calibration done successifully!",
                                                   Aurora::MessageType::Info);
 }
 

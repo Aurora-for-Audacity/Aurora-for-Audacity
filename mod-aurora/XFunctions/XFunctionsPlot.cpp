@@ -17,10 +17,7 @@
 
 *//*******************************************************************/
 
-#include <aurora.h>
 
-#include "correlator.h"
-#include "XFunctionsData.h"
 #include "XFunctionsPlot.h"
 
 

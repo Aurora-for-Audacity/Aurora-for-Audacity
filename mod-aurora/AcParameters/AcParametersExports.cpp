@@ -314,7 +314,7 @@ bool Aurora::AcParametersExports::SaveToFile()
     {
         if(!resultsFile.Open(fn.GetFullPath()))
         {
-            Aurora::AcParametersEffect::MessageBox("Cannot open file for writing",
+            MessageBox("Cannot open file for writing",
                                                    Aurora::MessageType::Error);
             return false;
         }
@@ -324,7 +324,7 @@ bool Aurora::AcParametersExports::SaveToFile()
     {
         if(!resultsFile.Create(fn.GetFullPath()))
         {
-            Aurora::AcParametersEffect::MessageBox("Cannot create file. Check "
+            MessageBox("Cannot create file. Check "
                                                    "permissions.",
                                                    Aurora::MessageType::Error);
             return false;
@@ -348,13 +348,13 @@ bool Aurora::AcParametersExports::SaveToFile()
         //flush data to file.
     if( ! resultsFile.Write(wxTextFileType_Dos) )
     {
-        Aurora::AcParametersEffect::MessageBox("Write error.",
+        MessageBox("Write error.",
                                                Aurora::MessageType::Error);
         bRetVal =  false;
     }
     else
     {
-        Aurora::AcParametersEffect::MessageBox("Datas successifully saved.",
+        MessageBox("Datas successifully saved.",
                                                Aurora::MessageType::Info);
     }
     return bRetVal;
@@ -430,12 +430,12 @@ void Aurora::AcParametersExports::AppendResultsToFile()
 
         if(! tf.Write(wxTextFileType_Dos))
         {
-            Aurora::AcParametersEffect::MessageBox("Write error.",
+            MessageBox("Write error.",
                                                    Aurora::MessageType::Error);
             return;
         }
     }
-    Aurora::AcParametersEffect::MessageBox("Data appended to file.",
+    MessageBox("Data appended to file.",
                                            Aurora::MessageType::Info);
 }
 

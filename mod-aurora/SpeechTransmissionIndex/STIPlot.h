@@ -16,6 +16,9 @@
 
 #include <aurora.h>
 
+#include "STISpectrum.h"
+#include "StiData.h"
+
 namespace Aurora
 {
     class OctaveBandsDataSerie;

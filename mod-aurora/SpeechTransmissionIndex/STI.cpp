@@ -19,333 +19,11 @@
   the artificial mouth probe signal recording (standard IEC 60268-16 2003).
 
 *//*******************************************************************/
-#include <aurora.h>
+#include "STI.h"
 
-#include "sti.h"
-#include "StiTrack.h"
 
-const Aurora::STISpectrum& Aurora::STISpectrum::MaskingThresholdsProfile() 
-{
-    static const Aurora::STISpectrum mt(Aurora::STISpectrum::Profile::MaskingThreshold);
-    return mt;
-}
-
-const Aurora::STISpectrum& Aurora::STISpectrum::MaskingRangeProfile() 
-{
-    static const Aurora::STISpectrum mr(Aurora::STISpectrum::Profile::MaskingRange);
-    return mr;
-}
-
-const Aurora::STISpectrum& Aurora::STISpectrum::MaskingSlopeProfile() 
-{
-    static const Aurora::STISpectrum ms(Aurora::STISpectrum::Profile::MaskingSlope);
-    return ms;
-}
-
-const Aurora::STISpectrum& Aurora::STISpectrum::FemaleCorrectionProfile() 
-{
-    static const Aurora::STISpectrum fc(Aurora::STISpectrum::Profile::FemaleCorrection);
-    return fc;
-}
-
-const Aurora::STISpectrum& Aurora::STISpectrum::AlphaMaleProfile() 
-{
-    static const Aurora::STISpectrum am(Aurora::STISpectrum::Profile::AlphaMale);
-    return am;
-}
-
-const Aurora::STISpectrum& Aurora::STISpectrum::BetaMaleProfile() 
-{
-    static const Aurora::STISpectrum bm(Aurora::STISpectrum::Profile::BetaMale);
-    return bm;
-}
-
-const Aurora::STISpectrum& Aurora::STISpectrum::AlphaFemaleProfile() 
-{
-    static const Aurora::STISpectrum af(Aurora::STISpectrum::Profile::AlphaFemale);
-    return af;
-}
-
-const Aurora::STISpectrum& Aurora::STISpectrum::BetaFemaleProfile() 
-{
-    static const Aurora::STISpectrum bf(Aurora::STISpectrum::Profile::BetaFemale);
-    return bf;
-}
-
-const Aurora::STISpectrum& Aurora::STISpectrum::OMSTItelProfile() 
-{
-    static const Aurora::STISpectrum oms(Aurora::STISpectrum::Profile::OMSTItel);
-    return oms;
-}
-
-const Aurora::STISpectrum& Aurora::STISpectrum::OMRaSTIProfile() 
-{
-    static const Aurora::STISpectrum omr(Aurora::STISpectrum::Profile::OMRaSTI);
-    return omr;
-}
-
-void Aurora::STISpectrum::SetProfile(const Aurora::STISpectrum::Profile profile)
-{
-    switch(profile)
-    {
-        case Aurora::STISpectrum::Profile::DefaultNoise:
-        {
-            double defNoiseProfile[] = {  0.0,  0.0, 48.0, 45.0, 42.0, 39.0, 
-                                         36.0, 33.0, 30.0,  0.0,  0.0,  0.0 };
-            Aurora::Spectrum<double>::SetRange(31.5f, 16000.0f);
-
-            ForEach(true, [&](const size_t i, const float fcb, double& value)
-            {
-                value = defNoiseProfile[i];
-            });
-            break;
-        }
-        
-        case Aurora::STISpectrum::Profile::DefaultSignal:
-        {
-            double defSignalProfile[] = {  0.0,  0.0, 70.9, 70.9, 67.2, 61.2, 
-                                          55.2, 49.2, 43.2,  0.0,  0.0,  0.0  };
-            SetRange(31.5f, 16000.0f);
-            
-            ForEach(true, [&](const size_t i, const float fcb, double& value)
-            {
-                value = defSignalProfile[i];
-            });            
-            break;
-        }
-        
-        case Aurora::STISpectrum::Profile::MaskingThreshold:
-        {
-            double thresholds[] = { 0.0, 0.0, 46.0, 27.0, 12.0, 
-                                    6.5, 7.5,  8.0, 12.0,  0.0 };
-            SetRange(125.0f, 8000.0f);
-            
-            ForEach(false, [&](const size_t i, const float fcb, double& value)
-            {
-                value = thresholds[i];
-            });                     
-            break;
-        }
-        
-        case Aurora::STISpectrum::Profile::MaskingRange: 
-        {
-            double maskingRange[] = {  0.0,  0.0,  45.5, 55.5,  65.5, 
-                                      75.5, 85.5, 95.5, 200.0,   0.0 };
-            SetRange(125.0f, 8000.0f);
-            
-            ForEach(false, [&](const size_t i, const float fcb, double& value)
-            {
-                value = maskingRange[i];
-            });                     
-            break;
-        }
-        
-        case Aurora::STISpectrum::Profile::MaskingSlope:
-        {
-            double maskingSlope[] = { 0.0,      0.0,  0.0,      0.0001, 0.000316, 
-                                      0.003162, 0.01, 0.031622, 0.1,    0.0 };
-            SetRange(125.0f, 8000.0f);
-            
-            ForEach(false, [&](const size_t i, const float fcb, double& value)
-            {
-                value = maskingSlope[i];
-            });                     
-            break;
-        }
-
-        case Aurora::STISpectrum::Profile::FemaleCorrection:
-        {
-           double femaleCorrection[] = {  0.0,  0.0,  0.0,  2.4, -1.1, 
-                                         -2.3, -3.0,  2.1,  6.8,  0.0 };  
-            SetRange(125.0f, 8000.0f);
-            
-            ForEach(false, [&](const size_t i, const float fcb, double& value)
-            {
-                value = femaleCorrection[i];
-            });                     
-            break;
-        }
-
-        case Aurora::STISpectrum::Profile::AlphaMale:
-        {
-            double alphaM[] = { 0.0,   0.0,   0.085, 0.127, 0.230, 
-                                0.233, 0.309, 0.224, 0.173, 0.0 };
-            SetRange(125.0f, 8000.0f);
-            
-            ForEach(false, [&](const size_t i, const float fcb, double& value)
-            {
-                value = alphaM[i];
-            });                     
-            break;
-        }
-        
-        case Aurora::STISpectrum::Profile::BetaMale:            
-        {
-            double betaM[]  = { 0.0,   0.0,   0.085, 0.078, 0.065, 
-                                0.011, 0.047, 0.095, 0.000, 0.0 };
-            SetRange(125.0f, 8000.0f);
-            
-            ForEach(false, [&](const size_t i, const float fcb, double& value)
-            {
-                value = betaM[i];
-            });                     
-            break;        
-        }
-        
-        case Aurora::STISpectrum::Profile::AlphaFemale:
-        {
-            double alphaF[] = { 0.0,   0.0,   0.000, 0.117, 0.223, 
-                                0.216, 0.328, 0.250, 0.194, 0.0 };  
-            SetRange(125.0f, 8000.0f);
-            
-            ForEach(false, [&](const size_t i, const float fcb, double& value)
-            {
-                value = alphaF[i];
-            });                     
-            break;
-        }
-        
-        case Aurora::STISpectrum::Profile::BetaFemale:            
-        {
-            double betaF[]  = { 0.0,   0.0,   0.000, 0.099, 0.066, 
-                                0.062, 0.025, 0.076, 0.000, 0.0 }; 
-            SetRange(125.0f, 8000.0f);
-            
-            ForEach(false, [&](const size_t i, const float fcb, double& value)
-            {
-                value = betaF[i];
-            });                     
-            break;        
-        }
-        
-        case Aurora::STISpectrum::Profile::OMSTItel:            
-        {
-            double OMSTItel[]  = { 0.0,  0.0,  1.12, 11.33,  0.71, 
-                                   2.83, 6.97, 1.78,  4.53,  0.0   };
-            SetRange(125.0f, 8000.0f);
-            
-            ForEach(false, [&](const size_t i, const float fcb, double& value)
-            {
-                value = OMSTItel[i];
-            });                     
-            break;        
-        }
-
-        case Aurora::STISpectrum::Profile::OMRaSTI:            
-        {
-            double OMRaSTI[]  =  { 0.0, 0.0,  0.0, 0.7, 1.4,
-                                   2.8, 5.6, 11.2, 0.0, 0.0 };
-            SetRange(125.0f, 8000.0f);
-            
-            ForEach(false, [&](const size_t i, const float fcb, double& value)
-            {
-                value = OMRaSTI[i];
-            });                     
-            break;        
-        }
-/*
-        case Aurora::STISpectrum::Profile::OMMTI:
-        {
-            double OM[] = { 0.63, 0.8, 1.0, 1.25, 1.6,  2.0,  2.5,
-                            3.15, 4.0, 5.0, 6.3,  8.0, 10.0, 12.5 };
-            SetRange(125.0f, 8000.0f);
-
-            ForEach(false, [&](const size_t i, const float fcb, double& value)
-            {
-                value = OM[i];
-            });
-            break;
-        }
-        */
-    }
-}
-
-void Aurora::STISpectrum::SetRange(const Aurora::STISpectrum::Range range)
-{
-    
-    switch(range)
-    {
-        case Aurora::STISpectrum::Range::Full:
-            SetRange(31.5f, 16000.0f);
-            break;
-            
-        case Aurora::STISpectrum::Range::Reduced:
-            SetRange(125.0f, 8000.0f);
-            break;
-
-        case Aurora::STISpectrum::Range::FiveBands:
-            SetRange(250.0f, 4000.0f);
-            break;
-    }
-}
-
-void Aurora::STISpectrum::SetRange(const float fcbStart, const float fcbEnd)
-{
-    Aurora::Spectrum<double>::SetRange(fcbStart, fcbEnd);
-}
-
-Aurora::STISpectrum& Aurora::STISpectrum::operator=(const STISpectrum& s)
-{
-    Aurora::Spectrum<double>::operator=(s);
-    return *this;
-}
-
-Aurora::STISpectrum::STISpectrum(const Aurora::STISpectrum& s)
- : Aurora::Spectrum<double>(s)
-{ }
-
-Aurora::STISpectrum::STISpectrum(const float fcbStart, const float fcbEnd)
-{
-    assert(fcbStart < fcbEnd);
-    SetRange(fcbStart, fcbEnd);
-}
-
-Aurora::STISpectrum::STISpectrum(const Aurora::STISpectrum::Profile profile)
-{
-    SetProfile(profile);
-}
 
 // --- STI class implementation ------------------------------------------------
-void Aurora::STI::ModulationTransferFunctionsTable::Clear()
-{
-    m_table.clear();
-    
-    for (auto frq : m_frequencies)
-    {
-        m_table.emplace(std::make_pair(frq, Aurora::STISpectrum(125.0f, 8000.0f)));
-    }
-}
-            
-Aurora::STISpectrum& Aurora::STI::ModulationTransferFunctionsTable::GetSpectrum(const double modulationFrequency)
-{
-    return m_table[modulationFrequency];
-}
-            
-double Aurora::STI::ModulationTransferFunctionsTable::GetValue(const double modulationFrequency,
-                                                               const float fcb) const
-{
-    return m_table.at(modulationFrequency).GetValue(fcb);
-}
-            
-void Aurora::STI::ModulationTransferFunctionsTable::SetValue(const double modulationFrequency,
-                                                             const float fcb,
-                                                             const double value)
-{
-    m_table[modulationFrequency].SetValue(fcb, value);
-}
-
-Aurora::STI::Results::Results()
-{
-    noiseSpectrum.SetProfile(Aurora::STISpectrum::Profile::DefaultNoise);
-    signalSpectrum.SetProfile(Aurora::STISpectrum::Profile::DefaultSignal);
-    
-    aRaSTI.SetRange(Aurora::STISpectrum::Range::FiveBands);
-    aRaSTIf.SetRange(Aurora::STISpectrum::Range::FiveBands);
-    
-    aSTItel.SetRange(Aurora::STISpectrum::Range::SevenBands);
-    aSTItelf.SetRange(Aurora::STISpectrum::Range::SevenBands);
-    aMTI.SetRange(Aurora::STISpectrum::Range::SevenBands);
-}
 
 double Aurora::STI::Flatten(double& value, const double flat)
 {
@@ -405,7 +83,7 @@ bool Aurora::STI::StoreSpectrums(Aurora::STIAudioTrack& signal,
                                                                  : "left");
     ProgressMeterWrapper::SetMessage(msg);
 
-    Aurora::STI::Results& res = m_results[nChnl];
+    Aurora::Results& res = m_results[nChnl];
     
     // Store noise
     ComputeOctaveSpectrum(noise, res.noiseSpectrum, nChnl);
@@ -464,7 +142,7 @@ bool Aurora::STI::CalculateMatrix(Aurora::STIAudioTrack& track, const int nChnl)
         return false;                
     }
     
-    Aurora::STI::Results& res = m_results[nChnl];
+    Aurora::Results& res = m_results[nChnl];
     bool ok = true;
         
     res.aSTItel.ForEachBreakable(false, [&](const size_t bd, 
@@ -511,7 +189,7 @@ bool Aurora::STI::Compute(const int nChnl)
     Aurora::STISpectrum snld(125.0f, 8000.0f); // sig NoiseLevelDiff; 
     Aurora::STISpectrum spnl(125.0f, 8000.0f); // sig PlusNoiseLevel; 
     
-    Aurora::STI::Results& res = m_results[nChnl];
+    Aurora::Results& res = m_results[nChnl];
         
     for(int nSex = 0; nSex < 2; nSex++)
     {
@@ -629,7 +307,7 @@ void Aurora::STI::ApplyMaskingCorrection(const int nChnl,
     assert(amf[125.0f] == 0.0f);
 
     const auto& thresholds = Aurora::STISpectrum::MaskingThresholdsProfile();
-    Aurora::STI::Results& res = m_results[nChnl];
+    Aurora::Results& res = m_results[nChnl];
     
     auto& modFrequencies = res.tMTFf.GetFrequencies();
         
@@ -674,7 +352,7 @@ void Aurora::STI::ApplyMaskingCorrection(const int nChnl,
 
 void Aurora::STI::DoSNR(const int nChnl)
 { 
-    Aurora::STI::Results& res = m_results[nChnl];
+    Aurora::Results& res = m_results[nChnl];
     
     //-------------------------------------------------------------- Calcolo SNR 
     res.aMTI.ForEach(false, [&](const size_t bd, const float fcb, double& mtiValue)
@@ -709,7 +387,7 @@ void Aurora::STI::DoSTI(const int nChnl, const int nSex)
     double alpha = 0.0;
     double beta  = 0.0;
     
-    Aurora::STI::Results& res = m_results[nChnl];
+    Aurora::Results& res = m_results[nChnl];
     const auto& fcbs = res.aMTI.Frequencies();
     
    //----------------------------------------------------------------calcolo STI    
@@ -745,7 +423,7 @@ void Aurora::STI::DoRaSTI(const int nChnl)
    //------------------------------------------------------------- calcolo RaSTI
     double tiRaSTI_1 = 0.0;
     
-    Aurora::STI::Results& res = m_results[nChnl];
+    Aurora::Results& res = m_results[nChnl];
 
     auto& modFrequencies = res.tMTFf.GetFrequencies();
         
@@ -778,7 +456,7 @@ void Aurora::STI::DoSTItel(const int nChnl)
 
     double snr = 0.0;
 
-    Aurora::STI::Results& res = m_results[nChnl];
+    Aurora::Results& res = m_results[nChnl];
     // ---------------------------------------------------------- calcolo STItel    
     
     res.aSTItelf.ForEach(false, [&](const size_t bd, const float fcb, double& stitelValue)
@@ -820,7 +498,7 @@ void Aurora::STI::DoSTIPa(const int nChnl)
     double mtf_125;
     double mtf_250;
         
-    Aurora::STI::Results& res = m_results[nChnl]; 
+    Aurora::Results& res = m_results[nChnl]; 
     //------------------------------------------------------------ calcolo STIPa
     // 250 Hz (con media anche su 125 Hz)
     // 1.0 Hz
@@ -1000,7 +678,7 @@ void Aurora::STI::StoreConfigurationValues()
 
     for(int nChnl = Aurora::Channel::Left; nChnl < 2; nChnl++)
     {
-        Aurora::STI::Results& res = m_results[nChnl];
+        Aurora::Results& res = m_results[nChnl];
         const auto& fcbs = res.signalSpectrum.Frequencies();
         
         for(auto fcb : fcbs)

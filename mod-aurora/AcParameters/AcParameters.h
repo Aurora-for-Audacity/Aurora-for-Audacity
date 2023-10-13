@@ -12,8 +12,10 @@
 **********************************************************************/
 #ifndef __AURORA_ACPAR_H__
 #define __AURORA_ACPAR_H__
+#include <aurora.h>
+#include "StatefulPerTrackEffect.h"
 
-class AcParameters : public AFAcousticalParameters
+class AcParameters : public StatefulPerTrackEffect
 {
 	static const wxChar* const m_awxpchParamLabels[];
 

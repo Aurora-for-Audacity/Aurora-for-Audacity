@@ -14,11 +14,12 @@
 #ifndef __AURORA_ITUP56_GUI_H__
 #define __AURORA_ITUP56_GUI_H__
 
-#include <wxcmn.h>
+#include <aurora.h>
 
-#include <wx/clipbrd.h>
-#include <wx/statline.h>
-#include <wx/textfile.h>
+#include "TimeHistoryAnalyzer.h"
+#include "ThAnalyzerDialogs.h"
+#include "ThAnalyzerExports.h"
+
 
 namespace Aurora
 {

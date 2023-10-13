@@ -10,11 +10,7 @@
   Angelo Farina - Simone Campanini
 
 **********************************************************************/
-#include <aurora.h>
 
-#include <widgets/ProgressDialog.h>
-
-#include "ThAnalyzerEffect.h"
 #include "ThAnalyzerExports.h"
 
 
@@ -336,19 +332,19 @@ bool Aurora::ThAnalyzerExports::SaveToFile()
         //flush data to file.
         if( ! resultsFile.Write(wxTextFileType_Dos))
         {
-            Aurora::TimeHistoryAnalyzerEffect::MessageBox("Write error.",
+            MessageBox("Write error.",
                                                           Aurora::MessageType::Error);
             return false;
         }
         else
         {
-            Aurora::TimeHistoryAnalyzerEffect::MessageBox("Datas successifully saved.",
+            MessageBox("Datas successifully saved.",
                                                           Aurora::MessageType::Info);
         }
     }
     else
     {
-        Aurora::TimeHistoryAnalyzerEffect::MessageBox("Error on file creation.",
+        MessageBox("Error on file creation.",
                                                       Aurora::MessageType::Error);
         return false;
     }

@@ -14,32 +14,8 @@
 #define __AURORA_KIRKEBY_AFKIRK_H__
 
 #include <aurora.h>
-
-#if 1
-#include <tools/kiss_fftr.h>
-
-
-#else
-#include <fftw3.h>
-#include <commdefs.h>
-
-// Vector related stuffs
-#include "afcpxmatrix.h"
-#include "afmatrix.h"
-typedef AFVector<Sample>                       TimeVector_t;
-typedef AFComplexSpectrum<fftwf_complex, Sample> FreqVector_t;
-typedef AFMatrix<Sample>                       TimeMatrix_t;
-typedef AFComplexMatrix<fftwf_complex, Sample> FreqMatrix_t;
-
-// Hazardous vector macros...
-#define VectorItemPtr(ptr,r,c, lrow, lcol)   (ptr + r*lrow + c*lcol)
-#define VectorRowPtr(ptr, r, lrow)           (ptr + r*lrow)
-
-#define InItem(r,c)   VectorItemPtr(m_psmpIn,r,c,m_smpcInRowLength,m_smpcInColLength)
-#define InRow(r)      VectorRowPtr(m_psmpIn,r,m_smpcInRowLength)
-#define OutItem(r,c)  VectorItem(m_psmpOut,r,c,m_smpcOutRowLength,m_smpcOutColLength)
-#define OutRow(r)     VectorRowPtr(m_psmpOut,r,m_smpcOutRowLength)
-#endif
+#include <kiss_fftr.h>
+#include <effects/Generator.h>
 
 namespace Aurora
 {

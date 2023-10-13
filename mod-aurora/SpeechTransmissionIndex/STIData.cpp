@@ -20,6 +20,6 @@
 \brief The data series storage class for display
 
 *//*******************************************************************/
-#include <aurora.h>
+
 #include "StiData.h"
 

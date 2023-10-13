@@ -14,6 +14,8 @@
 #ifndef __AURORA_ITUP56_TRACK_H__
 #define __AURORA_ITUP56_TRACK_H__
 
+#include <aurora.h>
+
 namespace Aurora
 {
     //----------------------------------------------------------------------------
@@ -61,7 +63,7 @@ namespace Aurora
 
     };
     
-typedef std::vector<Aurora::ThAnalyzerAudioTrack> TArrayOfThAnalyzerAudioTracks;
+
 
 } // namespace Aurora
 

@@ -23,9 +23,15 @@
 #include <Prefs.h>
 #include <WaveTrack.h>
 
-#include <effects/Effect.h>
+
 #include <effects/EffectManager.h>
-#include <widgets/ProgressDialog.h>
+#include <wxcmn.h>
+
+#include <wx/stattext.h>
+#include <wx/stopwatch.h>
+#include <wx/sizer.h>
+#include <wx/gauge.h>
+#include <wx/evtloop.h>
 
 #include <wx/filename.h>
 
@@ -283,7 +289,7 @@ void Aurora::KirkebyDialog::OnOk( wxCommandEvent& event )
     
     if(filterLength <= 0 || filterLength < trackLength)
     {
-        Aurora::KirkebyEffect::MessageBox("Wrong filter length: must be greater "
+        MessageBox("Wrong filter length: must be greater "
                                           "than 0 and always greater than IR",
                                           Aurora::MessageType::Error);
         return;

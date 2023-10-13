@@ -16,11 +16,13 @@
 //
 // XFunctionsArtProvider implementation
 //
-#include <commdefs.h>
+
+#include <aurora.h>
 #include <wx/artprov.h>
 #include <wx/image.h>
 #include <wx/mstream.h>
 
+#include "equations.h"
 //
 // XFunctionsArtProvider declaration 
 //

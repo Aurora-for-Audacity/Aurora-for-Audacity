@@ -18,14 +18,7 @@
   files and clipboard.
 
 *//*******************************************************************/
-#include <aurora.h>
 
-#include <ModuleManager.h>
-#include <PluginManager.h>
-
-#include "sti.h"
-#include "StiTrack.h"
-#include "StiEffect.h"
 #include "StiExports.h"
 
 // ----------------------------------------------------------------------------
@@ -245,7 +238,7 @@ bool Aurora::STISpectrumExports::OpenSavePrompt(const int nType)
 
     if(!bRetVal)
     {
-        Aurora::STIEffect::MessageBox(bIsOpen ? "Error on file access.\nCheck "
+        MessageBox(bIsOpen ? "Error on file access.\nCheck "
                                                  "permissions."
                                               : "Error on file access.\nCheck "
                                                 "permissions/file existence.",
@@ -265,13 +258,13 @@ bool Aurora::STISpectrumExports::OpenSavePrompt(const int nType)
 
     if(!bRetVal)
     {
-        Aurora::STIEffect::MessageBox(bIsOpen ? "Error opening file."
+        MessageBox(bIsOpen ? "Error opening file."
                                               : "Error writing file",
                                       Aurora::MessageType::Error);
     }
     else if(!bIsOpen)
     {
-        Aurora::STIEffect::MessageBox("SPL data successifully saved.",
+        MessageBox("SPL data successifully saved.",
                                       Aurora::MessageType::Info);
     }
     return bRetVal;
@@ -471,18 +464,18 @@ bool Aurora::STIShowExports::SavePrompt()
         //flush data to file.
         if((bRetVal = resultsFile.Write(wxTextFileType_Dos)))
         {
-            Aurora::STIEffect::MessageBox("Datas successifully saved.",
+            MessageBox("Datas successifully saved.",
                                           Aurora::MessageType::Info);
         }
         else
         {
-            Aurora::STIEffect::MessageBox("Write error.",
+            MessageBox("Write error.",
                                           Aurora::MessageType::Error);
         }
     }
     else
     {
-        Aurora::STIEffect::MessageBox("Error on file creation.",
+        MessageBox("Error on file creation.",
                                       Aurora::MessageType::Error);
     }
     return bRetVal;

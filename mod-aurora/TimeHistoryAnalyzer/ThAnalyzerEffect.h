@@ -17,10 +17,11 @@
 // from Audacity
 #include <aurora.h>
 
-#include "ThAnalyzerTrack.h"
-#include "TimeHistoryAnalyzer.h"
+#include <WaveTrack.h>
+#include <effects/EffectManager.h>
+#include <effects/StatefulPerTrackEffect.h>
 
-class WaveTrack;
+#include "TimeHistoryAnalyzer.h"
 
 namespace Aurora
 {
@@ -29,7 +30,7 @@ namespace Aurora
 //----------------------------------------------------------------------------
 
 
-    class TimeHistoryAnalyzerEffect: public Aurora::EffectBase,
+    class TimeHistoryAnalyzerEffect: public StatefulPerTrackEffect,
                                      public Aurora::TimeHistoryAnalyzer
     {
       private:
@@ -53,20 +54,20 @@ namespace Aurora
 
 
     // ---------------- Standard Audacity Effects' methods ----------------
-        bool Init() override;
-        
-        bool ShowInterface(wxWindow& parent,
-                           const EffectDialogFactory& factory,
-                           bool forceModal = false) override;
+//        bool Init() override;
+//        
+//        bool ShowInterface(wxWindow& parent,
+//                           const EffectDialogFactory& factory,
+//                           bool forceModal = false) override;
 
       protected:
-        bool Process() override;
-        void End() override;
+//        bool Process() override;
+//        void End() override;
 
-        ComponentInterfaceSymbol GetSymbol() override;
-        TranslatableString GetDescription() override;
-        PluginPath GetPath() override;
-        EffectType GetType() override;
+        ComponentInterfaceSymbol GetSymbol() const override;
+        TranslatableString GetDescription() const override;
+        PluginPath GetPath() const override;
+        EffectType GetType() const override;
 
       public:
         TimeHistoryAnalyzerEffect() { }

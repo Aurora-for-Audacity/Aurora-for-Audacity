@@ -14,6 +14,8 @@
 #ifndef __AURORA_STI_DATA_H__
 #define __AURORA_STI_DATA_H__
 
+#include <aurora.h>
+
 namespace Aurora
 {
 

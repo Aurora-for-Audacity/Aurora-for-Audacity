@@ -13,7 +13,7 @@
 #ifndef __ACPAR_VERSION_H__
 #define __ACPAR_VERSION_H__
 
-#include <gpfuncts.h>
+#include <aurora.h>
 #define AP_VERSION_TYPE         ART_ALPHA
 #define AP_RELEASE_CANDIDATE            0
 

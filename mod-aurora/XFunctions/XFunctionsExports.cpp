@@ -10,13 +10,7 @@
   Angelo Farina - Simone Campanini
 
 **********************************************************************/
-#include <aurora.h>
 
-#include <wx/wfstream.h>
-
-#include "XFunctionsEffect.h"
-#include "XFunctionsData.h"
-#include "XFunctionsPlot.h"
 #include "XFunctionsExports.h"
 
 int Aurora::XFunctionsExports::GetShownPlotType(const int nPlot)
@@ -265,7 +259,7 @@ bool Aurora::XFunctionsExports::AppendTimeDelay(const double triggerTime,
 
     if( !timeDelayFile.IsOk() )
     {
-        Aurora::XFunctionsEffect::MessageBox("Error on file creation.",
+        MessageBox("Error on file creation.",
                                              Aurora::MessageType::Error);
         return false;
     }
@@ -323,7 +317,7 @@ bool Aurora::XFunctionsExports::SaveToFile()
     
     if( !resultsFile.IsOk() )
     {
-       Aurora::XFunctionsEffect::MessageBox("Error on file creation.",
+       MessageBox("Error on file creation.",
                                             Aurora::MessageType::Error);
        return false;
     }
@@ -351,7 +345,7 @@ bool Aurora::XFunctionsExports::SaveToFile()
             assert(1);
     }
     
-    Aurora::XFunctionsEffect::MessageBox("Datas successifully saved.",
+    MessageBox("Datas successifully saved.",
                                          Aurora::MessageType::Info);
 
     m_outputStream.reset(nullptr);

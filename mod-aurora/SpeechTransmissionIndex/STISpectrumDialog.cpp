@@ -11,20 +11,7 @@
 
 **********************************************************************/
 
-#include <aurora.h>
-
-#include <wx/filename.h>
-
-#include "sti.h"
-#include "StiTrack.h"
-#include "StiEffect.h"
-#include "StiExports.h"
-#include "StiData.h"
-#include "StiPlot.h"
-#include "StiDialogs.h"
-#include "StiSpectrumDialog.h"
-#include "StiSpectrum.h"
-#include "StiUi.h"
+#include "STISpectrumDialog.h"
 
 //----------------------------------------------------------------------------
 // STISpectrumGridCellColoredRectRenderer implementation

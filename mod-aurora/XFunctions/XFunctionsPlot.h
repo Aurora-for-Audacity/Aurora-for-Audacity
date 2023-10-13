@@ -17,6 +17,9 @@
 #include <aurora.h>
 
 #include "correlator.h"
+#include "XFunctionsData.h"
+
+#include "correlator.h"
 
 namespace Aurora
 {

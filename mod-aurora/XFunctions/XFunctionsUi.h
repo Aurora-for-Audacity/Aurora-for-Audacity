@@ -14,7 +14,14 @@
 #ifndef __AURORA_XFUNCTIONS_GUI_H__
 #define __AURORA_XFUNCTIONS_GUI_H__
 
+#include <aurora.h>
 
+#include "Correlator.h"
+
+#include "XFunctionsArt.h"
+#include "XFunctionsExports.h"
+#include "XFunctionsDialogs.h"
+#include "XFunctionsEffect.h"
 
 namespace Aurora
 {

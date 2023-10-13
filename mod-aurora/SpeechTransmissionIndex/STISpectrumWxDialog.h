@@ -19,11 +19,11 @@
 #include <wx/stattext.h>
 #include <wx/choice.h>
 #include <wx/sizer.h>
-#include "StiPlot.h"
 #include <wx/grid.h>
 #include <wx/splitter.h>
 #include <wx/dialog.h>
 
+#include "STIPlot.h"
 ///////////////////////////////////////////////////////////////////////////
 
 #define ID_SPECTRUM_DLG 1000

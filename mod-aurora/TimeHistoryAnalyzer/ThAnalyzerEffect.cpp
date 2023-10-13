@@ -20,27 +20,9 @@
 
 *//*******************************************************************/
 
-#include <aurora.h>
 
-// From Audacity source tree
-#include <ModuleManager.h>
-#include <PluginManager.h>
-#include <Prefs.h>
-#include <Project.h> 
-#include <ViewInfo.h>
-#include <WaveTrack.h>
-
-#include <effects/Effect.h>
-#include <effects/EffectManager.h>
-#include <widgets/ProgressDialog.h>
-
-#include "TimeHistoryAnalyzer.h"
-#include "ThAnalyzerDialogs.h"
-#include "ThAnalyzerPlot.h"
-#include "ThAnalyzerExports.h"
 #include "ThAnalyzerEffect.h"
 
-#include "ThAnalyzerUi.h"
 
 //----------------------------------------------------------------------------
 // Aurora::TimeHistoryAnalyzerEffect implementation
@@ -48,22 +30,22 @@
 #define THA_RESULTS_DLG_WIDTH   700 // TODO remove it
 #define THA_RESULTS_DLG_HEIGTH  800 // TODO remove it
 
-ComponentInterfaceSymbol Aurora::TimeHistoryAnalyzerEffect::GetSymbol()
+ComponentInterfaceSymbol Aurora::TimeHistoryAnalyzerEffect::GetSymbol() const
 {
     return ComponentInterfaceSymbol{ XO("Aurora Time History Analizer") };
 }
 
-TranslatableString Aurora::TimeHistoryAnalyzerEffect::GetDescription()
+TranslatableString Aurora::TimeHistoryAnalyzerEffect::GetDescription() const
 {
     return TranslatableString { XO("Analyze a signal in the time domain following ITU P56 stantard") };
 }
 
-PluginPath Aurora::TimeHistoryAnalyzerEffect::GetPath()
+PluginPath Aurora::TimeHistoryAnalyzerEffect::GetPath() const
 {
     return PluginPath("Aurora/TimeHistoryAnalyzer");
 }
 
-EffectType Aurora::TimeHistoryAnalyzerEffect::GetType()
+EffectType Aurora::TimeHistoryAnalyzerEffect::GetType() const
 {
     return EffectTypeAnalyze;
 }
@@ -200,41 +182,41 @@ bool Aurora::TimeHistoryAnalyzerEffect::LoadTrackData(const int index,
 }
 
 
-void Aurora::TimeHistoryAnalyzerEffect::AppendTracksToWorkspace()
-{
-    wxString name;
-
-    if(m_aSignalTracks[0].GetSelectedFilter() != Aurora::AudioTrack::FLT_NONE)  // TODO what's mean this????
-    {
-        // If prompt user return true, add to workspace filtered tracks.
-        for(size_t nCh = 0; nCh < m_aSignalTracks.size(); nCh++)
-        {
-            name = m_aSignalTracks[nCh].GetName();
-            //		 name.Printf(wxT("Ch %d"), nCh);
-
-            switch(m_aSignalTracks[nCh].GetSelectedFilter())
-            {
-                case Aurora::AudioTrack::FLT_ITU: name << " ITU filtered"; break;
-                case Aurora::AudioTrack::FLT_IEC: name << " IEC filtered"; break;
-                case Aurora::AudioTrack::FLT_ISO: name << " ISO filtered"; break;
-                case Aurora::AudioTrack::FLT_UNI: name << " UNI filtered"; break;
-                default: // shouldn't arrive here...
-                    name << " not really filtered";
-                    break;
-            }
-            name << " [" << int(nCh+1) << "]";
-
-            auto wt = mFactory->NewWaveTrack(floatSample, mProjectRate);
-            wt->Append((samplePtr)m_aSignalTracks[nCh].Filtered().Samples(),
-		               floatSample,
-		               m_aSignalTracks[nCh].GetLength() );
-            wt->Flush();
-            wt->SetName(name);
-            AddToOutputTracks(wt);
-        }
-        this->ReplaceProcessedTracks(true);
-    }
-}
+//void Aurora::TimeHistoryAnalyzerEffect::AppendTracksToWorkspace()
+//{
+//    wxString name;
+//
+//    if(m_aSignalTracks[0].GetSelectedFilter() != Aurora::AudioTrack::FLT_NONE)  // TODO what's mean this????
+//    {
+//        // If prompt user return true, add to workspace filtered tracks.
+//        for(size_t nCh = 0; nCh < m_aSignalTracks.size(); nCh++)
+//        {
+//            name = m_aSignalTracks[nCh].GetName();
+//            //		 name.Printf(wxT("Ch %d"), nCh);
+//
+//            switch(m_aSignalTracks[nCh].GetSelectedFilter())
+//            {
+//                case Aurora::AudioTrack::FLT_ITU: name << " ITU filtered"; break;
+//                case Aurora::AudioTrack::FLT_IEC: name << " IEC filtered"; break;
+//                case Aurora::AudioTrack::FLT_ISO: name << " ISO filtered"; break;
+//                case Aurora::AudioTrack::FLT_UNI: name << " UNI filtered"; break;
+//                default: // shouldn't arrive here...
+//                    name << " not really filtered";
+//                    break;
+//            }
+//            name << " [" << int(nCh+1) << "]";
+//
+//            auto wt = mFactory->NewWaveTrack(floatSample, mProjectRate);
+//            wt->Append((samplePtr)m_aSignalTracks[nCh].Filtered().Samples(),
+//		               floatSample,
+//		               m_aSignalTracks[nCh].GetLength() );
+//            wt->Flush();
+//            wt->SetName(name);
+//            AddToOutputTracks(wt);
+//        }
+//        this->ReplaceProcessedTracks(true);
+//    }
+//}
 
 
 bool Aurora::TimeHistoryAnalyzerEffect::DoFullscaleCalibration(std::vector<double>& fullScales)
@@ -280,52 +262,52 @@ bool Aurora::TimeHistoryAnalyzerEffect::DoAnalysis()
     return true;
 }
 
-bool Aurora::TimeHistoryAnalyzerEffect::Init()
-{
-    const int nTracks = GetNumWaveTracks();
-
-    if (nTracks == 0 || mT0 >= mT1)
-    {
-        MessageBox("No selection found.", Aurora::MessageType::Error);
-        return false;
-    }
-
-    // The very first thing to do!
-    Aurora::TimeHistoryAnalyzer::SetChannelsNumber(nTracks);
-
-    this->CopyInputTracks(); // Set up mOutputTracks.
-
-    return true;
-}
-
-bool Aurora::TimeHistoryAnalyzerEffect::ShowInterface(wxWindow& parent,
-                                                      const EffectDialogFactory& factory,
-                                                      bool forceModal)
-{
-    m_parent = &parent;
-
-    // Setup graphics.
-    InitArtProvider();
-
-    auto dlg = new TimeHistoryAnalyzerFrame(m_parent, this);
-    dlg->CenterOnParent();
-
-    const bool ok = dlg->ShowModal();
-
-    delete dlg;
-    return ok;
-}
-
-bool Aurora::TimeHistoryAnalyzerEffect::Process()
-{
-	AppendTracksToWorkspace();
-    return true;
-}
-
-void Aurora::TimeHistoryAnalyzerEffect::End()
-{
-   
-}
+//bool Aurora::TimeHistoryAnalyzerEffect::Init()
+//{
+//    const int nTracks = GetNumWaveTracks();
+//
+//    if (nTracks == 0 || mT0 >= mT1)
+//    {
+//        MessageBox("No selection found.", Aurora::MessageType::Error);
+//        return false;
+//    }
+//
+//    // The very first thing to do!
+//    Aurora::TimeHistoryAnalyzer::SetChannelsNumber(nTracks);
+//
+//    this->CopyInputTracks(); // Set up mOutputTracks.
+//
+//    return true;
+//}
+//
+//bool Aurora::TimeHistoryAnalyzerEffect::ShowInterface(wxWindow& parent,
+//                                                      const EffectDialogFactory& factory,
+//                                                      bool forceModal)
+//{
+//    m_parent = &parent;
+//
+//    // Setup graphics.
+//    InitArtProvider();
+//
+//    auto dlg = new TimeHistoryAnalyzerFrame(m_parent, this);
+//    dlg->CenterOnParent();
+//
+//    const bool ok = dlg->ShowModal();
+//
+//    delete dlg;
+//    return ok;
+//}
+//
+//bool Aurora::TimeHistoryAnalyzerEffect::Process()
+//{
+//	AppendTracksToWorkspace();
+//    return true;
+//}
+//
+//void Aurora::TimeHistoryAnalyzerEffect::End()
+//{
+//   
+//}
 
 
 

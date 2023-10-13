@@ -11,9 +11,9 @@
 
 **********************************************************************/
 
-#include <aurora.h>
 
-#include "correlator.h"
+
+#include "Correlator.h"
 
 ///////////////////////////////////////////////////
 // Correlator class implementation

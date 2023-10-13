@@ -26,9 +26,15 @@
 #include <Prefs.h>
 #include <WaveTrack.h>
 
-#include <effects/Effect.h>
+
 #include <effects/EffectManager.h>
-#include <widgets/ProgressDialog.h>
+#include <wxcmn.h>
+
+#include <wx/stattext.h>
+#include <wx/stopwatch.h>
+#include <wx/sizer.h>
+#include <wx/gauge.h>
+#include <wx/evtloop.h>
 
 #include "KirkebyDialogs.h"
 #include "KirkebyEffect.h"
@@ -91,22 +97,17 @@ static void kissTest()
 //----------------------------------------------------------------------------
 // KirkebyEffect implementation
 //----------------------------------------------------------------------------
-ComponentInterfaceSymbol Aurora::KirkebyEffect::GetSymbol()
+ComponentInterfaceSymbol Aurora::KirkebyEffect::GetSymbol() const
 {
     return ComponentInterfaceSymbol{ XO("Aurora Invert Kirkeby") };
 }
 
-TranslatableString Aurora::KirkebyEffect::GetDescription()
+TranslatableString Aurora::KirkebyEffect::GetDescription() const
 {
     return TranslatableString { XO("Compute a filter inversion using Ole Kirkeby method.") };
 }
 
-PluginPath Aurora::KirkebyEffect::GetPath()
-{
-    return PluginPath("Aurora/InvertKirkeby");
-}
-
-EffectType Aurora::KirkebyEffect::GetType()
+EffectType Aurora::KirkebyEffect::GetType() const
 {
     return EffectTypeTool;
 }
@@ -181,11 +182,12 @@ void Aurora::KirkebyEffect::StoreConfigurationValues()
 {
    //mCfg.Write(wxT("/Aurora/AcParameters/UserMinLevel"), GetUserMinLevel());
 }
+
 bool Aurora::KirkebyEffect::Init()
 {   
-#if _DEBUG
-    kissTest();
-#endif
+//#if _DEBUG
+//    kissTest();
+//#endif
     // The very first thing to do!
     const int nTracks = GetNumWaveTracks();
     
@@ -235,84 +237,84 @@ bool Aurora::KirkebyEffect::Init()
     return true;
 }
 
-bool Aurora::KirkebyEffect::ShowInterface(wxWindow& parent,
-                                          const EffectDialogFactory& factory,
-                                          bool forceModal)
-{
-    m_parent = &parent;
-
-    // Gui stuffs
-    InitArtProvider();
-
-    Aurora::KirkebyDialog dlog(m_parent, this, m_bIsStereo);
-    dlog.CenterOnParent();
-
-    if(!dlog.ShowModal())
-    {
-        KirkebyBase::Destroy();
-        return false;
-    }
-   
-    m_bProcess = true;
-    return true;
-}
+//bool Aurora::KirkebyEffect::ShowInterface(wxWindow& parent,
+//                                          const EffectDialogFactory& factory,
+//                                          bool forceModal)
+//{
+//    m_parent = &parent;
+//
+//    // Gui stuffs
+//    InitArtProvider();
+//
+//    Aurora::KirkebyDialog dlog(m_parent, this, m_bIsStereo);
+//    dlog.CenterOnParent();
+//
+//    if(!dlog.ShowModal())
+//    {
+//        KirkebyBase::Destroy();
+//        return false;
+//    }
+//   
+//    m_bProcess = true;
+//    return true;
+//}
 
 //------------------------- Processing methods -------------------------
-bool Aurora::KirkebyEffect::Process()
-{
-    if(!m_bProcess)
-    {
-        printf("Calculation aborted!\n");
-        return false;
-    }
-    
-    if(! KirkebyBase::Init())
-    {
-        MessageBox("Kirkeby module initialization failed.",
-                    Aurora::MessageType::Error);
-        return false;
-    }
-
-    if(! LoadTracks())
-    {
-        MessageBox("Something strange occourred.\nCannot load tracks in memory.",
-                    Aurora::MessageType::Error);
-        return false;
-    }
-
-    int nRow = 0, nCol = 0;    
-    wxString name;
-
-    if(! KirkebyBase::Process())
-    {
-        MessageBox("Something strange occourred.\nCannot calculate Kirkeby Inverse filter.",
-                    Aurora::MessageType::Error);
-        return false;
-    }
-    
-    // TODO: if(m_bIsStereo) Generate stereo output track.
-    while(nRow < GetRows())
-    {
-        name.Printf("Inverse Filter %d", nRow + 1);
-        auto wt = mFactory->NewWaveTrack(floatSample, mProjectRate);
-        nCol = 0;
-
-        while(nCol < GetCols())
-        {
-            samplePtr data = (samplePtr)GetOutputTrackItem(nRow, nCol).Samples();
-            auto length = GetInverseFilterLength();
-
-            wt->Append(data, floatSample, length );
-            nCol++;
-        }
-        wt->Flush();
-        wt->SetName(name);
-        AddToOutputTracks(wt);
-        nRow++;
-    }
-
-    this->ReplaceProcessedTracks(true);
-
-   return true;
-}
-
+//bool Aurora::KirkebyEffect::Process()
+//{
+//    if(!m_bProcess)
+//    {
+//        printf("Calculation aborted!\n");
+//        return false;
+//    }
+//    
+//    if(! KirkebyBase::Init())
+//    {
+//        MessageBox("Kirkeby module initialization failed.",
+//                    Aurora::MessageType::Error);
+//        return false;
+//    }
+//
+//    if(! LoadTracks())
+//    {
+//        MessageBox("Something strange occourred.\nCannot load tracks in memory.",
+//                    Aurora::MessageType::Error);
+//        return false;
+//    }
+//
+//    int nRow = 0, nCol = 0;    
+//    wxString name;
+//
+//    if(! KirkebyBase::Process())
+//    {
+//        MessageBox("Something strange occourred.\nCannot calculate Kirkeby Inverse filter.",
+//                    Aurora::MessageType::Error);
+//        return false;
+//    }
+//    
+//    // TODO: if(m_bIsStereo) Generate stereo output track.
+//    while(nRow < GetRows())
+//    {
+//        name.Printf("Inverse Filter %d", nRow + 1);
+//        auto wt = mFactory->NewWaveTrack(floatSample, mProjectRate);
+//        nCol = 0;
+//
+//        while(nCol < GetCols())
+//        {
+//            samplePtr data = (samplePtr)GetOutputTrackItem(nRow, nCol).Samples();
+//            auto length = GetInverseFilterLength();
+//
+//            wt->Append(data, floatSample, length );
+//            nCol++;
+//        }
+//        wt->Flush();
+//        wt->SetName(name);
+//        AddToOutputTracks(wt);
+//        nRow++;
+//    }
+//
+//    this->ReplaceProcessedTracks(true);
+//
+//   return true;
+//}
+//

@@ -13,68 +13,14 @@
 #ifndef __AURORA_STI_H__
 #define __AURORA_STI_H__
 
-#include <array>
-#include <map>
+#include <aurora.h>
+
+#include "STISpectrum.h"
+#include "STIResults.h"
+#include "STITrack.h"
 
 namespace Aurora
 {
-    class STIAudioTrack;
-    
-    class STISpectrum : public Aurora::Spectrum<double>
-    {
-      public:
-        enum Range
-        {
-            Full,
-            Reduced,
-            FiveBands,
-            
-            SevenBands = 1
-        };
-        
-        enum Profile
-        {
-            DefaultNoise,
-            DefaultSignal,
-            MaskingThreshold,
-            MaskingRange,     // A.Farina STI computation
-            MaskingSlope,     // A.Farina STI computation
-            FemaleCorrection,
-            AlphaMale,        //coeff di peso voce maschile
-            BetaMale,
-            AlphaFemale,       //coeff di peso voce femminile
-            BetaFemale,
-
-            OMSTItel,  // used in tracks
-            OMRaSTI //,
-            //OMMTI
-        };
-                
-      public:
-          static const STISpectrum& MaskingThresholdsProfile();
-          static const STISpectrum& MaskingRangeProfile();
-          static const STISpectrum& MaskingSlopeProfile();
-          static const STISpectrum& FemaleCorrectionProfile();
-          static const STISpectrum& AlphaMaleProfile();
-          static const STISpectrum& BetaMaleProfile();
-          static const STISpectrum& AlphaFemaleProfile();
-          static const STISpectrum& BetaFemaleProfile();
-          static const STISpectrum& OMSTItelProfile();
-          static const STISpectrum& OMRaSTIProfile();
-
-          void SetProfile(const STISpectrum::Profile profile);
-
-          void SetRange(const STISpectrum::Range range);
-          void SetRange(const float fcbStart, const float fcbEnd);
-          
-          STISpectrum& operator=(const STISpectrum& s);
-          
-          STISpectrum() { Reset(); }
-          STISpectrum(const STISpectrum& s);
-          STISpectrum(const float fcbStart, const float fcbEnd);
-          STISpectrum(const STISpectrum::Profile profile);
-    };    
-    
     /**
      * @brief The Speech Transfer Index computation class
      */
@@ -89,67 +35,6 @@ namespace Aurora
             Male         
         };
     
-        /**
-        * @brief Container for STI computations.
-        */
-        class ModulationTransferFunctionsTable
-        {
-            std::map<double, Aurora::STISpectrum> m_table;
-            
-            std::array<double, 14> m_frequencies = 
-            {
-                0.63, 0.8, 1.0, 1.25, 1.6,  2.0,  2.5, 
-                3.15, 4.0, 5.0, 6.3,  8.0, 10.0, 12.5
-            };
-            
-          public:
-            void Clear();
-            
-            const std::array<double, 14>& GetFrequencies() const { return m_frequencies; }
-            
-            STISpectrum& GetSpectrum(const double modulationFrequency);
-            
-            double GetValue(const double modulationFrequency,
-                            const float fcb) const;
-            
-            void SetValue(const double modulationFrequency,
-                          const float fcb,
-                          const double value);
-            
-            ModulationTransferFunctionsTable() { Clear(); }
-        };
-        
-        // *** Results vectors & tables
-        class Results
-        {
-          public:
-            Aurora::STISpectrum noiseSpectrum;
-            Aurora::STISpectrum signalSpectrum;             
-            Aurora::STISpectrum sigNoiseSpectrum;
-            
-          protected:  
-            ModulationTransferFunctionsTable tMTF;   // These are the original values
-            Aurora::STISpectrum  aRaSTI;  // five bands...
-            Aurora::STISpectrum  aSTItel; // reduced (7) bands
-            
-          public:  
-            ModulationTransferFunctionsTable tMTFf;  // These are final values,             
-            Aurora::STISpectrum  aRaSTIf;               // so they  can be
-            Aurora::STISpectrum  aSTItelf;              // denoised, masked , etc
-            
-            double STImale   = 0.0;
-            double STIfemale = 0.0;
-            double STIpa     = 0.0;
-            
-            Aurora::STISpectrum  aMTI; // reduced (7) bands (Modulation Transfer Indices)
-            double RaSTI  = 0.0;
-            double STItel = 0.0;
-            
-            Results();
-            
-            friend class Aurora::STI;
-        };
-        
       private:        
         std::array<Results, 2> m_results;
 

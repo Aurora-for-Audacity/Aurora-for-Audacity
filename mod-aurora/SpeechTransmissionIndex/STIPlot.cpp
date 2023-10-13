@@ -15,11 +15,7 @@
 \brief The octave band bars graphic chart
 
 *//*******************************************************************/
-#include <aurora.h>
 
-#include "sti.h"
-#include "StiTrack.h"
-#include "StiData.h"
 #include "StiPlot.h"
 
 //----------------------------------------------------------------------------

@@ -16,14 +16,17 @@
 
 #include <aurora.h>
 
-#include "sti.h"
+#include <WaveTrack.h>
+#include <effects/StatefulPerTrackEffect.h>
 
-class WaveTrack;
+#include "STI.h"
+#include "STITrack.h"
+
 
 namespace Aurora
 {
 
-    class STIEffect: public Aurora::EffectBase,
+    class STIEffect: public StatefulPerTrackEffect,
                      public Aurora::STI
     {
     private:
@@ -77,21 +80,20 @@ namespace Aurora
         bool DoSTICalculation();
     
     // ---------------- Standard Audacity Effects' methods ----------------
-        ComponentInterfaceSymbol GetSymbol() override;
-        
-        TranslatableString GetDescription() override;
-        PluginPath GetPath() override;
-        EffectType GetType() override;
+        ComponentInterfaceSymbol GetSymbol() const override;
+        TranslatableString GetDescription() const override;
+        PluginPath GetPath() const override;
+        EffectType GetType() const override;
         
         bool Init() override;
         
-        bool ShowInterface(wxWindow& parent,
-                           const EffectDialogFactory& factory,
-                           bool forceModal = false) override;
+//        bool ShowInterface(wxWindow& parent,
+//                           const EffectDialogFactory& factory,
+//                           bool forceModal = false) override;
 
     protected:
-        bool Process() override;
-        void End() override;
+//        bool Process() override;
+//        void End() override;
         
     public:     
         STIEffect();

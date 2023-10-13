@@ -14,6 +14,9 @@
 #ifndef __AURORA_ITUP56_EXPORTS_H__
 #define __AURORA_ITUP56_EXPORTS_H__
 
+#include <aurora.h>
+#include "ThAnalyzerEffect.h"
+
 namespace Aurora
 {
     class ThAnalyzerExports : public Aurora::Exports

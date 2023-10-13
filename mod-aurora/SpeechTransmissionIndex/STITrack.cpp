@@ -10,9 +10,7 @@
   Angelo Farina - Simone Campanini
 
 ***********************************************************************/
-#include <aurora.h>
 
-#include "sti.h"
 #include "StiTrack.h"
 
 bool Aurora::STIAudioTrack::FindFirstArrivalTime(const double threshold)
@@ -69,7 +67,7 @@ void Aurora::STIAudioTrack::STIOctaveFilter(const float fcb)
 }
 
 void Aurora::STIAudioTrack::CalculateMTF(const float fcb,
-                                         Aurora::STI::ModulationTransferFunctionsTable& tMTF)
+                                         ModulationTransferFunctionsTable& tMTF)
 {
     double sum = 0.0; // TODO: this should be a class attribute
     

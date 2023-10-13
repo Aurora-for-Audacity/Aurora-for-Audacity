@@ -14,6 +14,13 @@
 #ifndef __AURORA_STI_SPECTRUM_H__
 #define __AURORA_STI_SPECTRUM_H__
 
+#include <aurora.h>
+
+#include "STIEffect.h"
+#include "STISpectrumWxDialog.h"
+#include "STIExports.h"
+
+
 #define ID_RIGHT_PLOT  10002
 #define ID_LEVEL_COPY_SELECTION_MENU 10022
 

@@ -18,7 +18,9 @@
 #  define USE_KISS_FFT 1
 #endif
 
-#include <tools/kiss_fftr.h>
+#include <kiss_fftr.h>
+#include <aurora.h>
+#include "Correlator.h"
 
 namespace Aurora
 {

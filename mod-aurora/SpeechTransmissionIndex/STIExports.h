@@ -13,7 +13,10 @@
 #ifndef __AURORA_STI_EXPORTS_H__
 #define __AURORA_STI_EXPORTS_H__
 
-#include <wx/textfile.h>
+#include <aurora.h>
+
+#include "STI.h"
+#include "STIEffect.h"
 
 namespace Aurora
 {

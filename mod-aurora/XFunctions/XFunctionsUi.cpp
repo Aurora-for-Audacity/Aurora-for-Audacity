@@ -20,17 +20,7 @@
 \brief Window that shows xfunctions results.
 
 *//*******************************************************************/
-#include <aurora.h>
 
-#include "correlator.h"
-
-#include "XFunctionsEffect.h"
-
-#include "XFunctionsData.h"
-#include "XFunctionsPlot.h"
-#include "XFunctionsExports.h"
-#include "XFunctionsArt.h"
-#include "XFunctionsDialogs.h"
 #include "XFunctionsUi.h"
 
 //----------------------------------------------------------------------------

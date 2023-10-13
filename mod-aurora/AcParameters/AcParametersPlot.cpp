@@ -16,10 +16,7 @@
 
 *//*******************************************************************/
 
-#include <aurora.h>
 
-#include "AcParametersBase.h"
-#include "AcParametersTrack.h"
 #include "AcParametersPlot.h"
 
 //----------------------------------------------------------------------------
@@ -149,7 +146,7 @@ void Aurora::AcParametersBarPlot::AddSerie(AcParametersSpectrum& spectrum,
     spectrum.ForEach(true,
                      [&](const size_t bdi,
                          const float  fcb,
-                         Aurora::AcousticalParameters::TResults::TParameter& par)
+                         Aurora::TResults::TParameter& par)
     {
         m_buffer[bdi] = (par.isValid ? par.value : 0.0);
     });

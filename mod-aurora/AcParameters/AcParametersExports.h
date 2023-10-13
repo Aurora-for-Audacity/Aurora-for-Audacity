@@ -12,6 +12,9 @@
 ************************************************************************/
 #ifndef __AURORA_ACPARAM_EXPORTS_H__
 #define __AURORA_ACPARAM_EXPORTS_H__
+#include <aurora.h>
+
+#include "AcParametersEffect.h"
 
 namespace Aurora
 {
