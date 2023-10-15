@@ -12,7 +12,7 @@ to be updated to comply with the Audacity 3.0.0 and greater.
 
 ### Note from Simone
 
->**Simone:** The Audacity code was patched because the module support was partially dropped, so some
+>The Audacity code was patched because the module support was partially dropped, so some
 >code was commented (but it was still there).
 >
 > I did't do any cmake or similar because I don't have time to learn it. The very first
