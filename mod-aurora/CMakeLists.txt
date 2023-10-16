@@ -1,4 +1,4 @@
-set ( NAME "mod-aurora")
+set ( TARGET mod-aurora)
 
 set( SOURCES
    AuroraModule.cpp
@@ -9,68 +9,157 @@ set( SOURCES
    include/build_count.h
    include/aurora.h
    include/audtypes.h
-   src/afart.cpp
-   src/afart.h
-   src/afaudio.cpp
-   src/afaudio.h
-   src/afaxis.cpp
-   src/afaxis.h
-   src/afcharts.cpp
-   src/afcharts.h
-   src/afcomplex.cpp
-   src/afcomplex.h
-   src/afconfig.cpp
-   src/afconfig.h
-   src/afdata.h
-   src/afdataplot.cpp
-   src/afdataplot.h
-   src/afexports.cpp
-   src/afexports.h
-   src/affilter.cpp
-   src/affilter.h
-   src/afplot.cpp
-   src/afplot.h
-   src/afscope.cpp
-   src/afscope.h
-   src/afspectrum.cpp
-   src/afspectrum.h
-   src/afvector.cpp
-   src/afvector.h
    src/arrows.h
+   src/ArtProvider.cpp
+   src/ArtProvider.h
+   src/Audio.cpp
+   src/Audio.h
+   src/Axis.cpp
+   src/Axis.h
    src/build_count.cpp
-   src/component.cpp
-   src/component.h
+   src/Chart.cpp
+   src/Chart.h
+   src/Complex.cpp
+   src/Complex.h
+   src/Config.cpp
+   src/Config.h
+   src/DataHolder.h
+   src/DataPlot.cpp
+   src/DataPlot.h
+   src/Exports.cpp
+   src/Exports.h
+   src/Filter.cpp
+   src/Filter.h
    src/fir-taps.cpp
-   src/firwin.cpp
-   src/firwin.h
    src/gpfuncts.cpp
    src/gpfuncts.h
-   src/gtprogind.cpp
-   src/gtprogind.h
+   src/GTProgressIndicator.cpp
+   src/GTProgressIndicator.h
    src/iir-taps.cpp
-   src/mroctbd.cpp
-   src/mroctbd.h
-   src/octfilt.cpp
-   src/octfilt.h
-   src/octfir.cpp
-   src/octfir.h
-   src/sigwin.cpp
-   src/sigwin.h
+   src/Plot.cpp
+   src/Plot.h
+   src/SCFirWin.cpp
+   src/SCFirWin.h
+   src/SCOctaveBandAnalysis.cpp
+   src/SCOctaveBandAnalysis.h
+   src/SCOctaveBandFilter.cpp
+   src/SCOctaveBandFilter.h
+   src/SCOctaveBandFir.cpp
+   src/SCOctaveBandFir.h
+   src/Scope.cpp
+   src/Scope.h
+   src/SCSignalWindows.cpp
+   src/SCSignalWindows.h
+   src/Spectrum.cpp
+   src/Spectrum.h
    src/stickers.h
-   SineSweepGenerator/src/SineSweepDialogs.cpp
-   SineSweepGenerator/src/SineSweepDialogs.h
-   SineSweepGenerator/src/SineSweepEffect.cpp
-   SineSweepGenerator/src/SineSweepEffect.h
-   SineSweepGenerator/src/SineSweepGenerator.cpp
-   SineSweepGenerator/src/SineSweepGenerator.h
-   SineSweepGenerator/src/SineSweepUi.cpp
-   SineSweepGenerator/src/SineSweepUi.h
-   SineSweepGenerator/src/SineSweepVersion.h
+   src/UIComponents.cpp
+   src/UIComponents.h
+   src/Vector.cpp
+   src/Vector.h
    kissfft/kiss_fft.c
    kissfft/kiss_fftnd.c
    kissfft/kiss_fftndr.c
    kissfft/kiss_fftr.c
    kissfft/kfc.c
+   # SineSweepGenerator/SineSweepGeneratorDialog.cpp
+   # SineSweepGenerator/SineSweepGeneratorDialog.h
+   # SineSweepGenerator/SineSweepGenerator.cpp
+   # SineSweepGenerator/SineSweepGenerator.h
+   # SineSweepGenerator/SineSweepVersion.h
+   # Kirkeby/KirkebyBase.cpp
+   # Kirkeby/KirkebyBase.h
+   # Kirkeby/KirkebyDialogs.cpp
+   # Kirkeby/KirkebyDialogs.h
+   # Kirkeby/KirkebyEffect.cpp
+   # Kirkeby/KirkebyEffect.h
+   # Kirkeby/KirkebyUi.cpp
+   # Kirkeby/KirkebyUi.h
+   # Kirkeby/KirkebyVersion.h
+   # AcParameters/AcParametersDialogs.h
+   # AcParameters/AcParametersBase.cpp
+   # AcParameters/AcParametersBase.h
+   # AcParameters/AcParametersData.cpp
+   # AcParameters/AcParametersData.h
+   # AcParameters/AcParametersDialogs.cpp
+   # AcParameters/AcParameters.h
+   # AcParameters/AcParametersEffect.cpp
+   # AcParameters/AcParametersEffect.h
+   # AcParameters/AcParametersExports.cpp
+   # AcParameters/AcParametersExports.h
+   # AcParameters/AcParametersPlot.cpp
+   # AcParameters/AcParametersPlot.h
+   # AcParameters/AcParametersSpectrum.h
+   # AcParameters/AcParametersTrack.cpp
+   # AcParameters/AcParametersTrack.h
+   # AcParameters/AcParametersUi.cpp
+   # AcParameters/AcParametersUi.h
+   # AcParameters/AcParametersVersion.h
+   # AcParameters/AcTResults.cpp
+   # AcParameters/AcTResults.h
+   # AcParameters/AcTSchroederDecay.cpp
+   # AcParameters/AcTSchroederDecay.h
+   # AcParameters/sizes.h
+   # SpeechTransmissionIndex/ModulationTransferFunctionsTable.cpp
+   # SpeechTransmissionIndex/ModulationTransferFunctionsTable.h
+   # SpeechTransmissionIndex/STI.cpp
+   # SpeechTransmissionIndex/STI.h
+   # SpeechTransmissionIndex/STIData.cpp
+   # SpeechTransmissionIndex/STIData.h
+   # SpeechTransmissionIndex/STIDialogs.cpp
+   # SpeechTransmissionIndex/STIDialogs.h
+   # SpeechTransmissionIndex/STIEffect.cpp
+   # SpeechTransmissionIndex/STIEffect.h
+   # SpeechTransmissionIndex/STIExports.cpp
+   # SpeechTransmissionIndex/STIExports.h
+   # SpeechTransmissionIndex/STIPlot.cpp
+   # SpeechTransmissionIndex/STIPlot.h
+   # SpeechTransmissionIndex/STIResults.cpp
+   # SpeechTransmissionIndex/STIResults.h
+   # SpeechTransmissionIndex/STISpectrum.cpp
+   # SpeechTransmissionIndex/STISpectrum.h
+   # SpeechTransmissionIndex/STISpectrumDialog.cpp
+   # SpeechTransmissionIndex/STISpectrumDialog.h
+   # SpeechTransmissionIndex/STISpectrumWxDialog.cpp
+   # SpeechTransmissionIndex/STISpectrumWxDialog.h
+   # SpeechTransmissionIndex/STITrack.cpp
+   # SpeechTransmissionIndex/STITrack.h
+   # SpeechTransmissionIndex/STIUi.cpp
+   # SpeechTransmissionIndex/STIUi.h
+   # TimeHistoryAnalyzer/ThAnalyzerData.cpp
+   # TimeHistoryAnalyzer/ThAnalyzerData.h
+   # TimeHistoryAnalyzer/ThAnalyzerDialogs.cpp
+   # TimeHistoryAnalyzer/ThAnalyzerDialogs.h
+   # TimeHistoryAnalyzer/ThAnalyzerEffect.cpp
+   # TimeHistoryAnalyzer/ThAnalyzerEffect.h
+   # TimeHistoryAnalyzer/ThAnalyzerExports.cpp
+   # TimeHistoryAnalyzer/ThAnalyzerExports.h
+   # TimeHistoryAnalyzer/ThAnalyzerNbook.h
+   # TimeHistoryAnalyzer/ThAnalyzerPlot.cpp
+   # TimeHistoryAnalyzer/ThAnalyzerPlot.h
+   # TimeHistoryAnalyzer/ThAnalyzerTrack.cpp
+   # TimeHistoryAnalyzer/ThAnalyzerTrack.h
+   # TimeHistoryAnalyzer/ThAnalyzerUi.cpp
+   # TimeHistoryAnalyzer/ThAnalyzerUi.h
+   # TimeHistoryAnalyzer/TimeHistoryAnalyzer.cpp
+   # TimeHistoryAnalyzer/TimeHistoryAnalyzer.h
+   # XFunctions/equations.h
+   # XFunctions/correlator.cpp
+   # XFunctions/correlator.h
+   # XFunctions/XFunctionsArt.cpp
+   # XFunctions/XFunctionsArt.h
+   # XFunctions/XFunctionsData.cpp
+   # XFunctions/XFunctionsData.h
+   # XFunctions/XFunctionsDialogs.cpp
+   # XFunctions/XFunctionsDialogs.h
+   # XFunctions/XFunctionsEffect.cpp
+   # XFunctions/XFunctionsEffect.h
+   # XFunctions/XFunctionsExports.cpp
+   # XFunctions/XFunctionsExports.h
+   # XFunctions/XFunctionsPlot.cpp
+   # XFunctions/XFunctionsPlot.h
+   # XFunctions/XFunctionsUi.cpp
+   # XFunctions/XFunctionsUi.h
    # Convolver/AuroraConvolver.cpp
    # Convolver/AuroraConvolver.h
    # Convolver/convolver.cpp
@@ -87,8 +176,14 @@ set( SOURCES
    # Convolver/multivolver.h
    # Convolver/TrackProperties.cpp
    # Convolver/TrackProperties.h
+   # Convolver/res/down.h
+   # Convolver/res/left.h
+   # Convolver/res/right.h
+   # Convolver/res/up.h
    Dummy/DummyAnalyse.cpp
    Dummy/DummyAnalyse.h
+   Dummy/DummyGenerator.cpp
+   Dummy/DummyGenerator.h
 )
 
 set( DEFINES
@@ -102,6 +197,7 @@ set( DEFINES
 )
 
 # audacity_module( ${TARGET} "${SOURCES}" "Audacity" "${DEFINES}" "" )
+# set_target_properties( ${TARGET} PROPERTIES EXCLUDE_FROM_ALL YES )
 
 #---------------------------------------------------------------------
 # Below is a slight modification of the audacity_module cmake macro and audacity_module_fn function
@@ -113,7 +209,7 @@ set ( IMPORT_TARGETS "Audacity")
 set ( ADDITIONAL_DEFINES "${DEFINES}")
 set ( ADDITIONAL_LIBRARIES "")
 set ( LIBTYPE "MODULE")
-set( TARGET ${NAME} )
+#set( TARGET ${NAME} )
 set( TARGET_ROOT ${CMAKE_CURRENT_SOURCE_DIR} )
 
 message( STATUS "========== Configuring ${TARGET} ==========" )
@@ -125,7 +221,25 @@ if (LIBTYPE STREQUAL "MODULE" AND CMAKE_SYSTEM_NAME MATCHES "Windows")
 else()
    set( REAL_LIBTYPE "${LIBTYPE}" )
 endif()
+
+
 add_library( ${TARGET} ${REAL_LIBTYPE} )
+
+if(CMAKE_SYSTEM_NAME MATCHES "Darwin")
+add_custom_command(
+   TARGET
+      ${TARGET}
+   COMMAND
+      \n\n
+      echo \"Modify the module Timestamp and setting enum in the config to avoid having to launch and relaunch Audcaity\"\n
+      EXP=\"mod-aurora=[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]T[0-9][0-9]:[0-9][0-9]:[0-9][0-9]\"\n
+      NEW_TIME=\$\(stat -t '%FT%T' -x \"\${CODESIGNING_FOLDER_PATH}\" | grep  Modify | grep -o -E '\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}'\) \n
+      sed -i.bak \"s/mod-aurora=4/mod-aurora=1/\" \"\${HOME}/Library/Application Support/audacity/audacity.cfg\" \n
+      sed -i.bak \"s/\${EXP}/mod-aurora=\${NEW_TIME}/\" \"\${HOME}/Library/Application Support/audacity/audacity.cfg\" \n
+      \n\n
+   POST_BUILD
+)
+endif()
 
 # Manual propagation seems to be necessary from
 # interface libraries -- just doing target_link_libraries naming them
@@ -136,9 +250,13 @@ set( INCLUDES )
 list( APPEND INCLUDES PUBLIC "${TARGET_ROOT}" )
 list( APPEND INCLUDES PUBLIC "${TARGET_ROOT}/include" )
 
+
+
 # compute DEFINES
 set( DEFINES )
 list( APPEND DEFINES ${ADDITIONAL_DEFINES} )
+
+
 
 # send the file to the proper place in the build tree, by setting the
 # appropriate property for the platform
@@ -147,6 +265,8 @@ if (CMAKE_SYSTEM_NAME MATCHES "Windows")
 else ()
    set( DIRECTORY_PROPERTY LIBRARY_OUTPUT_DIRECTORY )
 endif ()
+
+
 
 if (LIBTYPE STREQUAL "MODULE")
    set_target_property_all( ${TARGET} ${DIRECTORY_PROPERTY} "${_DESTDIR}/${_MODDIR}" )
@@ -175,6 +295,8 @@ else()
       install(TARGETS ${TARGET} DESTINATION ${_PKGLIB} )
    endif()
 endif()
+
+
 
 export_symbol_define( export_symbol "${TARGET}" )
 import_symbol_define( import_symbol "${TARGET}" )
@@ -250,3 +372,4 @@ if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/tests")
 endif()
 
 set( GRAPH_EDGES "${GRAPH_EDGES}" PARENT_SCOPE )
+
