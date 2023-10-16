@@ -44,6 +44,7 @@ namespace Aurora
   	 /// Allocates memory for a new bitmap. But the user can get rid of it.
        virtual wxBitmap CreateBitmap(const wxArtID& id, const wxArtClient& client, const wxSize& size);
   };
+void InitArtProvider();
 }
 //----------------------------------------------------------------------------
 // AFArtProvider initializer
@@ -51,7 +52,7 @@ namespace Aurora
 /// This call is mandatory before the usage of the art provider. You can
 /// call it whenever you want, but before a GetBitmap call, obviously.
 //----------------------------------------------------------------------------
-void InitArtProvider();
+
 
 
 #endif  // __AURORA_ART_H__

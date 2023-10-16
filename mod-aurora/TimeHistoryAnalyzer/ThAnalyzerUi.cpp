@@ -568,7 +568,7 @@ Aurora::TimeHistoryAnalyzerFrame::TimeHistoryAnalyzerFrame(wxWindow* pParent,
     SetTitle(title);
 
     // Setup graphics.
-    InitArtProvider();
+    Aurora::InitArtProvider();
 
     //Setup logo
     wxBoxSizer* pLogoSizer;

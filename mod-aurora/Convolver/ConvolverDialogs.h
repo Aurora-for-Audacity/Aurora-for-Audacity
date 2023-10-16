@@ -13,7 +13,7 @@
 #include <wx/listctrl.h>
 #include <wx/textctrl.h>
 
-//#include "res/down.xpm"
+#include "res/down.h"
 //#include "res/left.xpm"
 //#include "res/right.xpm"
 //#include "res/up.xpm"

@@ -1,6 +1,6 @@
 /* XPM */
 #pragma once
-const char * right_xpm[] = {
+static const char * right_xpm[] = {
 "24 24 230 2",
 "  	c None",
 ". 	c #0037AD",

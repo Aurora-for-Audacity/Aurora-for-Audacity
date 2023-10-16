@@ -36,7 +36,7 @@ wxBitmap Aurora::ArtProvider::CreateBitmap(const wxArtID& id,
     return wxNullBitmap;
 }
 
-void InitArtProvider()
+void Aurora::InitArtProvider()
 {
    wxArtProvider::Push(new Aurora::ArtProvider);
 }

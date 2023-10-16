@@ -71,12 +71,20 @@ void DummyAnalyse::Populate()
 {
     std::cout << __func__ << '\n';
     SetTitle(DummyAnalysisTitle);
+    
+    Aurora::InitArtProvider();
+    auroraLogo = Aurora::ArtProvider::GetBitmap("Aurora_logo");
 
     ShuttleGui S(this, eIsCreating);
     //===================================================================
     // Add Logo
     S.StartVerticalLay(0);
     {
+        S.StartHorizontalLay();
+        {            
+            S.AddIcon(&auroraLogo);
+        }
+        S.EndHorizontalLay();
         S.StartStatic(XO("Sweep"));
         {
             S.StartMultiColumn(5, wxALIGN_CENTER);
