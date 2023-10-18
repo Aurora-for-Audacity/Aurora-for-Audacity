@@ -42,7 +42,7 @@ public:
     virtual ~DummyAnalyse();
     
     bool Show( bool show = true ) override;
-    
+    void AddImage(ShuttleGui&);
     
 private:
     
@@ -70,7 +70,11 @@ private:
     
     AudacityProject *mProject;
     DECLARE_EVENT_TABLE()
-    wxBitmap auroraLogo;
+    
+    // GUI Elements
+    wxStaticBitmap *auroraLogo;
+    wxStaticBitmap *ssg_logo;
+
     // GUI Elements
     wxButton *mCloseButton;
     

@@ -1,17 +1,20 @@
 #pragma once
 
+#include <aurora.h>
+
+#include <ShuttleGui.h>
 #include <LoadEffects.h> // lib-effects
 #include <effects/Generator.h>
 #include <widgets/valnum.h>
 
 /// Dummy Class to help understand the inrastructure of writing an audacity generator plugin
-class DummyGenerator : public Generator
+class DummyXFunctions : public Generator
 {
 public:
     static const ComponentInterfaceSymbol Symbol;
     
-    DummyGenerator();
-    virtual ~DummyGenerator();
+    DummyXFunctions();
+    virtual ~DummyXFunctions();
     
     
     //------------------------------------------------------------------------
@@ -39,4 +42,11 @@ private:
     /// Adds one more track as the EffectBase class already generates a track if the effect type is a generator.
     /// @see lib-effect/EffectBase::DoEffect method
     //void setupTracks() const;
+private:
+    
+    double c = 343;
+    double d = 40;
+    double fmax = 1900;
+    
+    double bandwidthOctave = 0.333;
 };

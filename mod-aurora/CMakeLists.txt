@@ -62,11 +62,11 @@ set( SOURCES
    kissfft/kiss_fftndr.c
    kissfft/kiss_fftr.c
    kissfft/kfc.c
-   # SineSweepGenerator/SineSweepGeneratorDialog.cpp
-   # SineSweepGenerator/SineSweepGeneratorDialog.h
-   # SineSweepGenerator/SineSweepGenerator.cpp
-   # SineSweepGenerator/SineSweepGenerator.h
-   # SineSweepGenerator/SineSweepVersion.h
+   SineSweepGenerator/SineSweepGeneratorDialog.cpp
+   SineSweepGenerator/SineSweepGeneratorDialog.h
+   SineSweepGenerator/SineSweepGenerator.cpp
+   SineSweepGenerator/SineSweepGenerator.h
+   SineSweepGenerator/SineSweepVersion.h
    # Kirkeby/KirkebyBase.cpp
    # Kirkeby/KirkebyBase.h
    # Kirkeby/KirkebyDialogs.cpp
@@ -180,10 +180,24 @@ set( SOURCES
    # Convolver/res/left.h
    # Convolver/res/right.h
    # Convolver/res/up.h
+   # Dummy/DummyAcParameters.cpp
+   # Dummy/DummyAcParameters.h
    Dummy/DummyAnalyse.cpp
    Dummy/DummyAnalyse.h
+   # Dummy/DummyConvolver.cpp
+   # Dummy/DummyConvolver.h
    Dummy/DummyGenerator.cpp
    Dummy/DummyGenerator.h
+   # Dummy/DummyKirkeby.cpp
+   # Dummy/DummyKirkeby.h
+   Dummy/DummySineSweepGenerator.cpp
+   Dummy/DummySineSweepGenerator.h
+   Dummy/DummySpeechTransmissionIndex.cpp
+   Dummy/DummySpeechTransmissionIndex.h
+   # Dummy/DummyTimeHistoryAnalyzer.cpp
+   # Dummy/DummyTimeHistoryAnalyzer.h
+   Dummy/DummyXFunctions.cpp
+   Dummy/DummyXFunctions.h
 )
 
 set( DEFINES
@@ -234,7 +248,7 @@ add_custom_command(
       echo \"Modify the module Timestamp and setting enum in the config to avoid having to launch and relaunch Audcaity\"\n
       EXP=\"mod-aurora=[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]T[0-9][0-9]:[0-9][0-9]:[0-9][0-9]\"\n
       NEW_TIME=\$\(stat -t '%FT%T' -x \"\${CODESIGNING_FOLDER_PATH}\" | grep  Modify | grep -o -E '\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}'\) \n
-      sed -i.bak \"s/mod-aurora=4/mod-aurora=1/\" \"\${HOME}/Library/Application Support/audacity/audacity.cfg\" \n
+      sed -i.bak \"s/mod-aurora=[0-9]/mod-aurora=1/\" \"\${HOME}/Library/Application Support/audacity/audacity.cfg\" \n
       sed -i.bak \"s/\${EXP}/mod-aurora=\${NEW_TIME}/\" \"\${HOME}/Library/Application Support/audacity/audacity.cfg\" \n
       \n\n
    POST_BUILD

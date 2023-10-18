@@ -5,13 +5,13 @@
 #include <widgets/valnum.h>
 
 /// Dummy Class to help understand the inrastructure of writing an audacity generator plugin
-class DummyGenerator : public Generator
+class DummyAcParameters : public Generator
 {
 public:
     static const ComponentInterfaceSymbol Symbol;
     
-    DummyGenerator();
-    virtual ~DummyGenerator();
+    DummyAcParameters();
+    virtual ~DummyAcParameters();
     
     
     //------------------------------------------------------------------------

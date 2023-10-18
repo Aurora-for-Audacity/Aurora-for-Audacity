@@ -1,10 +1,7 @@
-#include "DummyAnalyse.h"
-#include "widgets/valnum.h"
+#include "DummySineSweepGenerator.h"
 
-#define DummyAnalysisTitle XO("Dummy Analysis")
+#define DummySineSweepGeneratorTitle XO("Dummy Sine Sweep Generator")
 
-//------------------------------------------------------------------------------------
-// Hook up event handles
 enum
 {
     ID_Channels = 10000,
@@ -25,105 +22,68 @@ enum
     ID_ControlPulses
 };
 
-BEGIN_EVENT_TABLE(DummyAnalyse, wxDialogWrapper)
-EVT_RADIOBUTTON(ID_Radio_Linear, DummyAnalyse::OnNoiseReductionChoice)
-EVT_RADIOBUTTON(ID_Radio_Exp,    DummyAnalyse::OnNoiseReductionChoice)
-EVT_RADIOBUTTON(ID_Radio_Pink,   DummyAnalyse::OnNoiseReductionChoice)
-EVT_CLOSE(DummyAnalyse::OnCloseWindow)
-EVT_BUTTON(wxID_CANCEL, DummyAnalyse::OnCloseButton)
-END_EVENT_TABLE()
+const ComponentInterfaceSymbol DummySineSweepGenerator::Symbol {XC("DummySineSweepGenerator", "generator")};
 
-//------------------------------------------------------------------------------------
+namespace{ BuiltinEffectsModule::Registration< DummySineSweepGenerator > reg; }
 
-DummyAnalyse::DummyAnalyse(wxWindow *parent, wxWindowID id,
-                           AudacityProject &project,
-                           const TranslatableString &title,
-                           const wxPoint &pos)
-: wxDialogWrapper(parent, id, title, pos, wxDefaultSize,
-                  wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER | wxMAXIMIZE_BOX),
-mProject{&project},
-m_Radio_LinearSweep(NULL),
-m_Radio_ExpSweep(NULL),
-m_Radio_PinkSweep(NULL)
+DummySineSweepGenerator::DummySineSweepGenerator()
 {
-    std::cout << __func__ << '\n';
-    SetName();
-    
-    Populate();
 }
 
-DummyAnalyse::~DummyAnalyse()
+DummySineSweepGenerator::~DummySineSweepGenerator()
 {
-    std::cout << __func__ << '\n';
 }
 
-bool DummyAnalyse::Show(bool show)
+//------------------------------------------------------------------------
+// From ComponentInterface
+ComponentInterfaceSymbol DummySineSweepGenerator::GetSymbol() const
 {
-    std::cout << __func__ << '\n';
-    bool res = wxDialogWrapper::Show(show);
-    
-    return res;
+    return Symbol;
 }
 
-//------------------------------------------------------------------------------------
-void DummyAnalyse::AddImage(ShuttleGui& S)
+TranslatableString DummySineSweepGenerator::GetDescription() const
 {
-    wxBitmap auroraBitmap = Aurora::ArtProvider::GetBitmap("Aurora_logo");
-    wxBitmap ssgBitmap = Aurora::ArtProvider::GetBitmap("ssg_logo");
-    
-    wxImage RescaledImage(auroraBitmap.ConvertToImage());
-    wxColour MainColour(
-                        RescaledImage.GetRed(1,1),
-                        RescaledImage.GetGreen(1,1),
-                        RescaledImage.GetBlue(1,1));
-    // pPage->SetBackgroundColour(MainColour);
-    
-    auroraLogo = safenew wxStaticBitmap(S.GetParent(), -1, auroraBitmap);
-    ssg_logo = safenew wxStaticBitmap(S.GetParent(), -1, ssgBitmap);
-    S.Prop(0).AddWindow(auroraLogo);
-    S.Prop(0).AddWindow(ssg_logo);
+    return XO("A Dummy Effect that does nothing");
+}
+//------------------------------------------------------------------------
+// from EffectDefinitionInterface
+ManualPageID DummySineSweepGenerator::ManualPage() const
+{
+    return L"A Dummy Effect";
+}
+EffectType DummySineSweepGenerator::GetType() const
+{
+    return EffectTypeGenerate; // or EffectTypeAnalyze
 }
 
-
-void DummyAnalyse::Populate()
+bool DummySineSweepGenerator::GenerateTrack(EffectSettings &settings,
+                                            WaveTrack *tmp, const WaveTrack &track, int ntrack)
 {
-    std::cout << __func__ << '\n';
-    SetTitle(DummyAnalysisTitle);
+    return true;
+}
+
+std::unique_ptr<EffectEditor> DummySineSweepGenerator::PopulateOrExchange(
+                                                                          ShuttleGui & S, EffectInstance &instance,
+                                                                          EffectSettingsAccess &access, const EffectOutputs *pOutputs)
+{
     
     Aurora::InitArtProvider();
     
+    wxBitmap auroraBitmap = Aurora::ArtProvider::GetBitmap("Aurora_logo");
+    wxBitmap ssgBitmap = Aurora::ArtProvider::GetBitmap("ssg_logo");
     
-    ShuttleGui S(this, eIsCreating);
-    //===================================================================
-    // Add Logo from About Page
-
-    S.StartNotebook();
-    {
-        S.StartNotebookPage( XO("Hello"));
-        S.StartVerticalLay(1);
-        {
-        }
-        S.EndVerticalLay();
-        S.EndNotebookPage();
-        
-        S.StartNotebookPage( XO("World") );
-        S.StartVerticalLay(1);
-        {
-        }
-        S.EndVerticalLay();
-        S.EndNotebookPage();
-    }
-    S.EndNotebook();
+    auroraLogo = safenew wxStaticBitmap(S.GetParent(), -1, auroraBitmap);
+    ssg_logo   = safenew wxStaticBitmap(S.GetParent(), -1, ssgBitmap);
     
     S.StartVerticalLay(0);
     {
-                S.StartHorizontalLay();
-                {
-                    AddImage(S);
-        //            S.AddIcon(&auroraLogo);
-        //            S.AddIcon(&ssg_logo);
-                }
-                S.EndHorizontalLay();
+        S.StartHorizontalLay();
+        {
+            
+            S.Prop(0).AddWindow(auroraLogo);
+            S.Prop(0).AddWindow(ssg_logo);
+        }
+        S.EndHorizontalLay();
         
         S.StartStatic(XO("Sweep"));
         {
@@ -293,83 +253,15 @@ void DummyAnalyse::Populate()
         S.EndHorizontalLay();
     }
     S.EndVerticalLay();
-    //===================================================================
-    // Add Close Button
-    S.AddStandardButtons(eCloseButton);
-    mCloseButton = static_cast<wxButton *>(FindWindowById(wxID_CANCEL));
-    mCloseButton->SetDefault();
-    //===================================================================
-    
-    Layout();
-    Fit();
-    Center(); // Bug 1607:
-    
-    SetMinSize(GetSize());
+    return nullptr;
 }
 
-void DummyAnalyse::UpdatePrefs()
+bool DummySineSweepGenerator::TransferDataToWindow(const EffectSettings &)
 {
-    std::cout << __func__ << '\n';
+    return true;
 }
 
-// This handles the whole radio group
-void DummyAnalyse::OnNoiseReductionChoice( wxCommandEvent & WXUNUSED(event))
+bool DummySineSweepGenerator::TransferDataFromWindow(EffectSettings &)
 {
-    if (m_Radio_ExpSweep->GetValue());
-    if (m_Radio_PinkSweep->GetValue());
-    if (m_Radio_LinearSweep->GetValue());
+    return true;
 }
-
-void DummyAnalyse::OnCloseWindow(wxCloseEvent &WXUNUSED(event))
-{
-    std::cout << __func__ << '\n';
-    Show(false);
-}
-
-void DummyAnalyse::OnCloseButton(wxCommandEvent &event)
-{
-    std::cout << __func__ << '\n';
-    Show(false);
-}
-
-//------------------------------------------------------------------------------------
-// Bumf to hook-in to Audacity
-
-#include "commands/CommandContext.h"
-#include "commands/CommandManager.h"
-#include "ProjectWindows.h"
-
-namespace
-{
-AttachedWindows::RegisteredFactory sDummyAnalyseWindowKey{
-    [](AudacityProject &parent) -> wxWeakRef<wxWindow>
-    {
-        auto &window = ProjectWindow::Get(parent);
-        return safenew DummyAnalyse(
-                                    &window, -1, parent, DummyAnalysisTitle,
-                                    wxPoint{150, 150});
-    }};
-
-void OnOpenWindow(const CommandContext &context)
-{
-    std::cout << __func__ << '\n';
-    auto &project = context.project;
-    CommandManager::Get(project).RegisterLastAnalyzer(context);
-    auto newWindow = &GetAttachedWindows(project)
-        .Get<DummyAnalyse>(sDummyAnalyseWindowKey);
-    
-    if (VetoDialogHook::Call(newWindow))
-        return;
-    newWindow->Show(true);
-    newWindow->Raise();
-    newWindow->SetFocus();
-}
-
-using namespace MenuTable;
-AttachedItem sAttachment{wxT("Analyze/Analyzers/Windows"),
-    Command(wxT("DummyAnalyse"), XXO("Dummy Analyse..."),
-            OnOpenWindow,
-            AudioIONotBusyFlag() | WaveTracksSelectedFlag() | TimeSelectedFlag())};
-
-}
-//------------------------------------------------------------------------------------
