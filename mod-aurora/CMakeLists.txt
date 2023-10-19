@@ -188,8 +188,8 @@ set( SOURCES
    # Dummy/DummyConvolver.h
    Dummy/DummyGenerator.cpp
    Dummy/DummyGenerator.h
-   # Dummy/DummyKirkeby.cpp
-   # Dummy/DummyKirkeby.h
+   Dummy/DummyKirkeby.cpp
+   Dummy/DummyKirkeby.h
    Dummy/DummySineSweepGenerator.cpp
    Dummy/DummySineSweepGenerator.h
    Dummy/DummySpeechTransmissionIndex.cpp

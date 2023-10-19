@@ -96,20 +96,20 @@ std::unique_ptr<EffectEditor> DummyXFunctions::PopulateOrExchange(
             S.StartMultiColumn(6, wxALIGN_CENTER_HORIZONTAL);
             {
                 S.AddFixedText(XO("c [m/s]"));
-                S.Validator<FloatingPointValidator<double>>(
-                                                            3, &c,
-                                                            NumValidatorStyle::ONE_TRAILING_ZERO,
-                                                            0.0, 100.0);
+//                S.Validator<FloatingPointValidator<double>>(
+//                                                            3, &c,
+//                                                            NumValidatorStyle::ONE_TRAILING_ZERO,
+//                                                            0.0, 100.0);
                 S.AddFixedText(XO("d [mm]"));
-                S.Validator<FloatingPointValidator<double>>(
-                                                            3, &d,
-                                                            NumValidatorStyle::ONE_TRAILING_ZERO,
-                                                            0.0, 100.0);
+//                S.Validator<FloatingPointValidator<double>>(
+//                                                            3, &d,
+//                                                            NumValidatorStyle::ONE_TRAILING_ZERO,
+//                                                            0.0, 100.0);
                 S.AddFixedText(XO("fmax [Hz]"));
-                S.Validator<FloatingPointValidator<double>>(
-                                                            3, &fmax,
-                                                            NumValidatorStyle::ONE_TRAILING_ZERO,
-                                                            0.0, 100.0);
+//                S.Validator<FloatingPointValidator<double>>(
+//                                                            3, &fmax,
+//                                                            NumValidatorStyle::ONE_TRAILING_ZERO,
+//                                                            0.0, 100.0);
             }
             S.EndMultiColumn();
         }
@@ -128,10 +128,10 @@ std::unique_ptr<EffectEditor> DummyXFunctions::PopulateOrExchange(
             {
                 S.AddRadioButton(XO("Follow Left"));
                 S.AddRadioButtonToGroup(XO("Follow Right"));
-                S.Validator<FloatingPointValidator<double>>(
-                                                            3, &bandwidthOctave,
-                                                            NumValidatorStyle::ONE_TRAILING_ZERO,
-                                                            0.0, 100.0);
+//                S.Validator<FloatingPointValidator<double>>(
+//                                                            3, &bandwidthOctave,
+//                                                            NumValidatorStyle::ONE_TRAILING_ZERO,
+//                                                            0.0, 100.0);
             }
             S.EndMultiColumn();
         }
@@ -162,10 +162,10 @@ std::unique_ptr<EffectEditor> DummyXFunctions::PopulateOrExchange(
             
             S.StartHorizontalLay(wxALIGN_LEFT);
             {
-                S.Validator<FloatingPointValidator<double>>(
-                                                            3, &bandwidthOctave,
-                                                            NumValidatorStyle::ONE_TRAILING_ZERO,
-                                                            0.0, 100.0);
+//                S.Validator<FloatingPointValidator<double>>(
+//                                                            3, &bandwidthOctave,
+//                                                            NumValidatorStyle::ONE_TRAILING_ZERO,
+//                                                            0.0, 100.0);
             }
             S.EndHorizontalLay();
         }
