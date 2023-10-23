@@ -1,6 +1,9 @@
 #pragma once
 
-#include <LoadEffects.h> // lib-effects
+#include <aurora.h>
+
+#include <ShuttleGui.h>
+#include <LoadEffects.h>
 #include <effects/Generator.h>
 #include <widgets/valnum.h>
 
@@ -35,8 +38,19 @@ protected:
                        WaveTrack *tmp, const WaveTrack &track, int ntrack) override;
     
 private:
+    void PopulateStep1(ShuttleGui &);
+    void PopulateStep2(ShuttleGui &);
+    
     /// do whatever additional setuip is required to initialise both the sine sweep and inverse filter tracks.
     /// Adds one more track as the EffectBase class already generates a track if the effect type is a generator.
     /// @see lib-effect/EffectBase::DoEffect method
     //void setupTracks() const;
+    
+private:
+    
+    // UI Elements
+    wxTextCtrl * textCrtlGain;
+    
+    // UI Parameters
+    double paramGain = -58.14;
 };

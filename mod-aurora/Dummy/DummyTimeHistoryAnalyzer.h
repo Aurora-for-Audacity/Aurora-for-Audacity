@@ -1,7 +1,14 @@
 #pragma once
 
-#include <LoadEffects.h> // lib-effects
+#include <aurora.h>
+
+#include <ShuttleGui.h>
+#include <LoadEffects.h>
+#include <Theme.h>
+#include <AllThemeResources.h>
 #include <effects/Generator.h>
+#include <widgets/Grid.h>
+#include <widgets/RulerPanel.h>
 #include <widgets/valnum.h>
 
 /// Dummy Class to help understand the inrastructure of writing an audacity generator plugin
@@ -39,4 +46,8 @@ private:
     /// Adds one more track as the EffectBase class already generates a track if the effect type is a generator.
     /// @see lib-effect/EffectBase::DoEffect method
     //void setupTracks() const;
+private:
+    Grid *gridParameters;
+    Grid *gridTracks;
+    Grid *gridCalibration;
 };

@@ -184,8 +184,8 @@ set( SOURCES
    # Dummy/DummyAcParameters.h
    Dummy/DummyAnalyse.cpp
    Dummy/DummyAnalyse.h
-   # Dummy/DummyConvolver.cpp
-   # Dummy/DummyConvolver.h
+   Dummy/DummyConvolver.cpp
+   Dummy/DummyConvolver.h
    Dummy/DummyGenerator.cpp
    Dummy/DummyGenerator.h
    Dummy/DummyKirkeby.cpp
@@ -194,8 +194,8 @@ set( SOURCES
    Dummy/DummySineSweepGenerator.h
    Dummy/DummySpeechTransmissionIndex.cpp
    Dummy/DummySpeechTransmissionIndex.h
-   # Dummy/DummyTimeHistoryAnalyzer.cpp
-   # Dummy/DummyTimeHistoryAnalyzer.h
+   Dummy/DummyTimeHistoryAnalyzer.cpp
+   Dummy/DummyTimeHistoryAnalyzer.h
    Dummy/DummyXFunctions.cpp
    Dummy/DummyXFunctions.h
 )
