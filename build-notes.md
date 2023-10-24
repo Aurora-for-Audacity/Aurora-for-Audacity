@@ -22,7 +22,7 @@ If you do not have homebrew, [download it now](https://brew.sh)
 - `brew install conan@1` Audacity 3.3.3 required conan at version 1
 - `brew link conan@1`
 - `rm -R ~/.conan2` and `~/.conan` (for good measure) to clear out conan cache, especially if you already have conan installed
-- `cmake ../audacity -GXcode -Daudacity_use_mad="off" -Daudacity_use_id3tag=off -Daudaicity_conan_allow_prebuilt_binaries=Off --no-warn-unused-cli`
+- `cmake ../audacity -GXcode -Daudacity_use_mad="off" -Daudacity_use_id3tag=off -Daudacity_conan_allow_prebuilt_binaries=Off --no-warn-unused-cli`
 
 conan will create a wxwidgets build in `~/.conan` or `~/.conan2` that can be reference by other project
 
@@ -47,7 +47,7 @@ brew link conan@1
 # If you already have conan
 rm -R ~/.conan
 
-cmake ../audacity -GXcode -Daudacity_use_mad="off" -Daudacity_use_id3tag=off -Daudaicity_conan_allow_prebuilt_binaries=Off --no-warn-unused-cli
+cmake ../audacity -GXcode -Daudacity_use_mad="off" -Daudacity_use_id3tag=off -Daudacity_conan_allow_prebuilt_binaries=Off --no-warn-unused-cli
 ```
 
 ### Windows
