@@ -1,6 +1,8 @@
 # Aurora for Audacity
 _Angelo Farina's Aurora audio processing plugin suite for Audacity host application._
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.16759727.svg)](https://doi.org/10.5281/zenodo.16759727)
+
 ## About 
 
 This project has been uploaded to github to rebring it life, but it needs some love.
