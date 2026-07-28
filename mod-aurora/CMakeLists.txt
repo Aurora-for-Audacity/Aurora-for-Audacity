@@ -3,92 +3,10 @@ set ( NAME "mod-aurora")
 set( SOURCES
    AuroraModule.cpp
    AuroraModule.h
-   include/wxcmn.h
-   include/version.h
-   include/commdefs.h
-   include/build_count.h
-   include/aurora.h
-   include/audtypes.h
-   src/afart.cpp
-   src/afart.h
-   src/afaudio.cpp
-   src/afaudio.h
-   src/afaxis.cpp
-   src/afaxis.h
-   src/afcharts.cpp
-   src/afcharts.h
-   src/afcomplex.cpp
-   src/afcomplex.h
-   src/afconfig.cpp
-   src/afconfig.h
-   src/afdata.h
-   src/afdataplot.cpp
-   src/afdataplot.h
-   src/afexports.cpp
-   src/afexports.h
-   src/affilter.cpp
-   src/affilter.h
-   src/afplot.cpp
-   src/afplot.h
-   src/afscope.cpp
-   src/afscope.h
-   src/afspectrum.cpp
-   src/afspectrum.h
-   src/afvector.cpp
-   src/afvector.h
-   src/arrows.h
-   src/build_count.cpp
-   src/component.cpp
-   src/component.h
-   src/fir-taps.cpp
-   src/firwin.cpp
-   src/firwin.h
-   src/gpfuncts.cpp
-   src/gpfuncts.h
-   src/gtprogind.cpp
-   src/gtprogind.h
-   src/iir-taps.cpp
-   src/mroctbd.cpp
-   src/mroctbd.h
-   src/octfilt.cpp
-   src/octfilt.h
-   src/octfir.cpp
-   src/octfir.h
-   src/sigwin.cpp
-   src/sigwin.h
-   src/stickers.h
-   SineSweepGenerator/src/SineSweepDialogs.cpp
-   SineSweepGenerator/src/SineSweepDialogs.h
-   SineSweepGenerator/src/SineSweepEffect.cpp
-   SineSweepGenerator/src/SineSweepEffect.h
-   SineSweepGenerator/src/SineSweepGenerator.cpp
-   SineSweepGenerator/src/SineSweepGenerator.h
-   SineSweepGenerator/src/SineSweepUi.cpp
-   SineSweepGenerator/src/SineSweepUi.h
-   SineSweepGenerator/src/SineSweepVersion.h
-   kissfft/kiss_fft.c
-   kissfft/kiss_fftnd.c
-   kissfft/kiss_fftndr.c
-   kissfft/kiss_fftr.c
-   kissfft/kfc.c
-   # Convolver/AuroraConvolver.cpp
-   # Convolver/AuroraConvolver.h
-   # Convolver/convolver.cpp
-   # Convolver/convolver.h
-   # Convolver/ConvolverDialogs.cpp
-   # Convolver/ConvolverDialogs.h
-   # Convolver/ConvolverEffect.cpp
-   # Convolver/ConvolverEffect.h
-   # Convolver/ConvolverPlot.cpp
-   # Convolver/ConvolverPlot.h
-   # Convolver/ConvolverUi.cpp
-   # Convolver/ConvolverUi.h
-   # Convolver/multivolver.cpp
-   # Convolver/multivolver.h
-   # Convolver/TrackProperties.cpp
-   # Convolver/TrackProperties.h
    Dummy/DummyAnalyse.cpp
    Dummy/DummyAnalyse.h
+   Dummy/DummyGenerator.cpp
+   Dummy/DummyGenerator.h
 )
 
 set( DEFINES

@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include <aurora.h>
+//#include <aurora.h>
 
 #include <wx/setup.h> // for wxUSE_* macros
 #include <wx/brush.h>
@@ -26,7 +26,7 @@
 #include "ShuttleGui.h"
 #include "ProjectWindow.h"
 #include "CommonCommandFlags.h"
-#include "widgets/VetoDialogHook.h"
+//#include "widgets/VetoDialogHook.h"
 
 #include "widgets/valnum.h"
 
