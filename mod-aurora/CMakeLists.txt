@@ -1,5 +1,8 @@
 set ( NAME "mod-aurora")
 
+find_package(Aurora REQUIRED)
+
+
 set( SOURCES
    AuroraModule.cpp
    AuroraModule.h
@@ -7,6 +10,9 @@ set( SOURCES
    Dummy/DummyAnalyse.h
    Dummy/DummyGenerator.cpp
    Dummy/DummyGenerator.h
+   SineSweepGenerator/SineSweepGeneratorUi.cpp
+   SineSweepGenerator/SineSweepGeneratorUi.h
+   res/aurora_logos.h
 )
 
 set( DEFINES
@@ -128,7 +134,7 @@ target_sources( ${TARGET} PRIVATE ${SOURCES} )
 target_compile_definitions( ${TARGET} PRIVATE ${DEFINES} )
 target_compile_options( ${TARGET} ${OPTIONS} )
 
-# ------------------------------------------------------------------------------
+# ------------------ ------------------------------------------------------------
 # Additional Include Directories
 
 target_include_directories( ${TARGET} PUBLIC ${TARGET_ROOT} )
@@ -139,6 +145,8 @@ target_include_directories( ${TARGET} PUBLIC "${TARGET_ROOT}/kissfft" )
 
 target_link_options( ${TARGET} PRIVATE ${LOPTS} )
 target_link_libraries( ${TARGET} PUBLIC ${LIBRARIES} )
+target_link_libraries(${TARGET} PRIVATE Aurora::aurora)
+
 
 if( NOT CMAKE_SYSTEM_NAME MATCHES "Windows" )
    # Generate-time boolean values must be "0" or "1",
