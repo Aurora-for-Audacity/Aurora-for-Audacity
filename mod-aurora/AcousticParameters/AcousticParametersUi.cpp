@@ -3,32 +3,10 @@
 #include "../res/aurora_logos.h"
 #include "../mod_aurora.h"
 
-#define DummyAnalysisTitle XO("Dummy Analysis")
+#define DummyAnalysisTitle XO("Acoustic Parameter Analysis")
 
-
-#define FREQ_WINDOW_WIDTH 480
-#define FREQ_WINDOW_HEIGHT 330
 //------------------------------------------------------------------------------------
 // Hook up event handles
-enum
-{
-    ID_Channels = 10000,
-    ID_Amplitude,
-    ID_Duration,
-    ID_FromFrequency,
-    ID_ToFrequency,
-    ID_Radio_Linear,
-    ID_Radio_Exp,
-    ID_Radio_Pink,
-    ID_FadeInType,
-    ID_FadeInDuration,
-    ID_FadeOutType,
-    ID_FadeOutDuration,
-    ID_Cycles,
-    ID_SilenceDuration,
-    ID_dBVariation,
-    ID_ControlPulses
-};
 
 const std::array<wxString, 17> rowLabels =
 {
@@ -78,9 +56,6 @@ std::vector<double> levels =
 };
 
 BEGIN_EVENT_TABLE(AcousticParametersUi, wxDialogWrapper)
-EVT_RADIOBUTTON(ID_Radio_Linear, AcousticParametersUi::OnNoiseReductionChoice)
-EVT_RADIOBUTTON(ID_Radio_Exp,    AcousticParametersUi::OnNoiseReductionChoice)
-EVT_RADIOBUTTON(ID_Radio_Pink,   AcousticParametersUi::OnNoiseReductionChoice)
 EVT_CLOSE(AcousticParametersUi::OnCloseWindow)
 EVT_BUTTON(wxID_CANCEL, AcousticParametersUi::OnCloseButton)
 END_EVENT_TABLE()
