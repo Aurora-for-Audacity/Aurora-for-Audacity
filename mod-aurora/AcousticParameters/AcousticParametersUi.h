@@ -55,18 +55,6 @@ private:
     void OnCloseButton(wxCommandEvent & event);
     
 private:
-    enum FadeTypes
-    {
-        FT_RECT,
-        FT_HAMMING,
-        FT_HANN,
-        FT_QUARTER_SINE,
-        FT_LINEAR,
-        FT_GAUSSIAN,
-        FT_BLACKMANN,
-        FT_BLACK_HARRIS,
-        FT_LOG
-    };
     
     AudacityProject *mProject;
     DECLARE_EVENT_TABLE()
@@ -79,45 +67,5 @@ private:
     wxButton*   mCloseButton;
     
     AuroraPlot *mPlot;
-    
-    // Old GUI Elements
-    
-    wxTextCtrl *   m_pTextCtrl_FromFrequency;
-    wxTextCtrl *   m_pTextCtrl_ToFrequency;
-    wxTextCtrl *   m_pTextCtrl_Duration;
-    wxTextCtrl *   m_pTextCtrl_Amplitude;
-    wxTextCtrl *   m_pTextCtrl_Channels;
-    
-    wxChoice   *   m_pChoice_FadeInChoice;
-    wxTextCtrl *   m_pTextCtrl_FadeInDuration;
-    wxChoice   *   m_pChoice_FadeOutChoice;
-    wxTextCtrl *   m_pTextCtrl_FadeOutDuration;
-    
-    wxTextCtrl *   m_pTextCtrl_SilenceDuration;
-    wxTextCtrl *   m_pTextCtrl_Cycles;
-    wxTextCtrl *   m_pTextCtrl_dBVariation;
-    
-    wxRadioButton *m_Radio_LinearSweep;
-    wxRadioButton *m_Radio_ExpSweep;
-    wxRadioButton *m_Radio_PinkSweep;
-    
-    wxCheckBox *   m_Check_ControlPulses;
-    
-    double m_FromFrequency =    22.0;
-    double m_ToFrequency   = 22000.0;
-    double m_Duration      = 15.0;
-    double m_Amplitude = 0.707;
-    int m_Channels  = 1;
-    
-    double    mFadeInDuration;
-    FadeTypes mFadeInChoice;
-    double    mFadeOutDuration;
-    FadeTypes mFadeOutChoice;
-    
-    double m_SilenceDuration  = 0.0;
-    
-    int m_Cycles  = 1;
-    double m_dBVariation  = 0.0;
-    
-    bool mControlPulses;
+        
 };

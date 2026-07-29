@@ -93,10 +93,7 @@ AcousticParametersUi::AcousticParametersUi(wxWindow *parent, wxWindowID id,
                                            const wxPoint &pos)
 : wxDialogWrapper(parent, id, title, pos, wxDefaultSize,
                   wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER | wxMAXIMIZE_BOX),
-mProject{&project},
-m_Radio_LinearSweep(NULL),
-m_Radio_ExpSweep(NULL),
-m_Radio_PinkSweep(NULL)
+mProject{&project}
 {
     std::cout << __func__ << '\n';
     SetName();
@@ -169,10 +166,8 @@ void AcousticParametersUi::Populate()
         
         S.Prop(1)
            .Position(wxEXPAND)
-           .MinSize( { wxDefaultCoord, FREQ_WINDOW_HEIGHT } )
+           .MinSize( { wxDefaultCoord, 200 } )
            .AddWindow(mPlot);
-        
-        S.EndStatic();
         
         S.StartStatic(XO("Results"));
         {
@@ -184,8 +179,8 @@ void AcousticParametersUi::Populate()
     S.EndVerticalLay();
     
     //===================================================================
-//    mPlot->SetData(times, levels);
-//    mPlot->Refresh();
+    mPlot->SetData(times, levels);
+    mPlot->Refresh();
     
     mResultsGrid->CreateGrid(17, 12);
     
@@ -239,9 +234,7 @@ void AcousticParametersUi::UpdatePrefs()
 // This handles the whole radio group
 void AcousticParametersUi::OnNoiseReductionChoice( wxCommandEvent & WXUNUSED(event))
 {
-    //    if (m_Radio_ExpSweep->GetValue());
-    //    if (m_Radio_PinkSweep->GetValue());
-    //    if (m_Radio_LinearSweep->GetValue());
+
 }
 
 void AcousticParametersUi::OnCloseWindow(wxCloseEvent &WXUNUSED(event))

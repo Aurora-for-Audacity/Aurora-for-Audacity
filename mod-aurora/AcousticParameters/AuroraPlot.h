@@ -8,6 +8,7 @@
 #pragma once
 
 #include <wx/wx.h>
+#include <vector>
 #include <wx/checkbox.h>
 #include <wx/dcbuffer.h>
 #include <wx/dcclient.h>
@@ -23,34 +24,26 @@ class AuroraPlot final : public wxWindow
 public:
     AuroraPlot(wxWindow *parent,
                wxWindowID id);
-
+    
+    void SetData(const std::vector<double>& time,
+            const std::vector<double>& level);
     // We don't need or want to accept focus.
     bool AcceptsFocus() const;
-
+    
 private:
     void OnPaint(wxPaintEvent& event);
     void OnErase(wxEraseEvent & event);
     void OnMouseEvent(wxMouseEvent & event);
-
-
+    
+    std::vector<double> mTime;
+    std::vector<double> mLevel;
+    
+    double mMinTime;
+    double mMaxTime;
+    
+    double mMinLevel;
+    double mMaxLevel;
+    
     DECLARE_EVENT_TABLE()
 };
 
-//class FreqPlot final : public wxWindow
-//{
-//public:
-//   FreqPlot(wxWindow *parent, wxWindowID winid);
-//
-//   // We don't need or want to accept focus.
-//   bool AcceptsFocus() const;
-//
-//private:
-//   void OnPaint(wxPaintEvent & event);
-//   void OnErase(wxEraseEvent & event);
-//   void OnMouseEvent(wxMouseEvent & event);
-//
-//private:
-//    FrequencyPlotDialog *freqWindow;
-//
-//    DECLARE_EVENT_TABLE()
-//};
