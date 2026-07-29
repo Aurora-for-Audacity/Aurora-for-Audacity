@@ -1,5 +1,9 @@
 #pragma once
 
+#include <wx/wx.h>
+#include <wx/mstream.h>
+#include <wx/image.h>
+
 inline wxBitmap LoadPngBitmap(const unsigned char *data, size_t size)
 {
     wxMemoryInputStream stream(data, size);
