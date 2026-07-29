@@ -16,8 +16,6 @@
 #include <wx/wx.h>
 #include <wx/valgen.h>
 
-class NumericTextCtrl;
-
 class BUILTIN_EFFECTS_API ConvolverUi final : public Generator, public StatefulEffectUIServices
 {
 public:
@@ -47,8 +45,6 @@ protected:
    bool GenerateTrack(const EffectSettings& settings, WaveTrack& tmp) override;
     
 private:
-    NumericTextCtrl *mDurationT;
-    
     
     // UI Elememnts
     wxBitmap mAuroraLogo;
@@ -56,41 +52,5 @@ private:
     
     wxButton *mCloseButton;
     
-    wxTextCtrl *   m_pTextCtrl_FromFrequency;
-    wxTextCtrl *   m_pTextCtrl_ToFrequency;
-    wxTextCtrl *   m_pTextCtrl_Amplitude;
-    wxTextCtrl *   m_pTextCtrl_Channels;
-    
-    wxChoice   *   m_pChoice_FadeInChoice;
-    wxChoice   *   m_pChoice_FadeOutChoice;
-    
-    wxTextCtrl *   m_pTextCtrl_Duration;
-    wxTextCtrl *   m_pTextCtrl_FadeInDuration;
-    wxTextCtrl *   m_pTextCtrl_FadeOutDuration;
-    
-    wxTextCtrl *   m_pTextCtrl_SilenceDuration;
-    wxTextCtrl *   m_pTextCtrl_Cycles;
-    wxTextCtrl *   m_pTextCtrl_dBVariation;
-    
-    wxRadioButton *m_Radio_LinearSweep;
-    wxRadioButton *m_Radio_ExpSweep;
-    wxRadioButton *m_Radio_PinkSweep;
-    
-    wxCheckBox *   m_Check_ControlPulses;
-    
-    // Temp Member Variables
-    double m_FromFrequency =    22.0;
-    double m_ToFrequency   = 22000.0;
-    double m_Duration      =    15.0;
-    double m_Amplitude     =     0.707;
-    int m_Channels         =     1;
-    double    mFadeInDuration  = 0.5;
-    int mFadeInChoice    = 0;
-    double    mFadeOutDuration = 0.1;
-    int mFadeOutChoice   = 0;
-    int m_SweepType;
-    double m_SilenceDuration  = 5.0;
-    int m_Cycles  = 1;
-    double m_dBVariation  = 0.0;
-    bool mControlPulse = false;
+
 };
