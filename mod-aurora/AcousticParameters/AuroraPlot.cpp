@@ -184,15 +184,30 @@ void AuroraPlot::OnPaint(
             plotArea.x + plotArea.width/2,
             rect.height-30
         );
+        
+        wxString label = "Level [dB]";
 
+        wxSize textSize = dc.GetTextExtent(label);
 
-        dc.DrawText(
-            "dB",
-            10,
-            plotArea.y + plotArea.height/2
+        int x = 0;
+
+        // After rotation, the text width becomes the vertical height
+        int y = plotArea.y +
+                (plotArea.height + textSize.GetWidth()) / 2;
+
+        
+//        int y = (plotArea.height/2) - textSize.GetWidth()/2
+//                (plotArea.height + textSize.GetWidth()) / 2;
+//        int y = plotArea.y +
+//                (plotArea.height / 2) -
+//                (textSize.GetWidth() / 2);
+        
+        dc.DrawRotatedText(
+            label,
+            x,
+            y,
+            90
         );
-
-
 
         //
         // Convert data coordinates to pixels
