@@ -1,7 +1,5 @@
 #include <iostream>
 
-//#include <aurora.h>
-
 #include <wx/setup.h> // for wxUSE_* macros
 #include <wx/brush.h>
 #include <wx/button.h>
@@ -11,6 +9,7 @@
 #include <wx/dcmemory.h>
 #include <wx/font.h>
 #include <wx/file.h>
+#include <wx/grid.h>
 #include <wx/scrolbar.h>
 #include <wx/slider.h>
 #include <wx/statbmp.h>
@@ -26,8 +25,6 @@
 #include "ShuttleGui.h"
 #include "ProjectWindow.h"
 #include "CommonCommandFlags.h"
-//#include "widgets/VetoDialogHook.h"
-
 #include "widgets/valnum.h"
 
 class AudacityProject;
@@ -70,9 +67,16 @@ private:
     
     AudacityProject *mProject;
     DECLARE_EVENT_TABLE()
-    wxBitmap auroraLogo;
+    
+    wxBitmap mAuroraLogo;
+    wxBitmap mAcousticParametersLogo;
+    
     // GUI Elements
-    wxButton *mCloseButton;
+    wxGrid*     mResultsGrid;
+    wxButton*   mCloseButton;
+    
+    
+    // Old GUI Elements
     
     wxTextCtrl *   m_pTextCtrl_FromFrequency;
     wxTextCtrl *   m_pTextCtrl_ToFrequency;

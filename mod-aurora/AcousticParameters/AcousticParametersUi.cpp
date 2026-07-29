@@ -1,5 +1,7 @@
 #include "AcousticParametersUi.h"
 #include "widgets/valnum.h"
+#include "../res/aurora_logos.h"
+#include "../mod_aurora.h"
 
 #define DummyAnalysisTitle XO("Dummy Analysis")
 
@@ -25,30 +27,67 @@ enum
     ID_ControlPulses
 };
 
+const std::array<wxString, 17> rowLabels =
+{
+    "Signal [dB]",
+    "Noise [dB]",
+    "Strength [dB]",
+    "C50 [dB]",
+    "C80 [dB]",
+    "D50 [%]",
+    "Ts [ms]",
+    "EDT [s]",
+    "Tuser [s]",
+    "T20 [s]",
+    "T30 [s]",
+    "St1 [dB]",
+    "St2 [dB]",
+    "StLate [dB]",
+    "IACC (All)",
+    "t IACC [ms]",
+    "WIACC [ms]"
+};
+
+const std::array<wxString, 12> columnLabels =
+{
+    "31.5",
+    "63",
+    "125",
+    "250",
+    "500",
+    "1k",
+    "2k",
+    "4k",
+    "8k",
+    "16k",
+    "A",
+    "Lin"
+};
+
 BEGIN_EVENT_TABLE(AcousticParametersUi, wxDialogWrapper)
-    EVT_RADIOBUTTON(ID_Radio_Linear, AcousticParametersUi::OnNoiseReductionChoice)
-    EVT_RADIOBUTTON(ID_Radio_Exp,    AcousticParametersUi::OnNoiseReductionChoice)
-    EVT_RADIOBUTTON(ID_Radio_Pink,   AcousticParametersUi::OnNoiseReductionChoice)
-    EVT_CLOSE(AcousticParametersUi::OnCloseWindow)
-    EVT_BUTTON(wxID_CANCEL, AcousticParametersUi::OnCloseButton)
+EVT_RADIOBUTTON(ID_Radio_Linear, AcousticParametersUi::OnNoiseReductionChoice)
+EVT_RADIOBUTTON(ID_Radio_Exp,    AcousticParametersUi::OnNoiseReductionChoice)
+EVT_RADIOBUTTON(ID_Radio_Pink,   AcousticParametersUi::OnNoiseReductionChoice)
+EVT_CLOSE(AcousticParametersUi::OnCloseWindow)
+EVT_BUTTON(wxID_CANCEL, AcousticParametersUi::OnCloseButton)
 END_EVENT_TABLE()
 
 //------------------------------------------------------------------------------------
 
 AcousticParametersUi::AcousticParametersUi(wxWindow *parent, wxWindowID id,
-                           AudacityProject &project,
-                           const TranslatableString &title,
-                           const wxPoint &pos)
-    : wxDialogWrapper(parent, id, title, pos, wxDefaultSize,
-                      wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER | wxMAXIMIZE_BOX),
-        mProject{&project},
-        m_Radio_LinearSweep(NULL),
-        m_Radio_ExpSweep(NULL),
-        m_Radio_PinkSweep(NULL)
+                                           AudacityProject &project,
+                                           const TranslatableString &title,
+                                           const wxPoint &pos)
+: wxDialogWrapper(parent, id, title, pos, wxDefaultSize,
+                  wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER | wxMAXIMIZE_BOX),
+mProject{&project},
+m_Radio_LinearSweep(NULL),
+m_Radio_ExpSweep(NULL),
+m_Radio_PinkSweep(NULL)
 {
     std::cout << __func__ << '\n';
     SetName();
-
+    
     Populate();
 }
 
@@ -61,7 +100,7 @@ bool AcousticParametersUi::Show(bool show)
 {
     std::cout << __func__ << '\n';
     bool res = wxDialogWrapper::Show(show);
-
+    
     return res;
 }
 
@@ -71,191 +110,95 @@ void AcousticParametersUi::Populate()
 {
     std::cout << __func__ << '\n';
     SetTitle(DummyAnalysisTitle);
-
+    
     ShuttleGui S(this, eIsCreating);
-    //===================================================================
-    // Add Logo
-    S.StartVerticalLay(0);
-    {
-        S.StartStatic(XO("Sweep"));
-        {
-            S.StartMultiColumn(5, wxALIGN_CENTER);
-            {
-                m_pTextCtrl_FromFrequency = S.Id(ID_FromFrequency)
-                    .Name(XO("from (Hz)"))
-                    .Validator<FloatingPointValidator<double>>(
-                                                               3, &m_FromFrequency,
-                                                               NumValidatorStyle::THREE_TRAILING_ZEROES,
-                                                               0.0)
-                    .AddTextBox(XXO("f&rom"), wxT(""), 12);
-                
-                m_pTextCtrl_ToFrequency = S.Id(ID_ToFrequency)
-                    .Name(XO("to (Hz)"))
-                    .Validator<FloatingPointValidator<double>>(
-                                                               3, &m_ToFrequency,
-                                                               NumValidatorStyle::THREE_TRAILING_ZEROES,
-                                                               0.0)
-                    .AddTextBox(XXO("t&o"), wxT(""), 12);
-                
-                S.AddUnits(XO("Hz"));
-            }
-            S.EndMultiColumn();
-            
-            S.StartHorizontalLay(wxALIGN_RIGHT);
-            {
-                m_pTextCtrl_Duration = S.Id(ID_Duration)
-                    .Validator<FloatingPointValidator<double>>(
-                                                               3, &m_Duration,
-                                                               NumValidatorStyle::ONE_TRAILING_ZERO,
-                                                               0.0, 100.0)
-                    .AddTextBox(XXO("Percent Change (samples)"), L"", 12);
-            }
-            S.EndHorizontalLay();
-            
-            S.StartHorizontalLay(wxALIGN_RIGHT);
-            {
-                m_pTextCtrl_Amplitude = S.Id(ID_Amplitude)
-                    .Validator<FloatingPointValidator<double>>(
-                                                               3, &m_Amplitude,
-                                                               NumValidatorStyle::ONE_TRAILING_ZERO,
-                                                               0.0, 1.0)
-                    .AddTextBox(XXO("Amplitude (0.0 - 1.0)"), L"", 12);
-            }
-            S.EndHorizontalLay();
-            
-            S.StartHorizontalLay(wxALIGN_RIGHT);
-            {
-                m_pTextCtrl_Channels =   S.Id(ID_Channels)
-                    .Validator<IntegerValidator<int>>(
-                                                      &m_Channels, NumValidatorStyle::DEFAULT,
-                                                      1, 64 )
-                    .AddTextBox(XXO("&Threshold (lower is more sensitive):"),
-                                wxT(""),
-                                10);
-            }
-            S.EndHorizontalLay();
-            
-            S.StartMultiColumn(5, wxALIGN_CENTER_HORIZONTAL);
-            {
-                S.AddPrompt(XXO("Sweep Type"));
-                m_Radio_LinearSweep = S.Id(ID_Radio_Linear)
-                    .AddRadioButton(XXO("Li&near"));
-                
-                m_Radio_ExpSweep = S.Id(ID_Radio_Exp)
-                    .AddRadioButtonToGroup(XXO("&Exponential"));
-                
-                m_Radio_PinkSweep = S.Id(ID_Radio_Pink)
-                    .AddRadioButtonToGroup(XXO("Pin&k"));
-            }
-            S.EndMultiColumn();
-        }
-        S.EndStatic();
-        
-    TranslatableStrings windowChoices{
-        XO("Rectangular"),
-        XO("Hamming"),
-        XO("Hann"),
-        XO("1/4 Sine"),
-        XO("Linear"),
-        XO("Gaussian"),
-        XO("Blackmann"),
-        XO("Black/Harris"),
-        XO("Log")
-    };
-        S.StartStatic(XO("Fade-in / Fade-Out"));
-        {
+    
+    mAuroraLogo = LoadPngBitmap(
+        Aurora_logo_png,
+        sizeof(Aurora_logo_png)
+    );
 
-            S.StartMultiColumn(5, wxALIGN_CENTER_HORIZONTAL);
-            {
-                m_pTextCtrl_Duration = S.Id(ID_Duration)
-                    .Validator<FloatingPointValidator<double>>(
-                                                               3, &mFadeInDuration,
-                                                               NumValidatorStyle::ONE_TRAILING_ZERO,
-                                                               0.0, 100.0)
-                    .AddTextBox(XXO("Fade-Out (seconds)"), L"", 12);
-                
-                m_pChoice_FadeInChoice = S.Id(ID_FadeInType).Focus()
-                   .MinSize( { wxDefaultCoord, wxDefaultCoord } )
-                   .AddChoice(XXO("&Window:"), windowChoices, mFadeInChoice);
-            }
-            S.EndMultiColumn();
+    mAcousticParametersLogo = LoadPngBitmap(
+        ap_logo_png,
+        sizeof(ap_logo_png)
+    );
+    
+    //===================================================================
+    
+    S.StartVerticalLay(wxEXPAND,0);
+    {
+        S.StartHorizontalLay(wxALIGN_CENTER);
+        {
+            S.AddWindow(
+                        safenew wxStaticBitmap(
+                                               S.GetParent(),
+                                               wxID_ANY,
+                                               mAuroraLogo)
+                        );
             
-            S.StartMultiColumn(5, wxALIGN_CENTER_HORIZONTAL);
-            {
-                m_pTextCtrl_Duration = S.Id(ID_Duration)
-                    .Validator<FloatingPointValidator<double>>(
-                                                               3, &mFadeOutDuration,
-                                                               NumValidatorStyle::ONE_TRAILING_ZERO,
-                                                               0.0, 100.0)
-                    .AddTextBox(XXO("Fade-Out (seconds)"), L"", 12);
-                
-                m_pChoice_FadeOutChoice = S.Id(ID_FadeInType).Focus()
-                   .MinSize( { wxDefaultCoord, wxDefaultCoord } )
-                   .AddChoice(XXO("&Window:"), windowChoices, mFadeOutChoice);
-            }
-            S.EndMultiColumn();
-        }
-        S.EndStatic();
-                
-        S.StartStatic(XO("Silence"));
-        {
-            S.StartHorizontalLay(wxALIGN_RIGHT);
-            {
-                m_pTextCtrl_SilenceDuration = S.Id(ID_SilenceDuration)
-                    .Validator<FloatingPointValidator<double>>(
-                                                               3, &m_SilenceDuration,
-                                                               NumValidatorStyle::ONE_TRAILING_ZERO,
-                                                               0.0, 100.0)
-                    .AddTextBox(XXO("Duration (seconds)"), L"", 12);
-            }
-            S.EndHorizontalLay();
-        }
-        S.EndStatic();
-        
-        S.StartStatic(XO("Repetitions"));
-        {
-            S.StartHorizontalLay(wxALIGN_RIGHT);
-            {
-                m_pTextCtrl_Cycles = S.Id(ID_Cycles)
-                    .Validator<IntegerValidator<int>>(
-                                                      &m_Cycles, NumValidatorStyle::DEFAULT,
-                                                      1, 64 )
-                    .AddTextBox(XXO("Number of Cycles"), L"", 12);
-            }
-            S.EndHorizontalLay();
+            S.GetSizer()->AddStretchSpacer();
             
-            S.StartHorizontalLay(wxALIGN_RIGHT);
-            {
-                m_pTextCtrl_dBVariation = S.Id(ID_dBVariation)
-                    .Validator<FloatingPointValidator<double>>(
-                                                               3, &m_dBVariation,
-                                                               NumValidatorStyle::ONE_TRAILING_ZERO,
-                                                               0.0, 100.0)
-                    .AddTextBox(XXO("dB Variation"), L"", 12);
-            }
-            S.EndHorizontalLay();
-        }
-        S.EndStatic();
-        
-        S.StartHorizontalLay(wxCENTER);
-        {
-           mControlPulses = S.Id(ID_ControlPulses)
-              .AddCheckBox(XXO("Add a Control Pulses Track"), false);
+            S.AddWindow(
+                        safenew wxStaticBitmap(
+                                               S.GetParent(),
+                                               wxID_ANY,
+                                               mAcousticParametersLogo)
+                        );
         }
         S.EndHorizontalLay();
+        
+        S.StartStatic(XO("Results"));
+        {
+            mResultsGrid = S.AddGrid();
+            S.Prop(1);
+        }
+        S.EndStatic();
     }
     S.EndVerticalLay();
+    
+    //===================================================================
+    
+    mResultsGrid->CreateGrid(17, 12);
+    
+    for (size_t r = 0; r < rowLabels.size(); ++r)
+        mResultsGrid->SetRowLabelValue(r, rowLabels[r]);
+
+    for (size_t c = 0; c < columnLabels.size(); ++c)
+        mResultsGrid->SetColLabelValue(c, columnLabels[c]);
+    
+    for (int r = 0; r < 17; ++r)
+        for (int c = 0; c < 12; ++c)
+            mResultsGrid->SetCellValue(r, c, "0");
+    
+    mResultsGrid->EnableEditing(false);
+    
+    mResultsGrid->AutoSizeColumns();
+    mResultsGrid->AutoSizeRows();
+    
+    // Force the grid to request enough space
+    wxSize gridSize(
+                    mResultsGrid->GetRowLabelSize(),
+                    mResultsGrid->GetColLabelSize()
+                    );
+    
+    for (int c = 0; c < mResultsGrid->GetNumberCols(); ++c)
+        gridSize.x += mResultsGrid->GetColSize(c);
+    
+    for (int r = 0; r < mResultsGrid->GetNumberRows(); ++r)
+        gridSize.y += mResultsGrid->GetRowSize(r);
+    
+    mResultsGrid->SetMinSize(gridSize);
     //===================================================================
     // Add Close Button
     S.AddStandardButtons(eCloseButton);
     mCloseButton = static_cast<wxButton *>(FindWindowById(wxID_CANCEL));
     mCloseButton->SetDefault();
     //===================================================================
-
+    
     Layout();
     Fit();
     Center(); // Bug 1607:
-
+    
     SetMinSize(GetSize());
 }
 
@@ -267,9 +210,9 @@ void AcousticParametersUi::UpdatePrefs()
 // This handles the whole radio group
 void AcousticParametersUi::OnNoiseReductionChoice( wxCommandEvent & WXUNUSED(event))
 {
-//    if (m_Radio_ExpSweep->GetValue());
-//    if (m_Radio_PinkSweep->GetValue());
-//    if (m_Radio_LinearSweep->GetValue());
+    //    if (m_Radio_ExpSweep->GetValue());
+    //    if (m_Radio_PinkSweep->GetValue());
+    //    if (m_Radio_LinearSweep->GetValue());
 }
 
 void AcousticParametersUi::OnCloseWindow(wxCloseEvent &WXUNUSED(event))
@@ -299,8 +242,8 @@ AttachedWindows::RegisteredFactory sAcousticParametersUiWindowKey{
     {
         auto &window = ProjectWindow::Get(parent);
         return safenew AcousticParametersUi(
-                                    &window, -1, parent, DummyAnalysisTitle,
-                                    wxPoint{150, 150});
+                                            &window, -1, parent, DummyAnalysisTitle,
+                                            wxPoint{150, 150});
     }};
 
 void OnOpenWindow(const CommandContext &context)
@@ -311,8 +254,8 @@ void OnOpenWindow(const CommandContext &context)
     auto newWindow = &GetAttachedWindows(project)
         .Get<AcousticParametersUi>(sAcousticParametersUiWindowKey);
     
-//    if (VetoDialogHook::Call(newWindow))
-//        return;
+    //    if (VetoDialogHook::Call(newWindow))
+    //        return;
     newWindow->Show(true);
     newWindow->Raise();
     newWindow->SetFocus();
@@ -326,7 +269,7 @@ AttachedItem sAttachment{
             OnOpenWindow,
             AudioIONotBusyFlag() | WaveTracksSelectedFlag() | TimeSelectedFlag(),
             wxT("Ctrl+Shift+T") ),
-//    wxT("Generate/Generators"),
+    //    wxT("Generate/Generators"),
     wxT("Analyze/Analyzers/Windows"),
 };
 }
