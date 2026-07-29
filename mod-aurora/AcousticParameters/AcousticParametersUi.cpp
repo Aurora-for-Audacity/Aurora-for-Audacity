@@ -5,6 +5,9 @@
 
 #define DummyAnalysisTitle XO("Dummy Analysis")
 
+
+#define FREQ_WINDOW_WIDTH 480
+#define FREQ_WINDOW_HEIGHT 330
 //------------------------------------------------------------------------------------
 // Hook up event handles
 enum
@@ -62,6 +65,16 @@ const std::array<wxString, 12> columnLabels =
     "16k",
     "A",
     "Lin"
+};
+
+std::vector<double> times =
+{
+    0.0, 0.01, 0.02, 0.03,
+};
+
+std::vector<double> levels =
+{
+    85.0, 82.5, 78.0, 74.2,
 };
 
 BEGIN_EVENT_TABLE(AcousticParametersUi, wxDialogWrapper)
@@ -125,6 +138,10 @@ void AcousticParametersUi::Populate()
     
     //===================================================================
     
+    
+    
+    //===================================================================
+    
     S.StartVerticalLay(wxEXPAND,0);
     {
         S.StartHorizontalLay(wxALIGN_CENTER);
@@ -147,6 +164,16 @@ void AcousticParametersUi::Populate()
         }
         S.EndHorizontalLay();
         
+        
+        mPlot = safenew AuroraPlot(S.GetParent(), wxID_ANY);
+        
+        S.Prop(1)
+           .Position(wxEXPAND)
+           .MinSize( { wxDefaultCoord, FREQ_WINDOW_HEIGHT } )
+           .AddWindow(mPlot);
+        
+        S.EndStatic();
+        
         S.StartStatic(XO("Results"));
         {
             mResultsGrid = S.AddGrid();
@@ -157,6 +184,8 @@ void AcousticParametersUi::Populate()
     S.EndVerticalLay();
     
     //===================================================================
+//    mPlot->SetData(times, levels);
+//    mPlot->Refresh();
     
     mResultsGrid->CreateGrid(17, 12);
     

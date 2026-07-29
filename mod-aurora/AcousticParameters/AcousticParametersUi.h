@@ -27,6 +27,9 @@
 #include "CommonCommandFlags.h"
 #include "widgets/valnum.h"
 
+
+#include "AuroraPlot.h"
+
 class AudacityProject;
 
 class AcousticParametersUi final : public wxDialogWrapper,
@@ -75,6 +78,7 @@ private:
     wxGrid*     mResultsGrid;
     wxButton*   mCloseButton;
     
+    AuroraPlot *mPlot;
     
     // Old GUI Elements
     
