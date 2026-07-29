@@ -10,11 +10,11 @@
 
 /**
  
- \class SineSweepGeneratorUi
- \brief An genertor to create sine sweeps for impulse responses
+ \class ConvolverUi
+ \brief Mulei-Channel Convolution
  
  *//*******************************************************************/
-#include "SineSweepGeneratorUi.h"
+#include "ConvolverUi.h"
 #include "effects/EffectEditor.h"
 #include "LoadEffects.h"
 
@@ -30,7 +30,6 @@
 #include <widgets/valnum.h>
 
 #include "../res/aurora_logos.h"
-
 #include "../mod_aurora.h"
 
 enum
@@ -53,72 +52,70 @@ enum
     ID_ControlPulses
 };
 
-
 // Effect implementation
-const ComponentInterfaceSymbol SineSweepGeneratorUi::Symbol
+const ComponentInterfaceSymbol ConvolverUi::Symbol
 /* i18n-hint: noun */
-{ XC("Aurora Sine Sweep", "generator") };
+{ XC("Aurora Convolver", "generator") };
 
-SineSweepGeneratorUi::SineSweepGeneratorUi()
+ConvolverUi::ConvolverUi()
 {
     SetLinearEffectFlag(true);
 }
 
-SineSweepGeneratorUi::~SineSweepGeneratorUi()
+ConvolverUi::~ConvolverUi()
 {
     
 }
 
 // ComponentInterface implementation
 
-ComponentInterfaceSymbol SineSweepGeneratorUi::GetSymbol() const
+ComponentInterfaceSymbol ConvolverUi::GetSymbol() const
 {
     return Symbol;
 }
 
-TranslatableString SineSweepGeneratorUi::GetDescription() const
+TranslatableString ConvolverUi::GetDescription() const
 {
-    return XO("Creates a sine sweep");
+    return XO("Convolves Multi-channel signal");
 }
 
-ManualPageID SineSweepGeneratorUi::ManualPage() const
+ManualPageID ConvolverUi::ManualPage() const
 {
-    return L"SineSweepGenerator";
+    return L"AuroraConvolver";
 }
 
 
 // EffectDefinitionInterface implementation
 
-EffectType SineSweepGeneratorUi::GetType() const
+EffectType ConvolverUi::GetType() const
 {
     return EffectTypeGenerate;
 }
 
 
-bool SineSweepGeneratorUi::GenerateTrack(const EffectSettings& settings, WaveTrack& tmp)
+bool ConvolverUi::GenerateTrack(const EffectSettings& settings, WaveTrack& tmp)
 {
     tmp.InsertSilence(0.0, settings.extra.GetDuration());
     return true;
 }
 
-namespace{ BuiltinEffectsModule::Registration< SineSweepGeneratorUi > reg; }
+namespace{ BuiltinEffectsModule::Registration< ConvolverUi > reg; }
 
 
-std::unique_ptr<EffectEditor> SineSweepGeneratorUi::PopulateOrExchange(
-                                                                       ShuttleGui & S, EffectInstance &, EffectSettingsAccess &access,
-                                                                       const EffectOutputs *)
+std::unique_ptr<EffectEditor> ConvolverUi::PopulateOrExchange(
+                                                              ShuttleGui & S, EffectInstance &, EffectSettingsAccess &access,
+                                                              const EffectOutputs *)
 {
     mAuroraLogo = LoadPngBitmap(
-        Aurora_logo_png,
-        sizeof(Aurora_logo_png)
-    );
-
-    mSineSweepLogo = LoadPngBitmap(
-        ssg_logo_png,
-        sizeof(ssg_logo_png)
-    );
+                                Aurora_logo_png,
+                                sizeof(Aurora_logo_png)
+                                );
     
-    //    S.AddTitle(XO("Aurora for Audacity - Sine Sweep Gen. - (v.0.0.1)"));
+    mConvolverLogo = LoadPngBitmap(
+                                   conv_logo_png,
+                                   sizeof(ssg_logo_png)
+                                   );
+    
     S.StartVerticalLay(0);
     {
         S.StartHorizontalLay(wxALIGN_CENTER);
@@ -136,7 +133,7 @@ std::unique_ptr<EffectEditor> SineSweepGeneratorUi::PopulateOrExchange(
                         safenew wxStaticBitmap(
                                                S.GetParent(),
                                                wxID_ANY,
-                                               mSineSweepLogo)
+                                               mConvolverLogo)
                         );
         }
         S.EndHorizontalLay();
@@ -274,19 +271,19 @@ std::unique_ptr<EffectEditor> SineSweepGeneratorUi::PopulateOrExchange(
             {
                 m_pTextCtrl_Cycles = S.Id(ID_Cycles)
                     .Validator<IntegerValidator<int>>(
-                        &m_Cycles,
-                        NumValidatorStyle::DEFAULT,
-                        1,
-                        64)
+                                                      &m_Cycles,
+                                                      NumValidatorStyle::DEFAULT,
+                                                      1,
+                                                      64)
                     .AddTextBox(XXO("Number of Cycles"), L"", 12);
-
+                
                 m_pTextCtrl_dBVariation = S.Id(ID_dBVariation)
                     .Validator<FloatingPointValidator<double>>(
-                        3,
-                        &m_dBVariation,
-                        NumValidatorStyle::ONE_TRAILING_ZERO,
-                        0.0,
-                        100.0)
+                                                               3,
+                                                               &m_dBVariation,
+                                                               NumValidatorStyle::ONE_TRAILING_ZERO,
+                                                               0.0,
+                                                               100.0)
                     .AddTextBox(XXO("dB Variation"), L"", 12);
             }
             S.EndMultiColumn();
@@ -304,14 +301,14 @@ std::unique_ptr<EffectEditor> SineSweepGeneratorUi::PopulateOrExchange(
     return nullptr;
 }
 
-bool SineSweepGeneratorUi::TransferDataToWindow(const EffectSettings &settings)
+bool ConvolverUi::TransferDataToWindow(const EffectSettings &settings)
 {
     //   mDurationT->SetValue(settings.extra.GetDuration());
     
     return true;
 }
 
-bool SineSweepGeneratorUi::TransferDataFromWindow(EffectSettings &settings)
+bool ConvolverUi::TransferDataFromWindow(EffectSettings &settings)
 {
     //   settings.extra.SetDuration(mDurationT->GetValue());
     
