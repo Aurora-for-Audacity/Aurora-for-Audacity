@@ -147,12 +147,16 @@ void AcousticParametersUi::Populate()
         
         S.StartHorizontalLay(wxEXPAND, 0);
         {
-            S.StartVerticalLay(1);
+            S.StartVerticalLay(0);
             {
-                mSetupButton  = S.AddButton(XO("Setup"));
-                mSaveRButton  = S.AddButton(XO("Save Results to File"));
-                mCopyRButton  = S.AddButton(XO("Copy Results to clipboard"));
-                mStoreGButton = S.AddButton(XO("Store G Reference Signal"));
+                mSetupButton  = S.Position(wxEXPAND).AddButton(XO("Setup"));
+                S.AddSpace(5);
+                mSaveRButton  = S.Position(wxEXPAND).AddButton(XO("Save Results to File"));
+                S.AddSpace(5);
+                mCopyRButton  = S.Position(wxEXPAND).AddButton(XO("Copy Results to clipboard"));
+                S.AddSpace(5);
+                mStoreGButton = S.Position(wxEXPAND).AddButton(XO("Store G Reference Signal"));
+                S.AddSpace(5);
                 
                 S.StartStatic(XO("Mic / Probe type:"),0);
                 {
