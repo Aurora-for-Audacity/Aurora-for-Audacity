@@ -8,9 +8,10 @@ CMAKE_FLAGS := \
 	-G Xcode \
 	-Daudacity_use_mad=OFF \
 	-Daudacity_use_id3tag=OFF \
-	-Daudacity_conan_allow_prebuilt_binaries=OFF
+	-Daudacity_conan_allow_prebuilt_binaries=OFF \
+	-DAURORA_MODULE_PATH=$(MODULE)
 
-.PHONY: xcode configure link patch clean distclean
+.PHONY: xcode configure link patch clean distclean test
 
 xcode: configure
 	@echo
@@ -20,42 +21,27 @@ xcode: configure
 configure: patch
 	cmake -S $(AUDACITY) -B $(BUILD) $(CMAKE_FLAGS)
 
-link:
-	@if [ ! -d "$(AUDACITY)" ]; then \
-		echo ""; \
-		echo "Audacity submodule not found."; \
-		echo "Run:"; \
-		echo "  git submodule update --init --recursive"; \
-		exit 1; \
-	fi
-
-	@if [ ! -L "$(AUDACITY)/modules/mod-aurora" ] && \
-	   [ ! -d "$(AUDACITY)/modules/mod-aurora" ]; then \
-		echo "Linking mod-aurora..."; \
-		ln -s "$$(realpath --relative-to="$(AUDACITY)/modules" "$(MODULE)")" "$(AUDACITY)/modules/mod-aurora"
-	fi
-
-patch: link 
-	@if ! grep -q "mod-aurora" "$(AUDACITY)/modules/CMakeLists.txt"; then \
-		echo "Adding mod-aurora to Audacity..."; \
-		cp "$(AUDACITY)/modules/CMakeLists.txt" \
-		   "$(AUDACITY)/modules/CMakeLists.txt.bak"; \
-		awk '\
-			/mod-script-pipe/ { \
-				print; \
-				print "   mod-aurora"; \
-				next; \
-			} \
-			{ print }' \
-			"$(AUDACITY)/modules/CMakeLists.txt.bak" \
-			> "$(AUDACITY)/modules/CMakeLists.txt"; \
+patch:
+	@if ! grep -q "AURORA_MODULE_PATH" "$(AUDACITY)/modules/etc/CMakeLists.txt"; then \
+		echo "Adding external mod-aurora support..."; \
+		cp "$(AUDACITY)/modules/etc/CMakeLists.txt" \
+		   "$(AUDACITY)/modules/etc/CMakeLists.txt.bak"; \
+		printf '\n\nif(EXISTS "$${AURORA_MODULE_PATH}/CMakeLists.txt")\n' \
+			>> "$(AUDACITY)/modules/etc/CMakeLists.txt"; \
+		printf '   message(STATUS "Adding Aurora module: $${AURORA_MODULE_PATH}")\n' \
+			>> "$(AUDACITY)/modules/etc/CMakeLists.txt"; \
+		printf '   add_subdirectory("$${AURORA_MODULE_PATH}" mod-aurora)\n' \
+			>> "$(AUDACITY)/modules/etc/CMakeLists.txt"; \
+		printf 'endif()\n' \
+			>> "$(AUDACITY)/modules/etc/CMakeLists.txt"; \
 	fi
 
 clean:
 	rm -rf $(BUILD)
 
 distclean: clean
-	rm -f "$(AUDACITY)/modules/mod-aurora"
-	cp "$(AUDACITY)/modules/CMakeLists.txt.bak" \
-	   "$(AUDACITY)/modules/CMakeLists.txt" 2>/dev/null || true
+	rm -f "$(AUDACITY)/modules/etc/mod-aurora"
+	cp "$(AUDACITY)/modules/etc/CMakeLists.txt.bak" \
+	   "$(AUDACITY)/modules/etc/CMakeLists.txt" 2>/dev/null || true
 	rm -f "$(AUDACITY)/modules/CMakeLists.txt.bak"
+
