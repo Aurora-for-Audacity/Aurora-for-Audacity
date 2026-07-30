@@ -109,67 +109,66 @@ void AcousticParametersUi::Populate()
                                             );
     
     //===================================================================
+    // Unfiltered Impulse Response
     
     
+    S.SetBorder(0);
     
-    //===================================================================
-    
-    S.StartVerticalLay(wxEXPAND,0);
+    S.StartVerticalLay(0);
     {
-        S.StartHorizontalLay(wxALIGN_CENTER);
+        S.StartHorizontalLay(wxEXPAND,1);
         {
-            S.AddWindow(
-                        safenew wxStaticBitmap(
-                                               S.GetParent(),
-                                               wxID_ANY,
-                                               mAuroraLogo)
-                        );
             
+            S.AddWindow(safenew wxStaticBitmap(
+                                                  S.GetParent(),
+                                                  wxID_ANY,
+                                                  mAuroraLogo));
             S.GetSizer()->AddStretchSpacer();
-            
-            S.AddWindow(
-                        safenew wxStaticBitmap(
-                                               S.GetParent(),
-                                               wxID_ANY,
-                                               mAcousticParametersLogo)
-                        );
+            S.AddWindow(safenew wxStaticBitmap(
+                                                  S.GetParent(),
+                                                  wxID_ANY,
+                                                  mAcousticParametersLogo));
         }
         S.EndHorizontalLay();
         
-        // Unfiltered Impulse Response
-        S.StartHorizontalLay(wxALIGN_CENTER);
+    }
+    S.EndVerticalLay();
+    
+    
+    S.SetSizerProportion(1);
+    
+    S.StartMultiColumn(2, wxEXPAND);
+    {
+        S.SetStretchyCol(0);
+        S.SetStretchyRow(0);
+        
+        mPlot = safenew AuroraPlot(S.GetParent(), wxID_ANY);
+        S.Prop(1).Position(wxEXPAND).MinSize({ wxDefaultCoord, 250 }).AddWindow(mPlot);
+        
+        S.StartHorizontalLay(wxEXPAND, 0);
         {
-            S.StartStatic(XO("Mic / Probe type:"));
+            S.StartVerticalLay(1);
             {
-                mPlot = safenew AuroraPlot(S.GetParent(), wxID_ANY);
+                mSetupButton  = S.AddButton(XO("Setup"));
+                mSaveRButton  = S.AddButton(XO("Save Results to File"));
+                mCopyRButton  = S.AddButton(XO("Copy Results to clipboard"));
+                mStoreGButton = S.AddButton(XO("Store G Reference Signal"));
                 
-                S.Prop(1)
-                    .Position(wxEXPAND)
-                    .MinSize( { wxDefaultCoord, 200 } )
-                    .AddWindow(mPlot);
-            }
-            S.EndStatic();
-            
-            S.StartVerticalLay(wxEXPAND,0);
-            {
-                // Save Results to File
-                // Copy Results to clipboard
-                // Store G Reference Signal
-                S.StartStatic(XO("Mic / Probe type:"));
+                S.StartStatic(XO("Mic / Probe type:"),0);
                 {
-                    // Text Box
+                    S.AddFixedText(XO("Binaural pair"));
                 }
                 S.EndStatic();
                 
-                S.StartStatic(XO("Channels:"));
+                S.StartStatic(XO("Channels:"),0);
                 {
-                    // list
+                    S.AddListControlReportMode({{ XO("Channel"), wxLIST_FORMAT_RIGHT }});
                 }
                 S.EndStatic();
                 
-                S.StartStatic(XO("Tuser limits:"));
+                S.StartStatic(XO("Tuser limits:"),0);
                 {
-                    // Text Box
+                    S.AddFixedText(XO("(-15.0 dB, -5.0 dB)"));
                 }
                 S.EndStatic();
             }
@@ -177,14 +176,14 @@ void AcousticParametersUi::Populate()
         }
         S.EndHorizontalLay();
         
-        S.StartStatic(XO("Results"));
-        {
-            mResultsGrid = S.AddGrid();
-            S.Prop(1);
-        }
-        S.EndStatic();
     }
-    S.EndVerticalLay();
+    S.EndMultiColumn();
+    
+    S.StartHorizontalLay(wxEXPAND, 1);
+    {
+        mResultsGrid = S.Prop(1).Position(wxEXPAND).AddGrid();
+    }
+    S.EndHorizontalLay();
     
     //===================================================================
     mPlot->SetData(times, levels);
@@ -204,8 +203,6 @@ void AcousticParametersUi::Populate()
     
     mResultsGrid->EnableEditing(false);
     
-    mResultsGrid->AutoSizeColumns();
-    mResultsGrid->AutoSizeRows();
     
     // Force the grid to request enough space
     wxSize gridSize(
@@ -228,10 +225,14 @@ void AcousticParametersUi::Populate()
     //===================================================================
     
     Layout();
+    wxSize size = GetSize();
+    size.SetWidth(900);   // or whatever width you want
+    SetMinSize(size);
+    SetSize(size);
     Fit();
     Center(); // Bug 1607:
     
-    SetMinSize(GetSize());
+    
 }
 
 void AcousticParametersUi::UpdatePrefs()
@@ -297,8 +298,8 @@ AttachedItem sAttachment{
             OnOpenWindow,
             AudioIONotBusyFlag() | WaveTracksSelectedFlag() | TimeSelectedFlag(),
             wxT("Ctrl+Shift+T") ),
-    //            wxT("Generate/Generators"),
-    wxT("Analyze/Analyzers/Windows"),
+    wxT("Generate/Generators"),
+    //    wxT("Analyze/Analyzers/Windows"),
 };
 }
 //------------------------------------------------------------------------------------
