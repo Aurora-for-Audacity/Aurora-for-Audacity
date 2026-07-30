@@ -150,10 +150,10 @@ void AuroraPlot::OnPaint(
         wxRect rect = GetClientRect();
 
 
-        const int left   = 60;
-        const int bottom = 40;
-        const int top    = 20;
-        const int right  = 20;
+        const int left   = 10;
+        const int bottom = 10;
+        const int top    = 10;
+        const int right  = 10;
 
 
         wxRect plotArea(

@@ -99,14 +99,14 @@ void AcousticParametersUi::Populate()
     ShuttleGui S(this, eIsCreating);
     
     mAuroraLogo = LoadPngBitmap(
-        Aurora_logo_png,
-        sizeof(Aurora_logo_png)
-    );
-
+                                Aurora_logo_png,
+                                sizeof(Aurora_logo_png)
+                                );
+    
     mAcousticParametersLogo = LoadPngBitmap(
-        ap_logo_png,
-        sizeof(ap_logo_png)
-    );
+                                            ap_logo_png,
+                                            sizeof(ap_logo_png)
+                                            );
     
     //===================================================================
     
@@ -136,13 +136,46 @@ void AcousticParametersUi::Populate()
         }
         S.EndHorizontalLay();
         
-        
-        mPlot = safenew AuroraPlot(S.GetParent(), wxID_ANY);
-        
-        S.Prop(1)
-           .Position(wxEXPAND)
-           .MinSize( { wxDefaultCoord, 200 } )
-           .AddWindow(mPlot);
+        // Unfiltered Impulse Response
+        S.StartHorizontalLay(wxALIGN_CENTER);
+        {
+            S.StartStatic(XO("Mic / Probe type:"));
+            {
+                mPlot = safenew AuroraPlot(S.GetParent(), wxID_ANY);
+                
+                S.Prop(1)
+                    .Position(wxEXPAND)
+                    .MinSize( { wxDefaultCoord, 200 } )
+                    .AddWindow(mPlot);
+            }
+            S.EndStatic();
+            
+            S.StartVerticalLay(wxEXPAND,0);
+            {
+                // Save Results to File
+                // Copy Results to clipboard
+                // Store G Reference Signal
+                S.StartStatic(XO("Mic / Probe type:"));
+                {
+                    // Text Box
+                }
+                S.EndStatic();
+                
+                S.StartStatic(XO("Channels:"));
+                {
+                    // list
+                }
+                S.EndStatic();
+                
+                S.StartStatic(XO("Tuser limits:"));
+                {
+                    // Text Box
+                }
+                S.EndStatic();
+            }
+            S.EndVerticalLay();
+        }
+        S.EndHorizontalLay();
         
         S.StartStatic(XO("Results"));
         {
@@ -161,7 +194,7 @@ void AcousticParametersUi::Populate()
     
     for (size_t r = 0; r < rowLabels.size(); ++r)
         mResultsGrid->SetRowLabelValue(r, rowLabels[r]);
-
+    
     for (size_t c = 0; c < columnLabels.size(); ++c)
         mResultsGrid->SetColLabelValue(c, columnLabels[c]);
     
@@ -209,7 +242,7 @@ void AcousticParametersUi::UpdatePrefs()
 // This handles the whole radio group
 void AcousticParametersUi::OnNoiseReductionChoice( wxCommandEvent & WXUNUSED(event))
 {
-
+    
 }
 
 void AcousticParametersUi::OnCloseWindow(wxCloseEvent &WXUNUSED(event))
@@ -251,8 +284,6 @@ void OnOpenWindow(const CommandContext &context)
     auto newWindow = &GetAttachedWindows(project)
         .Get<AcousticParametersUi>(sAcousticParametersUiWindowKey);
     
-    //    if (VetoDialogHook::Call(newWindow))
-    //        return;
     newWindow->Show(true);
     newWindow->Raise();
     newWindow->SetFocus();
@@ -266,7 +297,7 @@ AttachedItem sAttachment{
             OnOpenWindow,
             AudioIONotBusyFlag() | WaveTracksSelectedFlag() | TimeSelectedFlag(),
             wxT("Ctrl+Shift+T") ),
-    //    wxT("Generate/Generators"),
+    //            wxT("Generate/Generators"),
     wxT("Analyze/Analyzers/Windows"),
 };
 }

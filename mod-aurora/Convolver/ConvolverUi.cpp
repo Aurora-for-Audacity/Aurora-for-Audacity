@@ -139,9 +139,79 @@ std::unique_ptr<EffectEditor> ConvolverUi::PopulateOrExchange(
         
         S.StartNotebook();
         {
-            S.StartNotebookPage(XO("Select Audio"));
+            S.StartNotebookPage(XO("Select Tracks"));
             {
-                
+                S.StartStatic(XO("Selected Tracks"));
+                {
+                // list
+                }
+                S.EndStatic();
+
+               S.StartHorizontalLay(wxALIGN_CENTER);
+            {
+                // To Audio Data Button
+                // To Filters  Button
+            }
+        S.EndHorizontalLay();
+
+        S.StartHorizontalLay(wxALIGN_CENTER);
+            {
+                // Audio Data Static Text
+                // Filters (IRs) Static Text
+            }
+        S.EndHorizontalLay();
+
+        S.StartHorizontalLay(wxALIGN_CENTER);
+            {
+                // Audio Data Static Text
+                // Filters (IRs) Static Text
+            }
+        S.EndHorizontalLay();
+
+            S.StartHorizontalLay(wxALIGN_CENTER);
+            {
+                S.StartVerticalLay(wxALIGN_CENTER);
+                {
+                  // Audio Data list
+                }
+                S.EndVerticalLay();
+
+                S.StartVerticalLay(wxALIGN_CENTER);
+                {
+                  // Up Button
+                     S.StartHorizontalLay(wxALIGN_CENTER);
+            {
+                // left Button 
+                // Right button
+            }  
+            S.EndHorizontalLay();
+                // Down Button
+                // Remove Button
+
+                }
+                S.EndVerticalLay();
+
+                S.StartVerticalLay(wxALIGN_CENTER);
+                {
+                  // AuFilter Datadio Data list
+                }
+                S.EndVerticalLay();
+            }
+        S.EndHorizontalLay();
+
+
+        S.StartHorizontalLay(wxALIGN_CENTER);
+            {
+                // Matrix Mode Check Box
+            }
+        S.EndHorizontalLay();
+
+                S.StartStatic(XO("Output:"));
+                {
+                // Static Text
+                }
+                S.EndStatic();
+
             }
             S.EndNotebookPage();
             

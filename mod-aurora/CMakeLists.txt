@@ -19,7 +19,6 @@ set( SOURCES
    SineSweepGenerator/SineSweepGeneratorUi.cpp
    SineSweepGenerator/SineSweepGeneratorUi.h
    res/aurora_logos.h
-   
 )
 
 set( DEFINES

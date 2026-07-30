@@ -1,3 +1,7 @@
+/*
+ 
+ */
+
 #include <iostream>
 
 #include <wx/setup.h> // for wxUSE_* macros
@@ -26,7 +30,7 @@
 #include "ProjectWindow.h"
 #include "CommonCommandFlags.h"
 #include "widgets/valnum.h"
-
+    
 
 #include "AuroraPlot.h"
 
@@ -63,9 +67,20 @@ private:
     wxBitmap mAcousticParametersLogo;
     
     // GUI Elements
-    wxGrid*     mResultsGrid;
-    wxButton*   mCloseButton;
+    wxButton* mCloseButton;
     
     AuroraPlot *mPlot;
+    
+    wxButton* mSetupButton;
+    wxButton* mSaveRButton;
+    wxButton* mCopyRButton;
+    wxButton* mStoreGButton;
+    
+    wxStaticText *mMicTypeText;
+    wxListCtrl* mChannelList;
+    wxStaticText *mTuserLimitsText;
+
+    wxGrid*   mResultsGrid;
+    
         
 };
