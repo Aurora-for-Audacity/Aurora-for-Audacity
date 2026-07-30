@@ -32,24 +32,24 @@ link:
 	@if [ ! -L "$(AUDACITY)/modules/mod-aurora" ] && \
 	   [ ! -d "$(AUDACITY)/modules/mod-aurora" ]; then \
 		echo "Linking mod-aurora..."; \
-		ln -s "$(MODULE)" "$(AUDACITY)/modules/mod-aurora"; \
+		ln -s "$$(realpath --relative-to="$(AUDACITY)/modules" "$(MODULE)")" "$(AUDACITY)/modules/mod-aurora"
 	fi
 
 patch: link 
-# 	@if ! grep -q "mod-aurora" "$(AUDACITY)/modules/CMakeLists.txt"; then \
-# 		echo "Adding mod-aurora to Audacity..."; \
-# 		cp "$(AUDACITY)/modules/CMakeLists.txt" \
-# 		   "$(AUDACITY)/modules/CMakeLists.txt.bak"; \
-# 		awk '\
-# 			/mod-script-pipe/ { \
-# 				print; \
-# 				print "   mod-aurora"; \
-# 				next; \
-# 			} \
-# 			{ print }' \
-# 			"$(AUDACITY)/modules/CMakeLists.txt.bak" \
-# 			> "$(AUDACITY)/modules/CMakeLists.txt"; \
-# 	fi
+	@if ! grep -q "mod-aurora" "$(AUDACITY)/modules/CMakeLists.txt"; then \
+		echo "Adding mod-aurora to Audacity..."; \
+		cp "$(AUDACITY)/modules/CMakeLists.txt" \
+		   "$(AUDACITY)/modules/CMakeLists.txt.bak"; \
+		awk '\
+			/mod-script-pipe/ { \
+				print; \
+				print "   mod-aurora"; \
+				next; \
+			} \
+			{ print }' \
+			"$(AUDACITY)/modules/CMakeLists.txt.bak" \
+			> "$(AUDACITY)/modules/CMakeLists.txt"; \
+	fi
 
 clean:
 	rm -rf $(BUILD)
