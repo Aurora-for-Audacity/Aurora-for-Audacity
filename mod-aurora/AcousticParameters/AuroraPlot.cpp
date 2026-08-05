@@ -210,14 +210,8 @@ void AuroraPlot::OnPaint(
         // After rotation, the text width becomes the vertical height
         int y = plotArea.y +
         (plotArea.height + textSize.GetWidth()) / 2;
-        
-        
-        dc.DrawRotatedText(
-                           label,
-                           x,
-                           y,
-                           90
-                           );
+                
+        dc.DrawRotatedText( label, x, y, 90 );
         
         //
         // Convert data coordinates to pixels
