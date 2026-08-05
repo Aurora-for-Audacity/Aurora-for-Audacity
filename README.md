@@ -42,3 +42,18 @@ A module version of the the [Aurora plug-ins](https://www.aurora-plugins.com/) u
 > Good luck.
 > 
 > Simone.
+
+## Contributing
+
+If you would like to contirbute then check out the [build-notes](https://github.com/Aurora-for-Audacity/Aurora-for-Audacity/blob/main/build-notes.md). This is just rough log of where we are at, some observations and potential places to look for updating the code. The [`src-update.md`](https://github.com/Aurora-for-Audacity/Aurora-for-Audacity/blob/main/src-updates.md) also contains some notes about how this Audacity source has changed and what may need updating and where to look.
+
+Audacity is linked as a submodule, so you will need to clone this repo with:
+
+```sh
+git clone --recurse-submodules https://github.com/Aurora-for-Audacity/Aurora-for-Audacity.git
+```
+
+Please feel free to also check out the [issues]([./issues](https://github.com/Aurora-for-Audacity/Aurora-for-Audacity/issues)https://github.com/Aurora-for-Audacity/Aurora-for-Audacity/issues) to see what we are working on.
+
+
+
