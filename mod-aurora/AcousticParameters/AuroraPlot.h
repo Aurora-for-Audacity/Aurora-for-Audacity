@@ -19,6 +19,8 @@
 #include <wx/textctrl.h>
 #include <widgets/RulerPanel.h>
 #include <ShuttleGui.h>
+#include <cmath>
+#include <vector>
 
 class AuroraPlot final : public wxWindow
 {

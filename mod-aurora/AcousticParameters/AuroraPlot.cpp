@@ -69,7 +69,7 @@ END_EVENT_TABLE()
 
 AuroraPlot::AuroraPlot(wxWindow* parent,
                        wxWindowID id)
-: wxWindow(parent, id), mMargins{40,20,30,35}
+: wxWindow(parent, id), mMargins{20,20,35,40}
 {
     
 }
@@ -179,12 +179,15 @@ void AuroraPlot::OnPaint(
                         rect.height-top-bottom
                         );
         
-        
+        auto y0 = plotArea.y;
+        auto yh = plotArea.y + plotArea.height;
+        auto x0 = plotArea.x;
+        auto xw = plotArea.x + plotArea.width;
         //
         // Draw border
         //
         
-
+        
         dc.SetPen(*wxBLACK_PEN);
         dc.SetBrush(*wxWHITE_BRUSH);
         dc.DrawRectangle(plotArea);
@@ -193,12 +196,10 @@ void AuroraPlot::OnPaint(
         //
         // Axis labels
         //
-        
-        dc.DrawText(
-                    "Time [s]",
-                    plotArea.x + plotArea.width/2,
-                    rect.height-30
-                    );
+        wxString xAxisLabel{"Time [s]"};
+        dc.DrawText(xAxisLabel,
+                    (xw / 2) - ((xAxisLabel.length() / 2) * dc.GetCharWidth()),
+                    yh + ((dc.GetCharHeight()*3)/2));
         
         wxString label = "Level [dB]";
         
@@ -237,27 +238,30 @@ void AuroraPlot::OnPaint(
             return plotArea.y - (ratio * plotArea.height);
         };
         
-    
+        
+        
         //
-        // Draw Axis
+        // Draw y-Axis
         //
         
         dc.SetPen(*wxBLACK_PEN);
         dc.SetFont(font.Bold());
         
         auto lineWeight = dc.GetPen().GetWidth();
-        double lStepSize = double(plotArea.height - lineWeight) / 90.0;            
+        double lStepSize = double(plotArea.height - (double(lineWeight) * 0.5)) / 90.0;
+        
+        
         
         for(int db = 0; db <= 90; db += 6)
         {
-            int ly = lineWeight + plotArea.y + int(lStepSize * double(db));
+            int ly = plotArea.y + int(lStepSize * double(db));
             
             
             dc.SetPen(*wxBLACK_PEN);
             
-            dc.DrawLine(plotArea.x-5,
+            dc.DrawLine(x0-5,
                         ly,
-                        plotArea.x,
+                        x0,
                         ly);
             
             
@@ -272,27 +276,72 @@ void AuroraPlot::OnPaint(
             
             if(db != 0 && db != 90)
             {
-                
                 dc.SetPen((db % 24 == 0) ? *wxGREY_PEN : *wxLIGHT_GREY);
-                
-                dc.DrawLine(plotArea.x,
-                            ly,
-                            plotArea.x+plotArea.width,
-                            ly);
+                dc.DrawLine(x0, ly, xw, ly);
             }
             
+        }
+        
+        
+        //
+        // Draw X-axis
+        //
+        
+        double duration = mMaxTime - mMinTime;
+        // Find order of magnitude
+        int order = static_cast<int>(std::floor(std::log10(duration)));
+        double magnitude = std::pow(10, order);
+        
+        // Fraction of duration relative to its magnitude
+        double fraction = duration / magnitude;
+        
+        // Choose tick step
+        double step;
+        
+        if (fraction > 5.0) {
+            step = 5.0 * magnitude;
+        }
+        else if (fraction > 1.0) {
+            step = 0.5 * magnitude;
+        }
+        else {
+            step = 0.1 * magnitude;
+        }
+        
+        const int numSteps = int(duration / step) + 1;
+        
+        auto durToX =
+        [&](double t)
+        {
+            double ratio = (t) / (duration);
+            return plotArea.x + (ratio * plotArea.width);
+        };
+        
+        
+        for (int i = 0; i < numSteps; i++) {
+            double t = double(i) * step;
+            
+            dc.DrawLine(wxPoint(durToX(t),
+                                y0),
+                        wxPoint(durToX(t),
+                                yh + 5));
+            
+            auto xTickLabel = wxString::Format(("%.3f"), t);
+            
+            //            dc.SetFont((i % 24 == 0) ? font.Bold() : font);
+            
+            auto xoffset = (xTickLabel.length()/2) * dc.GetCharWidth();
+            dc.DrawText(xTickLabel, durToX(t)-xoffset, yh + 5);
         }
         
         //
         // Draw curve
         //
         
-        dc.SetPen(
-                  wxPen(
-                        wxColour(0,80,200),
-                        2
-                        )
-                  );
+        
+        
+        
+        dc.SetPen(wxPen(wxColour(0,80,200), 2));
         
         
         for(size_t i = 1; i < mTime.size(); i++)
@@ -309,7 +358,7 @@ void AuroraPlot::OnPaint(
                                 )
                         );
         }
-
+        
     }
 }
 
