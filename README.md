@@ -1,10 +1,12 @@
 # ![Aurora](img/logos/aurora_logo_inv.png#gh-dark-mode-only) ![Aurora](img/logos/aurora_logo.png#gh-light-mode-only) for Audacity
 
 ![Acoustic Parameters](img/logos/ap_logo.png#gh-light-mode-only) ![Acoustic Parameters](img/logos/ap_logo_inv.png#gh-dark-mode-only) ![Convolver](img/logos/conv_logo.png#gh-light-mode-only) ![Convolver](img/logos/conv_logo_inv.png#gh-dark-mode-only) ![Kirkeby Filter Inversion](img/logos/kirk_logo.png#gh-light-mode-only) ![Kirkeby Filter Inversion](img/logos/kirk_logo_inv.png#gh-dark-mode-only) ![Sine Sweep Generator](img/logos/ssg_logo.png#gh-light-mode-only) ![Sine Sweep Generator](img/logos/ssg_logo_inv.png#gh-dark-mode-only) ![Speech Transmission Index](img/logos/sti_logo.png#gh-light-mode-only) ![Speech Transmission Index](img/logos/sti_logo_inv.png#gh-dark-mode-only) ![Time History Analyzer](img/logos/tha_logo.png#gh-light-mode-only) ![Time History Analyzer](img/logos/tha_logo_inv.png#gh-dark-mode-only) ![XFunctions](img/logos/xfn_logo.png#gh-light-mode-only) ![XFunctions](img/logos/xfn_logo_inv.png#gh-dark-mode-only)
-Angelo Farina's Aurora audio processing plugin suite for Audacity host application.
+
+***
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.16759727.svg)](https://doi.org/10.5281/zenodo.16759727)
 
+Angelo Farina's Aurora audio processing plugin suite for Audacity host application.
 
 ## About
 
