@@ -107,7 +107,7 @@ bool EffectDummy::TransferDataToWindow(const EffectSettings &settings)
 
 bool EffectDummy::TransferDataFromWindow(EffectSettings &settings)
 {
-//   settings.extra.SetDuration(mDurationT->GetValue());
+   settings.extra.SetDuration(mDurationT->GetValue());
 
    return true;
 }

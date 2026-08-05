@@ -15,10 +15,11 @@
 #include "effects/StatefulEffectUIServices.h"
 #include <wx/wx.h>
 #include <wx/valgen.h>
+#include <Aurora/aurora.h>
 
 class NumericTextCtrl;
 
-class BUILTIN_EFFECTS_API SineSweepGeneratorUi final : public Generator, public StatefulEffectUIServices
+class BUILTIN_EFFECTS_API SineSweepGeneratorUi final : public StatefulEffect, public StatefulEffectUIServices
 {
 public:
     static const ComponentInterfaceSymbol Symbol;
@@ -42,9 +43,9 @@ public:
     EffectType GetType() const override;
 
 protected:
-   // Generator implementation
-
-   bool GenerateTrack(const EffectSettings& settings, WaveTrack& tmp) override;
+    /// From StatefulEffect
+    bool Process(EffectInstance &instance, EffectSettings &settings) override;
+    //   bool GenerateTrack(const EffectSettings& settings, WaveTrack& tmp) override;
     
 private:
     NumericTextCtrl *mDurationT;
@@ -75,22 +76,24 @@ private:
     wxRadioButton *m_Radio_LinearSweep;
     wxRadioButton *m_Radio_ExpSweep;
     wxRadioButton *m_Radio_PinkSweep;
-    
+        
     wxCheckBox *   m_Check_ControlPulses;
     
+    Aurora::SineSweepGenerator ssweep{};
+    
     // Temp Member Variables
-    double m_FromFrequency =    22.0;
-    double m_ToFrequency   = 22000.0;
-    double m_Duration      =    15.0;
-    double m_Amplitude     =     0.707;
-    int m_Channels         =     1;
-    double    mFadeInDuration  = 0.5;
-    int mFadeInChoice    = 0;
-    double    mFadeOutDuration = 0.1;
-    int mFadeOutChoice   = 0;
-    int m_SweepType;
-    double m_SilenceDuration  = 5.0;
-    int m_Cycles  = 1;
-    double m_dBVariation  = 0.0;
-    bool mControlPulse = false;
+    double m_FromFrequency   =    22.0;
+    double m_ToFrequency     = 22000.0;
+    double m_Duration        =    15.0;
+    double m_Amplitude       =     0.707;
+    int    m_Channels        =     1;
+    double mFadeInDuration   =     0.1;
+    int    mFadeInChoice     =     2;
+    double mFadeOutDuration  =     0.1;
+    int    mFadeOutChoice    =     2;
+    int    m_SweepType       =     Aurora::SineSweepGenerator::SweepTypes::ST_LINEAR;
+    double m_SilenceDuration =     5.0;
+    int    m_Cycles          =     1;
+    double m_dBVariation     =     0.0;
+    bool   mControlPulse     =     false;
 };

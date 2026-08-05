@@ -17,6 +17,7 @@
 #include "SineSweepGeneratorUi.h"
 #include "effects/EffectEditor.h"
 #include "LoadEffects.h"
+#include "ProjectRate.h"
 
 #include "ShuttleGui.h"
 #include "widgets/NumericTextCtrl.h"
@@ -93,11 +94,83 @@ EffectType SineSweepGeneratorUi::GetType() const
     return EffectTypeGenerate;
 }
 
-
-bool SineSweepGeneratorUi::GenerateTrack(const EffectSettings& settings, WaveTrack& tmp)
+bool SineSweepGeneratorUi::Process(EffectInstance &instance, EffectSettings &settings)
 {
-    tmp.InsertSilence(0.0, settings.extra.GetDuration());
-    return true;
+    std::cout << __func__ << '\n';
+    
+    bool bGoodResult = true;
+    
+    
+    ssweep.SetSamplerate(mProjectRate);
+    
+    ssweep.SetStartFrequency(m_FromFrequency);
+    ssweep.SetEndFrequency(m_ToFrequency);
+    ssweep.SetSweepDuration(m_Duration);
+    ssweep.SetAmplitude(m_Amplitude);
+    ssweep.SetSweepChnlsNumber(m_Channels);
+    ssweep.SetFadeInDuration(mFadeInDuration);
+//    ssweep.SetFadeInType(mFadeInChoice);
+    ssweep.SetFadeOutDuration(mFadeOutDuration);
+//    ssweep.SetFadeOutType(mFadeOutChoice);    
+    
+    if(m_Radio_LinearSweep)
+        ssweep.SetSweepType(Aurora::SineSweepGenerator::SweepTypes::ST_LINEAR);
+    if(m_Radio_ExpSweep)
+        ssweep.SetSweepType(Aurora::SineSweepGenerator::SweepTypes::ST_LOG);
+    if(m_Radio_PinkSweep)
+        ssweep.SetSweepType(Aurora::SineSweepGenerator::SweepTypes::ST_PINK);
+        
+    ssweep.SetSilenceDuration(m_SilenceDuration);
+    ssweep.SetRepetitionsNumber(m_Cycles);
+    ssweep.SetDeltaL(m_dBVariation);
+//    ssweep.SetControlPulses(mControlPulse);
+    
+    ssweep.Generate();
+    
+    auto refTrack   = mFactory->Create(sampleFormat::floatSample, mProjectRate);      // mono
+    
+    WaveTrack *newTrack{};
+    
+    refTrack->SetName(mTracks->MakeUniqueTrackName(WaveTrack::GetDefaultAudioTrackNamePreference()));
+    newTrack = mTracks->Add(refTrack);
+    newTrack->SetSelected(false);
+    
+    
+    size_t numSamples  = ssweep.GetBuffersLength();
+    auto filter  = std::make_unique<float[]>(numSamples);
+    auto audio   = std::make_unique<float[]>(numSamples);
+    
+    ssweep.FillBlock(audio.get() ,  numSamples, 0, 0); // Sweep  == Channel_1
+    ssweep.FillBlock(filter.get(),  numSamples, 0, 1); // Filter == Channel_2
+
+    auto tracks = mTracks->Any<WaveTrack>();
+    size_t index = 0;
+    
+    for (auto track : tracks)
+    {
+        std::cout << "index: " << index << " " << track->GetName() << '\n';
+                
+        if (index == 0)
+        {
+            track->Append(0,
+                          reinterpret_cast<constSamplePtr>(audio.get()),
+                          floatSample,
+                          numSamples);
+            track->SetName("Sweep");
+        }
+        else if (index == 1)
+        {
+            track->Append(0,
+                          reinterpret_cast<constSamplePtr>(filter.get()),
+                          floatSample,
+                          numSamples);
+            track->SetName("Filter");
+        }
+
+        ++index;
+    }
+    
+    return bGoodResult;
 }
 
 namespace{ BuiltinEffectsModule::Registration< SineSweepGeneratorUi > reg; }
@@ -107,15 +180,13 @@ std::unique_ptr<EffectEditor> SineSweepGeneratorUi::PopulateOrExchange(
                                                                        ShuttleGui & S, EffectInstance &, EffectSettingsAccess &access,
                                                                        const EffectOutputs *)
 {
-    mAuroraLogo = LoadPngBitmap(
-        Aurora_logo_png,
-        sizeof(Aurora_logo_png)
-    );
-
+    mAuroraLogo = LoadPngBitmap(Aurora_logo_png,
+                                sizeof(Aurora_logo_png));
+    
     mSineSweepLogo = LoadPngBitmap(
-        ssg_logo_png,
-        sizeof(ssg_logo_png)
-    );
+                                   ssg_logo_png,
+                                   sizeof(ssg_logo_png)
+                                   );
     
     //    S.AddTitle(XO("Aurora for Audacity - Sine Sweep Gen. - (v.0.0.1)"));
     S.StartVerticalLay(0);
@@ -261,7 +332,8 @@ std::unique_ptr<EffectEditor> SineSweepGeneratorUi::PopulateOrExchange(
                                                                3, &m_SilenceDuration,
                                                                NumValidatorStyle::ONE_TRAILING_ZERO,
                                                                0.0, 100.0)
-                    .AddTextBox(XXO("Duration (seconds)"), L"", 12);
+                    .AddTextBox(XXO("Duration"), L"", 12);
+                S.AddUnits(XXO("(seconds)"));
             }
             S.EndHorizontalLay();
         }
@@ -273,19 +345,19 @@ std::unique_ptr<EffectEditor> SineSweepGeneratorUi::PopulateOrExchange(
             {
                 m_pTextCtrl_Cycles = S.Id(ID_Cycles)
                     .Validator<IntegerValidator<int>>(
-                        &m_Cycles,
-                        NumValidatorStyle::DEFAULT,
-                        1,
-                        64)
+                                                      &m_Cycles,
+                                                      NumValidatorStyle::DEFAULT,
+                                                      1,
+                                                      64)
                     .AddTextBox(XXO("Number of Cycles"), L"", 12);
-
+                
                 m_pTextCtrl_dBVariation = S.Id(ID_dBVariation)
                     .Validator<FloatingPointValidator<double>>(
-                        3,
-                        &m_dBVariation,
-                        NumValidatorStyle::ONE_TRAILING_ZERO,
-                        0.0,
-                        100.0)
+                                                               3,
+                                                               &m_dBVariation,
+                                                               NumValidatorStyle::ONE_TRAILING_ZERO,
+                                                               0.0,
+                                                               100.0)
                     .AddTextBox(XXO("dB Variation"), L"", 12);
             }
             S.EndMultiColumn();

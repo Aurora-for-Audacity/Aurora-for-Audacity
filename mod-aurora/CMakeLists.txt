@@ -1,6 +1,6 @@
 set ( NAME "mod-aurora")
 
-#find_package(Aurora REQUIRED)
+find_package(Aurora REQUIRED)
 
 set( SOURCES
    AuroraModule.cpp
@@ -151,7 +151,7 @@ target_include_directories( ${TARGET} PUBLIC "${TARGET_ROOT}/kissfft" )
 
 target_link_options( ${TARGET} PRIVATE ${LOPTS} )
 target_link_libraries( ${TARGET} PUBLIC ${LIBRARIES} )
-#target_link_libraries(${TARGET} PRIVATE Aurora::aurora)
+target_link_libraries(${TARGET} PRIVATE Aurora::aurora)
 
 
 if( NOT CMAKE_SYSTEM_NAME MATCHES "Windows" )

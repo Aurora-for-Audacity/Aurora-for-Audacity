@@ -9,7 +9,8 @@ CMAKE_FLAGS := \
 	-Daudacity_use_mad=OFF \
 	-Daudacity_use_id3tag=OFF \
 	-Daudacity_conan_allow_prebuilt_binaries=OFF \
-	-DAURORA_MODULE_PATH=$(MODULE)
+	-DAURORA_MODULE_PATH=$(MODULE) \
+	-DCMAKE_PREFIX_PATH=$(HOME)/.local
 
 .PHONY: xcode configure link patch clean distclean test
 
