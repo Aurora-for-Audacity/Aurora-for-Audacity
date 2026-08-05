@@ -315,9 +315,9 @@ void DummyAnalyse::UpdatePrefs()
 // This handles the whole radio group
 void DummyAnalyse::OnNoiseReductionChoice( wxCommandEvent & WXUNUSED(event))
 {
-    if (m_Radio_ExpSweep->GetValue());
-    if (m_Radio_PinkSweep->GetValue());
-    if (m_Radio_LinearSweep->GetValue());
+//    if (m_Radio_ExpSweep->GetValue());
+//    if (m_Radio_PinkSweep->GetValue());
+//    if (m_Radio_LinearSweep->GetValue());
 }
 
 void DummyAnalyse::OnCloseWindow(wxCloseEvent &WXUNUSED(event))
@@ -335,8 +335,9 @@ void DummyAnalyse::OnCloseButton(wxCommandEvent &event)
 //------------------------------------------------------------------------------------
 // Bumf to hook-in to Audacity
 
-#include "commands/CommandContext.h"
-#include "commands/CommandManager.h"
+// Remaining code hooks this add-on into the application
+#include "CommandContext.h"
+#include "CommandManager.h"
 #include "ProjectWindows.h"
 
 namespace
@@ -358,18 +359,23 @@ void OnOpenWindow(const CommandContext &context)
     auto newWindow = &GetAttachedWindows(project)
         .Get<DummyAnalyse>(sDummyAnalyseWindowKey);
     
-    if (VetoDialogHook::Call(newWindow))
-        return;
+//    if (VetoDialogHook::Call(newWindow))
+//        return;
     newWindow->Show(true);
     newWindow->Raise();
     newWindow->SetFocus();
 }
 
-using namespace MenuTable;
-AttachedItem sAttachment{wxT("Analyze/Analyzers/Windows"),
-    Command(wxT("DummyAnalyse"), XXO("Dummy Analyse..."),
-            OnOpenWindow,
-            AudioIONotBusyFlag() | WaveTracksSelectedFlag() | TimeSelectedFlag())};
 
+using namespace MenuRegistry;
+AttachedItem sAttachment{
+    Command(wxT("DummyAnalyse"),
+            XXO("Dummy Analyse..."),
+            OnOpenWindow,
+            AudioIONotBusyFlag() | WaveTracksSelectedFlag() | TimeSelectedFlag(),
+            wxT("Ctrl+Shift+T") ),
+//    wxT("Generate/Generators"),
+    wxT("Analyze/Analyzers/Windows"),
+};
 }
 //------------------------------------------------------------------------------------

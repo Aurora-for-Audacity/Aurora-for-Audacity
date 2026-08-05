@@ -2,7 +2,7 @@
 	path = wxWidgets
 	url = https://github.com/audacity/wxWidgets.git
 [submodule "mod-aurora/kissfft"]
-	path = mod-aurora/kissfft
+	path = kissfft
 	url = https://github.com/mborgerding/kissfft.git
 [submodule "audacity"]
 	path = audacity

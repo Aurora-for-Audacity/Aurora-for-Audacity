@@ -1,203 +1,24 @@
 set ( TARGET mod-aurora)
 
+find_package(Aurora REQUIRED)
+
 set( SOURCES
    AuroraModule.cpp
    AuroraModule.h
-   include/wxcmn.h
-   include/version.h
-   include/commdefs.h
-   include/build_count.h
-   include/aurora.h
-   include/audtypes.h
-   src/arrows.h
-   src/ArtProvider.cpp
-   src/ArtProvider.h
-   src/Audio.cpp
-   src/Audio.h
-   src/Axis.cpp
-   src/Axis.h
-   src/build_count.cpp
-   src/Chart.cpp
-   src/Chart.h
-   src/Complex.cpp
-   src/Complex.h
-   src/Config.cpp
-   src/Config.h
-   src/DataHolder.h
-   src/DataPlot.cpp
-   src/DataPlot.h
-   src/Exports.cpp
-   src/Exports.h
-   src/Filter.cpp
-   src/Filter.h
-   src/fir-taps.cpp
-   src/gpfuncts.cpp
-   src/gpfuncts.h
-   src/GTProgressIndicator.cpp
-   src/GTProgressIndicator.h
-   src/iir-taps.cpp
-   src/Plot.cpp
-   src/Plot.h
-   src/SCFirWin.cpp
-   src/SCFirWin.h
-   src/SCOctaveBandAnalysis.cpp
-   src/SCOctaveBandAnalysis.h
-   src/SCOctaveBandFilter.cpp
-   src/SCOctaveBandFilter.h
-   src/SCOctaveBandFir.cpp
-   src/SCOctaveBandFir.h
-   src/Scope.cpp
-   src/Scope.h
-   src/SCSignalWindows.cpp
-   src/SCSignalWindows.h
-   src/Spectrum.cpp
-   src/Spectrum.h
-   src/stickers.h
-   src/UIComponents.cpp
-   src/UIComponents.h
-   src/Vector.cpp
-   src/Vector.h
-   kissfft/kiss_fft.c
-   kissfft/kiss_fftnd.c
-   kissfft/kiss_fftndr.c
-   kissfft/kiss_fftr.c
-   kissfft/kfc.c
-   SineSweepGenerator/SineSweepGeneratorDialog.cpp
-   SineSweepGenerator/SineSweepGeneratorDialog.h
-   SineSweepGenerator/SineSweepGenerator.cpp
-   SineSweepGenerator/SineSweepGenerator.h
-   SineSweepGenerator/SineSweepVersion.h
-   # Kirkeby/KirkebyBase.cpp
-   # Kirkeby/KirkebyBase.h
-   # Kirkeby/KirkebyDialogs.cpp
-   # Kirkeby/KirkebyDialogs.h
-   # Kirkeby/KirkebyEffect.cpp
-   # Kirkeby/KirkebyEffect.h
-   # Kirkeby/KirkebyUi.cpp
-   # Kirkeby/KirkebyUi.h
-   # Kirkeby/KirkebyVersion.h
-   # AcParameters/AcParametersDialogs.h
-   # AcParameters/AcParametersBase.cpp
-   # AcParameters/AcParametersBase.h
-   # AcParameters/AcParametersData.cpp
-   # AcParameters/AcParametersData.h
-   # AcParameters/AcParametersDialogs.cpp
-   # AcParameters/AcParameters.h
-   # AcParameters/AcParametersEffect.cpp
-   # AcParameters/AcParametersEffect.h
-   # AcParameters/AcParametersExports.cpp
-   # AcParameters/AcParametersExports.h
-   # AcParameters/AcParametersPlot.cpp
-   # AcParameters/AcParametersPlot.h
-   # AcParameters/AcParametersSpectrum.h
-   # AcParameters/AcParametersTrack.cpp
-   # AcParameters/AcParametersTrack.h
-   # AcParameters/AcParametersUi.cpp
-   # AcParameters/AcParametersUi.h
-   # AcParameters/AcParametersVersion.h
-   # AcParameters/AcTResults.cpp
-   # AcParameters/AcTResults.h
-   # AcParameters/AcTSchroederDecay.cpp
-   # AcParameters/AcTSchroederDecay.h
-   # AcParameters/sizes.h
-   # SpeechTransmissionIndex/ModulationTransferFunctionsTable.cpp
-   # SpeechTransmissionIndex/ModulationTransferFunctionsTable.h
-   # SpeechTransmissionIndex/STI.cpp
-   # SpeechTransmissionIndex/STI.h
-   # SpeechTransmissionIndex/STIData.cpp
-   # SpeechTransmissionIndex/STIData.h
-   # SpeechTransmissionIndex/STIDialogs.cpp
-   # SpeechTransmissionIndex/STIDialogs.h
-   # SpeechTransmissionIndex/STIEffect.cpp
-   # SpeechTransmissionIndex/STIEffect.h
-   # SpeechTransmissionIndex/STIExports.cpp
-   # SpeechTransmissionIndex/STIExports.h
-   # SpeechTransmissionIndex/STIPlot.cpp
-   # SpeechTransmissionIndex/STIPlot.h
-   # SpeechTransmissionIndex/STIResults.cpp
-   # SpeechTransmissionIndex/STIResults.h
-   # SpeechTransmissionIndex/STISpectrum.cpp
-   # SpeechTransmissionIndex/STISpectrum.h
-   # SpeechTransmissionIndex/STISpectrumDialog.cpp
-   # SpeechTransmissionIndex/STISpectrumDialog.h
-   # SpeechTransmissionIndex/STISpectrumWxDialog.cpp
-   # SpeechTransmissionIndex/STISpectrumWxDialog.h
-   # SpeechTransmissionIndex/STITrack.cpp
-   # SpeechTransmissionIndex/STITrack.h
-   # SpeechTransmissionIndex/STIUi.cpp
-   # SpeechTransmissionIndex/STIUi.h
-   # TimeHistoryAnalyzer/ThAnalyzerData.cpp
-   # TimeHistoryAnalyzer/ThAnalyzerData.h
-   # TimeHistoryAnalyzer/ThAnalyzerDialogs.cpp
-   # TimeHistoryAnalyzer/ThAnalyzerDialogs.h
-   # TimeHistoryAnalyzer/ThAnalyzerEffect.cpp
-   # TimeHistoryAnalyzer/ThAnalyzerEffect.h
-   # TimeHistoryAnalyzer/ThAnalyzerExports.cpp
-   # TimeHistoryAnalyzer/ThAnalyzerExports.h
-   # TimeHistoryAnalyzer/ThAnalyzerNbook.h
-   # TimeHistoryAnalyzer/ThAnalyzerPlot.cpp
-   # TimeHistoryAnalyzer/ThAnalyzerPlot.h
-   # TimeHistoryAnalyzer/ThAnalyzerTrack.cpp
-   # TimeHistoryAnalyzer/ThAnalyzerTrack.h
-   # TimeHistoryAnalyzer/ThAnalyzerUi.cpp
-   # TimeHistoryAnalyzer/ThAnalyzerUi.h
-   # TimeHistoryAnalyzer/TimeHistoryAnalyzer.cpp
-   # TimeHistoryAnalyzer/TimeHistoryAnalyzer.h
-   # XFunctions/equations.h
-   # XFunctions/correlator.cpp
-   # XFunctions/correlator.h
-   # XFunctions/XFunctionsArt.cpp
-   # XFunctions/XFunctionsArt.h
-   # XFunctions/XFunctionsData.cpp
-   # XFunctions/XFunctionsData.h
-   # XFunctions/XFunctionsDialogs.cpp
-   # XFunctions/XFunctionsDialogs.h
-   # XFunctions/XFunctionsEffect.cpp
-   # XFunctions/XFunctionsEffect.h
-   # XFunctions/XFunctionsExports.cpp
-   # XFunctions/XFunctionsExports.h
-   # XFunctions/XFunctionsPlot.cpp
-   # XFunctions/XFunctionsPlot.h
-   # XFunctions/XFunctionsUi.cpp
-   # XFunctions/XFunctionsUi.h
-   # Convolver/AuroraConvolver.cpp
-   # Convolver/AuroraConvolver.h
-   # Convolver/convolver.cpp
-   # Convolver/convolver.h
-   # Convolver/ConvolverDialogs.cpp
-   # Convolver/ConvolverDialogs.h
-   # Convolver/ConvolverEffect.cpp
-   # Convolver/ConvolverEffect.h
-   # Convolver/ConvolverPlot.cpp
-   # Convolver/ConvolverPlot.h
-   # Convolver/ConvolverUi.cpp
-   # Convolver/ConvolverUi.h
-   # Convolver/multivolver.cpp
-   # Convolver/multivolver.h
-   # Convolver/TrackProperties.cpp
-   # Convolver/TrackProperties.h
-   # Convolver/res/down.h
-   # Convolver/res/left.h
-   # Convolver/res/right.h
-   # Convolver/res/up.h
-   # Dummy/DummyAcParameters.cpp
-   # Dummy/DummyAcParameters.h
+   AcousticParameters/AuroraPlot.cpp
+   AcousticParameters/AuroraPlot.h
+   mod_aurora.h
    Dummy/DummyAnalyse.cpp
    Dummy/DummyAnalyse.h
-   Dummy/DummyConvolver.cpp
-   Dummy/DummyConvolver.h
    Dummy/DummyGenerator.cpp
    Dummy/DummyGenerator.h
-   Dummy/DummyKirkeby.cpp
-   Dummy/DummyKirkeby.h
-   Dummy/DummySineSweepGenerator.cpp
-   Dummy/DummySineSweepGenerator.h
-   Dummy/DummySpeechTransmissionIndex.cpp
-   Dummy/DummySpeechTransmissionIndex.h
-   Dummy/DummyTimeHistoryAnalyzer.cpp
-   Dummy/DummyTimeHistoryAnalyzer.h
-   Dummy/DummyXFunctions.cpp
-   Dummy/DummyXFunctions.h
+   AcousticParameters/AcousticParametersUi.cpp
+   AcousticParameters/AcousticParametersUi.h
+   Convolver/ConvolverUi.cpp
+   Convolver/ConvolverUi.h
+   SineSweepGenerator/SineSweepGeneratorUi.cpp
+   SineSweepGenerator/SineSweepGeneratorUi.h
+   res/aurora_logos.h
 )
 
 set( DEFINES
@@ -346,7 +167,7 @@ target_sources( ${TARGET} PRIVATE ${SOURCES} )
 target_compile_definitions( ${TARGET} PRIVATE ${DEFINES} )
 target_compile_options( ${TARGET} ${OPTIONS} )
 
-# ------------------------------------------------------------------------------
+# ------------------ ------------------------------------------------------------
 # Additional Include Directories
 
 target_include_directories( ${TARGET} PUBLIC ${TARGET_ROOT} )
@@ -357,6 +178,8 @@ target_include_directories( ${TARGET} PUBLIC "${TARGET_ROOT}/kissfft" )
 
 target_link_options( ${TARGET} PRIVATE ${LOPTS} )
 target_link_libraries( ${TARGET} PUBLIC ${LIBRARIES} )
+target_link_libraries(${TARGET} PRIVATE Aurora::aurora)
+
 
 if( NOT CMAKE_SYSTEM_NAME MATCHES "Windows" )
    # Generate-time boolean values must be "0" or "1",

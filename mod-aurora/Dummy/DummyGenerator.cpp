@@ -1,58 +1,113 @@
+/**********************************************************************
+
+  Audacity: A Digital Audio Editor
+
+  Silence.cpp
+
+  Dominic Mazzoni
+
+*******************************************************************//**
+
+\class EffectDummy
+\brief An effect to add silence.
+
+*//*******************************************************************/
 #include "DummyGenerator.h"
+#include "effects/EffectEditor.h"
+#include "LoadEffects.h"
 
-const ComponentInterfaceSymbol DummyGenerator::Symbol {XC("Dummy", "generator")};
+#include "ShuttleGui.h"
+#include "widgets/NumericTextCtrl.h"
+#include "WaveTrack.h"
 
-namespace{ BuiltinEffectsModule::Registration< DummyGenerator > reg; }
+// Effect implementation
+const ComponentInterfaceSymbol EffectDummy::Symbol
+/* i18n-hint: noun */
+{ XC("Dummy Gen", "generator") };
 
-DummyGenerator::DummyGenerator()
+EffectDummy::EffectDummy()
+{
+   SetLinearEffectFlag(true);
+}
+
+EffectDummy::~EffectDummy()
 {
 }
 
-DummyGenerator::~DummyGenerator()
+// ComponentInterface implementation
+
+ComponentInterfaceSymbol EffectDummy::GetSymbol() const
 {
+   return Symbol;
 }
 
-//------------------------------------------------------------------------
-// From ComponentInterface
-ComponentInterfaceSymbol DummyGenerator::GetSymbol() const
+TranslatableString EffectDummy::GetDescription() const
 {
-    return Symbol;
+   return XO("Creates audio of zero amplitude");
 }
 
-TranslatableString DummyGenerator::GetDescription() const
+ManualPageID EffectDummy::ManualPage() const
 {
-    return XO("A Dummy Effect that does nothing");
-}
-//------------------------------------------------------------------------
-// from EffectDefinitionInterface
-ManualPageID DummyGenerator::ManualPage() const
-{
-     return L"A Dummy Effect";
-}
-EffectType DummyGenerator::GetType() const
-{
-    return EffectTypeGenerate; // or EffectTypeAnalyze
+   return L"DummyGen";
 }
 
-bool DummyGenerator::GenerateTrack(EffectSettings &settings,
-                                   WaveTrack *tmp, const WaveTrack &track, int ntrack)
-{    
-    return true;
+
+// EffectDefinitionInterface implementation
+
+EffectType EffectDummy::GetType() const
+{
+   return EffectTypeGenerate;
 }
 
-std::unique_ptr<EffectEditor> DummyGenerator::PopulateOrExchange(
-   ShuttleGui & S, EffectInstance &instance,
-   EffectSettingsAccess &access, const EffectOutputs *pOutputs)
-{
-    return nullptr;
-}
 
-bool DummyGenerator::TransferDataToWindow(const EffectSettings &)
+bool EffectDummy::GenerateTrack(const EffectSettings& settings, WaveTrack& tmp)
 {
+   tmp.InsertSilence(0.0, settings.extra.GetDuration());
    return true;
 }
 
-bool DummyGenerator::TransferDataFromWindow(EffectSettings &)
+namespace{ BuiltinEffectsModule::Registration< EffectDummy > reg; }
+
+
+std::unique_ptr<EffectEditor> EffectDummy::PopulateOrExchange(
+   ShuttleGui & S, EffectInstance &, EffectSettingsAccess &access,
+   const EffectOutputs *)
 {
+   S.StartVerticalLay();
+   {
+      S.StartHorizontalLay();
+      {
+//         S.AddPrompt(XXO("&Duration:"));
+//         auto &extra = access.Get().extra;
+//         mDurationT = safenew
+//            NumericTextCtrl(FormatterContext::SampleRateContext(mProjectRate),
+//                              S.GetParent(), wxID_ANY,
+//                              NumericConverterType_TIME(),
+//                              extra.GetDurationFormat(),
+//                              extra.GetDuration(),
+//                               NumericTextCtrl::Options{}
+//                                  .AutoPos(true));
+//         S.Name(XO("Duration"))
+//            .Position(wxALIGN_CENTER | wxALL)
+//            .AddWindow(mDurationT);
+      }
+      S.EndHorizontalLay();
+   }
+   S.EndVerticalLay();
+
+   return nullptr;
+}
+
+bool EffectDummy::TransferDataToWindow(const EffectSettings &settings)
+{
+//   mDurationT->SetValue(settings.extra.GetDuration());
+
+   return true;
+}
+
+bool EffectDummy::TransferDataFromWindow(EffectSettings &settings)
+{
+   settings.extra.SetDuration(mDurationT->GetValue());
+
    return true;
 }
