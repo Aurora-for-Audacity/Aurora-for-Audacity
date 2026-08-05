@@ -40,6 +40,8 @@
 
 #include "AuroraPlot.h"
 
+#include <Aurora/AcousticalParameters.h>
+
 class AudacityProject;
 
 class AcousticParametersUi final : public wxDialogWrapper,
@@ -99,5 +101,7 @@ private:
     RulerPanel *vRuler;
     RulerPanel *hRuler;
         
+    Aurora::AcousticalParameters mAcousticalParameters;
+    
     DECLARE_EVENT_TABLE()
 };

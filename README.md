@@ -1,5 +1,19 @@
-# Aurora-for-Audacity
+# Aurora for Audacity
 Angelo Farina's Aurora audio processing plugin suite for Audacity host application.
+
+## Plug-in Status
+
+| Unit                      | Present | Building | Working Example |
+| ------------------------- | :-----: | :------: | :-------------: |
+| Acoustical Parameters     |   ✅    |    ✅    |       ✅        |
+| Convolver                 |   ✅    |    ❌    |       ❌        |
+| Kirkeby Filter Inversion  |   ❌    |    ❌    |       ❌        |
+| SineSweepGenerator        |   ✅    |    ❌    |       ❌        |
+| Speech Transmission Index |   ❌    |    ❌    |       ❌        |
+| TimeHistoryAnalyzer       |   ❌    |    ❌    |       ❌        |
+| XFunctions                |   ❌    |    ❌    |       ❌        |
+
+## Note from Simone
 
 This project has been uploaded to github to rebring it life, but it needs some love.
 It was compiled last time in the summer 2021 with Audacity 2.4.1 on Windows, macOs and

@@ -54,6 +54,6 @@ private:
     wxButton *mCloseButton;
     
     
-    Aurora::ConvolverController convolver;
+    Aurora::ConvolverController mConvolver;
 
 };

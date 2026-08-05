@@ -101,31 +101,31 @@ bool SineSweepGeneratorUi::Process(EffectInstance &instance, EffectSettings &set
     bool bGoodResult = true;
     
     
-    ssweep.SetSamplerate(mProjectRate);
+    mSineSweepGenerator.SetSamplerate(mProjectRate);
     
-    ssweep.SetStartFrequency(m_FromFrequency);
-    ssweep.SetEndFrequency(m_ToFrequency);
-    ssweep.SetSweepDuration(m_Duration);
-    ssweep.SetAmplitude(m_Amplitude);
-    ssweep.SetSweepChnlsNumber(m_Channels);
-    ssweep.SetFadeInDuration(mFadeInDuration);
-    ssweep.SetFadeInType(mFadeInChoice);
-    ssweep.SetFadeOutDuration(mFadeOutDuration);
-    ssweep.SetFadeOutType(mFadeOutChoice);    
+    mSineSweepGenerator.SetStartFrequency(m_FromFrequency);
+    mSineSweepGenerator.SetEndFrequency(m_ToFrequency);
+    mSineSweepGenerator.SetSweepDuration(m_Duration);
+    mSineSweepGenerator.SetAmplitude(m_Amplitude);
+    mSineSweepGenerator.SetSweepChnlsNumber(m_Channels);
+    mSineSweepGenerator.SetFadeInDuration(mFadeInDuration);
+    mSineSweepGenerator.SetFadeInType(mFadeInChoice);
+    mSineSweepGenerator.SetFadeOutDuration(mFadeOutDuration);
+    mSineSweepGenerator.SetFadeOutType(mFadeOutChoice);    
     
     if(m_Radio_LinearSweep->GetValue())
-        ssweep.SetSweepType(Aurora::SineSweepGenerator::SweepTypes::ST_LINEAR);
+        mSineSweepGenerator.SetSweepType(Aurora::SineSweepGenerator::SweepTypes::ST_LINEAR);
     if(m_Radio_ExpSweep->GetValue())
-        ssweep.SetSweepType(Aurora::SineSweepGenerator::SweepTypes::ST_LOG);
+        mSineSweepGenerator.SetSweepType(Aurora::SineSweepGenerator::SweepTypes::ST_LOG);
     if(m_Radio_PinkSweep->GetValue())
-        ssweep.SetSweepType(Aurora::SineSweepGenerator::SweepTypes::ST_PINK);
+        mSineSweepGenerator.SetSweepType(Aurora::SineSweepGenerator::SweepTypes::ST_PINK);
         
-    ssweep.SetSilenceDuration(m_SilenceDuration);
-    ssweep.SetRepetitionsNumber(m_Cycles);
-    ssweep.SetDeltaL(m_dBVariation);
-    ssweep.SetControlPulses(mControlPulse);
+    mSineSweepGenerator.SetSilenceDuration(m_SilenceDuration);
+    mSineSweepGenerator.SetRepetitionsNumber(m_Cycles);
+    mSineSweepGenerator.SetDeltaL(m_dBVariation);
+    mSineSweepGenerator.SetControlPulses(mControlPulse);
     
-    ssweep.Generate();
+    mSineSweepGenerator.Generate();
     
     auto refTrack   = mFactory->Create(sampleFormat::floatSample, mProjectRate);      // mono
     
@@ -136,12 +136,12 @@ bool SineSweepGeneratorUi::Process(EffectInstance &instance, EffectSettings &set
     newTrack->SetSelected(false);
     
     
-    size_t numSamples  = ssweep.GetBuffersLength();
+    size_t numSamples  = mSineSweepGenerator.GetBuffersLength();
     auto filter  = std::make_unique<float[]>(numSamples);
     auto audio   = std::make_unique<float[]>(numSamples);
     
-    ssweep.FillBlock(audio.get() ,  numSamples, 0, 0); // Sweep  == Channel_1
-    ssweep.FillBlock(filter.get(),  numSamples, 0, 1); // Filter == Channel_2
+    mSineSweepGenerator.FillBlock(audio.get() ,  numSamples, 0, 0); // Sweep  == Channel_1
+    mSineSweepGenerator.FillBlock(filter.get(),  numSamples, 0, 1); // Filter == Channel_2
 
     auto tracks = mTracks->Any<WaveTrack>();
     size_t index = 0;

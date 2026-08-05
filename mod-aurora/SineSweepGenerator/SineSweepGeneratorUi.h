@@ -79,7 +79,7 @@ private:
         
     wxCheckBox *   m_Check_ControlPulses;
     
-    Aurora::SineSweepGenerator ssweep{};
+    Aurora::SineSweepGenerator mSineSweepGenerator{};
     
     // Settings Variables
     double m_FromFrequency   =    22.0;
