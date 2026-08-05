@@ -1,4 +1,4 @@
-set ( NAME "mod-aurora")
+set ( TARGET mod-aurora)
 
 find_package(Aurora REQUIRED)
 
@@ -32,6 +32,7 @@ set( DEFINES
 )
 
 # audacity_module( ${TARGET} "${SOURCES}" "Audacity" "${DEFINES}" "" )
+# set_target_properties( ${TARGET} PROPERTIES EXCLUDE_FROM_ALL YES )
 
 #---------------------------------------------------------------------
 # Below is a slight modification of the audacity_module cmake macro and audacity_module_fn function
@@ -43,7 +44,7 @@ set ( IMPORT_TARGETS "Audacity")
 set ( ADDITIONAL_DEFINES "${DEFINES}")
 set ( ADDITIONAL_LIBRARIES "")
 set ( LIBTYPE "MODULE")
-set( TARGET ${NAME} )
+#set( TARGET ${NAME} )
 set( TARGET_ROOT ${CMAKE_CURRENT_SOURCE_DIR} )
 
 message( STATUS "========== Configuring ${TARGET} ==========" )
@@ -55,7 +56,25 @@ if (LIBTYPE STREQUAL "MODULE" AND CMAKE_SYSTEM_NAME MATCHES "Windows")
 else()
    set( REAL_LIBTYPE "${LIBTYPE}" )
 endif()
+
+
 add_library( ${TARGET} ${REAL_LIBTYPE} )
+
+if(CMAKE_SYSTEM_NAME MATCHES "Darwin")
+add_custom_command(
+   TARGET
+      ${TARGET}
+   COMMAND
+      \n\n
+      echo \"Modify the module Timestamp and setting enum in the config to avoid having to launch and relaunch Audcaity\"\n
+      EXP=\"mod-aurora=[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]T[0-9][0-9]:[0-9][0-9]:[0-9][0-9]\"\n
+      NEW_TIME=\$\(stat -t '%FT%T' -x \"\${CODESIGNING_FOLDER_PATH}\" | grep  Modify | grep -o -E '\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}'\) \n
+      sed -i.bak \"s/mod-aurora=[0-9]/mod-aurora=1/\" \"\${HOME}/Library/Application Support/audacity/audacity.cfg\" \n
+      sed -i.bak \"s/\${EXP}/mod-aurora=\${NEW_TIME}/\" \"\${HOME}/Library/Application Support/audacity/audacity.cfg\" \n
+      \n\n
+   POST_BUILD
+)
+endif()
 
 # Manual propagation seems to be necessary from
 # interface libraries -- just doing target_link_libraries naming them
@@ -66,9 +85,13 @@ set( INCLUDES )
 list( APPEND INCLUDES PUBLIC "${TARGET_ROOT}" )
 list( APPEND INCLUDES PUBLIC "${TARGET_ROOT}/include" )
 
+
+
 # compute DEFINES
 set( DEFINES )
 list( APPEND DEFINES ${ADDITIONAL_DEFINES} )
+
+
 
 # send the file to the proper place in the build tree, by setting the
 # appropriate property for the platform
@@ -77,6 +100,8 @@ if (CMAKE_SYSTEM_NAME MATCHES "Windows")
 else ()
    set( DIRECTORY_PROPERTY LIBRARY_OUTPUT_DIRECTORY )
 endif ()
+
+
 
 if (LIBTYPE STREQUAL "MODULE")
    set_target_property_all( ${TARGET} ${DIRECTORY_PROPERTY} "${_DESTDIR}/${_MODDIR}" )
@@ -105,6 +130,8 @@ else()
       install(TARGETS ${TARGET} DESTINATION ${_PKGLIB} )
    endif()
 endif()
+
+
 
 export_symbol_define( export_symbol "${TARGET}" )
 import_symbol_define( import_symbol "${TARGET}" )
@@ -182,3 +209,4 @@ if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/tests")
 endif()
 
 set( GRAPH_EDGES "${GRAPH_EDGES}" PARENT_SCOPE )
+

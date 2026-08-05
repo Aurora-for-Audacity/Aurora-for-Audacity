@@ -103,6 +103,10 @@ std::unique_ptr<EffectEditor> PopulateOrExchange(
 - `TransferDataToWindow`: can set some default values for the UI components if they are not set already
 - `TransferDataFromWindow`: can be used to update member variables given the submitted parameter values.
 
+For switching windows, as is the case of the Convolver, it may be best to implemenmt a simlar system as is found in the `Loundess Normalisation` effect.
+
+Look at `Label Dialog` for implementing a `Grid`.
+
 ## Inheritance
 
 ### Generator

@@ -1,4 +1,11 @@
 # Build Instructions
+## Cloning the Repo
+
+Aurora for audacity includes a specific version of Audacity and KissFFT, both of which are included as submodules. To clone the repository from your terminal, use the command:
+
+```sh
+git clone --recurse-submodules https://github.com/Aurora-for-Audacity/Aurora-for-Audacity.git
+```
 
 ## CMAKE
 
