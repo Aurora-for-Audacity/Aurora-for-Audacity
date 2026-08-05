@@ -2,8 +2,10 @@
 #include "widgets/valnum.h"
 #include "../res/aurora_logos.h"
 #include "../mod_aurora.h"
+#include "Theme.h"
+#include "AllThemeResources.h"
 
-#define DummyAnalysisTitle XO("Acoustic Parameter Analysis")
+#define AcousticParametersTitle XO("Acoustic Parameter Analysis")
 
 //------------------------------------------------------------------------------------
 // Hook up event handles
@@ -52,12 +54,30 @@ std::vector<double> times =
 
 std::vector<double> levels =
 {
-    85.0, 82.5, 78.0, 74.2,
+    -0.0, -6.0, -12.0, -24.2,
 };
+
+
+enum {
+    FirstID = 10000,
+    SetupButtonID,
+    SaveRButtonID,
+    CopyRButtonID,
+    StoreGButtonID,
+    FilterButtonID,
+    CloseButtonID,
+};
+
 
 BEGIN_EVENT_TABLE(AcousticParametersUi, wxDialogWrapper)
 EVT_CLOSE(AcousticParametersUi::OnCloseWindow)
-EVT_BUTTON(wxID_CANCEL, AcousticParametersUi::OnCloseButton)
+EVT_SIZE(AcousticParametersUi::OnSize)
+EVT_BUTTON(SetupButtonID,  AcousticParametersUi::OnSetup )
+EVT_BUTTON(SaveRButtonID,  AcousticParametersUi::OnSaveR )
+EVT_BUTTON(CopyRButtonID,  AcousticParametersUi::OnCopyR )
+EVT_BUTTON(StoreGButtonID, AcousticParametersUi::OnStoreG )
+EVT_BUTTON(FilterButtonID, AcousticParametersUi::OnFilter )
+EVT_BUTTON(CloseButtonID, AcousticParametersUi::OnCloseButton)
 END_EVENT_TABLE()
 
 //------------------------------------------------------------------------------------
@@ -90,11 +110,46 @@ bool AcousticParametersUi::Show(bool show)
 }
 
 //------------------------------------------------------------------------------------
+#pragma mark events
+
+void AcousticParametersUi::OnSetup(wxCommandEvent & event)
+{
+    std::cout << __func__ << '\n';
+}
+
+void AcousticParametersUi::OnSaveR(wxCommandEvent & event)
+{
+    std::cout << __func__ << '\n';
+}
+
+void AcousticParametersUi::OnCopyR(wxCommandEvent & event)
+{
+    std::cout << __func__ << '\n';
+}
+
+void AcousticParametersUi::OnStoreG(wxCommandEvent & event)
+{
+    std::cout << __func__ << '\n';
+}
+
+void AcousticParametersUi::OnFilter(wxCommandEvent & event)
+{
+    std::cout << __func__ << '\n';
+}
+
+// This handles the whole radio group
+void AcousticParametersUi::OnNoiseReductionChoice( wxCommandEvent & WXUNUSED(event))
+{
+    std::cout << __func__ << '\n';
+}
+
+
+//------------------------------------------------------------------------------------
 
 void AcousticParametersUi::Populate()
 {
     std::cout << __func__ << '\n';
-    SetTitle(DummyAnalysisTitle);
+    SetTitle(AcousticParametersTitle);
     
     ShuttleGui S(this, eIsCreating);
     
@@ -120,16 +175,18 @@ void AcousticParametersUi::Populate()
         {
             
             S.AddWindow(safenew wxStaticBitmap(
-                                                  S.GetParent(),
-                                                  wxID_ANY,
-                                                  mAuroraLogo));
+                                               S.GetParent(),
+                                               wxID_ANY,
+                                               mAuroraLogo));
             S.GetSizer()->AddStretchSpacer();
             S.AddWindow(safenew wxStaticBitmap(
-                                                  S.GetParent(),
-                                                  wxID_ANY,
-                                                  mAcousticParametersLogo));
+                                               S.GetParent(),
+                                               wxID_ANY,
+                                               mAcousticParametersLogo));
         }
         S.EndHorizontalLay();
+        
+        S.AddSpace(5);
         
     }
     S.EndVerticalLay();
@@ -137,51 +194,78 @@ void AcousticParametersUi::Populate()
     
     S.SetSizerProportion(1);
     
-    S.StartMultiColumn(2, wxEXPAND);
+    
+    
+    S.StartStatic(XO(""),1);
     {
-        S.SetStretchyCol(0);
-        S.SetStretchyRow(0);
-        
-        mPlot = safenew AuroraPlot(S.GetParent(), wxID_ANY);
-        S.Prop(1).Position(wxEXPAND).MinSize({ wxDefaultCoord, 250 }).AddWindow(mPlot);
-        
-        S.StartHorizontalLay(wxEXPAND, 0);
+        S.StartMultiColumn(2, wxEXPAND);
         {
-            S.StartVerticalLay(0);
+            S.SetStretchyCol(0);
+            S.SetStretchyRow(0);
+            
+            S.StartStatic(XO("Unfiltered Impulse Response"),2);
             {
-                mSetupButton  = S.Position(wxEXPAND).AddButton(XO("Setup"));
-                S.AddSpace(5);
-                mSaveRButton  = S.Position(wxEXPAND).AddButton(XO("Save Results to File"));
-                S.AddSpace(5);
-                mCopyRButton  = S.Position(wxEXPAND).AddButton(XO("Copy Results to clipboard"));
-                S.AddSpace(5);
-                mStoreGButton = S.Position(wxEXPAND).AddButton(XO("Store G Reference Signal"));
-                S.AddSpace(5);
-                
-                S.StartStatic(XO("Mic / Probe type:"),0);
-                {
-                    S.AddFixedText(XO("Binaural pair"));
-                }
-                S.EndStatic();
-                
-                S.StartStatic(XO("Channels:"),0);
-                {
-                    S.AddListControlReportMode({{ XO("Channel"), wxLIST_FORMAT_RIGHT }});
-                }
-                S.EndStatic();
-                
-                S.StartStatic(XO("Tuser limits:"),0);
-                {
-                    S.AddFixedText(XO("(-15.0 dB, -5.0 dB)"));
-                }
-                S.EndStatic();
+//                vRuler = safenew RulerPanel(
+//                   S.GetParent(), wxID_ANY, wxVERTICAL,
+//                   wxSize{ 100, 100 }, // Ruler can't handle small sizes
+//                   RulerPanel::Range{ 0.0, -90 },
+//                   LinearDBFormat::Instance(),
+//                   XO("dB"),
+//                   RulerPanel::Options{}
+//                      .LabelEdges(true)
+//                      .TickColour( theTheme.Colour( clrGraphLabels ) )
+//                );
+//
+//                S.AddSpace(wxDefaultCoord, 1);
+//                S.Prop(1)
+//                   .Position(wxALIGN_RIGHT | wxALIGN_TOP)
+//                   .AddWindow(vRuler);
+//                S.AddSpace(wxDefaultCoord, 1);
+//                
+                mPlot = safenew AuroraPlot(S.GetParent(), wxID_ANY);
+                S.Prop(1).Position(wxEXPAND).MinSize({ wxDefaultCoord, 250 }).AddWindow(mPlot);
             }
-            S.EndVerticalLay();
+            S.EndStatic();
+            
+            S.StartHorizontalLay(wxEXPAND, 0);
+            {
+                S.StartVerticalLay(0);
+                {
+                    mSetupButton  = S.Id(SetupButtonID).Position(wxEXPAND).AddButton(XO("Setup"));
+                    S.AddSpace(5);
+                    mSaveRButton  = S.Id(SaveRButtonID).Position(wxEXPAND).AddButton(XO("Save Results to File"));
+                    S.AddSpace(5);
+                    mCopyRButton  = S.Id(CopyRButtonID).Position(wxEXPAND).AddButton(XO("Copy Results to clipboard"));
+                    S.AddSpace(5);
+                    mStoreGButton = S.Id(StoreGButtonID).Position(wxEXPAND).AddButton(XO("Store G Reference Signal"));
+                    S.AddSpace(5);
+                    
+                    S.StartStatic(XO("Mic / Probe type:"),0);
+                    {
+                        S.AddFixedText(XO("Binaural pair"));
+                    }
+                    S.EndStatic();
+                    
+                    S.StartStatic(XO("Channels:"),0);
+                    {
+                        S.AddListControlReportMode({{ XO("Channel"), wxLIST_FORMAT_RIGHT }});
+                    }
+                    S.EndStatic();
+                    
+                    S.StartStatic(XO("Tuser limits:"),0);
+                    {
+                        S.AddFixedText(XO("(-15.0 dB, -5.0 dB)"));
+                    }
+                    S.EndStatic();
+                }
+                S.EndVerticalLay();
+            }
+            S.EndHorizontalLay();
+            
         }
-        S.EndHorizontalLay();
-        
+        S.EndMultiColumn();
     }
-    S.EndMultiColumn();
+    S.EndStatic();
     
     S.StartHorizontalLay(wxEXPAND, 1);
     {
@@ -191,7 +275,7 @@ void AcousticParametersUi::Populate()
     
     //===================================================================
     mPlot->SetData(times, levels);
-    mPlot->Refresh();
+//    mPlot->Refresh();
     
     mResultsGrid->CreateGrid(17, 12);
     
@@ -206,7 +290,6 @@ void AcousticParametersUi::Populate()
             mResultsGrid->SetCellValue(r, c, "0");
     
     mResultsGrid->EnableEditing(false);
-    
     
     // Force the grid to request enough space
     wxSize gridSize(
@@ -223,9 +306,18 @@ void AcousticParametersUi::Populate()
     mResultsGrid->SetMinSize(gridSize);
     //===================================================================
     // Add Close Button
-    S.AddStandardButtons(eCloseButton);
-    mCloseButton = static_cast<wxButton *>(FindWindowById(wxID_CANCEL));
-    mCloseButton->SetDefault();
+    S.StartVerticalLay(0);
+    {
+        S.AddSpace(5);
+        S.StartHorizontalLay(wxALIGN_RIGHT | wxALL, 0);
+        {
+            mFilterButton = S.Id(FilterButtonID).AddButton(XO("Filter"));
+            mCloseButton  = S.Id(CloseButtonID).AddButton(XO("Close"));
+        }
+        S.EndHorizontalLay();
+        S.AddSpace(5);
+    }
+    S.EndVerticalLay();
     //===================================================================
     
     Layout();
@@ -236,7 +328,6 @@ void AcousticParametersUi::Populate()
     Fit();
     Center(); // Bug 1607:
     
-    
 }
 
 void AcousticParametersUi::UpdatePrefs()
@@ -244,11 +335,8 @@ void AcousticParametersUi::UpdatePrefs()
     std::cout << __func__ << '\n';
 }
 
-// This handles the whole radio group
-void AcousticParametersUi::OnNoiseReductionChoice( wxCommandEvent & WXUNUSED(event))
-{
-    
-}
+//------------------------------------------------------------------------------------
+#pragma mark - window events
 
 void AcousticParametersUi::OnCloseWindow(wxCloseEvent &WXUNUSED(event))
 {
@@ -256,13 +344,24 @@ void AcousticParametersUi::OnCloseWindow(wxCloseEvent &WXUNUSED(event))
     Show(false);
 }
 
-void AcousticParametersUi::OnCloseButton(wxCommandEvent &event)
+void AcousticParametersUi::OnSize(wxSizeEvent & WXUNUSED(event))
+{
+    Layout();
+    
+//    mPlot->Refresh();
+//    mResultsGrid->Refresh();
+    
+    Refresh(true);
+}
+
+void AcousticParametersUi::OnCloseButton(wxCommandEvent &WXUNUSED(event))
 {
     std::cout << __func__ << '\n';
     Show(false);
 }
 
 //------------------------------------------------------------------------------------
+#pragma mark - Audcaity Menu Registration
 // Bumf to hook-in to Audacity
 
 // Remaining code hooks this add-on into the application
@@ -277,7 +376,7 @@ AttachedWindows::RegisteredFactory sAcousticParametersUiWindowKey{
     {
         auto &window = ProjectWindow::Get(parent);
         return safenew AcousticParametersUi(
-                                            &window, -1, parent, DummyAnalysisTitle,
+                                            &window, -1, parent, AcousticParametersTitle,
                                             wxPoint{150, 150});
     }};
 
@@ -306,4 +405,3 @@ AttachedItem sAttachment{
     //    wxT("Analyze/Analyzers/Windows"),
 };
 }
-//------------------------------------------------------------------------------------

@@ -24,13 +24,19 @@
 #include <wx/txtstrm.h>
 #include <wx/wfstream.h>
 
+#include <wxPanelWrapper.h>
+#include <ShuttleGui.h>
+#include <ProjectWindow.h>
+#include <CommonCommandFlags.h>
+#include <widgets/valnum.h>
+#include <widgets/RulerPanel.h>
+#include <widgets/FreqGauge.h>
+#include <widgets/LinearDBFormat.h>
+#include <widgets/LinearUpdater.h>
+#include <widgets/LogarithmicUpdater.h>
+#include <widgets/RealFormat.h>
+#include <widgets/RulerPanel.h>
 
-#include "wxPanelWrapper.h" // to inherit
-#include "ShuttleGui.h"
-#include "ProjectWindow.h"
-#include "CommonCommandFlags.h"
-#include "widgets/valnum.h"
-    
 
 #include "AuroraPlot.h"
 
@@ -54,20 +60,25 @@ private:
     // PrefsListener implementation
     void UpdatePrefs() override;
     
-    void OnNoiseReductionChoice(wxCommandEvent & WXUNUSED(event));
+    void OnSize(wxSizeEvent & event);
     void OnCloseWindow(wxCloseEvent & event);
     void OnCloseButton(wxCommandEvent & event);
+    
+    void OnNoiseReductionChoice(wxCommandEvent & WXUNUSED(event));
+    void OnSetup(wxCommandEvent  & WXUNUSED(event));
+    void OnSaveR(wxCommandEvent  & WXUNUSED(event));
+    void OnCopyR(wxCommandEvent  & WXUNUSED(event));
+    void OnStoreG(wxCommandEvent & WXUNUSED(event));
+    void OnFilter(wxCommandEvent & WXUNUSED(event));
     
 private:
     
     AudacityProject *mProject;
-    DECLARE_EVENT_TABLE()
     
     wxBitmap mAuroraLogo;
     wxBitmap mAcousticParametersLogo;
     
     // GUI Elements
-    wxButton* mCloseButton;
     
     AuroraPlot *mPlot;
     
@@ -82,5 +93,11 @@ private:
 
     wxGrid*   mResultsGrid;
     
+    wxButton* mFilterButton;
+    wxButton* mCloseButton;
+    
+    RulerPanel *vRuler;
+    RulerPanel *hRuler;
         
+    DECLARE_EVENT_TABLE()
 };

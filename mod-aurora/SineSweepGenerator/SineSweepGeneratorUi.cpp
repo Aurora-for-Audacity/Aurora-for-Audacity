@@ -53,7 +53,6 @@ enum
     ID_ControlPulses
 };
 
-
 // Effect implementation
 const ComponentInterfaceSymbol SineSweepGeneratorUi::Symbol
 /* i18n-hint: noun */
@@ -151,7 +150,7 @@ std::unique_ptr<EffectEditor> SineSweepGeneratorUi::PopulateOrExchange(
                                                                3, &m_FromFrequency,
                                                                NumValidatorStyle::THREE_TRAILING_ZEROES,
                                                                0.0)
-                    .AddTextBox(XXO("f&rom"), wxT(""), 12);
+                    .AddTextBox(XXO("from"), wxT(""), 12);
                 
                 m_pTextCtrl_ToFrequency = S.Id(ID_ToFrequency)
                     .Name(XO("to (Hz)"))
@@ -159,7 +158,7 @@ std::unique_ptr<EffectEditor> SineSweepGeneratorUi::PopulateOrExchange(
                                                                3, &m_ToFrequency,
                                                                NumValidatorStyle::THREE_TRAILING_ZEROES,
                                                                0.0)
-                    .AddTextBox(XXO("t&o"), wxT(""), 12);
+                    .AddTextBox(XXO("to"), wxT(""), 12);
                 
                 S.AddUnits(XO("Hz"));
             }
@@ -172,7 +171,7 @@ std::unique_ptr<EffectEditor> SineSweepGeneratorUi::PopulateOrExchange(
                                                                3, &m_Duration,
                                                                NumValidatorStyle::ONE_TRAILING_ZERO,
                                                                0.0, 100.0)
-                    .AddTextBox(XXO("Duration "), L"", 12);
+                    .AddTextBox(XXO("Duration"), L"", 12);
                 
                 S.AddUnits(XO("Seconds"));
                 
@@ -181,14 +180,14 @@ std::unique_ptr<EffectEditor> SineSweepGeneratorUi::PopulateOrExchange(
                                                                3, &m_Amplitude,
                                                                NumValidatorStyle::ONE_TRAILING_ZERO,
                                                                0.0, 1.0)
-                    .AddTextBox(XXO("Amplitude (0.0 - 1.0)"), L"", 12);
+                    .AddTextBox(XXO("Amplitude"), L"", 12);
                 S.AddUnits(XO("0.0 - 1.0"));
                 
                 m_pTextCtrl_Channels =   S.Id(ID_Channels)
                     .Validator<IntegerValidator<int>>(
                                                       &m_Channels, NumValidatorStyle::DEFAULT,
                                                       1, 64 )
-                    .AddTextBox(XXO("&Channels:"),
+                    .AddTextBox(XXO("Channels"),
                                 wxT(""),
                                 10);
                 S.AddUnits(XO(" "));
@@ -199,13 +198,13 @@ std::unique_ptr<EffectEditor> SineSweepGeneratorUi::PopulateOrExchange(
             {
                 // S.AddPrompt(XXO("Sweep Type"));
                 m_Radio_LinearSweep = S.Id(ID_Radio_Linear)
-                    .AddRadioButton(XXO("Li&near"));
+                    .AddRadioButton(XXO("Linear"));
                 
                 m_Radio_ExpSweep = S.Id(ID_Radio_Exp)
-                    .AddRadioButtonToGroup(XXO("&Exponential"));
+                    .AddRadioButtonToGroup(XXO("Exponential"));
                 
                 m_Radio_PinkSweep = S.Id(ID_Radio_Pink)
-                    .AddRadioButtonToGroup(XXO("Pin&k"));
+                    .AddRadioButtonToGroup(XXO("Pink"));
             }
             S.EndMultiColumn();
         }
@@ -236,7 +235,7 @@ std::unique_ptr<EffectEditor> SineSweepGeneratorUi::PopulateOrExchange(
                 
                 m_pChoice_FadeInChoice = S.Id(ID_FadeInType)
                     .MinSize( { wxDefaultCoord, wxDefaultCoord } )
-                    .AddChoice(XXO("&Window:"), windowChoices, mFadeInChoice);
+                    .AddChoice(XXO("Window:"), windowChoices, mFadeInChoice);
                 
                 m_pTextCtrl_FadeOutDuration = S.Id(ID_FadeOutDuration)
                     .Validator<FloatingPointValidator<double>>(
@@ -247,7 +246,7 @@ std::unique_ptr<EffectEditor> SineSweepGeneratorUi::PopulateOrExchange(
                 
                 m_pChoice_FadeOutChoice = S.Id(ID_FadeOutType)
                     .MinSize( { wxDefaultCoord, wxDefaultCoord } )
-                    .AddChoice(XXO("&Window:"), windowChoices, mFadeOutChoice);
+                    .AddChoice(XXO("Window:"), windowChoices, mFadeOutChoice);
             }
             S.EndMultiColumn();
         }
