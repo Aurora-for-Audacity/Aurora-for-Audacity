@@ -3,9 +3,17 @@
 ![Acoustic Parameters](img/logos/ap_logo.png#gh-light-mode-only) ![Acoustic Parameters](img/logos/ap_logo_inv.png#gh-dark-mode-only) ![Convolver](img/logos/conv_logo.png#gh-light-mode-only) ![Convolver](img/logos/conv_logo_inv.png#gh-dark-mode-only) ![Kirkeby Filter Inversion](img/logos/kirk_logo.png#gh-light-mode-only) ![Kirkeby Filter Inversion](img/logos/kirk_logo_inv.png#gh-dark-mode-only) ![Sine Sweep Generator](img/logos/ssg_logo.png#gh-light-mode-only) ![Sine Sweep Generator](img/logos/ssg_logo_inv.png#gh-dark-mode-only) ![Speech Transmission Index](img/logos/sti_logo.png#gh-light-mode-only) ![Speech Transmission Index](img/logos/sti_logo_inv.png#gh-dark-mode-only) ![Time History Analyzer](img/logos/tha_logo.png#gh-light-mode-only) ![Time History Analyzer](img/logos/tha_logo_inv.png#gh-dark-mode-only) ![XFunctions](img/logos/xfn_logo.png#gh-light-mode-only) ![XFunctions](img/logos/xfn_logo_inv.png#gh-dark-mode-only)
 Angelo Farina's Aurora audio processing plugin suite for Audacity host application.
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.16759727.svg)](https://doi.org/10.5281/zenodo.16759727)
+
+
 ## About
 
 A module version of the the [Aurora plug-ins](https://www.aurora-plugins.com/) using [libAurora](https://github.com/mhamilt/libAurora) and the [Audacity DAW](https://github.com/audacity/audacity).
+
+This project has been uploaded to github to rebring it life, but it needs some love.
+It was compiled last time in the summer 2021 with Audacity 2.4.1 on Windows, macOs and linux platforms. 
+It compiled but it worked properly only on windows.
+
 
 ## Plug-in Status
 
@@ -20,11 +28,7 @@ A module version of the the [Aurora plug-ins](https://www.aurora-plugins.com/) u
 | XFunctions                |   ❌    |    ❌    |       ❌        |
 
 ## Note from Simone
-
-> This project has been uploaded to github to rebring it life, but it needs some love.
-> It was compiled last time in the summer 2021 with Audacity 2.4.1 on Windows, macOs and
-> linux platforms. It compiled but it worked properly only on windows.
-> 
+ 
 > The Audacity code was patched because the module support was partially dropped, so some
 > code was commented (but it was still there).
 > 
