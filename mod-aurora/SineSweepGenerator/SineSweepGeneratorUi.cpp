@@ -109,21 +109,21 @@ bool SineSweepGeneratorUi::Process(EffectInstance &instance, EffectSettings &set
     ssweep.SetAmplitude(m_Amplitude);
     ssweep.SetSweepChnlsNumber(m_Channels);
     ssweep.SetFadeInDuration(mFadeInDuration);
-//    ssweep.SetFadeInType(mFadeInChoice);
+    ssweep.SetFadeInType(mFadeInChoice);
     ssweep.SetFadeOutDuration(mFadeOutDuration);
-//    ssweep.SetFadeOutType(mFadeOutChoice);    
-    
-    if(m_Radio_LinearSweep)
+    ssweep.SetFadeOutType(mFadeOutChoice);    
+//    
+    if(m_Radio_LinearSweep->GetValue())
         ssweep.SetSweepType(Aurora::SineSweepGenerator::SweepTypes::ST_LINEAR);
-    if(m_Radio_ExpSweep)
+    if(m_Radio_ExpSweep->GetValue())
         ssweep.SetSweepType(Aurora::SineSweepGenerator::SweepTypes::ST_LOG);
-    if(m_Radio_PinkSweep)
+    if(m_Radio_PinkSweep->GetValue())
         ssweep.SetSweepType(Aurora::SineSweepGenerator::SweepTypes::ST_PINK);
         
     ssweep.SetSilenceDuration(m_SilenceDuration);
     ssweep.SetRepetitionsNumber(m_Cycles);
     ssweep.SetDeltaL(m_dBVariation);
-//    ssweep.SetControlPulses(mControlPulse);
+    ssweep.SetControlPulses(mControlPulse);
     
     ssweep.Generate();
     
@@ -267,12 +267,13 @@ std::unique_ptr<EffectEditor> SineSweepGeneratorUi::PopulateOrExchange(
             
             S.StartMultiColumn(3, wxALIGN_CENTER);
             {
-                // S.AddPrompt(XXO("Sweep Type"));
                 m_Radio_LinearSweep = S.Id(ID_Radio_Linear)
                     .AddRadioButton(XXO("Linear"));
                 
+                
                 m_Radio_ExpSweep = S.Id(ID_Radio_Exp)
                     .AddRadioButtonToGroup(XXO("Exponential"));
+                m_Radio_ExpSweep->SetValue(true);
                 
                 m_Radio_PinkSweep = S.Id(ID_Radio_Pink)
                     .AddRadioButtonToGroup(XXO("Pink"));

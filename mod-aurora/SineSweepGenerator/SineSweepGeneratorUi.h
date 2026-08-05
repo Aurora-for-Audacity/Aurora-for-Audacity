@@ -88,10 +88,10 @@ private:
     double m_Amplitude       =     0.707;
     int    m_Channels        =     1;
     double mFadeInDuration   =     0.1;
-    int    mFadeInChoice     =     2;
+    int    mFadeInChoice     =     Aurora::SineSweepGenerator::FadeTypes::FT_HANN;
     double mFadeOutDuration  =     0.1;
-    int    mFadeOutChoice    =     2;
-    int    m_SweepType       =     Aurora::SineSweepGenerator::SweepTypes::ST_LINEAR;
+    int    mFadeOutChoice    =     Aurora::SineSweepGenerator::FadeTypes::FT_HANN;
+    int    m_SweepType       =     Aurora::SineSweepGenerator::SweepTypes::ST_LOG;
     double m_SilenceDuration =     5.0;
     int    m_Cycles          =     1;
     double m_dBVariation     =     0.0;
