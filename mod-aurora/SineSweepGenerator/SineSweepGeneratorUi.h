@@ -81,7 +81,7 @@ private:
     
     Aurora::SineSweepGenerator ssweep{};
     
-    // Temp Member Variables
+    // Settings Variables
     double m_FromFrequency   =    22.0;
     double m_ToFrequency     = 22000.0;
     double m_Duration        =    15.0;

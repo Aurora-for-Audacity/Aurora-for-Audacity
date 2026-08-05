@@ -95,6 +95,23 @@ EffectType ConvolverUi::GetType() const
 
 bool ConvolverUi::GenerateTrack(const EffectSettings& settings, WaveTrack& tmp)
 {
+//    convolver.Reset();
+//    convolver.SetSamplerate(ssweep.GetSamplerate()); // ???
+//    convolver.CheckSamplerate(ssweep.GetSamplerate());
+//    convolver.SetFilterMatrixDimensions(1,1);
+//    convolver.ResizeFilterTrack(0,numSamples);
+//    convolver.ResizeInputTrack(0, numSamples);
+//    
+//    auto& convolutionFilters = convolver.GetFilters();
+//    auto& input = convolver.GetInputTrack(0);
+//    
+//    std::copy_n(filter.get(), numSamples, convolutionFilters[0].Samples());
+//    std::copy_n(audio.get(),  numSamples, input.Samples());
+//    
+//    convolver.DoConvolution();
+//    auto& conv = convolver.GetOutputTrack(0);
+//    conv.Samples();
+    
     tmp.InsertSilence(0.0, settings.extra.GetDuration());
     return true;
 }

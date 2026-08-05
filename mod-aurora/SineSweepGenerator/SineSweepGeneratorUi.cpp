@@ -112,7 +112,7 @@ bool SineSweepGeneratorUi::Process(EffectInstance &instance, EffectSettings &set
     ssweep.SetFadeInType(mFadeInChoice);
     ssweep.SetFadeOutDuration(mFadeOutDuration);
     ssweep.SetFadeOutType(mFadeOutChoice);    
-//    
+    
     if(m_Radio_LinearSweep->GetValue())
         ssweep.SetSweepType(Aurora::SineSweepGenerator::SweepTypes::ST_LINEAR);
     if(m_Radio_ExpSweep->GetValue())

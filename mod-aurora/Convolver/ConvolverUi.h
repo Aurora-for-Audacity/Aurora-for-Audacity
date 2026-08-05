@@ -15,6 +15,7 @@
 #include "effects/StatefulEffectUIServices.h"
 #include <wx/wx.h>
 #include <wx/valgen.h>
+#include <Aurora/aurora.h>
 
 class BUILTIN_EFFECTS_API ConvolverUi final : public Generator, public StatefulEffectUIServices
 {
@@ -52,5 +53,7 @@ private:
     
     wxButton *mCloseButton;
     
+    
+    Aurora::ConvolverController convolver;
 
 };
