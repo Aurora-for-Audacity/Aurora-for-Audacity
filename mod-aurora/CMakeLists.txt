@@ -5,8 +5,8 @@ find_package(Aurora REQUIRED)
 set( SOURCES
    AuroraModule.cpp
    AuroraModule.h
-   AcousticParameters/AuroraPlot.cpp
-   AcousticParameters/AuroraPlot.h
+   AuroraPlot/AuroraPlot.cpp
+   AuroraPlot/AuroraPlot.h
    mod_aurora.h
    Dummy/DummyAnalyse.cpp
    Dummy/DummyAnalyse.h

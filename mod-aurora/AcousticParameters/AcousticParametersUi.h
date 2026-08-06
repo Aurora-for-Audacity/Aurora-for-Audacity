@@ -38,7 +38,7 @@
 #include <widgets/RulerPanel.h>
 
 
-#include "AuroraPlot.h"
+#include "../AuroraPlot/AuroraPlot.h"
 
 #include <Aurora/AcousticalParameters.h>
 
