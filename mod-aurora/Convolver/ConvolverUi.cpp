@@ -132,115 +132,166 @@ std::unique_ptr<EffectEditor> ConvolverUi::PopulateOrExchange(
                                    conv_logo_png,
                                    sizeof(ssg_logo_png)
                                    );
-//    S.StartVerticalLay(0);
-//    {
-//        S.StartHorizontalLay(wxALIGN_CENTER);
-//        {
-//            S.AddWindow(
-//                        safenew wxStaticBitmap(
-//                                               S.GetParent(),
-//                                               wxID_ANY,
-//                                               mAuroraLogo)
-//                        );
-//            
-//            S.GetSizer()->AddStretchSpacer();
-//            
-//            S.AddWindow(
-//                        safenew wxStaticBitmap(
-//                                               S.GetParent(),
-//                                               wxID_ANY,
-//                                               mConvolverLogo)
-//                        );
-//        }
-//        S.EndHorizontalLay();
-//        
-//        S.StartNotebook();
-//        {
-//            S.StartNotebookPage(XO("Select Tracks"));
-//            {
-//                S.StartStatic(XO("Selected Tracks"));
-//                {
-//                    S.AddListControlReportMode({{ XO("Selected Tracks"), wxLIST_FORMAT_RIGHT }});
-//                }
-//                S.EndStatic();
-//                
-//                S.StartHorizontalLay(wxALIGN_CENTER);
-//                {
-//                    S.AddButton(XO("To Audio"));
-//                    S.GetSizer()->AddStretchSpacer();
-//                    S.AddButton(XO("To Filters"));
-//                    // To Audio Data Button
-//                    // To Filters  Button
-//                }
-//                S.EndHorizontalLay();
-//                
-//                S.StartHorizontalLay(wxALIGN_CENTER);
-//                {
-//                    S.AddFixedText(XO("Audio Data"));
-//                    S.GetSizer()->AddStretchSpacer();
-//                    S.AddFixedText(XO("Filters (IRs)"));
-//                    // Audio Data Static Text
-//                    // Filters (IRs) Static Text
-//                }
-//                S.EndHorizontalLay();
-//                
-//                S.StartHorizontalLay(wxALIGN_CENTER);
-//                {
-//                    S.StartVerticalLay(wxALIGN_CENTER);
-//                    {
-//                        S.AddListControlReportMode({{ XO("Audio Data"), wxLIST_FORMAT_LEFT }});
-//                    }
-//                    S.EndVerticalLay();
-//                    
-//                    S.StartVerticalLay(wxALIGN_CENTER);
-//                    {
-//                        S.AddButton(XO("up"));
-//                        
-//                        S.StartHorizontalLay(wxALIGN_CENTER);
-//                        {
-//                            S.AddButton(XO("left"));
-//                            S.AddButton(XO("right"));
-//                        }
-//                        S.EndHorizontalLay();
-//                        
-//                        S.AddButton(XO("down"));
-//                        S.AddButton(XO("remove"));
-//                    }
-//                    S.EndVerticalLay();
-//                    
-//                    S.StartVerticalLay(wxALIGN_CENTER);
-//                    {
-//                        S.AddListControlReportMode({{ XO("Filters (IRs)"), wxLIST_FORMAT_LEFT }});
-//                    }
-//                    S.EndVerticalLay();
-//                }
-//                S.EndHorizontalLay();
-//                
-//                
-//                S.StartHorizontalLay(wxALIGN_CENTER);
-//                {
-//                    S.AddCheckBox(XXO("Matrix Mode"), false);
-//                }
-//                S.EndHorizontalLay();
-//                
-//                S.StartStatic(XO("Output:"));
-//                {
-//                    S.AddFixedText(XO("No output yet. Please choose data and filter"));
-//                }
-//                S.EndStatic();
-//                
-//            }
-//            S.EndNotebookPage();
-//            
-//            S.StartNotebookPage(XO("Setup"));
-//            {
-//                
-//            }
-//            S.EndNotebookPage();
-//        }
-//        S.EndNotebook();
-//    }
-//    S.EndVerticalLay();
+    
+    S.StartVerticalLay(0);
+    {
+        S.StartHorizontalLay(wxEXPAND,0);
+        {
+            S.AddWindow(
+                        safenew wxStaticBitmap(
+                                               S.GetParent(),
+                                               wxID_ANY,
+                                               mAuroraLogo)
+                        );
+            
+            S.GetSizer()->AddStretchSpacer();
+            
+            S.AddWindow(
+                        safenew wxStaticBitmap(
+                                               S.GetParent(),
+                                               wxID_ANY,
+                                               mConvolverLogo)
+                        );
+        }
+        S.EndHorizontalLay();
+        
+        S.AddSpace(5);
+        
+    }
+    S.EndVerticalLay();
+    
+    S.StartNotebook();
+    {
+        S.StartNotebookPage(XO("Select Tracks"));
+        {
+            S.StartStatic(XO("Selected Tracks"));
+            {
+                S.AddListControl();
+            }
+            S.EndStatic();
+            
+            S.StartVerticalLay(0);
+            {
+                S.StartHorizontalLay(wxALIGN_CENTER);
+                {
+                    S.Position(0).AddButton(XO("To Audio"));
+                    S.AddButton(XO("To Filters"));
+                }
+                S.EndHorizontalLay();
+                
+                S.StartHorizontalLay(wxALIGN_CENTER);
+                {
+                    S.AddFixedText(XO("Audio Data"));
+                    S.AddFixedText(XO("Filters (IRs)"));
+                }
+                S.EndHorizontalLay();
+            }
+            S.EndVerticalLay();
+            
+            
+            S.StartHorizontalLay(wxALIGN_CENTER);
+            {
+                S.StartVerticalLay(wxALIGN_CENTER);
+                {
+                    S.AddListControl();
+                }
+                S.EndVerticalLay();
+                
+                S.StartVerticalLay(wxALIGN_CENTER);
+                {
+                    S.AddButton(XO("u"));
+                    
+                    S.StartHorizontalLay(wxALIGN_CENTER);
+                    {
+                        S.AddButton(XO("l"));
+                        S.AddButton(XO("r"));
+                    }
+                    S.EndHorizontalLay();
+                    
+                    S.AddButton(XO("d"));
+                    S.AddButton(XO("Remove"));
+                }
+                S.EndVerticalLay();
+                
+                S.StartVerticalLay(wxALIGN_CENTER);
+                {
+                    S.AddListControl();
+                }
+                S.EndVerticalLay();
+            }
+            S.EndHorizontalLay();
+            
+            S.AddSpace(5);
+            
+            S.StartVerticalLay(0);
+            {
+                S.StartHorizontalLay(wxALIGN_CENTER);
+                {
+                    S.AddCheckBox(XO("Matrix Mode"), false);
+                }
+                S.EndHorizontalLay();
+            }
+            S.EndVerticalLay();
+            
+            S.StartStatic(XO("Output:"));
+            {
+                S.AddFixedText(XO("No output yet. Please choose data and filter"));
+            }
+            S.EndStatic();
+            
+        }
+        S.EndNotebookPage();
+        
+        S.StartNotebookPage(XO("Setup"));
+        {
+            S.StartStatic(XO("Impulse Response(s) RMS:"));
+            {
+                // Aurora Plot
+            }
+            S.EndStatic();
+            S.StartMultiColumn(2, wxEXPAND);
+            {
+                S.StartStatic(XO("Autorange"));
+                {
+                    S.AddCheckBox(XO("Full Autorange - Remove DC (2 passes)"), true);
+                    S.AddCheckBox(XO("First Block autorange"), false);
+                    S.StartHorizontalLay(wxALIGN_LEFT);
+                    {
+                        S.AddTextBox(XXO("Gain:"), wxT("-3dB"), 12);
+                        S.AddUnits(XO("dB"));
+                    }
+                    S.EndHorizontalLay();
+                }
+                S.EndStatic();
+                S.StartStatic(XO("Advanced"));
+                {
+                    S.AddCheckBox(XO("TimeReversed Imp. Resp."), false);
+                    S.AddCheckBox(XO("Crosstalk Cancel"), false);
+                    S.AddCheckBox(XO("Preserve Length"), false);
+                }
+                S.EndStatic();
+            }
+            S.EndMultiColumn();
+            S.StartStatic(XO("Advanced"));
+            {
+                S.StartMultiColumn(2, wxEXPAND);
+                {
+                    S.AddFixedText(XO("Audio Data:"));
+                    S.AddFixedText(XO("Lorem Ipsum dolor sit amet consectetur"));
+                    S.AddFixedText(XO("Impulse Resp.:"));
+                    S.AddFixedText(XO("Lorem Ipsum dolor sit amet consectetur"));
+                    S.AddFixedText(XO("FFT Size:"));
+                    S.AddFixedText(XO("Lorem Ipsum dolor sit amet consectetur"));
+                    S.AddFixedText(XO("Mode:"));
+                    S.AddFixedText(XO("Lorem Ipsum dolor sit amet consectetur"));
+                }
+                S.EndMultiColumn();
+            }
+            S.EndStatic();
+        }
+        S.EndNotebookPage();
+    }
+    S.EndNotebook();
     
     
     return nullptr;
