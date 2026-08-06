@@ -47,7 +47,7 @@ protected:
    bool GenerateTrack(const EffectSettings& settings, WaveTrack& tmp) override;
     
 private:
-    NumericTextCtrl *mDurationT;
+    
 };
 
 #endif
