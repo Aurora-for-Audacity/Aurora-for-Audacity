@@ -353,6 +353,51 @@ void AuroraPlot::OnPaint(
                         );
         }
         
+        //
+        // Legend
+        //
+        
+        const wxString legendText = "Ch 1";
+        const int padding = 2;
+        const int sampleWidth = 10;
+        
+        wxSize legendSize = dc.GetTextExtent(legendText);
+        
+        wxRect legendRect(
+            plotArea.x + plotArea.width - legendSize.GetWidth() - sampleWidth - (padding * 4),
+            plotArea.y + padding,
+            legendSize.GetWidth() + sampleWidth + padding*3,
+            legendSize.GetHeight() + padding*2
+        );
+        
+        // Background
+        dc.SetBrush(*wxWHITE_BRUSH);
+        dc.SetPen(*wxBLACK_PEN);
+        dc.DrawRectangle(legendRect);
+
+
+        // Line sample
+        int lineY = legendRect.y + legendRect.height / 2;
+
+        dc.SetPen(wxPen(wxColour(0,80,200), 2));
+        
+        dc.DrawLine(
+            legendRect.x + padding,
+            lineY,
+            legendRect.x + padding + sampleWidth,
+            lineY
+        );
+
+        // Text
+        dc.SetPen(*wxBLACK_PEN);
+        dc.SetFont(font);
+        
+        dc.DrawText(
+            legendText,
+            legendRect.x + padding + sampleWidth + padding,
+            legendRect.y + padding
+        );
+        
     }
 }
 
