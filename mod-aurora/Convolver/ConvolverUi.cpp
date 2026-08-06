@@ -122,6 +122,7 @@ std::unique_ptr<EffectEditor> ConvolverUi::PopulateOrExchange(
     {
 //        mSelectedTracks.push_back(track);
         trackNames.Add(track->GetName());
+        
     }
     
     
@@ -301,6 +302,29 @@ std::unique_ptr<EffectEditor> ConvolverUi::PopulateOrExchange(
     mLButton->Bind(wxEVT_BUTTON,        &ConvolverUi::OnL, this);
     mRemoveButton->Bind(wxEVT_BUTTON,   &ConvolverUi::OnRemove, this);
 
+    mTrackListCtrl->Bind(wxEVT_SET_FOCUS, [this](wxFocusEvent& event)
+    {
+        mAudioListCtrl->SetSelection(wxNOT_FOUND);
+        mFilterListCtrl->SetSelection(wxNOT_FOUND);
+
+        event.Skip();
+    });
+
+    mAudioListCtrl->Bind(wxEVT_SET_FOCUS, [this](wxFocusEvent& event)
+    {
+        mTrackListCtrl->SetSelection(wxNOT_FOUND);
+        mFilterListCtrl->SetSelection(wxNOT_FOUND);
+
+        event.Skip();
+    });
+
+    mFilterListCtrl->Bind(wxEVT_SET_FOCUS, [this](wxFocusEvent& event)
+    {
+        mTrackListCtrl->SetSelection(wxNOT_FOUND);
+        mAudioListCtrl->SetSelection(wxNOT_FOUND);
+
+        event.Skip();
+    });
     
     //
     // Configure UI Elements
