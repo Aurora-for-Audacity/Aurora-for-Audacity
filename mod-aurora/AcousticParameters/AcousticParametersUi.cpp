@@ -205,23 +205,6 @@ void AcousticParametersUi::Populate()
             
             S.StartStatic(XO("Unfiltered Impulse Response"),2);
             {
-//                vRuler = safenew RulerPanel(
-//                   S.GetParent(), wxID_ANY, wxVERTICAL,
-//                   wxSize{ 100, 100 }, // Ruler can't handle small sizes
-//                   RulerPanel::Range{ 0.0, -90 },
-//                   LinearDBFormat::Instance(),
-//                   XO("dB"),
-//                   RulerPanel::Options{}
-//                      .LabelEdges(true)
-//                      .TickColour( theTheme.Colour( clrGraphLabels ) )
-//                );
-//
-//                S.AddSpace(wxDefaultCoord, 1);
-//                S.Prop(1)
-//                   .Position(wxALIGN_RIGHT | wxALIGN_TOP)
-//                   .AddWindow(vRuler);
-//                S.AddSpace(wxDefaultCoord, 1);
-//                
                 mPlot = safenew AuroraPlot(S.GetParent(), wxID_ANY);
                 S.Prop(1).Position(wxEXPAND).MinSize({ wxDefaultCoord, 250 }).AddWindow(mPlot);
             }

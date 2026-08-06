@@ -95,22 +95,22 @@ EffectType ConvolverUi::GetType() const
 
 bool ConvolverUi::GenerateTrack(const EffectSettings& settings, WaveTrack& tmp)
 {
-//    convolver.Reset();
-//    convolver.SetSamplerate(ssweep.GetSamplerate()); // ???
-//    convolver.CheckSamplerate(ssweep.GetSamplerate());
-//    convolver.SetFilterMatrixDimensions(1,1);
-//    convolver.ResizeFilterTrack(0,numSamples);
-//    convolver.ResizeInputTrack(0, numSamples);
-//    
-//    auto& convolutionFilters = convolver.GetFilters();
-//    auto& input = convolver.GetInputTrack(0);
-//    
-//    std::copy_n(filter.get(), numSamples, convolutionFilters[0].Samples());
-//    std::copy_n(audio.get(),  numSamples, input.Samples());
-//    
-//    convolver.DoConvolution();
-//    auto& conv = convolver.GetOutputTrack(0);
-//    conv.Samples();
+    //    convolver.Reset();
+    //    convolver.SetSamplerate(ssweep.GetSamplerate()); // ???
+    //    convolver.CheckSamplerate(ssweep.GetSamplerate());
+    //    convolver.SetFilterMatrixDimensions(1,1);
+    //    convolver.ResizeFilterTrack(0,numSamples);
+    //    convolver.ResizeInputTrack(0, numSamples);
+    //
+    //    auto& convolutionFilters = convolver.GetFilters();
+    //    auto& input = convolver.GetInputTrack(0);
+    //
+    //    std::copy_n(filter.get(), numSamples, convolutionFilters[0].Samples());
+    //    std::copy_n(audio.get(),  numSamples, input.Samples());
+    //
+    //    convolver.DoConvolution();
+    //    auto& conv = convolver.GetOutputTrack(0);
+    //    conv.Samples();
     
     tmp.InsertSilence(0.0, settings.extra.GetDuration());
     return true;
@@ -132,115 +132,115 @@ std::unique_ptr<EffectEditor> ConvolverUi::PopulateOrExchange(
                                    conv_logo_png,
                                    sizeof(ssg_logo_png)
                                    );
-    S.StartVerticalLay(0);
-    {
-        S.StartHorizontalLay(wxALIGN_CENTER);
-        {
-            S.AddWindow(
-                        safenew wxStaticBitmap(
-                                               S.GetParent(),
-                                               wxID_ANY,
-                                               mAuroraLogo)
-                        );
-            
-            S.GetSizer()->AddStretchSpacer();
-            
-            S.AddWindow(
-                        safenew wxStaticBitmap(
-                                               S.GetParent(),
-                                               wxID_ANY,
-                                               mConvolverLogo)
-                        );
-        }
-        S.EndHorizontalLay();
-        
-        S.StartNotebook();
-        {
-            S.StartNotebookPage(XO("Select Tracks"));
-            {
-                S.StartStatic(XO("Selected Tracks"));
-                {
-                // list
-                }
-                S.EndStatic();
-
-               S.StartHorizontalLay(wxALIGN_CENTER);
-            {
-                // To Audio Data Button
-                // To Filters  Button
-            }
-        S.EndHorizontalLay();
-
-        S.StartHorizontalLay(wxALIGN_CENTER);
-            {
-                // Audio Data Static Text
-                // Filters (IRs) Static Text
-            }
-        S.EndHorizontalLay();
-
-        S.StartHorizontalLay(wxALIGN_CENTER);
-            {
-                // Audio Data Static Text
-                // Filters (IRs) Static Text
-            }
-        S.EndHorizontalLay();
-
-            S.StartHorizontalLay(wxALIGN_CENTER);
-            {
-                S.StartVerticalLay(wxALIGN_CENTER);
-                {
-                  // Audio Data list
-                }
-                S.EndVerticalLay();
-
-                S.StartVerticalLay(wxALIGN_CENTER);
-                {
-                  // Up Button
-                     S.StartHorizontalLay(wxALIGN_CENTER);
-            {
-                // left Button 
-                // Right button
-            }  
-            S.EndHorizontalLay();
-                // Down Button
-                // Remove Button
-
-                }
-                S.EndVerticalLay();
-
-                S.StartVerticalLay(wxALIGN_CENTER);
-                {
-                  // AuFilter Datadio Data list
-                }
-                S.EndVerticalLay();
-            }
-        S.EndHorizontalLay();
-
-
-        S.StartHorizontalLay(wxALIGN_CENTER);
-            {
-                // Matrix Mode Check Box
-            }
-        S.EndHorizontalLay();
-
-                S.StartStatic(XO("Output:"));
-                {
-                // Static Text
-                }
-                S.EndStatic();
-
-            }
-            S.EndNotebookPage();
-            
-            S.StartNotebookPage(XO("Setup"));
-            {
-                
-            }
-            S.EndNotebookPage();
-        }
-        S.EndNotebook();
-    }
-    S.EndVerticalLay();
+//    S.StartVerticalLay(0);
+//    {
+//        S.StartHorizontalLay(wxALIGN_CENTER);
+//        {
+//            S.AddWindow(
+//                        safenew wxStaticBitmap(
+//                                               S.GetParent(),
+//                                               wxID_ANY,
+//                                               mAuroraLogo)
+//                        );
+//            
+//            S.GetSizer()->AddStretchSpacer();
+//            
+//            S.AddWindow(
+//                        safenew wxStaticBitmap(
+//                                               S.GetParent(),
+//                                               wxID_ANY,
+//                                               mConvolverLogo)
+//                        );
+//        }
+//        S.EndHorizontalLay();
+//        
+//        S.StartNotebook();
+//        {
+//            S.StartNotebookPage(XO("Select Tracks"));
+//            {
+//                S.StartStatic(XO("Selected Tracks"));
+//                {
+//                    S.AddListControlReportMode({{ XO("Selected Tracks"), wxLIST_FORMAT_RIGHT }});
+//                }
+//                S.EndStatic();
+//                
+//                S.StartHorizontalLay(wxALIGN_CENTER);
+//                {
+//                    S.AddButton(XO("To Audio"));
+//                    S.GetSizer()->AddStretchSpacer();
+//                    S.AddButton(XO("To Filters"));
+//                    // To Audio Data Button
+//                    // To Filters  Button
+//                }
+//                S.EndHorizontalLay();
+//                
+//                S.StartHorizontalLay(wxALIGN_CENTER);
+//                {
+//                    S.AddFixedText(XO("Audio Data"));
+//                    S.GetSizer()->AddStretchSpacer();
+//                    S.AddFixedText(XO("Filters (IRs)"));
+//                    // Audio Data Static Text
+//                    // Filters (IRs) Static Text
+//                }
+//                S.EndHorizontalLay();
+//                
+//                S.StartHorizontalLay(wxALIGN_CENTER);
+//                {
+//                    S.StartVerticalLay(wxALIGN_CENTER);
+//                    {
+//                        S.AddListControlReportMode({{ XO("Audio Data"), wxLIST_FORMAT_LEFT }});
+//                    }
+//                    S.EndVerticalLay();
+//                    
+//                    S.StartVerticalLay(wxALIGN_CENTER);
+//                    {
+//                        S.AddButton(XO("up"));
+//                        
+//                        S.StartHorizontalLay(wxALIGN_CENTER);
+//                        {
+//                            S.AddButton(XO("left"));
+//                            S.AddButton(XO("right"));
+//                        }
+//                        S.EndHorizontalLay();
+//                        
+//                        S.AddButton(XO("down"));
+//                        S.AddButton(XO("remove"));
+//                    }
+//                    S.EndVerticalLay();
+//                    
+//                    S.StartVerticalLay(wxALIGN_CENTER);
+//                    {
+//                        S.AddListControlReportMode({{ XO("Filters (IRs)"), wxLIST_FORMAT_LEFT }});
+//                    }
+//                    S.EndVerticalLay();
+//                }
+//                S.EndHorizontalLay();
+//                
+//                
+//                S.StartHorizontalLay(wxALIGN_CENTER);
+//                {
+//                    S.AddCheckBox(XXO("Matrix Mode"), false);
+//                }
+//                S.EndHorizontalLay();
+//                
+//                S.StartStatic(XO("Output:"));
+//                {
+//                    S.AddFixedText(XO("No output yet. Please choose data and filter"));
+//                }
+//                S.EndStatic();
+//                
+//            }
+//            S.EndNotebookPage();
+//            
+//            S.StartNotebookPage(XO("Setup"));
+//            {
+//                
+//            }
+//            S.EndNotebookPage();
+//        }
+//        S.EndNotebook();
+//    }
+//    S.EndVerticalLay();
     
     
     return nullptr;
@@ -266,7 +266,7 @@ bool ConvolverUi::TransferDataFromWindow(EffectSettings &settings)
 //    S.StartNotebookPage(XO("Step 1"));
 //    {
 //        S.AddTitle(XO("Configure Sweep"));
-//        
+//
 //        S.Id(ID_FromFrequency)
 //            .AddTextBox(XXO("Start frequency"), wxT(""), 12);
 //
