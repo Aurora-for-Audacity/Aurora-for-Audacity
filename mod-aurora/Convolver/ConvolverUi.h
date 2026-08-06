@@ -1,12 +1,10 @@
 /**********************************************************************
  
- Audacity: A Digital Audio Editor
+ Aurora
  
- Silence.h
+ ConvolverUi.h
  
- Dominic Mazzoni
- 
- An effect to add silence.
+ UI for Aurora Convolver
  
  **********************************************************************/
 #pragma once
@@ -41,6 +39,7 @@ public:
     // EffectDefinitionInterface implementation
     EffectType GetType() const override;
 
+
 protected:
    // Generator implementation
 
@@ -54,6 +53,8 @@ private:
     void OnD(wxCommandEvent &event);
     void OnL(wxCommandEvent &event);
     void OnRemove(wxCommandEvent &event);
+    
+    bool CloseUI() const override;
 
 private:
     
@@ -91,8 +92,6 @@ private:
     wxCheckBox* mPreserveLengthCheckBox;
 
     // State Variables
-    std::vector<WaveTrack*> mSelectedTracks;
-    wxArrayString trackNames;
+    
     Aurora::ConvolverController mConvolver;
-
 };

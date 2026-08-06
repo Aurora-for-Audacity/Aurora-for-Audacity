@@ -117,11 +117,10 @@ std::unique_ptr<EffectEditor> ConvolverUi::PopulateOrExchange(
                                                               ShuttleGui & S, EffectInstance &, EffectSettingsAccess &access,
                                                               const EffectOutputs *)
 {
-    mSelectedTracks.clear();
-
+    wxArrayStringEx trackNames;
     for (auto track : mTracks->Selected<WaveTrack>())
     {
-        mSelectedTracks.push_back(track);
+//        mSelectedTracks.push_back(track);
         trackNames.Add(track->GetName());
     }
     
@@ -169,21 +168,7 @@ std::unique_ptr<EffectEditor> ConvolverUi::PopulateOrExchange(
         {
             S.StartStatic(XO("Selected Tracks"));
             {
-                mTrackListCtrl = safenew wxListBox(
-                    S.GetParent(),
-                    wxID_ANY,
-                    wxDefaultPosition,
-                    wxDefaultSize,
-                    trackNames,
-                    wxLB_SINGLE
-                );
-
-                S.GetSizer()->Add(
-                    mTrackListCtrl,
-                    1,
-                    wxEXPAND | wxALL,
-                    5
-                );
+                mTrackListCtrl = S.AddListBox(trackNames);
             }
             S.EndStatic();
                         
@@ -194,7 +179,7 @@ std::unique_ptr<EffectEditor> ConvolverUi::PopulateOrExchange(
                 {
                     mToAudioButton = S.AddButton(XO("To Audio"));
                     S.AddFixedText(XO("Audio Data"));
-                    S.AddListControl();
+                    mAudioListCtrl = S.AddListBox({});
                 }
                 S.EndVerticalLay();
                 
@@ -224,7 +209,7 @@ std::unique_ptr<EffectEditor> ConvolverUi::PopulateOrExchange(
                 {
                     mToFilterButton = S.AddButton(XO("To Filters"));
                     S.AddFixedText(XO("Filters (IRs)"));
-                    S.AddListControl();
+                    mFilterListCtrl = S.AddListBox({});
                 }
                 S.EndVerticalLay();
             }
@@ -392,12 +377,24 @@ bool ConvolverUi::TransferDataFromWindow(EffectSettings &settings)
 
 void ConvolverUi::OnToAudio(wxCommandEvent &event)
 {
-    std::cout << __func__ << '\n';
+    auto sel = mTrackListCtrl->GetSelection();
+    if (sel != wxNOT_FOUND)
+    {
+        auto name = mTrackListCtrl->GetString(sel);
+        mAudioListCtrl->Append(name);
+        mTrackListCtrl->Delete(sel);
+    }
 }
 
 void ConvolverUi::OnToFilter(wxCommandEvent &event)
 {
-    std::cout << __func__ << '\n';
+    auto sel = mTrackListCtrl->GetSelection();
+    if (sel != wxNOT_FOUND)
+    {
+        auto name = mTrackListCtrl->GetString(sel);
+        mFilterListCtrl->Append(name);
+        mTrackListCtrl->Delete(sel);
+    }
 }
 
 void ConvolverUi::OnU(wxCommandEvent &event)
@@ -408,6 +405,13 @@ void ConvolverUi::OnU(wxCommandEvent &event)
 void ConvolverUi::OnR(wxCommandEvent &event)
 {
     std::cout << __func__ << '\n';
+    auto sel = mAudioListCtrl->GetSelection();
+    if (sel != wxNOT_FOUND)
+    {
+        auto name = mAudioListCtrl->GetString(sel);
+        mFilterListCtrl->Append(name);
+        mAudioListCtrl->Delete(sel);
+    }
 }
 
 void ConvolverUi::OnD(wxCommandEvent &event)
@@ -418,9 +422,23 @@ void ConvolverUi::OnD(wxCommandEvent &event)
 void ConvolverUi::OnL(wxCommandEvent &event)
 {
     std::cout << __func__ << '\n';
+    auto sel = mFilterListCtrl->GetSelection();
+    if (sel != wxNOT_FOUND)
+    {
+        auto name = mFilterListCtrl->GetString(sel);
+        mAudioListCtrl->Append(name);
+        mFilterListCtrl->Delete(sel);
+    }
 }
 
 void ConvolverUi::OnRemove(wxCommandEvent &event)
 {
     std::cout << __func__ << '\n';
+}
+
+
+bool ConvolverUi::CloseUI() const
+{
+    std::cout << __func__ << '\n';
+    return true;
 }
