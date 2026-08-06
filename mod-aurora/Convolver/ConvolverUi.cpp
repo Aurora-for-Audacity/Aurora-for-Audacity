@@ -32,24 +32,14 @@
 #include "../res/aurora_logos.h"
 #include "../mod_aurora.h"
 
-enum
+std::vector<double> convTimes =
 {
-    ID_Channels = 10000,
-    ID_Amplitude,
-    ID_Duration,
-    ID_FromFrequency,
-    ID_ToFrequency,
-    ID_Radio_Linear,
-    ID_Radio_Exp,
-    ID_Radio_Pink,
-    ID_FadeInType,
-    ID_FadeInDuration,
-    ID_FadeOutType,
-    ID_FadeOutDuration,
-    ID_Cycles,
-    ID_SilenceDuration,
-    ID_dBVariation,
-    ID_ControlPulses
+    0.0, 0.01, 0.02, 0.034,
+};
+
+std::vector<double> convLevels =
+{
+    -0.0, -6.0, -12.0, -24.2,
 };
 
 // Effect implementation
@@ -246,7 +236,9 @@ std::unique_ptr<EffectEditor> ConvolverUi::PopulateOrExchange(
         {
             S.StartStatic(XO("Impulse Response(s) RMS:"));
             {
-                // Aurora Plot
+                mPlot = safenew AuroraPlot(S.GetParent(), wxID_ANY);
+                S.Prop(1).Position(wxEXPAND).MinSize({ wxDefaultCoord, 250 }).AddWindow(mPlot);
+                mPlot->SetData(convTimes, convLevels);
             }
             S.EndStatic();
             S.StartMultiColumn(2, wxEXPAND);
