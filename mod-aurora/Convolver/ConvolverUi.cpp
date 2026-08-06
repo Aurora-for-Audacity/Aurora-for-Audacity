@@ -159,62 +159,57 @@ std::unique_ptr<EffectEditor> ConvolverUi::PopulateOrExchange(
                 S.AddListControl();
             }
             S.EndStatic();
-            
-            S.StartVerticalLay(0);
-            {
-                S.StartHorizontalLay(wxALIGN_CENTER);
-                {
-                    S.Position(0).AddButton(XO("To Audio"));
-                    S.AddButton(XO("To Filters"));
-                }
-                S.EndHorizontalLay();
-                
-                S.StartHorizontalLay(wxALIGN_CENTER);
-                {
-                    S.AddFixedText(XO("Audio Data"));
-                    S.AddFixedText(XO("Filters (IRs)"));
-                }
-                S.EndHorizontalLay();
-            }
-            S.EndVerticalLay();
-            
-            
+                        
             S.StartHorizontalLay(wxALIGN_CENTER);
             {
-                S.StartVerticalLay(wxALIGN_CENTER);
+                // Left column
+                S.StartVerticalLay(0);
                 {
+                    S.AddButton(XO("To Audio"));
+                    S.AddFixedText(XO("Audio Data"));
                     S.AddListControl();
                 }
                 S.EndVerticalLay();
-                
-                S.StartVerticalLay(wxALIGN_CENTER);
+
+                // Middle column - do not expand vertically
+                S.StartVerticalLay(wxALIGN_CENTER_VERTICAL);
                 {
+                    S.GetSizer()->AddStretchSpacer();
+
                     S.AddButton(XO("u"));
-                    
-                    S.StartHorizontalLay(wxALIGN_CENTER);
+
+                    S.StartHorizontalLay(0);
                     {
                         S.AddButton(XO("l"));
                         S.AddButton(XO("r"));
                     }
                     S.EndHorizontalLay();
-                    
+
                     S.AddButton(XO("d"));
-                    S.AddButton(XO("Remove"));
+
+                    S.GetSizer()->AddStretchSpacer();
                 }
                 S.EndVerticalLay();
-                
-                S.StartVerticalLay(wxALIGN_CENTER);
+
+                // Right column
+                S.StartVerticalLay(0);
                 {
+                    S.AddButton(XO("To Filters"));
+                    S.AddFixedText(XO("Filters (IRs)"));
                     S.AddListControl();
                 }
                 S.EndVerticalLay();
             }
             S.EndHorizontalLay();
             
+//            S.AddButton(XO("To Filters"));
+//            S.AddFixedText(XO("Filters (IRs)"));
+            
             S.AddSpace(5);
             
             S.StartVerticalLay(0);
             {
+                S.AddButton(XO("Remove"));
                 S.StartHorizontalLay(wxALIGN_CENTER);
                 {
                     S.AddCheckBox(XO("Matrix Mode"), false);
