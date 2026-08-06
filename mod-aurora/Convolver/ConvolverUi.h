@@ -49,13 +49,41 @@ protected:
 private:
     
     // UI Elememnts
+    // Step 1:
     wxBitmap mAuroraLogo;
     wxBitmap mConvolverLogo;
     
-    wxButton *mCloseButton;
+    wxListBox* mTrackListCtrl;
+    wxListBox* mAudioListCtrl;
+    wxListBox* mFilterListCtrl;
     
+    wxButton* mToAudioButton;
+    wxButton* mToFilterButton;
+    
+    wxButton* mUButton;
+    wxButton* mRButton;
+    wxButton* mDButton;
+    wxButton* mLButton;
+    
+    wxButton* mRemoveButton;
+    wxCheckBox* mMatrixModeCheckBox;
+    
+    wxButton *mCloseButton;
+        
+    // Step 2:
     AuroraPlot *mPlot;
     
+    wxCheckBox* mFullAutorangeCheckBox;
+    wxCheckBox* mFirstBlockAutorangeCheckBox;
+    wxTextCtrl* mGainCtrl;
+    
+    wxCheckBox* mTimeRevCheckBox;
+    wxCheckBox* mCrossTalkCheckBox;
+    wxCheckBox* mPreserveLengthCheckBox;
+
+    // State Variables
+    std::vector<WaveTrack*> mSelectedTracks;
+    wxArrayString trackNames;
     Aurora::ConvolverController mConvolver;
 
 };

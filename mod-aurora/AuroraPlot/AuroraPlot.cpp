@@ -311,7 +311,6 @@ void AuroraPlot::OnPaint(
             return plotArea.x + (ratio * plotArea.width);
         };
         
-        
         for (int i = 0; i < numSteps; i++) {
             double t = double(i) * step;
             
@@ -321,9 +320,6 @@ void AuroraPlot::OnPaint(
                                 yh + 5));
             
             auto xTickLabel = wxString::Format(("%.3f"), t);
-            
-            //            dc.SetFont((i % 24 == 0) ? font.Bold() : font);
-            
             auto xoffset = (xTickLabel.length()/2) * dc.GetCharWidth();
             dc.DrawText(xTickLabel, durToX(t)-xoffset, yh + 5);
         }
@@ -331,9 +327,6 @@ void AuroraPlot::OnPaint(
         //
         // Draw curve
         //
-        
-        
-        
         
         dc.SetPen(wxPen(wxColour(0,80,200), 2));
         

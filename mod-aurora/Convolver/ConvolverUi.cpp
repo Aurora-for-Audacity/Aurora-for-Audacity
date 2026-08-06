@@ -85,6 +85,9 @@ EffectType ConvolverUi::GetType() const
 
 bool ConvolverUi::GenerateTrack(const EffectSettings& settings, WaveTrack& tmp)
 {
+
+//    FindProject()
+//    mFactory
     //    convolver.Reset();
     //    convolver.SetSamplerate(ssweep.GetSamplerate()); // ???
     //    convolver.CheckSamplerate(ssweep.GetSamplerate());
@@ -113,6 +116,15 @@ std::unique_ptr<EffectEditor> ConvolverUi::PopulateOrExchange(
                                                               ShuttleGui & S, EffectInstance &, EffectSettingsAccess &access,
                                                               const EffectOutputs *)
 {
+    mSelectedTracks.clear();
+
+    for (auto track : mTracks->Selected<WaveTrack>())
+    {
+        mSelectedTracks.push_back(track);
+        trackNames.Add(track->GetName());
+    }
+    
+    
     mAuroraLogo = LoadPngBitmap(
                                 Aurora_logo_png,
                                 sizeof(Aurora_logo_png)
@@ -156,7 +168,21 @@ std::unique_ptr<EffectEditor> ConvolverUi::PopulateOrExchange(
         {
             S.StartStatic(XO("Selected Tracks"));
             {
-                S.AddListControl();
+                mTrackListCtrl = safenew wxListBox(
+                    S.GetParent(),
+                    wxID_ANY,
+                    wxDefaultPosition,
+                    wxDefaultSize,
+                    trackNames,
+                    wxLB_SINGLE
+                );
+
+                S.GetSizer()->Add(
+                    mTrackListCtrl,
+                    1,
+                    wxEXPAND | wxALL,
+                    5
+                );
             }
             S.EndStatic();
                         
@@ -171,7 +197,7 @@ std::unique_ptr<EffectEditor> ConvolverUi::PopulateOrExchange(
                 }
                 S.EndVerticalLay();
 
-                // Middle column - do not expand vertically
+                // Middle column
                 S.StartVerticalLay(wxALIGN_CENTER_VERTICAL);
                 {
                     S.GetSizer()->AddStretchSpacer();
@@ -186,8 +212,9 @@ std::unique_ptr<EffectEditor> ConvolverUi::PopulateOrExchange(
                     S.EndHorizontalLay();
 
                     S.AddButton(XO("d"));
+                    S.AddButton(XO("Remove"));
 
-                    S.GetSizer()->AddStretchSpacer();
+//                    S.GetSizer()->AddStretchSpacer();
                 }
                 S.EndVerticalLay();
 
@@ -202,17 +229,13 @@ std::unique_ptr<EffectEditor> ConvolverUi::PopulateOrExchange(
             }
             S.EndHorizontalLay();
             
-//            S.AddButton(XO("To Filters"));
-//            S.AddFixedText(XO("Filters (IRs)"));
-            
             S.AddSpace(5);
             
             S.StartVerticalLay(0);
             {
-                S.AddButton(XO("Remove"));
                 S.StartHorizontalLay(wxALIGN_CENTER);
                 {
-                    S.AddCheckBox(XO("Matrix Mode"), false);
+                    mMatrixModeCheckBox = S.AddCheckBox(XO("Matrix Mode"), false);
                 }
                 S.EndHorizontalLay();
             }
@@ -240,11 +263,11 @@ std::unique_ptr<EffectEditor> ConvolverUi::PopulateOrExchange(
             {
                 S.StartStatic(XO("Autorange"));
                 {
-                    S.AddCheckBox(XO("Full Autorange - Remove DC (2 passes)"), true);
-                    S.AddCheckBox(XO("First Block autorange"), false);
+                    mFullAutorangeCheckBox = S.AddCheckBox(XO("Full Autorange - Remove DC (2 passes)"), true);
+                    mFirstBlockAutorangeCheckBox = S.AddCheckBox(XO("First Block autorange"), false);
                     S.StartHorizontalLay(wxALIGN_LEFT);
                     {
-                        S.AddTextBox(XXO("Gain:"), wxT("-3dB"), 12);
+                        mGainCtrl = S.AddTextBox(XXO("Gain:"), wxT("-3dB"), 12);
                         S.AddUnits(XO("dB"));
                     }
                     S.EndHorizontalLay();
@@ -252,9 +275,9 @@ std::unique_ptr<EffectEditor> ConvolverUi::PopulateOrExchange(
                 S.EndStatic();
                 S.StartStatic(XO("Advanced"));
                 {
-                    S.AddCheckBox(XO("TimeReversed Imp. Resp."), false);
-                    S.AddCheckBox(XO("Crosstalk Cancel"), false);
-                    S.AddCheckBox(XO("Preserve Length"), false);
+                    mTimeRevCheckBox = S.AddCheckBox(XO("TimeReversed Imp. Resp."), false);
+                    mCrossTalkCheckBox = S.AddCheckBox(XO("Crosstalk Cancel"), false);
+                    mPreserveLengthCheckBox = S.AddCheckBox(XO("Preserve Length"), false);
                 }
                 S.EndStatic();
             }
@@ -280,6 +303,13 @@ std::unique_ptr<EffectEditor> ConvolverUi::PopulateOrExchange(
     }
     S.EndNotebook();
     
+    //
+    // Configure UI Elements
+    //
+    
+    mCrossTalkCheckBox->Enable(false);
+    mGainCtrl->Enable(false);
+    mMatrixModeCheckBox->Enable(false);
     
     return nullptr;
 }
