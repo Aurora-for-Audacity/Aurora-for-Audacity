@@ -42,6 +42,7 @@ std::vector<double> convLevels =
     -0.0, -6.0, -12.0, -24.2,
 };
 
+
 // Effect implementation
 const ComponentInterfaceSymbol ConvolverUi::Symbol
 /* i18n-hint: noun */
@@ -191,37 +192,37 @@ std::unique_ptr<EffectEditor> ConvolverUi::PopulateOrExchange(
                 // Left column
                 S.StartVerticalLay(0);
                 {
-                    S.AddButton(XO("To Audio"));
+                    mToAudioButton = S.AddButton(XO("To Audio"));
                     S.AddFixedText(XO("Audio Data"));
                     S.AddListControl();
                 }
                 S.EndVerticalLay();
-
+                
                 // Middle column
                 S.StartVerticalLay(wxALIGN_CENTER_VERTICAL);
                 {
                     S.GetSizer()->AddStretchSpacer();
 
-                    S.AddButton(XO("u"));
+                    mUButton = S.AddButton(XO("u"));
 
                     S.StartHorizontalLay(0);
                     {
-                        S.AddButton(XO("l"));
-                        S.AddButton(XO("r"));
+                        mLButton = S.AddButton(XO("l"));
+                        mRButton = S.AddButton(XO("r"));
                     }
                     S.EndHorizontalLay();
 
-                    S.AddButton(XO("d"));
-                    S.AddButton(XO("Remove"));
+                    mDButton = S.AddButton(XO("d"));
+                    mRemoveButton = S.AddButton(XO("Remove"));
 
-//                    S.GetSizer()->AddStretchSpacer();
+                    S.GetSizer()->AddStretchSpacer();
                 }
                 S.EndVerticalLay();
 
                 // Right column
                 S.StartVerticalLay(0);
                 {
-                    S.AddButton(XO("To Filters"));
+                    mToFilterButton = S.AddButton(XO("To Filters"));
                     S.AddFixedText(XO("Filters (IRs)"));
                     S.AddListControl();
                 }
@@ -303,6 +304,19 @@ std::unique_ptr<EffectEditor> ConvolverUi::PopulateOrExchange(
     }
     S.EndNotebook();
     
+    
+    //
+    // Set Callbacks
+    //
+    mToAudioButton->Bind(wxEVT_BUTTON,  &ConvolverUi::OnToAudio, this);
+    mToFilterButton->Bind(wxEVT_BUTTON, &ConvolverUi::OnToFilter, this);
+    mUButton->Bind(wxEVT_BUTTON,        &ConvolverUi::OnU, this);
+    mRButton->Bind(wxEVT_BUTTON,        &ConvolverUi::OnR, this);
+    mDButton->Bind(wxEVT_BUTTON,        &ConvolverUi::OnD, this);
+    mLButton->Bind(wxEVT_BUTTON,        &ConvolverUi::OnL, this);
+    mRemoveButton->Bind(wxEVT_BUTTON,   &ConvolverUi::OnRemove, this);
+
+    
     //
     // Configure UI Elements
     //
@@ -374,3 +388,39 @@ bool ConvolverUi::TransferDataFromWindow(EffectSettings &settings)
 //mBook->ChangeSelection(
 //mBook->GetSelection() + 1
 //);
+
+
+void ConvolverUi::OnToAudio(wxCommandEvent &event)
+{
+    std::cout << __func__ << '\n';
+}
+
+void ConvolverUi::OnToFilter(wxCommandEvent &event)
+{
+    std::cout << __func__ << '\n';
+}
+
+void ConvolverUi::OnU(wxCommandEvent &event)
+{
+    std::cout << __func__ << '\n';
+}
+
+void ConvolverUi::OnR(wxCommandEvent &event)
+{
+    std::cout << __func__ << '\n';
+}
+
+void ConvolverUi::OnD(wxCommandEvent &event)
+{
+    std::cout << __func__ << '\n';
+}
+
+void ConvolverUi::OnL(wxCommandEvent &event)
+{
+    std::cout << __func__ << '\n';
+}
+
+void ConvolverUi::OnRemove(wxCommandEvent &event)
+{
+    std::cout << __func__ << '\n';
+}

@@ -45,7 +45,16 @@ protected:
    // Generator implementation
 
    bool GenerateTrack(const EffectSettings& settings, WaveTrack& tmp) override;
-    
+
+private:
+    void OnToAudio(wxCommandEvent &event);
+    void OnToFilter(wxCommandEvent &event);
+    void OnU(wxCommandEvent &event);
+    void OnR(wxCommandEvent &event);
+    void OnD(wxCommandEvent &event);
+    void OnL(wxCommandEvent &event);
+    void OnRemove(wxCommandEvent &event);
+
 private:
     
     // UI Elememnts
@@ -61,9 +70,9 @@ private:
     wxButton* mToFilterButton;
     
     wxButton* mUButton;
+    wxButton* mLButton;
     wxButton* mRButton;
     wxButton* mDButton;
-    wxButton* mLButton;
     
     wxButton* mRemoveButton;
     wxCheckBox* mMatrixModeCheckBox;
