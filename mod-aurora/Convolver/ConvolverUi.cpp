@@ -117,12 +117,28 @@ std::unique_ptr<EffectEditor> ConvolverUi::PopulateOrExchange(
                                                               ShuttleGui & S, EffectInstance &, EffectSettingsAccess &access,
                                                               const EffectOutputs *)
 {
+    //
+    // Auto populate list box choices
+    //
+    
     wxArrayStringEx trackNames;
+    wxArrayStringEx audioNames;
+    wxArrayStringEx filterNames;
+    
     for (auto track : mTracks->Selected<WaveTrack>())
     {
-//        mSelectedTracks.push_back(track);
-        trackNames.Add(track->GetName());
-        
+        if(track->GetName().IsSameAs("Sweep"))
+        {
+            audioNames.Add(track->GetName());
+        }
+        else if (track->GetName().IsSameAs("Filter"))
+        {
+            filterNames.Add(track->GetName());
+        }
+        else
+        {
+            trackNames.Add(track->GetName());
+        }
     }
     
     
@@ -180,7 +196,7 @@ std::unique_ptr<EffectEditor> ConvolverUi::PopulateOrExchange(
                 {
                     mToAudioButton = S.AddButton(XO("To Audio"));
                     S.AddFixedText(XO("Audio Data"));
-                    mAudioListCtrl = S.AddListBox({});
+                    mAudioListCtrl = S.AddListBox(audioNames);
                 }
                 S.EndVerticalLay();
                 
@@ -210,7 +226,7 @@ std::unique_ptr<EffectEditor> ConvolverUi::PopulateOrExchange(
                 {
                     mToFilterButton = S.AddButton(XO("To Filters"));
                     S.AddFixedText(XO("Filters (IRs)"));
-                    mFilterListCtrl = S.AddListBox({});
+                    mFilterListCtrl = S.AddListBox(filterNames);
                 }
                 S.EndVerticalLay();
             }
@@ -339,15 +355,11 @@ std::unique_ptr<EffectEditor> ConvolverUi::PopulateOrExchange(
 
 bool ConvolverUi::TransferDataToWindow(const EffectSettings &settings)
 {
-    //   mDurationT->SetValue(settings.extra.GetDuration());
-    
     return true;
 }
 
 bool ConvolverUi::TransferDataFromWindow(EffectSettings &settings)
 {
-    //   settings.extra.SetDuration(mDurationT->GetValue());
-    
     return true;
 }
 
