@@ -8,7 +8,16 @@ CMAKE_FLAGS := \
 	-G Xcode \
 	-Daudacity_use_mad=OFF \
 	-Daudacity_use_id3tag=OFF \
-	-Daudacity_conan_allow_prebuilt_binaries=OFF \
+	-Daudacity_conan_allow_prebuilt_binaries=OFF
+	-DAURORA_MODULE_PATH=$(MODULE) \
+	-DCMAKE_PREFIX_PATH=$(HOME)/.local
+
+CMAKE_RELEASE_FLAGS := \
+	-G Ninja \
+	-DCMAKE_BUILD_TYPE=Release \
+	-DMACOS_ARCHITECTURE=arm64 \
+	-Daudacity_perform_codesign=OFF \
+	-DAUDACITY_BUILD_LEVEL=2 \
 	-DAURORA_MODULE_PATH=$(MODULE) \
 	-DCMAKE_PREFIX_PATH=$(HOME)/.local
 
@@ -19,8 +28,15 @@ xcode: configure
 	@echo "Xcode project created:"
 	@echo "  $(BUILD)/Audacity.xcodeproj"
 
+audacity-only:
+	cmake -S $(AUDACITY) -B $(BUILD) $(CMAKE_FLAGS)
+
 configure: patch
 	cmake -S $(AUDACITY) -B $(BUILD) $(CMAKE_FLAGS)
+
+release-build:
+	cmake -S $(AUDACITY) -B $(BUILD) $(CMAKE_RELEASE_FLAGS)
+	cmake -B $(BUILD) --parallel
 
 patch:
 	@if ! grep -q "AURORA_MODULE_PATH" "$(AUDACITY)/modules/etc/CMakeLists.txt"; then \
