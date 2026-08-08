@@ -4,11 +4,17 @@ AUDACITY := $(ROOT)/audacity
 MODULE := $(ROOT)/mod-aurora
 BUILD := $(ROOT)/build
 
+CMAKE_AUDACITY_FLAGS := \
+	-G Xcode \
+	-Daudacity_use_mad=OFF \
+	-Daudacity_use_id3tag=OFF \
+	-Daudacity_conan_allow_prebuilt_binaries=OFF	
+
 CMAKE_FLAGS := \
 	-G Xcode \
 	-Daudacity_use_mad=OFF \
 	-Daudacity_use_id3tag=OFF \
-	-Daudacity_conan_allow_prebuilt_binaries=OFF
+	-Daudacity_conan_allow_prebuilt_binaries=OFF \
 	-DAURORA_MODULE_PATH=$(MODULE) \
 	-DCMAKE_PREFIX_PATH=$(HOME)/.local
 
@@ -29,11 +35,13 @@ xcode: configure
 	@echo "  $(BUILD)/Audacity.xcodeproj"
 
 audacity-only:
-	cmake -S $(AUDACITY) -B $(BUILD) $(CMAKE_FLAGS)
+	cmake -S $(AUDACITY) -B $(BUILD) $(CMAKE_AUDACITY_FLAGS)
 
 configure: patch
 	cmake -S $(AUDACITY) -B $(BUILD) $(CMAKE_FLAGS)
 
+# for module build, ninja -C build mod-aurora 
+# ninja -C build -t targets | grep -i script if you can't find it
 release-build:
 	cmake -S $(AUDACITY) -B $(BUILD) $(CMAKE_RELEASE_FLAGS)
 	cmake -B $(BUILD) --parallel
