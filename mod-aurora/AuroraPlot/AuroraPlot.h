@@ -92,6 +92,9 @@ public:
     void SetData(PlotData plotData);
     
     void SetData(std::vector<PlotData> plotData);
+    
+    void AddPlotData(PlotData plotData);
+    void AddPlotData(std::vector<PlotData> plotData);
     // We don't need or want to accept focus.
     bool AcceptsFocus() const;
     
@@ -100,6 +103,8 @@ private:
     void OnPaint(wxPaintEvent& event);
     void OnErase(wxEraseEvent & event);
     void OnMouseEvent(wxMouseEvent & event);
+    
+    void UpdateLimits();
     
     const Margins mMargins;
     

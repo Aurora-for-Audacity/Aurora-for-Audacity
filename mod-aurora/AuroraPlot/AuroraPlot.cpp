@@ -82,55 +82,62 @@ AuroraPlot::AuroraPlot(wxWindow *parent,
     
 }
 
-void AuroraPlot::SetData(
-                         const std::vector<double>& time,
+void AuroraPlot::SetData(const std::vector<double>& time,
                          const std::vector<double>& level)
 {
+    
     if(time.size() != level.size())
         return;
+
+    mPlots.clear();
+    mPlots.push_back({time, level});
     
-    
-    mTime  = time;
-    mLevel = level;
-    
-    
-    if(!mTime.empty())
-    {
-        auto [tmin,tmax] =
-        std::minmax_element(
-                            mTime.begin(),
-                            mTime.end()
-                            );
-        
-        mMinTime = *tmin;
-        mMaxTime = *tmax;
-    }
-    
-    
-    if(!mLevel.empty())
-    {
-        auto [lmin,lmax] =
-        std::minmax_element(
-                            mLevel.begin(),
-                            mLevel.end()
-                            );
-        
-        
-        //        mMinLevel = *lmin;
-        //        mMaxLevel = *lmax;
-        
-        mMinLevel = 0;
-        mMaxLevel = 90;
-        
-        
-        // Give some vertical headroom
-        //        mMinLevel -= 5.0;
-        //        mMaxLevel += 5.0;
-    }
+    UpdateLimits();
 }
 
+void AuroraPlot::SetData(PlotData plotData){
+    mPlots.clear();
+    mPlots.push_back(plotData);
+    UpdateLimits();
+}
 
+void AuroraPlot::SetData(std::vector<PlotData> plotData)
+{
+    mPlots.clear();
+    for (auto data : plotData){
+        mPlots.push_back(data);
+    }
+    UpdateLimits();
+}
 
+void AuroraPlot::UpdateLimits()
+{
+    if(!mPlots.empty())
+    {
+        for (auto data : mPlots){
+            // go through vector and find lowest and highest recordsfor x and y
+            if(!data.x.empty())
+            {
+                auto [tmin,tmax] =
+                std::minmax_element(mTime.begin(),
+                                    mTime.end());
+                mMinTime = *tmin;
+                mMaxTime = *tmax;
+            }
+            
+            if(!data.y.empty())
+            {
+                auto [lmin,lmax] =
+                std::minmax_element(
+                                    mLevel.begin(),
+                                    mLevel.end()
+                                    );
+                mMinLevel = 0;
+                mMaxLevel = 90;
+            }
+        }
+    }
+}
 
 bool AuroraPlot::AcceptsFocus() const
 {
