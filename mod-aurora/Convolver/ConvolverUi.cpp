@@ -50,28 +50,32 @@ const ComponentInterfaceSymbol ConvolverUi::Symbol
 
 ConvolverUi::ConvolverUi()
 {
+    std::cout << __func__ << '\n';
     SetLinearEffectFlag(true);
 }
 
 ConvolverUi::~ConvolverUi()
 {
-    
+    std::cout << __func__ << '\n';
 }
 
 // ComponentInterface implementation
 
 ComponentInterfaceSymbol ConvolverUi::GetSymbol() const
 {
+    std::cout << __func__ << '\n';
     return Symbol;
 }
 
 TranslatableString ConvolverUi::GetDescription() const
 {
+    std::cout << __func__ << '\n';
     return XO("Convolves Multi-channel signal");
 }
 
 ManualPageID ConvolverUi::ManualPage() const
 {
+    std::cout << __func__ << '\n';
     return L"AuroraConvolver";
 }
 
@@ -80,12 +84,14 @@ ManualPageID ConvolverUi::ManualPage() const
 
 EffectType ConvolverUi::GetType() const
 {
+    std::cout << __func__ << '\n';
     return EffectTypeGenerate;
 }
 
 
 bool ConvolverUi::GenerateTrack(const EffectSettings& settings, WaveTrack& tmp)
 {
+    std::cout << __func__ << '\n';
     mConvolver.Reset();
     mConvolver.SetSamplerate(mProjectRate);
     mConvolver.CheckSamplerate(mProjectRate);
@@ -93,48 +99,8 @@ bool ConvolverUi::GenerateTrack(const EffectSettings& settings, WaveTrack& tmp)
     
     // OR
     // mConvolver.SetFilterMatrixDimensions(audioNames.length(),filterNames.length());
-    
-//    for (auto&& track : mTracks->Selected<WaveTrack>())
-//    {
-//        std::cout << track->GetName() << '\n';
-//    }
-//   
-//    
-//    std::cout << "audioTracks.size(): "
-//              << audioTracks.size() << '\n';
-//
-//    std::cout << "filterTracks.size(): "
-//              << filterTracks.size() << '\n';
-//
-//    for (auto* track : audioTracks)
-//    {
-//        std::cout << "audio ptr: "
-//                  << static_cast<void*>(track) << '\n';
-//
-//        std::cout << "audio name: "
-//                  << track->GetName() << '\n';
-//        
-//        std::cout << "Num sample: "
-//                  << track->GetVisibleSampleCount().as_size_t() << '\n';
-//    }
-//
-//    for (auto* track : filterTracks)
-//    {
-//        std::cout << "filter ptr: "
-//                  << static_cast<void*>(track) << '\n';
-//
-//        std::cout << "filter name: "
-//                  << track->GetName() << '\n';
-//        
-//        std::cout << "Num sample: "
-//                  << track->GetVisibleSampleCount().as_size_t() << '\n';
-//    }
-//    
-//    
-//    std::cout << "audioTracks[0]->GetName(): " << audioTracks[0]->GetName() << '\n';
-//    std::cout << "filterTracks[0]->GetName(): " << filterTracks[0]->GetName() << '\n';
-    
     // For now, assuming audio and filter each contain 1 track name.
+    
     auto numAudioSamples = audioTracks[0]->GetVisibleSampleCount().as_size_t();
     mConvolver.ResizeInputTrack(0, numAudioSamples);
     
@@ -161,13 +127,37 @@ bool ConvolverUi::GenerateTrack(const EffectSettings& settings, WaveTrack& tmp)
                               numAudioSamples);
     
     mConvolver.DoConvolution();
+    
+    // For convolutio progress,
+    //    std::atomic<int> progress{0};
+    //
+    //    const int total = ;
+    //
+    //    std::atomic<bool> result{false};
+    //
+    //    std::thread worker([&] {
+    //        result = mConvolver.Process(&progress);
+    //    });
+    //
+    
+    //    while (worker.joinable())
+    //        {
+    //            if (/* user cancelled */)
+    //            {
+    //                cancelled = true;
+    //                break;
+    //            }
+    //
+    //            std::this_thread::sleep_for(std::chrono::milliseconds(20));
+    //        }
+    
     auto& conv = mConvolver.GetOutputTrack(0);
 
     tmp.Append(0, 
                (constSamplePtr)conv.Samples(),
                sampleFormat::floatSample,
                conv.Length());
-
+    
     return true;
 }
 
@@ -178,6 +168,7 @@ std::unique_ptr<EffectEditor> ConvolverUi::PopulateOrExchange(
                                                               ShuttleGui & S, EffectInstance &, EffectSettingsAccess &access,
                                                               const EffectOutputs *)
 {
+    std::cout << __func__ << '\n';
     //
     // Auto populate list box choices
     //
@@ -420,11 +411,14 @@ std::unique_ptr<EffectEditor> ConvolverUi::PopulateOrExchange(
 
 bool ConvolverUi::TransferDataToWindow(const EffectSettings &settings)
 {
+    std::cout << __func__ << '\n';
+        
     return true;
 }
 
 bool ConvolverUi::TransferDataFromWindow(EffectSettings &settings)
 {
+    std::cout << __func__ << '\n';
     return true;
 }
 
