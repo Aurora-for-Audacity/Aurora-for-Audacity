@@ -176,6 +176,9 @@ void AcousticParametersUi::Populate()
     std::cout << __func__ << '\n';
     SetTitle(AcousticParametersTitle);
     
+    //===================================================================
+    // Analyse Selected Tracks
+    
     auto& tracks = TrackList::Get(*mProject);
     auto& parameterTracks = mAcousticalParameters.Tracks();
     const auto projectRate = ProjectRate(*mProject).GetRate();
@@ -199,33 +202,8 @@ void AcousticParametersUi::Populate()
     const auto& result = mAcousticalParameters.Results(0);
     const auto& fcbs = result.Frequencies();
     
-    for (const auto& fcb : fcbs)
-    {
-        std::cout << std::setw(10) << fcb;
-    }
-    std::cout << '\n';
-    
-    // Rows
-    for (const auto& parameter : result.Parameters())
-    {
-        std::cout << std::setw(12) << parameter;
-        
-        for (const auto& fcb : fcbs)
-        {
-            std::cout << std::setw(10) << result.Get(parameter, fcb).value;
-        }
-        
-        std::cout << '\n';
-    }
-    
-    //    for (const auto& paramater : result.Parameters())
-    //    {
-    //        for (const auto& fcb : fcbs)
-    //        {
-    //            std::cout << paramater << " (" << fcb << "): " << result.Get(paramater, fcb).value <<'\n';
-    //        }
-    //    }
-    //
+    //===================================================================
+    // Draw Interface
     
     ShuttleGui S(this, eIsCreating);
     
@@ -332,18 +310,20 @@ void AcousticParametersUi::Populate()
     S.EndHorizontalLay();
     
     //===================================================================
+    // Levels should first be RMS of the audio
+    // then they should be the shroeder decay
     mPlot->SetData(times, levels);
     //    mPlot->Refresh();
     
-    auto numColumns = result.Frequencies().size();
-    auto numRows = result.Parameters().size();
+    int numColumns = int(result.Frequencies().size());
+    int numRows    = int(result.Parameters().size());
     
     mResultsGrid->CreateGrid(numRows, numColumns);
     
-    for (size_t r = 0; r < numRows; ++r)
+    for (int r = 0; r < numRows; ++r)
         mResultsGrid->SetRowLabelValue(r, result.Parameters()[r]);
     
-    for (size_t c = 0; c < numColumns; ++c)
+    for (int c = 0; c < numColumns; ++c)
         mResultsGrid->SetColLabelValue(c, wxString::Format(wxT("%.1f"), result.Frequencies()[c]));
     
     for (int r = 0; r < numRows; ++r)
@@ -356,10 +336,8 @@ void AcousticParametersUi::Populate()
     mResultsGrid->EnableEditing(false);
     
     // Force the grid to request enough space
-    wxSize gridSize(
-                    mResultsGrid->GetRowLabelSize(),
-                    mResultsGrid->GetColLabelSize()
-                    );
+    wxSize gridSize(mResultsGrid->GetRowLabelSize(),
+                    mResultsGrid->GetColLabelSize());
     
     for (int c = 0; c < mResultsGrid->GetNumberCols(); ++c)
         gridSize.x += mResultsGrid->GetColSize(c);
@@ -424,6 +402,59 @@ void AcousticParametersUi::OnCloseButton(wxCommandEvent &WXUNUSED(event))
     Show(false);
 }
 
+//------------------------------------------------------------------------------------
+std::vector<float> AcousticParametersUi::RMS(std::vector<float> audioVector,
+                               const size_t unWindowWidth,
+                               double lo,
+                               double hi)
+{
+    auto rmsAudio = audioVector;
+    const auto projectRate = ProjectRate(*mProject).GetRate();
+    //Samples that come in a single pixel
+    size_t iMax = std::floor( ((hi - lo) * projectRate) /  double(unWindowWidth) );
+    
+    for(size_t k = 0; k < unWindowWidth; k++)
+    {
+        // RMS on 1 ms calculation
+        double rms  = 0.0;
+        size_t t0 = k*iMax + lo * projectRate;
+        size_t t1 = t0 + iMax;
+        
+        for(size_t i = t0; i < t1; i++)
+        {
+            if(i < audioVector.size())
+            {
+                rms += audioVector[i] * audioVector[i];
+            }
+        }
+        rms /= (t1 - t0);
+        
+        rmsAudio.at(k) = dB(rms) + 120;
+    }
+    return rmsAudio;
+}
+
+std::vector<float> AcousticParametersUi::Decimate(std::vector<float> audioVector,
+                                    const size_t unWindowLength,
+                                    double& lo,
+                                    double& hi)
+{
+    auto decimatedVector = audioVector;
+    //Samples that come in a single pixel
+    const auto projectRate = ProjectRate(*mProject).GetRate();
+    const double dbCorrection = 10.0 * std::log10(projectRate / 100.0);
+    
+    size_t iMax = std::floor( ((hi - lo) * projectRate) / unWindowLength );
+    
+    for(size_t k = 0; k < unWindowLength; k++)
+    {
+        size_t i = k*iMax;
+        decimatedVector.at(k) = (i > audioVector.size() ? 0.0 : dB(audioVector[i]) - dbCorrection
+                       + 120.0);
+    }
+    
+    return decimatedVector;
+}
 //------------------------------------------------------------------------------------
 #pragma mark - Audcaity Menu Registration
 // Bumf to hook-in to Audacity

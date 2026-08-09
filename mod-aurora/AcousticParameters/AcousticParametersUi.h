@@ -49,8 +49,8 @@ public PrefsListener
 {
 public:
     AcousticParametersUi(wxWindow *parent, wxWindowID id,
-                 AudacityProject &project,
-                 const TranslatableString & title, const wxPoint & pos);
+                         AudacityProject &project,
+                         const TranslatableString & title, const wxPoint & pos);
     virtual ~AcousticParametersUi();
     
     bool Show( bool show = true ) override;
@@ -73,6 +73,18 @@ private:
     void OnStoreG(wxCommandEvent & WXUNUSED(event));
     void OnFilter(wxCommandEvent & WXUNUSED(event));
     
+    
+    
+    std::vector<float> RMS(std::vector<float> audioVector,
+             const size_t unWindowWidth,
+             double lo,
+             double hi);
+    std::vector<float> Decimate(std::vector<float> audioVector,
+                  const size_t unWindowLength,
+                  double& tlo,
+                  double& thi);
+    
+    
 private:
     
     AudacityProject *mProject;
@@ -92,7 +104,7 @@ private:
     wxStaticText *mMicTypeText;
     wxListCtrl* mChannelList;
     wxStaticText *mTuserLimitsText;
-
+    
     wxGrid*   mResultsGrid;
     
     wxButton* mFilterButton;
@@ -100,7 +112,7 @@ private:
     
     RulerPanel *vRuler;
     RulerPanel *hRuler;
-        
+    
     Aurora::AcousticalParameters mAcousticalParameters;
     
     DECLARE_EVENT_TABLE()
