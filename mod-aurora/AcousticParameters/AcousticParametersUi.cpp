@@ -4,6 +4,10 @@
 #include "../mod_aurora.h"
 #include "Theme.h"
 #include "AllThemeResources.h"
+#include "Track.h"
+#include "WaveTrack.h"
+#include "ProjectRate.h"
+#include <Aurora/AcParametersTrack.h>
 
 #define AcousticParametersTitle XO("Acoustic Parameter Analysis")
 
@@ -11,6 +15,27 @@
 // Hook up event handles
 
 const std::array<wxString, 17> rowLabels =
+{
+    "Signal [dB]",
+    "Noise [dB]",
+    "Strength [dB]",
+    "C50 [dB]",
+    "C80 [dB]",
+    "D50 [%]",
+    "Ts [ms]",
+    "EDT [s]",
+    "Tuser [s]",
+    "T20 [s]",
+    "T30 [s]",
+    "St1 [dB]",
+    "St2 [dB]",
+    "StLate [dB]",
+    "IACC (All)",
+    "t IACC [ms]",
+    "WIACC [ms]"
+};
+
+const std::vector<std::string> rowParameters =
 {
     "Signal [dB]",
     "Noise [dB]",
@@ -151,6 +176,57 @@ void AcousticParametersUi::Populate()
     std::cout << __func__ << '\n';
     SetTitle(AcousticParametersTitle);
     
+    auto& tracks = TrackList::Get(*mProject);
+    auto& parameterTracks = mAcousticalParameters.Tracks();
+    const auto projectRate = ProjectRate(*mProject).GetRate();
+    
+    for (auto&& track : tracks.Selected<WaveTrack>())
+    {
+        std::cout << "track->GetName(): " << track->GetName() << '\n';
+        parameterTracks.emplace_back(Aurora::AcParametersAudioTrack(track->GetVisibleSampleCount().as_size_t(), projectRate));
+        
+        
+        auto& audioAnalysisTrack = parameterTracks.back();
+        float* analysisBuffers[] = { audioAnalysisTrack.Samples() };
+        track->GetFloats(0, 1, analysisBuffers,
+                         0, track->GetVisibleSampleCount().as_size_t());
+    }
+    
+    mAcousticalParameters.Init();
+    
+    //     Then process parameterTracks
+    mAcousticalParameters.CalculateAcousticParameters();
+    const auto& result = mAcousticalParameters.Results(0);
+    const auto& fcbs = result.Frequencies();
+    
+    for (const auto& fcb : fcbs)
+    {
+        std::cout << std::setw(10) << fcb;
+    }
+    std::cout << '\n';
+    
+    // Rows
+    for (const auto& parameter : result.Parameters())
+    {
+        std::cout << std::setw(12) << parameter;
+        
+        for (const auto& fcb : fcbs)
+        {
+            std::cout << std::setw(10) << result.Get(parameter, fcb).value;
+        }
+        
+        std::cout << '\n';
+    }
+    
+    //    for (const auto& paramater : result.Parameters())
+    //    {
+    //        for (const auto& fcb : fcbs)
+    //        {
+    //            std::cout << paramater << " (" << fcb << "): " << result.Get(paramater, fcb).value <<'\n';
+    //        }
+    //    }
+    //
+    
     ShuttleGui S(this, eIsCreating);
     
     mAuroraLogo = LoadPngBitmap(
@@ -165,7 +241,6 @@ void AcousticParametersUi::Populate()
     
     //===================================================================
     // Unfiltered Impulse Response
-    
     
     S.SetBorder(0);
     
@@ -258,19 +333,25 @@ void AcousticParametersUi::Populate()
     
     //===================================================================
     mPlot->SetData(times, levels);
-//    mPlot->Refresh();
+    //    mPlot->Refresh();
     
-    mResultsGrid->CreateGrid(17, 12);
+    auto numColumns = result.Frequencies().size();
+    auto numRows = result.Parameters().size();
     
-    for (size_t r = 0; r < rowLabels.size(); ++r)
-        mResultsGrid->SetRowLabelValue(r, rowLabels[r]);
+    mResultsGrid->CreateGrid(numRows, numColumns);
     
-    for (size_t c = 0; c < columnLabels.size(); ++c)
-        mResultsGrid->SetColLabelValue(c, columnLabels[c]);
+    for (size_t r = 0; r < numRows; ++r)
+        mResultsGrid->SetRowLabelValue(r, result.Parameters()[r]);
     
-    for (int r = 0; r < 17; ++r)
-        for (int c = 0; c < 12; ++c)
-            mResultsGrid->SetCellValue(r, c, "0");
+    for (size_t c = 0; c < numColumns; ++c)
+        mResultsGrid->SetColLabelValue(c, wxString::Format(wxT("%.1f"), result.Frequencies()[c]));
+    
+    for (int r = 0; r < numRows; ++r)
+        for (int c = 0; c < numColumns; ++c)
+            mResultsGrid->SetCellValue(r, c,
+                                       wxString::Format(wxT("%.1f"),
+                                                        result.Get(result.Parameters ()[r],
+                                                                   result.Frequencies()[c])));
     
     mResultsGrid->EnableEditing(false);
     
@@ -331,8 +412,8 @@ void AcousticParametersUi::OnSize(wxSizeEvent & WXUNUSED(event))
 {
     Layout();
     
-//    mPlot->Refresh();
-//    mResultsGrid->Refresh();
+    //    mPlot->Refresh();
+    //    mResultsGrid->Refresh();
     
     Refresh(true);
 }

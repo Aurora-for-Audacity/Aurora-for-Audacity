@@ -50,32 +50,32 @@ const ComponentInterfaceSymbol ConvolverUi::Symbol
 
 ConvolverUi::ConvolverUi()
 {
-    std::cout << __func__ << '\n';
+    //std::cout << __func__ << '\n';
     SetLinearEffectFlag(true);
 }
 
 ConvolverUi::~ConvolverUi()
 {
-    std::cout << __func__ << '\n';
+    //std::cout << __func__ << '\n';
 }
 
 // ComponentInterface implementation
 
 ComponentInterfaceSymbol ConvolverUi::GetSymbol() const
 {
-    std::cout << __func__ << '\n';
+    //std::cout << __func__ << '\n';
     return Symbol;
 }
 
 TranslatableString ConvolverUi::GetDescription() const
 {
-    std::cout << __func__ << '\n';
+    //std::cout << __func__ << '\n';
     return XO("Convolves Multi-channel signal");
 }
 
 ManualPageID ConvolverUi::ManualPage() const
 {
-    std::cout << __func__ << '\n';
+    //std::cout << __func__ << '\n';
     return L"AuroraConvolver";
 }
 
@@ -84,14 +84,14 @@ ManualPageID ConvolverUi::ManualPage() const
 
 EffectType ConvolverUi::GetType() const
 {
-    std::cout << __func__ << '\n';
+    //std::cout << __func__ << '\n';
     return EffectTypeGenerate;
 }
 
 
 bool ConvolverUi::GenerateTrack(const EffectSettings& settings, WaveTrack& tmp)
 {
-    std::cout << __func__ << '\n';
+    //std::cout << __func__ << '\n';
     mConvolver.Reset();
     mConvolver.SetSamplerate(mProjectRate);
     mConvolver.CheckSamplerate(mProjectRate);
@@ -168,7 +168,7 @@ std::unique_ptr<EffectEditor> ConvolverUi::PopulateOrExchange(
                                                               ShuttleGui & S, EffectInstance &, EffectSettingsAccess &access,
                                                               const EffectOutputs *)
 {
-    std::cout << __func__ << '\n';
+    //std::cout << __func__ << '\n';
     //
     // Auto populate list box choices
     //
@@ -411,14 +411,14 @@ std::unique_ptr<EffectEditor> ConvolverUi::PopulateOrExchange(
 
 bool ConvolverUi::TransferDataToWindow(const EffectSettings &settings)
 {
-    std::cout << __func__ << '\n';
+    //std::cout << __func__ << '\n';
         
     return true;
 }
 
 bool ConvolverUi::TransferDataFromWindow(EffectSettings &settings)
 {
-    std::cout << __func__ << '\n';
+    //std::cout << __func__ << '\n';
     return true;
 }
 
@@ -494,12 +494,12 @@ void ConvolverUi::OnToFilter(wxCommandEvent &event)
 
 void ConvolverUi::OnU(wxCommandEvent &event)
 {
-    std::cout << __func__ << '\n';
+    //std::cout << __func__ << '\n';
 }
 
 void ConvolverUi::OnR(wxCommandEvent &event)
 {
-    std::cout << __func__ << '\n';
+    //std::cout << __func__ << '\n';
     auto sel = mAudioListCtrl->GetSelection();
     if (sel != wxNOT_FOUND)
     {
@@ -511,12 +511,12 @@ void ConvolverUi::OnR(wxCommandEvent &event)
 
 void ConvolverUi::OnD(wxCommandEvent &event)
 {
-    std::cout << __func__ << '\n';
+    //std::cout << __func__ << '\n';
 }
 
 void ConvolverUi::OnL(wxCommandEvent &event)
 {
-    std::cout << __func__ << '\n';
+    //std::cout << __func__ << '\n';
     auto sel = mFilterListCtrl->GetSelection();
     if (sel != wxNOT_FOUND)
     {
@@ -528,12 +528,12 @@ void ConvolverUi::OnL(wxCommandEvent &event)
 
 void ConvolverUi::OnRemove(wxCommandEvent &event)
 {
-    std::cout << __func__ << '\n';
+    //std::cout << __func__ << '\n';
 }
 
 
 bool ConvolverUi::CloseUI() const
 {
-    std::cout << __func__ << '\n';
+    //std::cout << __func__ << '\n';
     return true;
 }
