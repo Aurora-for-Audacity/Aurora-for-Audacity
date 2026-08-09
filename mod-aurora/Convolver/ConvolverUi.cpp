@@ -86,27 +86,88 @@ EffectType ConvolverUi::GetType() const
 
 bool ConvolverUi::GenerateTrack(const EffectSettings& settings, WaveTrack& tmp)
 {
-
-//    FindProject()
-//    mFactory
-    //    convolver.Reset();
-    //    convolver.SetSamplerate(ssweep.GetSamplerate()); // ???
-    //    convolver.CheckSamplerate(ssweep.GetSamplerate());
-    //    convolver.SetFilterMatrixDimensions(1,1);
-    //    convolver.ResizeFilterTrack(0,numSamples);
-    //    convolver.ResizeInputTrack(0, numSamples);
-    //
-    //    auto& convolutionFilters = convolver.GetFilters();
-    //    auto& input = convolver.GetInputTrack(0);
-    //
-    //    std::copy_n(filter.get(), numSamples, convolutionFilters[0].Samples());
-    //    std::copy_n(audio.get(),  numSamples, input.Samples());
-    //
-    //    convolver.DoConvolution();
-    //    auto& conv = convolver.GetOutputTrack(0);
-    //    conv.Samples();
+    mConvolver.Reset();
+    mConvolver.SetSamplerate(mProjectRate);
+    mConvolver.CheckSamplerate(mProjectRate);
+    mConvolver.SetFilterMatrixDimensions(1,1);
     
-    tmp.InsertSilence(0.0, settings.extra.GetDuration());
+    // OR
+    // mConvolver.SetFilterMatrixDimensions(audioNames.length(),filterNames.length());
+    
+//    for (auto&& track : mTracks->Selected<WaveTrack>())
+//    {
+//        std::cout << track->GetName() << '\n';
+//    }
+//   
+//    
+//    std::cout << "audioTracks.size(): "
+//              << audioTracks.size() << '\n';
+//
+//    std::cout << "filterTracks.size(): "
+//              << filterTracks.size() << '\n';
+//
+//    for (auto* track : audioTracks)
+//    {
+//        std::cout << "audio ptr: "
+//                  << static_cast<void*>(track) << '\n';
+//
+//        std::cout << "audio name: "
+//                  << track->GetName() << '\n';
+//        
+//        std::cout << "Num sample: "
+//                  << track->GetVisibleSampleCount().as_size_t() << '\n';
+//    }
+//
+//    for (auto* track : filterTracks)
+//    {
+//        std::cout << "filter ptr: "
+//                  << static_cast<void*>(track) << '\n';
+//
+//        std::cout << "filter name: "
+//                  << track->GetName() << '\n';
+//        
+//        std::cout << "Num sample: "
+//                  << track->GetVisibleSampleCount().as_size_t() << '\n';
+//    }
+//    
+//    
+//    std::cout << "audioTracks[0]->GetName(): " << audioTracks[0]->GetName() << '\n';
+//    std::cout << "filterTracks[0]->GetName(): " << filterTracks[0]->GetName() << '\n';
+    
+    // For now, assuming audio and filter each contain 1 track name.
+    auto numAudioSamples = audioTracks[0]->GetVisibleSampleCount().as_size_t();
+    mConvolver.ResizeInputTrack(0, numAudioSamples);
+    
+    auto numFilterSamples = filterTracks[0]->GetVisibleSampleCount().as_size_t();
+    mConvolver.ResizeFilterTrack(0,numFilterSamples);
+    
+    auto& convolutionFilters = mConvolver.GetFilters();
+    auto& input = mConvolver.GetInputTrack(0);
+    
+    float* filterBuffers[] = { convolutionFilters[0].Samples() };
+    
+    filterTracks[0]->GetFloats(0,
+                               1,
+                               filterBuffers,
+                               0,
+                               numFilterSamples);
+    
+    float* audioBuffers[] = { input.Samples() };
+    
+    audioTracks[0]->GetFloats(0,
+                              1,
+                              audioBuffers,
+                              0,
+                              numAudioSamples);
+    
+    mConvolver.DoConvolution();
+    auto& conv = mConvolver.GetOutputTrack(0);
+
+    tmp.Append(0, 
+               (constSamplePtr)conv.Samples(),
+               sampleFormat::floatSample,
+               conv.Length());
+
     return true;
 }
 
@@ -121,19 +182,23 @@ std::unique_ptr<EffectEditor> ConvolverUi::PopulateOrExchange(
     // Auto populate list box choices
     //
     
-    wxArrayStringEx trackNames;
-    wxArrayStringEx audioNames;
-    wxArrayStringEx filterNames;
+    audioTracks.clear();
+    filterTracks.clear();
+    trackNames.Clear();
+    audioNames.Clear();
+    filterNames.Clear();
     
-    for (auto track : mTracks->Selected<WaveTrack>())
+    for (auto&& track : mTracks->Any<WaveTrack>())
     {
         if(track->GetName().IsSameAs("Sweep"))
         {
             audioNames.Add(track->GetName());
+            audioTracks.push_back(track);
         }
         else if (track->GetName().IsSameAs("Filter"))
         {
             filterNames.Add(track->GetName());
+            filterTracks.push_back(track);
         }
         else
         {
@@ -188,7 +253,7 @@ std::unique_ptr<EffectEditor> ConvolverUi::PopulateOrExchange(
                 mTrackListCtrl = S.AddListBox(trackNames);
             }
             S.EndStatic();
-                        
+            
             S.StartHorizontalLay(wxALIGN_CENTER);
             {
                 // Left column
@@ -204,23 +269,23 @@ std::unique_ptr<EffectEditor> ConvolverUi::PopulateOrExchange(
                 S.StartVerticalLay(wxALIGN_CENTER_VERTICAL);
                 {
                     S.GetSizer()->AddStretchSpacer();
-
+                    
                     mUButton = S.AddButton(XO("u"));
-
+                    
                     S.StartHorizontalLay(0);
                     {
                         mLButton = S.AddButton(XO("l"));
                         mRButton = S.AddButton(XO("r"));
                     }
                     S.EndHorizontalLay();
-
+                    
                     mDButton = S.AddButton(XO("d"));
                     mRemoveButton = S.AddButton(XO("Remove"));
-
+                    
                     S.GetSizer()->AddStretchSpacer();
                 }
                 S.EndVerticalLay();
-
+                
                 // Right column
                 S.StartVerticalLay(0);
                 {
@@ -317,28 +382,28 @@ std::unique_ptr<EffectEditor> ConvolverUi::PopulateOrExchange(
     mDButton->Bind(wxEVT_BUTTON,        &ConvolverUi::OnD, this);
     mLButton->Bind(wxEVT_BUTTON,        &ConvolverUi::OnL, this);
     mRemoveButton->Bind(wxEVT_BUTTON,   &ConvolverUi::OnRemove, this);
-
+    
     mTrackListCtrl->Bind(wxEVT_SET_FOCUS, [this](wxFocusEvent& event)
-    {
+                         {
         mAudioListCtrl->SetSelection(wxNOT_FOUND);
         mFilterListCtrl->SetSelection(wxNOT_FOUND);
-
+        
         event.Skip();
     });
-
+    
     mAudioListCtrl->Bind(wxEVT_SET_FOCUS, [this](wxFocusEvent& event)
-    {
+                         {
         mTrackListCtrl->SetSelection(wxNOT_FOUND);
         mFilterListCtrl->SetSelection(wxNOT_FOUND);
-
+        
         event.Skip();
     });
-
+    
     mFilterListCtrl->Bind(wxEVT_SET_FOCUS, [this](wxFocusEvent& event)
-    {
+                          {
         mTrackListCtrl->SetSelection(wxNOT_FOUND);
         mAudioListCtrl->SetSelection(wxNOT_FOUND);
-
+        
         event.Skip();
     });
     

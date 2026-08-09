@@ -92,6 +92,12 @@ private:
     wxCheckBox* mPreserveLengthCheckBox;
 
     // State Variables
+    mutable std::vector<WaveTrack*> audioTracks;
+    mutable std::vector<WaveTrack*> filterTracks;
+    
+    wxArrayStringEx trackNames;
+    wxArrayStringEx audioNames;
+    wxArrayStringEx filterNames;
     
     Aurora::ConvolverController mConvolver;
 };
