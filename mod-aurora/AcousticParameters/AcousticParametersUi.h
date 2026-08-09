@@ -55,6 +55,7 @@ public:
     
     bool Show( bool show = true ) override;
     
+
     
 private:
     
@@ -75,11 +76,11 @@ private:
     
     
     
-    std::vector<float> RMS(std::vector<float> audioVector,
+    AuroraPlot::PlotData RMS(std::vector<float> audioVector,
              const size_t unWindowWidth,
              double lo,
              double hi);
-    std::vector<float> Decimate(std::vector<float> audioVector,
+    AuroraPlot::PlotData Decimate(std::vector<float> audioVector,
                   const size_t unWindowLength,
                   double& tlo,
                   double& thi);

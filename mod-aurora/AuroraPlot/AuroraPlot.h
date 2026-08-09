@@ -35,6 +35,50 @@ public:
         int l;
     };
     
+    class PlotData
+    {
+    public:
+        struct Point
+        {
+            double& x;
+            double& y;
+            
+            Point& operator=(std::initializer_list<double> values)
+            {
+                auto it = values.begin();
+                
+                x = *it++;
+                y = *it;
+                
+                return *this;
+            }
+        };
+        
+        PlotData(std::size_t n)
+        : x(n), y(n)
+        {}
+        
+        PlotData(std::vector<double> xValues,
+                 std::vector<double> yValues)
+        : x(std::move(xValues)),
+        y(std::move(yValues))
+        {
+        }
+        
+        Point operator[](std::size_t i)
+        {
+            return {x[i], y[i]};
+        }
+        
+        std::size_t size() const
+        {
+            return x.size();
+        }
+        
+        std::vector<double> x;
+        std::vector<double> y;
+    };
+    
     AuroraPlot(wxWindow *parent,
                wxWindowID id );
     
@@ -43,10 +87,14 @@ public:
                Margins margins);
     
     void SetData(const std::vector<double>& time,
-            const std::vector<double>& level);
+                 const std::vector<double>& level);
+    
+    void SetData(PlotData plotData);
+    
+    void SetData(std::vector<PlotData> plotData);
     // We don't need or want to accept focus.
     bool AcceptsFocus() const;
-        
+    
     
 private:
     void OnPaint(wxPaintEvent& event);
@@ -64,7 +112,7 @@ private:
     double mMinLevel;
     double mMaxLevel;
     
-
+    std::vector<PlotData> mPlots{};
     
     DECLARE_EVENT_TABLE()
 };

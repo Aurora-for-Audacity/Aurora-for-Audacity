@@ -312,7 +312,14 @@ void AcousticParametersUi::Populate()
     //===================================================================
     // Levels should first be RMS of the audio
     // then they should be the shroeder decay
-    mPlot->SetData(times, levels);
+    
+    AuroraPlot::PlotData plotData{20};
+    
+    for (int i = 0; i < 20; i++) {
+        plotData[i] = {double(i)*0.01,-2.0*double(i)};
+    }
+    
+    mPlot->SetData(plotData.x, plotData.y);
     //    mPlot->Refresh();
     
     int numColumns = int(result.Frequencies().size());
@@ -403,22 +410,23 @@ void AcousticParametersUi::OnCloseButton(wxCommandEvent &WXUNUSED(event))
 }
 
 //------------------------------------------------------------------------------------
-std::vector<float> AcousticParametersUi::RMS(std::vector<float> audioVector,
+AuroraPlot::PlotData AcousticParametersUi::RMS(std::vector<float> audioVector,
                                const size_t unWindowWidth,
                                double lo,
                                double hi)
 {
-    auto rmsAudio = audioVector;
+    AuroraPlot::PlotData rmsPlotData{unWindowWidth};
+    
     const auto projectRate = ProjectRate(*mProject).GetRate();
-    //Samples that come in a single pixel
-    size_t iMax = std::floor( ((hi - lo) * projectRate) /  double(unWindowWidth) );
+    //Samples per pixel
+    size_t samplesPerPixel = std::floor( ((hi - lo) * projectRate) /  double(unWindowWidth) );
     
     for(size_t k = 0; k < unWindowWidth; k++)
     {
         // RMS on 1 ms calculation
         double rms  = 0.0;
-        size_t t0 = k*iMax + lo * projectRate;
-        size_t t1 = t0 + iMax;
+        size_t t0 = k*samplesPerPixel + lo * projectRate;
+        size_t t1 = t0 + samplesPerPixel;
         
         for(size_t i = t0; i < t1; i++)
         {
@@ -429,31 +437,32 @@ std::vector<float> AcousticParametersUi::RMS(std::vector<float> audioVector,
         }
         rms /= (t1 - t0);
         
-        rmsAudio.at(k) = dB(rms) + 120;
+        rmsPlotData[k] = {float(k * samplesPerPixel)/projectRate, dB(rms) + 120};
     }
-    return rmsAudio;
+    return rmsPlotData;
 }
 
-std::vector<float> AcousticParametersUi::Decimate(std::vector<float> audioVector,
+AuroraPlot::PlotData AcousticParametersUi::Decimate(std::vector<float> audioVector,
                                     const size_t unWindowLength,
                                     double& lo,
                                     double& hi)
 {
-    auto decimatedVector = audioVector;
+    AuroraPlot::PlotData decimatedPlotData{unWindowLength};
     //Samples that come in a single pixel
     const auto projectRate = ProjectRate(*mProject).GetRate();
     const double dbCorrection = 10.0 * std::log10(projectRate / 100.0);
     
-    size_t iMax = std::floor( ((hi - lo) * projectRate) / unWindowLength );
+    size_t samplesPerPixel = std::floor( ((hi - lo) * projectRate) / unWindowLength );
     
     for(size_t k = 0; k < unWindowLength; k++)
     {
-        size_t i = k*iMax;
-        decimatedVector.at(k) = (i > audioVector.size() ? 0.0 : dB(audioVector[i]) - dbCorrection
-                       + 120.0);
+        size_t i = k*samplesPerPixel;
+        decimatedPlotData[k] = {float(k * samplesPerPixel)/projectRate,
+            (i > audioVector.size() ? 0.0 : dB(audioVector[i]) - dbCorrection
+                                  + 120.0)};
     }
     
-    return decimatedVector;
+    return decimatedPlotData;
 }
 //------------------------------------------------------------------------------------
 #pragma mark - Audcaity Menu Registration
