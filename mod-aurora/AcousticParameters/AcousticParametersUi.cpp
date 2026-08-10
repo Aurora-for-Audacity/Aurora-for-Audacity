@@ -306,8 +306,7 @@ void AcousticParametersUi::Populate()
         
         std::vector<float> audio(audioAnalysisTrack.Samples(),
                              audioAnalysisTrack.Samples() + track->GetVisibleSampleCount().as_size_t());
-        
-        std::cout << "track->GetName(): " << track->GetName() << '\n';
+                
         plotTraces.push_back(RMS(audio, 200,
                                 0.0, track->GetEndTime()));
         plotTraces.back().legendTitle = track->GetName();
@@ -430,10 +429,8 @@ AuroraPlot::PlotData AcousticParametersUi::RMS(std::vector<float> audioVector,
     AuroraPlot::PlotData rmsPlotData{unWindowWidth};
     
     const auto projectRate = ProjectRate(*mProject).GetRate();
-    //Samples per pixel
-    size_t samplesPerPixel = std::floor( ((hi - lo) * projectRate) /  double(unWindowWidth) );
     
-    std::cout << "samplesPerPixel: " << samplesPerPixel << '\n';
+    size_t samplesPerPixel = std::floor( ((hi - lo) * projectRate) /  double(unWindowWidth) );
     
     for(size_t k = 0; k < unWindowWidth; k++)
     {
