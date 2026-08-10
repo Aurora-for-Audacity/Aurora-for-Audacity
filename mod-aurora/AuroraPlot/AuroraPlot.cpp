@@ -327,17 +327,8 @@ void AuroraPlot::OnPaint(
             step = 0.1 * magnitude;
         }
         
-        
         const int numSteps = int(duration / step) + 1;
-        
-        std::cout << "step: " << step << '\n';
-        std::cout << "fraction: " << fraction << '\n';
-        std::cout << "magnitude: " << magnitude << '\n';
-        std::cout << "numSteps: " << numSteps << '\n';
-        std::cout << "duration: " << duration << '\n';
-        std::cout << "mMinTime: " << mMinTime << '\n';
-        std::cout << "mMaxTime: " << mMaxTime << '\n';
-        
+
         auto durToX =
         [&](double t)
         {
@@ -383,16 +374,28 @@ void AuroraPlot::OnPaint(
         // Legend
         //
         
-        const wxString legendText = "XXXXX";
+        int recordWidth = 0;
+        int legendHeight = 0;
+        
+        for (auto curve : mPlots)
+        {
+            int textWidth = dc.GetTextExtent(curve.legendTitle).GetWidth();
+            if (recordWidth < textWidth)
+                recordWidth = textWidth;
+            
+            legendHeight += dc.GetTextExtent(curve.legendTitle).GetHeight();
+        }
+        
+        int legendWidth = recordWidth;
+        
         const int padding = 2;
         const int sampleWidth = 10;
         
-        wxSize legendSize = dc.GetTextExtent(legendText);
         wxRect legendRect(
-                          mPlotArea.x + mPlotArea.width - legendSize.GetWidth() - sampleWidth - (padding * 4),
+                          mPlotArea.x + mPlotArea.width - legendWidth - sampleWidth - (padding * 4),
                           mPlotArea.y + padding,
-                          legendSize.GetWidth() + sampleWidth + padding*3,
-                          (legendSize.GetHeight() + padding*2) * mPlots.size()
+                          legendWidth + sampleWidth + (padding * 3),
+                          legendHeight + (padding * 2)
                           );
         
         // Background
@@ -402,23 +405,30 @@ void AuroraPlot::OnPaint(
         
         int legendID = 0;
         
+        int lineHeight = dc.GetTextExtent("XX").GetHeight();
+        int legendTextOffsetY = legendRect.y;
+        int sampleLineOffsetY = legendRect.y + (lineHeight / 2);
+                
         for (auto curve : mPlots)
         {
             // Line sample
-            int lineY = (legendSize.y+padding)*legendID + legendRect.y + legendRect.height / (mPlots.size() + 1);
+            int lineY = (legendID * (lineHeight + padding));
+            int legendY = lineY + legendTextOffsetY;
+            int sampleY = lineY + sampleLineOffsetY;
+            
             dc.SetPen(wxPen(plotColours[legendID], 2));
             
             dc.DrawLine(legendRect.x + padding,
-                        lineY,
+                        sampleY,
                         legendRect.x + padding + sampleWidth,
-                        lineY);
+                        sampleY);
             // Text
             dc.SetPen(*wxBLACK_PEN);
             dc.SetFont(font);
             
             dc.DrawText(curve.legendTitle,
                         legendRect.x + padding + sampleWidth + padding,
-                        (legendRect.y + padding) + ((legendSize.y+padding)*legendID));
+                        legendY);
             
             legendID++;
         }

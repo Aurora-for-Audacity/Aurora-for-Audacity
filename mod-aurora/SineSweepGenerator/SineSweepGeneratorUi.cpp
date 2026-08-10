@@ -96,7 +96,7 @@ EffectType SineSweepGeneratorUi::GetType() const
 
 bool SineSweepGeneratorUi::Process(EffectInstance &instance, EffectSettings &settings)
 {
-    std::cout << __func__ << '\n';
+    //std::cout << __func__ << '\n';
     
     bool bGoodResult = true;
     
@@ -147,9 +147,7 @@ bool SineSweepGeneratorUi::Process(EffectInstance &instance, EffectSettings &set
     size_t index = 0;
     
     for (auto track : tracks)
-    {
-        std::cout << "index: " << index << " " << track->GetName() << '\n';
-                
+    {                
         if (index == 0)
         {
             track->Append(0,

@@ -115,7 +115,7 @@ AcousticParametersUi::AcousticParametersUi(wxWindow *parent, wxWindowID id,
                   wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER | wxMAXIMIZE_BOX),
 mProject{&project}
 {
-    std::cout << __func__ << '\n';
+    //std::cout << __func__ << '\n';
     SetName();
     
     Populate();
@@ -123,12 +123,12 @@ mProject{&project}
 
 AcousticParametersUi::~AcousticParametersUi()
 {
-    std::cout << __func__ << '\n';
+    //std::cout << __func__ << '\n';
 }
 
 bool AcousticParametersUi::Show(bool show)
 {
-    std::cout << __func__ << '\n';
+    //std::cout << __func__ << '\n';
     bool res = wxDialogWrapper::Show(show);
     
     return res;
@@ -139,33 +139,33 @@ bool AcousticParametersUi::Show(bool show)
 
 void AcousticParametersUi::OnSetup(wxCommandEvent & event)
 {
-    std::cout << __func__ << '\n';
+    //std::cout << __func__ << '\n';
 }
 
 void AcousticParametersUi::OnSaveR(wxCommandEvent & event)
 {
-    std::cout << __func__ << '\n';
+    //std::cout << __func__ << '\n';
 }
 
 void AcousticParametersUi::OnCopyR(wxCommandEvent & event)
 {
-    std::cout << __func__ << '\n';
+    //std::cout << __func__ << '\n';
 }
 
 void AcousticParametersUi::OnStoreG(wxCommandEvent & event)
 {
-    std::cout << __func__ << '\n';
+    //std::cout << __func__ << '\n';
 }
 
 void AcousticParametersUi::OnFilter(wxCommandEvent & event)
 {
-    std::cout << __func__ << '\n';
+    //std::cout << __func__ << '\n';
 }
 
 // This handles the whole radio group
 void AcousticParametersUi::OnNoiseReductionChoice( wxCommandEvent & WXUNUSED(event))
 {
-    std::cout << __func__ << '\n';
+    //std::cout << __func__ << '\n';
 }
 
 
@@ -173,7 +173,7 @@ void AcousticParametersUi::OnNoiseReductionChoice( wxCommandEvent & WXUNUSED(eve
 
 void AcousticParametersUi::Populate()
 {
-    std::cout << __func__ << '\n';
+    //std::cout << __func__ << '\n';
     SetTitle(AcousticParametersTitle);
     
 
@@ -292,7 +292,7 @@ void AcousticParametersUi::Populate()
     auto& parameterTracks = mAcousticalParameters.Tracks();
     const auto projectRate = ProjectRate(*mProject).GetRate();
     
-    std::vector<AuroraPlot::PlotData> rmsTraces;
+    std::vector<AuroraPlot::PlotData> plotTraces;
     
     for (auto&& track : tracks.Selected<WaveTrack>())
     {
@@ -308,29 +308,30 @@ void AcousticParametersUi::Populate()
                              audioAnalysisTrack.Samples() + track->GetVisibleSampleCount().as_size_t());
         
         std::cout << "track->GetName(): " << track->GetName() << '\n';
-        rmsTraces.push_back(RMS(audio, 200,
+        plotTraces.push_back(RMS(audio, 200,
                                 0.0, track->GetEndTime()));
-        
-        
+        plotTraces.back().legendTitle = track->GetName();
     }
     
-    for (auto trace : rmsTraces)
-    {
-        std::cout << "std::min: " << *std::max(trace.y.begin(), trace.y.end()) << '\n';
-    }
-
+    
     
     mAcousticalParameters.Init();
     
     //     Then process parameterTracks
     mAcousticalParameters.CalculateAcousticParameters();
     const auto& result = mAcousticalParameters.Results(0);
+    auto schroederDecay = mAcousticalParameters.Decay(0);
+    
+    auto schroederDecayPlot = Decimate(schroederDecay, 200, 0.0, plotTraces[0].x.back());
+    schroederDecayPlot.legendTitle = "Schroeder decay";
+    plotTraces.push_back(schroederDecayPlot);
+    
     const auto& fcbs = result.Frequencies();
     //===================================================================
     // Levels should first be RMS of the audio
     // then they should be the shroeder decay
     
-    mPlot->SetData(rmsTraces);
+    mPlot->SetData(plotTraces);
     mPlot->Refresh();
     
     int numColumns = int(result.Frequencies().size());
@@ -392,7 +393,7 @@ void AcousticParametersUi::Populate()
 
 void AcousticParametersUi::UpdatePrefs()
 {
-    std::cout << __func__ << '\n';
+    //std::cout << __func__ << '\n';
 }
 
 //------------------------------------------------------------------------------------
@@ -400,7 +401,7 @@ void AcousticParametersUi::UpdatePrefs()
 
 void AcousticParametersUi::OnCloseWindow(wxCloseEvent &WXUNUSED(event))
 {
-    std::cout << __func__ << '\n';
+    //std::cout << __func__ << '\n';
     Show(false);
 }
 
@@ -416,7 +417,7 @@ void AcousticParametersUi::OnSize(wxSizeEvent & WXUNUSED(event))
 
 void AcousticParametersUi::OnCloseButton(wxCommandEvent &WXUNUSED(event))
 {
-    std::cout << __func__ << '\n';
+    //std::cout << __func__ << '\n';
     Show(false);
 }
 
@@ -457,8 +458,8 @@ AuroraPlot::PlotData AcousticParametersUi::RMS(std::vector<float> audioVector,
 
 AuroraPlot::PlotData AcousticParametersUi::Decimate(std::vector<float> audioVector,
                                     const size_t unWindowLength,
-                                    double& lo,
-                                    double& hi)
+                                    double lo,
+                                    double hi)
 {
     AuroraPlot::PlotData decimatedPlotData{unWindowLength};
     //Samples that come in a single pixel
@@ -471,8 +472,7 @@ AuroraPlot::PlotData AcousticParametersUi::Decimate(std::vector<float> audioVect
     {
         size_t i = k*samplesPerPixel;
         decimatedPlotData[k] = {float(k * samplesPerPixel)/projectRate,
-            (i > audioVector.size() ? 0.0 : dB(audioVector[i]) - dbCorrection
-                                  + 120.0)};
+            (i > audioVector.size() ? 0.0 : dB(audioVector[i]) - dbCorrection)};
     }
     
     return decimatedPlotData;
@@ -499,7 +499,7 @@ AttachedWindows::RegisteredFactory sAcousticParametersUiWindowKey{
 
 void OnOpenWindow(const CommandContext &context)
 {
-    std::cout << __func__ << '\n';
+    //std::cout << __func__ << '\n';
     auto &project = context.project;
     CommandManager::Get(project).RegisterLastAnalyzer(context);
     auto newWindow = &GetAttachedWindows(project)

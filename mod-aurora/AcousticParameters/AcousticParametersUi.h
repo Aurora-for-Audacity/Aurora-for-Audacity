@@ -76,15 +76,29 @@ private:
     
     
     
+    /// Get RMS data of an audio vector for a plot with a given window width.
+    /// This is to help provide a smaller dataset for plotting for resolutions that could not show the full trace.
+    /// - Parameters:
+    ///   - audioVector: input audio vector
+    ///   - unWindowWidth: width of plot in pixels
+    ///   - lo: start time in seconds
+    ///   - hi: end time in seconds
     AuroraPlot::PlotData RMS(std::vector<float> audioVector,
              const size_t unWindowWidth,
              double lo,
              double hi);
+    
+    /// Get A decimated version of an audio vector for a plot with a given window width.
+    /// This is to help provide a smaller dataset for plotting for resolutions that could not show the full trace.
+    /// - Parameters:
+    ///   - audioVector: input audio vector
+    ///   - unWindowWidth: width of plot in pixels
+    ///   - lo: start time in seconds
+    ///   - hi: end time in seconds
     AuroraPlot::PlotData Decimate(std::vector<float> audioVector,
                   const size_t unWindowLength,
-                  double& tlo,
-                  double& thi);
-    
+                  double tlo,
+                  double thi);
     
 private:
     
