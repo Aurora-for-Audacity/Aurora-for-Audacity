@@ -176,31 +176,7 @@ void AcousticParametersUi::Populate()
     std::cout << __func__ << '\n';
     SetTitle(AcousticParametersTitle);
     
-    //===================================================================
-    // Analyse Selected Tracks
-    
-    auto& tracks = TrackList::Get(*mProject);
-    auto& parameterTracks = mAcousticalParameters.Tracks();
-    const auto projectRate = ProjectRate(*mProject).GetRate();
-    
-    for (auto&& track : tracks.Selected<WaveTrack>())
-    {
-        std::cout << "track->GetName(): " << track->GetName() << '\n';
-        parameterTracks.emplace_back(Aurora::AcParametersAudioTrack(track->GetVisibleSampleCount().as_size_t(), projectRate));
-        
-        
-        auto& audioAnalysisTrack = parameterTracks.back();
-        float* analysisBuffers[] = { audioAnalysisTrack.Samples() };
-        track->GetFloats(0, 1, analysisBuffers,
-                         0, track->GetVisibleSampleCount().as_size_t());
-    }
-    
-    mAcousticalParameters.Init();
-    
-    //     Then process parameterTracks
-    mAcousticalParameters.CalculateAcousticParameters();
-    const auto& result = mAcousticalParameters.Results(0);
-    const auto& fcbs = result.Frequencies();
+
     
     //===================================================================
     // Draw Interface
@@ -310,17 +286,64 @@ void AcousticParametersUi::Populate()
     S.EndHorizontalLay();
     
     //===================================================================
+    // Analyse Selected Tracks
+    
+    auto& tracks = TrackList::Get(*mProject);
+    auto& parameterTracks = mAcousticalParameters.Tracks();
+    const auto projectRate = ProjectRate(*mProject).GetRate();
+    
+    std::vector<AuroraPlot::PlotData> rmsTraces;
+    for (auto&& track : tracks.Selected<WaveTrack>())
+    {
+        std::cout << "track->GetName(): " << track->GetName() << '\n';
+        parameterTracks.emplace_back(Aurora::AcParametersAudioTrack(track->GetVisibleSampleCount().as_size_t(), projectRate));
+        
+        
+        auto& audioAnalysisTrack = parameterTracks.back();
+        float* analysisBuffers[] = { audioAnalysisTrack.Samples() };
+        track->GetFloats(0, 1, analysisBuffers,
+                         0, track->GetVisibleSampleCount().as_size_t());
+        
+        
+        std::cout << "track->GetEndTime(): " <<track->GetEndTime()<< '\n';
+        
+        std::vector<float> audio(audioAnalysisTrack.Samples(),
+                             audioAnalysisTrack.Samples() + track->GetVisibleSampleCount().as_size_t());
+        rmsTraces.push_back(RMS(audio, 250,
+                                0.0, track->GetEndTime()));
+    }
+    
+    std::cout << "rmsTraces: " << rmsTraces.size() <<'\n';
+    
+    std::cout << "mPlot->GetSize().y:" << mPlot->GetSize().y << '\n';
+    
+    for (auto t : rmsTraces[0].y) {
+        std::cout << "y: " << t << '\n';
+    }
+    
+    mAcousticalParameters.Init();
+    
+    //     Then process parameterTracks
+    mAcousticalParameters.CalculateAcousticParameters();
+    const auto& result = mAcousticalParameters.Results(0);
+    const auto& fcbs = result.Frequencies();
+    //===================================================================
     // Levels should first be RMS of the audio
     // then they should be the shroeder decay
     
     AuroraPlot::PlotData plotData{20};
     
     for (int i = 0; i < 20; i++) {
-        plotData[i] = {double(i)*0.01,-2.0*double(i)};
+        plotData[i] = {double(i)*0.3,-2.0*double(i)};
     }
+    rmsTraces[0].legendTitle = "RMS 1";
     
-    mPlot->SetData(plotData.x, plotData.y);
-    //    mPlot->Refresh();
+//    mPlot->SetData({plotData.x, plotData.y, "Ch-1"});
+    mPlot->SetData(rmsTraces[0]);
+    
+//    auto maxNum = *std::max_element(rmsTraces[0].x.begin(),rmsTraces[0].x.end());
+    
+//    std::cout << "Max: " << maxNum << '\n';
     
     int numColumns = int(result.Frequencies().size());
     int numRows    = int(result.Parameters().size());
@@ -421,6 +444,8 @@ AuroraPlot::PlotData AcousticParametersUi::RMS(std::vector<float> audioVector,
     //Samples per pixel
     size_t samplesPerPixel = std::floor( ((hi - lo) * projectRate) /  double(unWindowWidth) );
     
+    std::cout << "samplesPerPixel: " << samplesPerPixel << '\n';
+    
     for(size_t k = 0; k < unWindowWidth; k++)
     {
         // RMS on 1 ms calculation
@@ -435,9 +460,9 @@ AuroraPlot::PlotData AcousticParametersUi::RMS(std::vector<float> audioVector,
                 rms += audioVector[i] * audioVector[i];
             }
         }
-        rms /= (t1 - t0);
+        rms /= double(t1 - t0);
         
-        rmsPlotData[k] = {float(k * samplesPerPixel)/projectRate, dB(rms) + 120};
+        rmsPlotData[k] = {float(k * samplesPerPixel)/projectRate, dB(rms)};
     }
     return rmsPlotData;
 }

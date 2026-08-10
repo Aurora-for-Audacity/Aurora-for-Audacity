@@ -53,7 +53,7 @@ public:
                 return *this;
             }
         };
-        
+                
         PlotData(std::size_t n)
         : x(n), y(n)
         {}
@@ -62,6 +62,15 @@ public:
                  std::vector<double> yValues)
         : x(std::move(xValues)),
         y(std::move(yValues))
+        {
+        }
+        
+        PlotData(std::vector<double> xValues,
+                 std::vector<double> yValues,
+                 std::string legend)
+        : x(std::move(xValues)),
+        y(std::move(yValues)),
+        legendTitle(legend)
         {
         }
         
@@ -77,6 +86,7 @@ public:
         
         std::vector<double> x;
         std::vector<double> y;
+        std::string legendTitle = "";
     };
     
     AuroraPlot(wxWindow *parent,
@@ -98,7 +108,8 @@ public:
     // We don't need or want to accept focus.
     bool AcceptsFocus() const;
     
-    
+    int GetPixelHeight(){ return GetClientRect().height; }
+    int GetPixelWidth() { return GetClientRect().width;  }
 private:
     void OnPaint(wxPaintEvent& event);
     void OnErase(wxEraseEvent & event);
@@ -108,9 +119,6 @@ private:
     
     const Margins mMargins;
     
-    std::vector<double> mTime;
-    std::vector<double> mLevel;
-    
     double mMinTime;
     double mMaxTime;
     
@@ -118,6 +126,19 @@ private:
     double mMaxLevel;
     
     std::vector<PlotData> mPlots{};
+    
+    wxRect mPlotArea;
+    
+    const std::array<wxColour, 8> plotColours{
+        wxColour( 31, 119, 180), // blue
+        wxColour(255, 127,  14), // orange
+        wxColour( 44, 160,  44), // green
+        wxColour(214,  39,  40), // red
+        wxColour(148, 103, 189), // purple
+        wxColour(140,  86,   75), // brown
+        wxColour(227, 119, 194), // pink
+        wxColour( 23, 190, 207)  // cyan
+    };
     
     DECLARE_EVENT_TABLE()
 };

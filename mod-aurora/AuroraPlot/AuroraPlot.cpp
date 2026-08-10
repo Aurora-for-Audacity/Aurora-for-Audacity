@@ -88,7 +88,7 @@ void AuroraPlot::SetData(const std::vector<double>& time,
     
     if(time.size() != level.size())
         return;
-
+    
     mPlots.clear();
     mPlots.push_back({time, level});
     
@@ -110,6 +110,20 @@ void AuroraPlot::SetData(std::vector<PlotData> plotData)
     UpdateLimits();
 }
 
+
+void AuroraPlot::AddPlotData(PlotData plotData)
+{
+    mPlots.push_back(plotData);
+    UpdateLimits();
+}
+void AuroraPlot::AddPlotData(std::vector<PlotData> plotData)
+{
+    for (auto data : plotData){
+        mPlots.push_back(data);
+    }
+    UpdateLimits();
+}
+
 void AuroraPlot::UpdateLimits()
 {
     if(!mPlots.empty())
@@ -119,8 +133,8 @@ void AuroraPlot::UpdateLimits()
             if(!data.x.empty())
             {
                 auto [tmin,tmax] =
-                std::minmax_element(mTime.begin(),
-                                    mTime.end());
+                std::minmax_element(data.x.begin(),
+                                    data.x.end());
                 mMinTime = *tmin;
                 mMaxTime = *tmax;
             }
@@ -129,8 +143,8 @@ void AuroraPlot::UpdateLimits()
             {
                 auto [lmin,lmax] =
                 std::minmax_element(
-                                    mLevel.begin(),
-                                    mLevel.end()
+                                    data.y.begin(),
+                                    data.y.end()
                                     );
                 mMinLevel = 0;
                 mMaxLevel = 90;
@@ -165,7 +179,7 @@ void AuroraPlot::OnPaint(
         font.SetPixelSize(fontSize);
         dc.SetFont(font);
         
-        if(mTime.empty() || mLevel.empty())
+        if(mPlots.empty())
             return;
         
         
@@ -179,30 +193,31 @@ void AuroraPlot::OnPaint(
         const int right  = mMargins.r;
         
         
-        wxRect plotArea(
-                        left,
-                        top,
-                        rect.width-left-right,
-                        rect.height-top-bottom
-                        );
+        mPlotArea = {
+            left,
+            top,
+            rect.width-left-right,
+            rect.height-top-bottom
+        };
         
-        auto y0 = plotArea.y;
-        auto yh = plotArea.y + plotArea.height;
-        auto x0 = plotArea.x;
-        auto xw = plotArea.x + plotArea.width;
+        auto y0 = mPlotArea.y;
+        auto yh = mPlotArea.y + mPlotArea.height;
+        auto x0 = mPlotArea.x;
+        auto xw = mPlotArea.x + mPlotArea.width;
+        
         //
         // Draw border
         //
         
-        
         dc.SetPen(*wxBLACK_PEN);
         dc.SetBrush(*wxWHITE_BRUSH);
-        dc.DrawRectangle(plotArea);
+        dc.DrawRectangle(mPlotArea);
         
         
         //
         // Axis labels
         //
+        
         wxString xAxisLabel{"Time [s]"};
         dc.DrawText(xAxisLabel,
                     (xw / 2) - ((xAxisLabel.length() / 2) * dc.GetCharWidth()),
@@ -215,9 +230,9 @@ void AuroraPlot::OnPaint(
         int x = 0;
         
         // After rotation, the text width becomes the vertical height
-        int y = plotArea.y +
-        (plotArea.height + textSize.GetWidth()) / 2;
-                
+        int y = mPlotArea.y +
+        (mPlotArea.height + textSize.GetWidth()) / 2;
+        
         dc.DrawRotatedText( label, x, y, 90 );
         
         //
@@ -228,7 +243,7 @@ void AuroraPlot::OnPaint(
         [&](double t)
         {
             double ratio = (t-mMinTime) / (mMaxTime-mMinTime);
-            return plotArea.x + (ratio * plotArea.width);
+            return mPlotArea.x + (ratio * mPlotArea.width);
         };
         
         
@@ -236,7 +251,7 @@ void AuroraPlot::OnPaint(
         [&](double db)
         {
             double ratio = (db - mMinLevel) / (mMaxLevel - mMinLevel);
-            return plotArea.y - (ratio * plotArea.height);
+            return mPlotArea.y - (ratio * mPlotArea.height);
         };
         
         
@@ -249,13 +264,13 @@ void AuroraPlot::OnPaint(
         dc.SetFont(font.Bold());
         
         auto lineWeight = dc.GetPen().GetWidth();
-        double lStepSize = double(plotArea.height - (double(lineWeight) * 0.5)) / 90.0;
+        double lStepSize = double(mPlotArea.height - (double(lineWeight) * 0.5)) / 90.0;
         
         
         
         for(int db = 0; db <= 90; db += 6)
         {
-            int ly = plotArea.y + int(lStepSize * double(db));
+            int ly = mPlotArea.y + int(lStepSize * double(db));
             
             
             dc.SetPen(*wxBLACK_PEN);
@@ -300,22 +315,34 @@ void AuroraPlot::OnPaint(
         double step;
         
         if (fraction > 5.0) {
-            step = 5.0 * magnitude;
+            step = 1.0 * magnitude;
+        }
+        else if (fraction > 2.5) {
+            step = 0.5 * magnitude;
         }
         else if (fraction > 1.0) {
-            step = 0.5 * magnitude;
+            step = 0.25 * magnitude;
         }
         else {
             step = 0.1 * magnitude;
         }
         
+        
         const int numSteps = int(duration / step) + 1;
+        
+        std::cout << "step: " << step << '\n';
+        std::cout << "fraction: " << fraction << '\n';
+        std::cout << "magnitude: " << magnitude << '\n';
+        std::cout << "numSteps: " << numSteps << '\n';
+        std::cout << "duration: " << duration << '\n';
+        std::cout << "mMinTime: " << mMinTime << '\n';
+        std::cout << "mMaxTime: " << mMaxTime << '\n';
         
         auto durToX =
         [&](double t)
         {
             double ratio = (t) / (duration);
-            return plotArea.x + (ratio * plotArea.width);
+            return mPlotArea.x + (ratio * mPlotArea.width);
         };
         
         for (int i = 0; i < numSteps; i++) {
@@ -335,73 +362,69 @@ void AuroraPlot::OnPaint(
         // Draw curve
         //
         
-        dc.SetPen(wxPen(wxColour(0,80,200), 2));
         
+        int lineID = 0;
         
-        for(size_t i = 1; i < mTime.size(); i++)
+        for (auto curve : mPlots)
         {
-            dc.DrawLine(
-                        wxPoint(
-                                ToX(mTime[i-1]),
-                                ToY(mLevel[i-1])
-                                ),
-                        
-                        wxPoint(
-                                ToX(mTime[i]),
-                                ToY(mLevel[i])
-                                )
-                        );
+            dc.SetPen(wxPen(plotColours[lineID++], 2));
+            
+            for(size_t i = 1; i < curve.size(); i++)
+            {
+                dc.DrawLine(wxPoint(ToX(curve.x[i-1]),
+                                    ToY(curve.y[i-1])),
+                            wxPoint(ToX(curve.x[i]),
+                                    ToY(curve.y[i])));
+            }
         }
         
         //
         // Legend
         //
         
-        const wxString legendText = "Ch 1";
+        const wxString legendText = "XXXXX";
         const int padding = 2;
         const int sampleWidth = 10;
         
         wxSize legendSize = dc.GetTextExtent(legendText);
-        
         wxRect legendRect(
-            plotArea.x + plotArea.width - legendSize.GetWidth() - sampleWidth - (padding * 4),
-            plotArea.y + padding,
-            legendSize.GetWidth() + sampleWidth + padding*3,
-            legendSize.GetHeight() + padding*2
-        );
+                          mPlotArea.x + mPlotArea.width - legendSize.GetWidth() - sampleWidth - (padding * 4),
+                          mPlotArea.y + padding,
+                          legendSize.GetWidth() + sampleWidth + padding*3,
+                          (legendSize.GetHeight() + padding*2) * mPlots.size()
+                          );
         
         // Background
         dc.SetBrush(*wxWHITE_BRUSH);
         dc.SetPen(*wxBLACK_PEN);
         dc.DrawRectangle(legendRect);
-
-
-        // Line sample
-        int lineY = legendRect.y + legendRect.height / 2;
-
-        dc.SetPen(wxPen(wxColour(0,80,200), 2));
         
-        dc.DrawLine(
-            legendRect.x + padding,
-            lineY,
-            legendRect.x + padding + sampleWidth,
-            lineY
-        );
-
-        // Text
-        dc.SetPen(*wxBLACK_PEN);
-        dc.SetFont(font);
+        int legendID = 0;
         
-        dc.DrawText(
-            legendText,
-            legendRect.x + padding + sampleWidth + padding,
-            legendRect.y + padding
-        );
-        
+        for (auto curve : mPlots)
+        {
+            // Line sample
+            int lineY = (legendSize.y+padding)*legendID + legendRect.y + legendRect.height / (mPlots.size() + 1);
+            dc.SetPen(wxPen(plotColours[legendID], 2));
+            
+            dc.DrawLine(legendRect.x + padding,
+                        lineY,
+                        legendRect.x + padding + sampleWidth,
+                        lineY);
+            // Text
+            dc.SetPen(*wxBLACK_PEN);
+            dc.SetFont(font);
+            
+            dc.DrawText(curve.legendTitle,
+                        legendRect.x + padding + sampleWidth + padding,
+                        (legendRect.y + padding) + ((legendSize.y+padding)*legendID));
+            
+            legendID++;
+        }
     }
 }
 
 void AuroraPlot::OnMouseEvent(wxMouseEvent & WXUNUSED(event))
 {
-    std::cout << __func__ << '\n';
+//    std::cout << __func__ << '\n';
 }
