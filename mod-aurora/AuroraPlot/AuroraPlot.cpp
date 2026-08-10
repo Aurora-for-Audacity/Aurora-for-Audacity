@@ -412,7 +412,7 @@ void AuroraPlot::OnPaint(
         for (auto curve : mPlots)
         {
             // Line sample
-            int lineY = (legendID * (lineHeight + padding));
+            int lineY = (legendID * (lineHeight));
             int legendY = lineY + legendTextOffsetY;
             int sampleY = lineY + sampleLineOffsetY;
             

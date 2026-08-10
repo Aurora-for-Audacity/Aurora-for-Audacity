@@ -325,6 +325,14 @@ void AcousticParametersUi::Populate()
     schroederDecayPlot.legendTitle = "Schroeder decay";
     plotTraces.push_back(schroederDecayPlot);
     
+    auto& auroraTrack = mAcousticalParameters.Track(0);
+    
+    std::vector<float> auroraApTrack(auroraTrack.GetData(), auroraTrack.GetData() + auroraTrack.Length());
+    
+    auto trackRMSPlot = RMS(auroraApTrack, 200, 0.0, plotTraces[0].x.back());
+    trackRMSPlot.legendTitle = "Aurora RMS";
+    plotTraces.push_back(trackRMSPlot);
+    
     const auto& fcbs = result.Frequencies();
     //===================================================================
     // Levels should first be RMS of the audio
