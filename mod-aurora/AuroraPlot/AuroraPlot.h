@@ -43,50 +43,103 @@ public:
             double& x;
             double& y;
             
+            Point(double& x, double& y)
+                : x(x), y(y)
+            {}
+
             Point& operator=(std::initializer_list<double> values)
             {
+                assert(values.size() == 2);
+
                 auto it = values.begin();
-                
                 x = *it++;
                 y = *it;
-                
+
                 return *this;
             }
         };
-                
-        PlotData(std::size_t n)
-        : x(n), y(n)
-        {}
         
+
+        // Construct N points
+        explicit PlotData(std::size_t n)
+            : x(n), y(n)
+        {}
+
+        // Construct from x/y vectors
         PlotData(std::vector<double> xValues,
                  std::vector<double> yValues)
-        : x(std::move(xValues)),
-        y(std::move(yValues))
-        {
-        }
-        
+            : x(std::move(xValues)),
+              y(std::move(yValues))
+        {}
+
+        // Construct from x/y vectors with legend
         PlotData(std::vector<double> xValues,
                  std::vector<double> yValues,
                  std::string legend)
-        : x(std::move(xValues)),
-        y(std::move(yValues)),
-        legendTitle(legend)
-        {
-        }
-        
+            : x(std::move(xValues)),
+              y(std::move(yValues)),
+              legendTitle(std::move(legend))
+        {}
+
+        // Construct from existing PlotData with a new legend
+        PlotData(const PlotData& other,
+                 std::string legend)
+            : x(other.x),
+              y(other.y),
+              legendTitle(std::move(legend))
+        {}
+
         Point operator[](std::size_t i)
         {
-            return {x[i], y[i]};
+            return { x[i], y[i] };
         }
-        
+
         std::size_t size() const
         {
             return x.size();
         }
-        
+
+        class Iterator
+        {
+        public:
+            Iterator(PlotData& data, std::size_t index)
+                : mData(data), mIndex(index)
+            {}
+
+            Point operator*() const
+            {
+                return { mData.x[mIndex], mData.y[mIndex] };
+            }
+
+            Iterator& operator++()
+            {
+                ++mIndex;
+                return *this;
+            }
+
+            bool operator!=(const Iterator& other) const
+            {
+                return mIndex != other.mIndex;
+            }
+
+        private:
+            PlotData& mData;
+            std::size_t mIndex;
+        };
+
+        Iterator begin()
+        {
+            return { *this, 0 };
+        }
+
+        Iterator end()
+        {
+            return { *this, size() };
+        }
+
         std::vector<double> x;
         std::vector<double> y;
-        std::string legendTitle = "";
+        std::string legendTitle;
     };
     
     AuroraPlot(wxWindow *parent,

@@ -147,7 +147,7 @@ void AuroraPlot::UpdateLimits()
                                     data.y.end()
                                     );
                 mMinLevel = 0;
-                mMaxLevel = 90;
+                mMaxLevel = 160.0;
             }
         }
     }
@@ -264,11 +264,11 @@ void AuroraPlot::OnPaint(
         dc.SetFont(font.Bold());
         
         auto lineWeight = dc.GetPen().GetWidth();
-        double lStepSize = double(mPlotArea.height - (double(lineWeight) * 0.5)) / 90.0;
+        double lStepSize = double(mPlotArea.height - (double(lineWeight) * 0.5)) / mMaxLevel;
         
         
         
-        for(int db = 0; db <= 90; db += 6)
+        for(int db = 0; db <= mMaxLevel; db += 6)
         {
             int ly = mPlotArea.y + int(lStepSize * double(db));
             
