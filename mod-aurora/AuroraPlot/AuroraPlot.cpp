@@ -147,7 +147,7 @@ void AuroraPlot::UpdateLimits()
                                     data.y.end()
                                     );
                 mMinLevel = 0;
-                mMaxLevel = 160.0;
+                mMaxLevel = 120.0;
             }
         }
     }
@@ -362,6 +362,7 @@ void AuroraPlot::OnPaint(
         // Draw curve
         //
         
+        dc.SetClippingRegion(mPlotArea);
         
         int lineID = 0;
         

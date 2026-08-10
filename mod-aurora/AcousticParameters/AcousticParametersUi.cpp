@@ -449,9 +449,7 @@ AuroraPlot::PlotData AcousticParametersUi::RMS(std::vector<float> audioVector,
             }
         }
         rms /= double(t1 - t0);
-        rms = dB(rms);
-        
-        rmsPlotData[k] = {float(k * samplesPerPixel)/projectRate, ((isnan(rms)|| rms < -120)?-120.0:rms)};
+        rmsPlotData[k] = {float(k * samplesPerPixel)/projectRate, dB(rms)};
     }
     
     return rmsPlotData;
