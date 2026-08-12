@@ -4,19 +4,31 @@ AUDACITY := $(ROOT)/audacity
 MODULE := $(ROOT)/mod-aurora
 BUILD := $(ROOT)/build
 
+# Architecture for release
+ifeq ($(OS),Windows_NT)
+    PLATFORM := windows
+else
+    PLATFORM := $(shell uname -s)
+endif
+
+# CMake 4.x compatibility for older Conan dependencies
+export CMAKE_POLICY_VERSION_MINIMUM ?= 3.5
+
+
 CMAKE_AUDACITY_FLAGS := \
-	-G Xcode \
+	-G Ninja \
 	-Daudacity_use_mad=OFF \
 	-Daudacity_use_id3tag=OFF \
 	-Daudacity_conan_allow_prebuilt_binaries=OFF	
 
 CMAKE_FLAGS := \
-	-G Xcode \
+	-G Ninja \
 	-Daudacity_use_mad=OFF \
 	-Daudacity_use_id3tag=OFF \
 	-Daudacity_conan_allow_prebuilt_binaries=OFF \
 	-DAURORA_MODULE_PATH=$(MODULE) \
 	-DCMAKE_PREFIX_PATH=$(HOME)/.local
+	
 
 CMAKE_RELEASE_FLAGS := \
 	-G Ninja \

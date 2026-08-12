@@ -56,6 +56,19 @@ Most problems seem to come from not running as administrator. Makes sure any pro
   - add `mod-aurora` under `mod-script-pipe`
 - Run the Cmake GUI as covered in the [audacity repo instructions](https://github.com/audacity/audacity/blob/43981edbdd8a1d9da0cf79a07ba694ad79cb7b47/BUILDING.md#building-on-windows)
 
+Requirements
+
+```powershell
+winget show --id GnuWin32.Make --source winget
+winget install --id Kitware.CMake --source winget
+winget install Ninja-build.Ninja --source winget
+winget install Microsoft.VisualStudio.2022.BuildTools --source winget
+
+# Using Developer Power Shell for Visual Studio
+
+& "C:\Program Files (x86)\Microsoft Visual Studio\Installer\setup.exe" modify --installPath "C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools" --add Microsoft.VisualStudio.Workload.VCTools --includeRecommended --passive
+
+```
 ## Enable Aurora
 
 - Go to `Preferences` > `Modules`
