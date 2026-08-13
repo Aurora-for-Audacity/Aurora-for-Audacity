@@ -4,11 +4,11 @@ AUDACITY := $(ROOT)/audacity
 MODULE := $(ROOT)/mod-aurora
 BUILD := $(ROOT)/build
 
-# Architecture for release
+# Windows specific additions
 ifeq ($(OS),Windows_NT)
-    PLATFORM := windows
+	AURORA_ROOT ?= $(USERPROFILE)/.local
 else
-    PLATFORM := $(shell uname -s)
+	AURORA_ROOT ?= $(HOME)/.local
 endif
 
 # CMake 4.x compatibility for older Conan dependencies
@@ -19,7 +19,7 @@ CMAKE_AUDACITY_FLAGS := \
 	-G Ninja \
 	-Daudacity_use_mad=OFF \
 	-Daudacity_use_id3tag=OFF \
-	-Daudacity_conan_allow_prebuilt_binaries=OFF	
+	-Daudacity_conan_allow_prebuilt_binaries=on	
 
 CMAKE_FLAGS := \
 	-G Ninja \
@@ -27,7 +27,7 @@ CMAKE_FLAGS := \
 	-Daudacity_use_id3tag=OFF \
 	-Daudacity_conan_allow_prebuilt_binaries=OFF \
 	-DAURORA_MODULE_PATH=$(MODULE) \
-	-DCMAKE_PREFIX_PATH=$(HOME)/.local
+	-DCMAKE_PREFIX_PATH=$(AURORA_ROOT)
 	
 
 CMAKE_RELEASE_FLAGS := \
@@ -37,7 +37,9 @@ CMAKE_RELEASE_FLAGS := \
 	-Daudacity_perform_codesign=OFF \
 	-DAUDACITY_BUILD_LEVEL=2 \
 	-DAURORA_MODULE_PATH=$(MODULE) \
-	-DCMAKE_PREFIX_PATH=$(HOME)/.local
+	-DCMAKE_PREFIX_PATH=$(AURORA_ROOT)
+
+# Make Rules
 
 .PHONY: xcode configure link patch clean distclean test
 
@@ -48,6 +50,8 @@ xcode: configure
 
 audacity-only:
 	cmake -S $(AUDACITY) -B $(BUILD) $(CMAKE_AUDACITY_FLAGS)
+	# for windows it might need to copy dll flat across the build directory rather than in targets. 
+	# Copy-Item .\build\Debug\*.dll .\build\
 
 configure: patch
 	cmake -S $(AUDACITY) -B $(BUILD) $(CMAKE_FLAGS)
@@ -56,22 +60,10 @@ configure: patch
 # ninja -C build -t targets | grep -i script if you can't find it
 release-build:
 	cmake -S $(AUDACITY) -B $(BUILD) $(CMAKE_RELEASE_FLAGS)
-	cmake -B $(BUILD) --parallel
+	cmake -B $(BUILD)
 
 patch:
-	@if ! grep -q "AURORA_MODULE_PATH" "$(AUDACITY)/modules/etc/CMakeLists.txt"; then \
-		echo "Adding external mod-aurora support..."; \
-		cp "$(AUDACITY)/modules/etc/CMakeLists.txt" \
-		   "$(AUDACITY)/modules/etc/CMakeLists.txt.bak"; \
-		printf '\n\nif(EXISTS "$${AURORA_MODULE_PATH}/CMakeLists.txt")\n' \
-			>> "$(AUDACITY)/modules/etc/CMakeLists.txt"; \
-		printf '   message(STATUS "Adding Aurora module: $${AURORA_MODULE_PATH}")\n' \
-			>> "$(AUDACITY)/modules/etc/CMakeLists.txt"; \
-		printf '   add_subdirectory("$${AURORA_MODULE_PATH}" mod-aurora)\n' \
-			>> "$(AUDACITY)/modules/etc/CMakeLists.txt"; \
-		printf 'endif()\n' \
-			>> "$(AUDACITY)/modules/etc/CMakeLists.txt"; \
-	fi
+	python "$(ROOT)/tools/patch_aurora.py" "$(AUDACITY)/modules/etc/CMakeLists.txt"
 
 clean:
 	rm -rf $(BUILD)

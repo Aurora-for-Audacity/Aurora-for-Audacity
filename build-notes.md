@@ -59,15 +59,14 @@ Most problems seem to come from not running as administrator. Makes sure any pro
 Requirements
 
 ```powershell
+winget install --id Python.Python.3.11
 winget show --id GnuWin32.Make --source winget
 winget install --id Kitware.CMake --source winget
 winget install Ninja-build.Ninja --source winget
 winget install Microsoft.VisualStudio.2022.BuildTools --source winget
 
-# Using Developer Power Shell for Visual Studio
-
-& "C:\Program Files (x86)\Microsoft Visual Studio\Installer\setup.exe" modify --installPath "C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools" --add Microsoft.VisualStudio.Workload.VCTools --includeRecommended --passive
-
+# Use Developer Power Shell for Visual Studio
+make build-windows
 ```
 ## Enable Aurora
 
