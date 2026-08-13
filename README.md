@@ -6,7 +6,7 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.16759727.svg)](https://doi.org/10.5281/zenodo.16759727)
 
-Angelo Farina's Aurora audio processing plugin suite for Audacity host application.
+Angelo Farina's Aurora for Audacity audio processing plugin suite.
 
 ## About
 

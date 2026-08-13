@@ -13,7 +13,7 @@ It is becoming increasingly apparent that Aurora probably should be organised si
 
 A `Makefile` is provided for easier building using make and interacting with cmake. Part of the module build process requires patching into the Audacity CMakeLists.txt, specifically the `audacity/modules/etc/CMakeLists.txt`. This allows inserting a line or two to include `mod-aurora` as part of the larger Audacity build.
 
-The `mod-aurora` build process assumes a `libAurora` install in `$(HOME)/.local/`. See the `libAurora` repository for more information on building and installing the Aurora static library.
+The `mod-aurora` build process assumes a [`libAurora`](https://github.com/mhamilt/libAurora) install in `$(HOME)/.local/`. See the [`libAurora` repository](https://github.com/mhamilt/libAurora) for more information on building and installing the Aurora static library.
 
 ### Building Audacity on macOS
 True for at least the Audacity 3.3.3-alpha
