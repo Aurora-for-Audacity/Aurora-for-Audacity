@@ -60,21 +60,23 @@ endif()
 
 add_library( ${TARGET} ${REAL_LIBTYPE} )
 
-if(CMAKE_SYSTEM_NAME MATCHES "Darwin")
-add_custom_command(
-   TARGET
-      ${TARGET}
-   COMMAND
-      \n\n
-      echo \"Modify the module Timestamp and setting enum in the config to avoid having to launch and relaunch Audcaity\"\n
-      EXP=\"mod-aurora=[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]T[0-9][0-9]:[0-9][0-9]:[0-9][0-9]\"\n
-      NEW_TIME=\$\(stat -t '%FT%T' -x \"\${CODESIGNING_FOLDER_PATH}\" | grep  Modify | grep -o -E '\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}'\) \n
-      sed -i.bak \"s/mod-aurora=[0-9]/mod-aurora=1/\" \"\${HOME}/Library/Application Support/audacity/audacity.cfg\" \n
-      sed -i.bak \"s/\${EXP}/mod-aurora=\${NEW_TIME}/\" \"\${HOME}/Library/Application Support/audacity/audacity.cfg\" \n
-      \n\n
-   POST_BUILD
-)
-endif()
+#if(CMAKE_SYSTEM_NAME MATCHES "Darwin")
+#   add_custom_command(
+#      TARGET
+#         ${TARGET}
+#      POST_BUILD
+#      COMMAND
+#         echo "Modify the module Timestamp and setting enum in the config to avoid having to launch and relaunch Audacity"
+#      COMMAND
+#         EXP="mod-aurora=[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]T[0-9][0-9]:[0-9][0-9]:[0-9][0-9]"
+#      COMMAND
+#         NEW_TIME=$$(stat -t '%FT%T' -x "$${CODESIGNING_FOLDER_PATH}" | grep Modify | grep -o -E '\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}')
+#      COMMAND
+#         sed -i.bak "s/mod-aurora=[0-9]/mod-aurora=1/" "$${HOME}/Library/Application Support/audacity/audacity.cfg"
+#      COMMAND
+#         sed -i.bak "s/$${EXP}/mod-aurora=$${NEW_TIME}/" "$${HOME}/Library/Application Support/audacity/audacity.cfg"
+#   )
+#endif()
 
 # Manual propagation seems to be necessary from
 # interface libraries -- just doing target_link_libraries naming them
