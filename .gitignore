@@ -11,3 +11,5 @@ build/
 .idea/
 /ninja-build
 /buildalt
+/audacity-build
+/release-build
