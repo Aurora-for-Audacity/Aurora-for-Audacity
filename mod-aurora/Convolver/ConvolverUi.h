@@ -16,7 +16,7 @@
 #include <Aurora/aurora.h>
 #include "../AuroraPlot/AuroraPlot.h"
 
-class BUILTIN_EFFECTS_API ConvolverUi final : public Generator, public StatefulEffectUIServices
+class  ConvolverUi final : public Generator, public StatefulEffectUIServices
 {
 public:
     static const ComponentInterfaceSymbol Symbol;

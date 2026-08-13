@@ -18,7 +18,7 @@
 
 class NumericTextCtrl;
 
-class BUILTIN_EFFECTS_API EffectDummy final : public Generator, public StatefulEffectUIServices 
+class  EffectDummy final : public Generator, public StatefulEffectUIServices 
 {
 public:
     static const ComponentInterfaceSymbol Symbol;

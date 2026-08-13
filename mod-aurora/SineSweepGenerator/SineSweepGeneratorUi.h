@@ -19,7 +19,7 @@
 
 class NumericTextCtrl;
 
-class BUILTIN_EFFECTS_API SineSweepGeneratorUi final : public StatefulEffect, public StatefulEffectUIServices
+class SineSweepGeneratorUi final : public StatefulEffect, public StatefulEffectUIServices
 {
 public:
     static const ComponentInterfaceSymbol Symbol;
