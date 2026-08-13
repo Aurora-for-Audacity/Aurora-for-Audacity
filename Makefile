@@ -5,9 +5,13 @@ MODULE := $(ROOT)/mod-aurora
 BUILD ?= $(ROOT)/build
 
 # Windows specific additions
+#
+# AURORA_ROOT is where the libAurora Static library has been built
+# The deafults here mirror that in the libAurora release install rule
+
 ifeq ($(OS),Windows_NT)
 	AURORA_ROOT ?= $(USERPROFILE)/.local
-	GEN ?= "Visual Studio 17 2022"
+	GEN ?= Visual Studio 17 2022
 	PLATFORM := Windows
 else
 	PLATFORM := $(shell uname -s)
@@ -20,9 +24,7 @@ export CMAKE_POLICY_VERSION_MINIMUM ?= 3.5
 
 CMAKE_AUDACITY_FLAGS := \
 	-G "$(GEN)" \
-	-Daudacity_use_mad=OFF \
 	-DAUDACITY_BUILD_LEVEL=2 \
-	-Daudacity_use_id3tag=OFF \
 	-Daudacity_conan_allow_prebuilt_binaries=on \
 
 ifeq ($(PLATFORM),Darwin)
@@ -55,26 +57,21 @@ build: aurora-debug
 
 aurora-release: patch
 	cmake -S $(AUDACITY) -B $(BUILD) $(CMAKE_RELEASE_FLAGS)
+ifeq ($(OS),Windows_NT)
+	cmake --build $(BUILD) --config Release
+else
 	cmake --build $(BUILD)
+endif
+
 
 patch:
 	python "$(ROOT)/tools/patch_aurora.py" "$(AUDACITY)/modules/etc/CMakeLists.txt"
 
 clean:
-ifeq ($(OS),Windows_NT)
-	Remove-Item -Recurse -Force .\build
-else 
 	rm -rf $(BUILD)
-endif
 	
 distclean: clean
-ifeq ($(OS),Windows_NT)
-	Remove-Item -Force "$(AUDACITY)/modules/etc/mod-aurora" -ErrorAction SilentlyContinue
-	Copy-Item "$(AUDACITY)/modules/etc/CMakeLists.txt.bak" "$(AUDACITY)/modules/etc/CMakeLists.txt" -ErrorAction SilentlyContinue
-	Remove-Item -Force "$(AUDACITY)/modules/CMakeLists.txt.bak" -ErrorAction SilentlyContinue
-else
 	rm -f "$(AUDACITY)/modules/etc/mod-aurora"
 	cp "$(AUDACITY)/modules/etc/CMakeLists.txt.bak" \
 	   "$(AUDACITY)/modules/etc/CMakeLists.txt" 2>/dev/null || true
 	rm -f "$(AUDACITY)/modules/CMakeLists.txt.bak"
-endif
