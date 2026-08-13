@@ -73,7 +73,7 @@ make build-windows
 - Go to `Preferences` > `Modules`
 - set aurora to `Enable`
 
-I recommend editing the `audacity/libraries/lib-module-manager/ModuleManager.cpp` file to include `"mod-aurora"` under `autoEnabledModules`
+I recommend editing the `audacity/libraries/lib-module-manager/ModuleSettings.cpp` file to include `"mod-aurora"` under `autoEnabledModules`
 
 ```cpp
 static const std::unordered_set<wxString> &autoEnabledModules()
