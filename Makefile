@@ -53,7 +53,7 @@ aurora-debug: patch
 build: aurora-debug
 	cmake --build $(BUILD)
 
-aurora-release:
+aurora-release: patch
 	cmake -S $(AUDACITY) -B $(BUILD) $(CMAKE_RELEASE_FLAGS)
 	cmake --build $(BUILD)
 
