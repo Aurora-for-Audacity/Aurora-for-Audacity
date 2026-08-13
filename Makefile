@@ -36,11 +36,10 @@ CMAKE_FLAGS := \
 
 CMAKE_RELEASE_FLAGS := \
 	-G "$(GEN)" \
-	-DCMAKE_BUILD_TYPE=Release \	
+	-DCMAKE_BUILD_TYPE=Release \
 	-DAUDACITY_BUILD_LEVEL=2 \
 	-DAURORA_MODULE_PATH=$(MODULE) \
 	-DCMAKE_PREFIX_PATH=$(AURORA_ROOT)
-
 
 # Windows specific additions
 ifeq ($(OS),Windows_NT)
@@ -61,7 +60,7 @@ xcode: configure
 audacity-only:
 	cmake -S $(AUDACITY) -B $(BUILD) $(CMAKE_AUDACITY_FLAGS)
 	
-configure: patch
+configure:
 	cmake -S $(AUDACITY) -B $(BUILD) $(CMAKE_FLAGS)
 
 build: configure
