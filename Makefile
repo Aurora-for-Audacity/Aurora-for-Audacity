@@ -68,7 +68,7 @@ build: configure
 
 release-build:
 	cmake -S $(AUDACITY) -B $(BUILD) $(CMAKE_RELEASE_FLAGS)
-	cmake -B $(BUILD)
+	cmake --build $(BUILD)
 
 patch:
 	python "$(ROOT)/tools/patch_aurora.py" "$(AUDACITY)/modules/etc/CMakeLists.txt"
