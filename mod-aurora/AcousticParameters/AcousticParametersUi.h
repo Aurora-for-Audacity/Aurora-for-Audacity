@@ -74,7 +74,21 @@ private:
     void OnStoreG(wxCommandEvent & WXUNUSED(event));
     void OnFilter(wxCommandEvent & WXUNUSED(event));
     
-    
+    void GridToCSV();
+//    for (int row = 0; row < grid->GetNumberRows(); ++row)
+//    {
+//        for (int pos = 0; pos < grid->GetNumberCols(); ++pos)
+//        {
+//            int col = grid->GetColAt(pos);
+//
+//            if (pos > 0)
+//                file.Write(",");
+//
+//            file.Write(CsvEscape(grid->GetCellValue(row, col)));
+//        }
+//
+//        file.Write("\r\n");
+//    }
     
     /// Get RMS data of an audio vector for a plot with a given window width.
     /// This is to help provide a smaller dataset for plotting for resolutions that could not show the full trace.

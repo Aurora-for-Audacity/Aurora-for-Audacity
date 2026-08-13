@@ -10,3 +10,4 @@ mac/Build/*
 build/
 .idea/
 /ninja-build
+/buildalt

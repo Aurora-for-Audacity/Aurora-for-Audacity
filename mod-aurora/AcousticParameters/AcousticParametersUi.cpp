@@ -8,6 +8,7 @@
 #include "WaveTrack.h"
 #include "ProjectRate.h"
 #include <Aurora/AcParametersTrack.h>
+#include <wx/clipbrd.h>
 
 #define AcousticParametersTitle XO("Acoustic Parameter Analysis")
 
@@ -140,6 +141,10 @@ bool AcousticParametersUi::Show(bool show)
 void AcousticParametersUi::OnSetup(wxCommandEvent & event)
 {
     //std::cout << __func__ << '\n';
+    
+    std::cout << "mPlot->GetSize()" << '\t';
+    std::cout << mPlot->GetSize().x << '\t';
+    std::cout << mPlot->GetSize().y << '\n';
 }
 
 void AcousticParametersUi::OnSaveR(wxCommandEvent & event)
@@ -149,7 +154,7 @@ void AcousticParametersUi::OnSaveR(wxCommandEvent & event)
 
 void AcousticParametersUi::OnCopyR(wxCommandEvent & event)
 {
-    //std::cout << __func__ << '\n';
+    GridToCSV();
 }
 
 void AcousticParametersUi::OnStoreG(wxCommandEvent & event)
@@ -183,6 +188,7 @@ void AcousticParametersUi::Populate()
     
     ShuttleGui S(this, eIsCreating);
     
+        
     mAuroraLogo = LoadPngBitmap(
                                 Aurora_logo_png,
                                 sizeof(Aurora_logo_png)
@@ -307,7 +313,7 @@ void AcousticParametersUi::Populate()
         std::vector<float> audio(audioAnalysisTrack.Samples(),
                              audioAnalysisTrack.Samples() + track->GetVisibleSampleCount().as_size_t());
                 
-        plotTraces.push_back(RMS(audio, 200,
+        plotTraces.push_back(RMS(audio, 900,
                                 0.0, track->GetEndTime()));
         plotTraces.back().legendTitle = track->GetName();
     }
@@ -321,7 +327,7 @@ void AcousticParametersUi::Populate()
     const auto& result = mAcousticalParameters.Results(0);
     auto schroederDecay = mAcousticalParameters.Decay(0);
     
-    auto schroederDecayPlot = Decimate(schroederDecay, 200, 0.0, plotTraces[0].x.back());
+    auto schroederDecayPlot = Decimate(schroederDecay, 900, 0.0, plotTraces[0].x.back());
     schroederDecayPlot.legendTitle = "Schroeder decay";
     plotTraces.push_back(schroederDecayPlot);
     
@@ -329,7 +335,7 @@ void AcousticParametersUi::Populate()
     
     std::vector<float> auroraApTrack(auroraTrack.GetData(), auroraTrack.GetData() + auroraTrack.Length());
     
-    auto trackRMSPlot = RMS(auroraApTrack, 200, 0.0, plotTraces[0].x.back());
+    auto trackRMSPlot = RMS(auroraApTrack, 900, 0.0, plotTraces[0].x.back());
     trackRMSPlot.legendTitle = "Aurora RMS";
     plotTraces.push_back(trackRMSPlot);
     
@@ -379,7 +385,7 @@ void AcousticParametersUi::Populate()
         S.AddSpace(5);
         S.StartHorizontalLay(wxALIGN_RIGHT | wxALL, 0);
         {
-            mFilterButton = S.Id(FilterButtonID).AddButton(XO("Filter"));
+//            mFilterButton = S.Id(FilterButtonID).AddButton(XO("Filter"));
             mCloseButton  = S.Id(CloseButtonID).AddButton(XO("Close"));
         }
         S.EndHorizontalLay();
@@ -400,6 +406,7 @@ void AcousticParametersUi::Populate()
 
 void AcousticParametersUi::UpdatePrefs()
 {
+    wxGridStringArray a;
     //std::cout << __func__ << '\n';
 }
 
@@ -481,6 +488,56 @@ AuroraPlot::PlotData AcousticParametersUi::Decimate(std::vector<float> audioVect
     }
     
     return decimatedPlotData;
+}
+
+void AcousticParametersUi::GridToCSV()
+{
+    wxClipboardLocker cb;
+    
+    std::vector<wxArrayString> data;
+    
+    data.emplace_back();
+    data.back().Add("param");
+    for (int col = 0; col < mResultsGrid->GetNumberCols(); ++col)
+        data.back().Add(mResultsGrid->GetColLabelValue(col));
+
+    for (int row = 0; row < mResultsGrid->GetNumberRows(); ++row)
+    {
+        data.emplace_back();
+        data.back().Add(mResultsGrid->GetRowLabelValue(row));
+        for (int col = 0; col < mResultsGrid->GetNumberCols(); ++col)
+            data.back().Add(mResultsGrid->GetCellValue(row, col));
+    }
+    
+    for (const auto& row : data)
+    {
+        for (size_t i = 0; i < row.GetCount(); ++i)
+        {
+            std::cout << row[i].ToStdString();
+            
+            if (i + 1 < row.GetCount())
+                std::cout << ",";
+        }
+        std::cout << '\n';
+    }
+    
+    
+    wxString text;
+
+    for (const auto& row : data)
+    {
+        for (size_t i = 0; i < row.GetCount(); ++i)
+        {
+            text += row[i].ToStdString();
+            
+            if (i + 1 < row.GetCount())
+                text += ",";
+        }
+        text += '\n';
+    }
+    
+    wxTextDataObject* clipboardData = safenew wxTextDataObject(text);
+    wxClipboard::Get()->SetData(clipboardData);
 }
 //------------------------------------------------------------------------------------
 #pragma mark - Audcaity Menu Registration
