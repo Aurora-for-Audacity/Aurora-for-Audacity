@@ -22,9 +22,9 @@ It compiled but it worked properly only on windows.
 | Unit                      | Present | Building | Working Example |
 | ------------------------- | :-----: | :------: | :-------------: |
 | Acoustical Parameters     |   ✅    |    ✅    |       ✅        |
-| Convolver                 |   ✅    |    ❌    |       ❌        |
+| Convolver                 |   ✅    |    ✅    |       ✅        |
 | Kirkeby Filter Inversion  |   ❌    |    ❌    |       ❌        |
-| SineSweepGenerator        |   ✅    |    ❌    |       ❌        |
+| SineSweepGenerator        |   ✅    |    ✅    |       ✅        |
 | Speech Transmission Index |   ❌    |    ❌    |       ❌        |
 | TimeHistoryAnalyzer       |   ❌    |    ❌    |       ❌        |
 | XFunctions                |   ❌    |    ❌    |       ❌        |
