@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<installer-gui-script minSpecVersion="1">
+
+    <title>Aurora for Audacity</title>
+
+    <options
+        customize="never"
+        require-scripts="true"
+    />
+
+    <domains enable_localSystem="true"/>
+
+    <welcome
+        file="welcome.html"
+        mime-type="text/html"
+    />
+
+    <choices-outline>
+        <line choice="default">
+            <line choice="com.aurora-plugins.audacity.mod-aurora"/>
+        </line>
+    </choices-outline>
+
+    <choice
+        id="com.aurora-plugins.audacity.mod-aurora"
+        title="Aurora for Audacity"
+        description="Installs the Aurora module for Audacity.">
+
+        <pkg-ref id="com.aurora-plugins.audacity.mod-aurora"/>
+    </choice>
+
+    <pkg-ref id="com.aurora-plugins.audacity.mod-aurora">
+        mod-aurora-component.pkg
+    </pkg-ref>
+
+</installer-gui-script>

@@ -14,3 +14,5 @@ build/
 /audacity-build
 /release-build
 /release-alt
+*.pkg
+*.so

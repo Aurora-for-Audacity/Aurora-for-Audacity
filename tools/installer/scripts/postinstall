@@ -1,0 +1,94 @@
+#!/bin/bash
+
+set -e
+
+echo "postinstall arguments:" >> /tmp/audacity-postinstall.log
+echo "  \$0 = $0" >> /tmp/audacity-postinstall.log
+echo "  \$1 = $1" >> /tmp/audacity-postinstall.log
+echo "  \$2 = $2" >> /tmp/audacity-postinstall.log
+echo "  \$3 = $3" >> /tmp/audacity-postinstall.log
+echo "  PWD = $PWD" >> /tmp/audacity-postinstall.log
+echo "  HOME = $HOME" >> /tmp/audacity-postinstall.log
+
+
+MODULE_NAME="mod-aurora"
+LABEL="com.aurora-plugins.audacity.mod-aurora"
+
+# Find the currently logged-in GUI user.
+CURRENT_USER=$(
+    /usr/sbin/scutil <<EOF |
+show State:/Users/ConsoleUser
+EOF
+    /usr/bin/awk '/Name :/ { print $3 }'
+)
+
+if [ -z "$CURRENT_USER" ] ||
+   [ "$CURRENT_USER" = "loginwindow" ] ||
+   [ "$CURRENT_USER" = "_mbsetupuser" ]; then
+    echo "No GUI user is currently logged in."
+    exit 0
+fi
+
+USER_UID=$(/usr/bin/id -u "$CURRENT_USER")
+
+USER_HOME=$(
+    /usr/bin/dscl . -read "/Users/$CURRENT_USER" NFSHomeDirectory |
+    /usr/bin/awk '{print $2}'
+)
+
+MODULE_DIR="$USER_HOME/Library/Application Support/audacity/modules"
+LAUNCH_AGENTS="$USER_HOME/Library/LaunchAgents"
+PLIST="$LAUNCH_AGENTS/$LABEL.plist"
+
+echo "Installing $MODULE_NAME for $CURRENT_USER"
+echo "Module directory: $MODULE_DIR"
+
+# Create the module directory.
+mkdir -p "$MODULE_DIR"
+
+# Install the module from the package payload.
+cp \
+    "$3/tmp/aurora-audacity-module/$MODULE_NAME.so" \
+    "$MODULE_DIR/$MODULE_NAME.so"
+
+chown "$CURRENT_USER":staff "$MODULE_DIR/$MODULE_NAME.so"
+chmod 644 "$MODULE_DIR/$MODULE_NAME.so"
+
+# Create LaunchAgents directory.
+mkdir -p "$LAUNCH_AGENTS"
+
+# Generate LaunchAgent.
+cat > "$PLIST" <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>$LABEL</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/launchctl</string>
+        <string>setenv</string>
+        <string>AUDACITY_MODULES_PATH</string>
+        <string>$MODULE_DIR</string>
+    </array>
+
+    <key>RunAtLoad</key>
+    <true/>
+</dict>
+</plist>
+EOF
+
+chown "$CURRENT_USER":staff "$PLIST"
+chmod 644 "$PLIST"
+
+# Load/reload the LaunchAgent immediately.
+launchctl bootout "gui/$USER_UID" "$PLIST" 2>/dev/null || true
+launchctl bootstrap "gui/$USER_UID" "$PLIST"
+
+echo "AUDACITY_MODULES_PATH:"
+launchctl getenv AUDACITY_MODULES_PATH
+
+exit 0

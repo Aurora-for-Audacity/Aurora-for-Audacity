@@ -1,8 +1,10 @@
 # Root directories
-ROOT := $(CURDIR)
+# ROOT := $(CURDIR)
+ROOT := $(abspath $(dir $(lastword $(MAKEFILE_LIST))))
 AUDACITY := $(ROOT)/audacity
 MODULE := $(ROOT)/mod-aurora
 BUILD ?= $(ROOT)/build
+
 
 # Windows specific additions
 #
@@ -44,7 +46,7 @@ CMAKE_RELEASE_FLAGS := \
 
 # Make Rules
 
-.PHONY: audacity aurora-debug build aurora-release patch clean distclean 
+.PHONY: audacity aurora-debug build aurora-release patch clean distclean relink macos-package
 
 audacity:
 	cmake -S $(AUDACITY) -B $(BUILD) $(CMAKE_FLAGS)
@@ -63,6 +65,14 @@ else
 	cmake --build $(BUILD)
 endif
 
+relink:
+ifeq ($(PLATFORM),Darwin)
+	cp $(BUILD)/Release/Audacity.app/Contents/modules/mod-aurora.so $(ROOT)/tools/installer/payload/tmp/aurora-audacity-module/
+	bash $(ROOT)/tools/update-linkage.sh $(ROOT)/tools/installer/payload/tmp/aurora-audacity-module/mod-aurora.so
+endif
+
+macos-package: relink
+	bash "$(ROOT)/tools/installer/build.sh"
 
 patch:
 	python "$(ROOT)/tools/patch_aurora.py" "$(AUDACITY)/modules/etc/CMakeLists.txt"
