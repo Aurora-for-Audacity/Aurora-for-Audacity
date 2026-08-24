@@ -49,11 +49,11 @@ CMAKE_RELEASE_FLAGS := \
 .PHONY: audacity aurora-debug build aurora-release patch clean distclean relink macos-package
 
 audacity:
-	# For Linux / Debian / Raspberry OS, need to apt-get install
-	# libasound2-dev
-	# libcairo2-dev
 	cmake -S $(AUDACITY) -B $(BUILD) $(CMAKE_AUDACITY_FLAGS)
-	
+
+linux:
+	cmake -G "Unix Makefiles" -S $(AUDACITY) -B $(BUILD)
+
 aurora-debug: patch
 	cmake -S $(AUDACITY) -B $(BUILD) $(CMAKE_AURORA_FLAGS)
 
