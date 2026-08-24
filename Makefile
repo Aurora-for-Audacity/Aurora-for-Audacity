@@ -49,7 +49,7 @@ CMAKE_RELEASE_FLAGS := \
 .PHONY: audacity aurora-debug build aurora-release patch clean distclean relink macos-package
 
 audacity:
-	cmake -S $(AUDACITY) -B $(BUILD) $(CMAKE_FLAGS)
+	cmake -S $(AUDACITY) -B $(BUILD) $(CMAKE_AUDACITY_FLAGS)
 	
 aurora-debug: patch
 	cmake -S $(AUDACITY) -B $(BUILD) $(CMAKE_AURORA_FLAGS)
