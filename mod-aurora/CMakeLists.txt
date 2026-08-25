@@ -1,6 +1,8 @@
+cmake_minimum_required(VERSION 3.20)
+
 set ( TARGET mod-aurora)
 
-find_package(Aurora REQUIRED)
+find_package(Aurora CONFIG REQUIRED)
 
 set( SOURCES
    AuroraModule.cpp
